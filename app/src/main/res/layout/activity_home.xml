@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 16/8/18 1:31 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 16/8/18 1:31 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+
+  android:orientation="vertical">
+
+  <!--  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      app:layout_scrollFlags="scroll|enterAlways"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:titleTextColor="@color/colorAccent">
+
+    </android.support.v7.widget.Toolbar>-->
+
+  <include
+    android:id="@+id/layout_home_header"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@drawable/bottom_shadow"/>
+
+
+  <FrameLayout
+    android:id="@+id/framelayout_home_fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="9"
+    android:orientation="vertical">
+
+
+  </FrameLayout>
+
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@drawable/bottom_shadow"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:weightSum="1.15">
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1.15">
+
+      <android.support.design.widget.TabLayout
+        android:id="@+id/bottom_tab_layout"
+        style="@style/BottomTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"/>
+    </LinearLayout>
+
+    <ImageView
+      android:id="@+id/imageview_home_showmore"
+      style="@style/BottomTabLayout"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.15"
+      android:padding="@dimen/dimension_app_labels"
+      android:background="@color/white"
+      android:rotation="90"
+      android:visibility="gone"
+      app:srcCompat="@drawable/ic_back_arrow"/>
+
+  </LinearLayout>
+
+</LinearLayout>

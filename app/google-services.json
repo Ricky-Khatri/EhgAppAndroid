@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "529130637174",
+    "firebase_url": "https://ehg-app-9a02f.firebaseio.com",
+    "project_id": "ehg-app-9a02f",
+    "storage_bucket": "ehg-app-9a02f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529130637174:android:17ecb8eeb50f63a4",
+        "android_client_info": {
+          "package_name": "com.ehg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529130637174-961go7qifuqtj8k9uvgf8eqn95ai7prk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqrurZwEQIjf-2zAShJIIAxz0hpGJG-B0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

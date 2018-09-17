@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 14/9/18 6:05 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 14/9/18 6:02 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:attrs="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white"
+  tools:context=".home.SplashActivity">
+
+  <LinearLayout
+    android:layout_above="@+id/button_splash_signin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+      android:id="@+id/viewpager_splash_offers"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="0.4"
+      android:layout_alignParentBottom="true"
+      android:padding="7dp"
+      android:gravity="center"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/textview_splash_brandtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/splash_book_hotel_title"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/dimension_guest_title"/>
+
+      <TextView
+        android:id="@+id/textview_splash_branddescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimension_guest_detail"
+        android:gravity="center"
+        android:text="@string/splash_bottom_label_description"
+        android:textSize="@dimen/dimension_guest_detail"/>
+
+      <com.rd.PageIndicatorView
+        android:id="@+id/pageindicatorview_splash_pageindicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimension_app_labels"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        app:piv_animationType="scale"
+        app:piv_dynamicCount="true"
+        app:piv_interactiveAnimation="true"
+        app:piv_selectedColor="@color/btn_press_color"
+        app:piv_unselectedColor="@color/colorHeaderView"
+        app:piv_viewPager="@id/viewpager_splash_offers"
+        attrs:piv_padding="6dp"
+        attrs:piv_radius="5dp"/>
+    </LinearLayout>
+  </LinearLayout>
+
+  <Button
+    android:id="@+id/button_splash_signin"
+    style="@style/AppLabelsTextAppearance"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:layout_marginBottom="@dimen/dimension_header_elevation"
+    android:layout_marginRight="@dimen/dimension_header_elevation"
+    android:layout_marginLeft="@dimen/dimension_header_elevation"
+    android:layout_alignParentBottom="true"
+    android:background="@drawable/all_rounded_button"
+    android:text="@string/splash_signin"
+    android:textColor="@color/white"/>
+</RelativeLayout>

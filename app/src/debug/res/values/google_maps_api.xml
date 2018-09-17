@@ -1,0 +1,47 @@
+<!--
+  ~  Created by Emaar Hospitality Group on 21/8/18 11:51 AM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 21/8/18 11:51 AM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<resources>
+  <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=05:E8:6D:E0:D5:97:03:AA:2A:35:DA:92:30:C0:79:47:F3:47:89:09%3Bcom.ehg.maps
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    05:E8:6D:E0:D5:97:03:AA:2A:35:DA:92:30:C0:79:47:F3:47:89:09
+
+    SHA-1 certificate fingerprint:
+    05:E8:6D:E0:D5:97:03:AA:2A:35:DA:92:30:C0:79:47:F3:47:89:09
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+  <!--Saket-->
+  <!--<string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCZlPo0s9aJDAujmyLFC3RA6oo544-U6_s</string>-->
+
+  <!--Ricky-->
+  <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC74jEjVVjEqeELZlddMag47X8WcRVdz0o</string>
+</resources>

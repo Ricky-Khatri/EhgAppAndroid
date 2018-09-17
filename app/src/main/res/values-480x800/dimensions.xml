@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--Header dimensions-->
+  <dimen name="dimension_header_title">20sp</dimen>
+  <dimen name="dimension_app_labels">15sp</dimen>
+  <dimen name="dimension_header_elevation">5dp</dimen>
+  <dimen name="dimension_header_button_padding">10dp</dimen>
+  <dimen name="dimension_header_margin_left">5dp</dimen>
+  <dimen name="dimension_header_margin_right">5dp</dimen>
+
+  <!--Login options dimensions-->
+  <dimen name="dimension_loginoptions_logo_margin">25dp</dimen>
+  <dimen name="dimension_login_logo">120dp</dimen>
+
+  <!--Share screen dimensions-->
+  <dimen name="dimension_social_media_share_icon">60dp</dimen>
+
+  <dimen name="dimension_continue_as_guest">20dp</dimen>
+
+  <!--Text View dimension-->
+  <dimen name="dimension_guest_title">15sp</dimen>
+  <dimen name="dimension_guest_detail">13sp</dimen>
+  <dimen name="size_itemhomehorizontalitem_roundedimageview">120dp</dimen>
+  <dimen name="size_itemhomehorizontalitem_linearlayout">200dp</dimen>
+
+
+</resources>

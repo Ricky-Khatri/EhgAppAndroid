@@ -1,0 +1,80 @@
+<resources>
+
+  <!-- Base application theme. -->
+  <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    &lt;!&ndash; Customize your theme here. &ndash;&gt;
+    <item name="android:screenOrientation">portrait</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="windowNoTitle">true</item>
+  </style>-->
+
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="AppTheme.Base">
+    <!-- Customize your theme here. -->
+    <!-- <item name="android:screenOrientation">portrait</item>
+     <item name="colorPrimary">@color/colorPrimary</item>
+     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+     <item name="colorAccent">@color/colorAccent</item>-->
+  </style>
+
+  <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="android:screenOrientation">portrait</item>
+    <item name="windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorBlackTransparent</item>
+    <item name="colorAccent">@color/colorBlackTransparent</item>
+    <item name="actionMenuTextColor">@color/colorBlack</item>
+    <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+
+  </style>
+
+  <!--Header text appearance-->
+  <style name="HeaderTextAppearance" parent="@android:style/TextAppearance.Medium">
+    <item name="android:textSize">@dimen/dimension_header_title</item>
+    <item name="android:textColor">@color/colorBlack</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:typeface">sans</item>
+    <item name="android:textAllCaps">false</item>
+  </style>
+
+  <!--App labels text appearance-->
+  <style name="AppLabelsTextAppearance" parent="@android:style/TextAppearance.Small">
+    <item name="android:textSize">@dimen/dimension_app_labels</item>
+    <item name="android:textColor">@color/colorGray</item>
+    <item name="android:textStyle">normal</item>
+    <item name="android:textAllCaps">false</item>
+    <item name="android:typeface">sans</item>
+  </style>
+
+  <!--Bottom tab layout-->
+  <style name="BottomTabLayout" parent="Widget.Design.TabLayout">
+    <item name="tabIndicatorHeight">0dp</item>
+    <item name="tabPaddingStart">0dp</item>
+    <item name="tabPaddingEnd">0dp</item>
+    <item name="tabGravity">fill</item>
+    <item name="tabMode">fixed</item>
+
+  </style>
+
+  <!--Tab layout theme-->
+
+  <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
+    <item name="tabIndicatorColor">?attr/colorAccent</item>
+    <item name="tabIndicatorHeight">2dp</item>
+    <item name="tabPaddingStart">12dp</item>
+    <item name="tabPaddingEnd">12dp</item>
+    <item name="tabBackground">?attr/selectableItemBackground</item>
+    <item name="tabTextAppearance">@style/TextAppearance.Design.Tab</item>
+    <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+  </style>
+
+  <!--Popup window animation style-->
+  <style name="popup_window_animation">
+    <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+    <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+  </style>
+
+</resources>

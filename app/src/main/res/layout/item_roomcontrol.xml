@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 9/8/18 11:07 AM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 9/8/18 11:07 AM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:padding="5dp"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:foregroundGravity="center"
+    android:orientation="vertical">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+      android:id="@+id/roundedimageview_item_roomcontrol_roomcontrolimage"
+      android:layout_width="@dimen/size_itemhomehorizontalitem_roundedimageview"
+      android:layout_height="@dimen/size_itemhomehorizontalitem_roundedimageview"
+      android:scaleType="centerCrop"
+      android:src="@drawable/emaar_logo"
+      app:riv_corner_radius="4dp"/>
+
+    <TextView
+      android:id="@+id/textview_item_roomcontrol_roomcontrolname"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/dimension_guest_detail"
+      android:layout_gravity="center|bottom"
+
+      android:textStyle="bold"
+      android:textColor="@color/colorWhite"
+      android:textSize="@dimen/dimension_guest_detail"/>
+
+  </FrameLayout>
+</LinearLayout>
