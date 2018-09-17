@@ -39,6 +39,8 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -93,7 +95,22 @@ public class AppUtil {
   }
 
   /**
+   * Called to get string from html string content.
+   * @param html html string
+   * @return returns spanned content
+   */
+  @SuppressWarnings("deprecation")
+  public static Spanned fromHtml(String html){
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+    } else {
+      return Html.fromHtml(html);
+    }
+  }
+
+  /**
    * Called to show progress indicator.
+   *
    * @param appCompatActivity activity context
    */
   public static void showLoadingIndicator(AppCompatActivity appCompatActivity) {
@@ -105,6 +122,7 @@ public class AppUtil {
 
   /**
    * Called to dismiss progress indicator.
+   *
    * @param appCompatActivity activity context
    */
   public static void dismissLoadingIndicator(AppCompatActivity appCompatActivity) {
@@ -178,7 +196,8 @@ public class AppUtil {
    * Checks if passed phone number is  valid or not.
    */
   public static boolean isValidMobile(String phone) {
-    return android.util.Patterns.PHONE.matcher(phone).matches();
+    return /*android.util.Patterns.PHONE.matcher(phone).matches()*/
+          phone.length() > 0 && phone.length() == 10;
   }
 
   /**

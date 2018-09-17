@@ -42,6 +42,7 @@ import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
+import com.rilixtech.CountryCodePicker;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import org.json.JSONArray;
@@ -65,6 +66,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   private EditText edittextPassword;
 
   private Context context;
+  private CountryCodePicker countryCodePicker;
 
   /**
    * Called when fragment created.
@@ -128,6 +130,9 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    */
   private void initView(View view) {
 
+    countryCodePicker = view.findViewById(R.id.countrycodepicker_signup_countrycode);
+    countryCodePicker.setCountryForPhoneCode(971);
+    
     AppCompatImageView appCompatImageViewLogo = view.findViewById(R.id.imageview_sign_up_logo);
     appCompatImageViewLogo.getLayoutParams().height = AppUtil.getDeviceHeight(
         (AppCompatActivity) context) / 4;
@@ -141,8 +146,8 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
     TextView textViewUbyEmaarAccount = view.findViewById(R.id.text_view_u_by_emaar_account);
     textViewUbyEmaarAccount.setText(Html.fromHtml(
         getResources().getString(R.string.signupfragment_sign_up_and_create)
-            + "\n<font color='black'> "
-            + getResources().getString(R.string.all_u_by_emaar) + "</font> "
+            + "<b> "
+            + getResources().getString(R.string.all_u_by_emaar) + "</b> "
             + getResources().getString(R.string.all_account)),TextView.BufferType.SPANNABLE);
 
     TextView textViewContinueAsGuest = view.findViewById(R.id.text_view_continue_as_guest);

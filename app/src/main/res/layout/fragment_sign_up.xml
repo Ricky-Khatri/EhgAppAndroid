@@ -19,10 +19,10 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:gravity="center_horizontal"
   android:orientation="vertical"
   tools:context=".signinsignup.fragment.SignUpFragment">
@@ -65,20 +65,20 @@
           <TextView
             android:id="@+id/text_view_u_by_emaar_account"
             style="@style/AppLabelsTextAppearance"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center"
             />
 
           <TextView
             android:id="@+id/text_view_what_is_u_by_emaar_account"
             style="@style/AppLabelsTextAppearance"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/signupfragment_what_is_u_by_emaar"
             android:padding="@dimen/dimension_header_button_padding"
+            android:gravity="center"
+            android:text="@string/signupfragment_what_is_u_by_emaar"
             />
 
 
@@ -98,10 +98,10 @@
               android:id="@+id/edittext_sign_up_first_name"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:inputType="textPersonName"
-              android:maxLines="1"
               android:background="@null"
               android:imeOptions="actionNext"
+              android:inputType="textPersonName"
+              android:maxLines="1"
               android:singleLine="true"/>
 
             <View
@@ -127,10 +127,10 @@
               android:id="@+id/edittext_sign_up_last_name"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:inputType="textPersonName"
-              android:imeOptions="actionNext"
-              android:maxLines="1"
               android:background="@null"
+              android:imeOptions="actionNext"
+              android:inputType="textPersonName"
+              android:maxLines="1"
               android:singleLine="true"/>
 
             <View
@@ -157,10 +157,10 @@
               android:id="@+id/edittext_sign_up_email"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:inputType="textEmailAddress"
-              android:imeOptions="actionNext"
-              android:maxLines="1"
               android:background="@null"
+              android:imeOptions="actionNext"
+              android:inputType="textEmailAddress"
+              android:maxLines="1"
               android:singleLine="true"/>
 
             <View
@@ -182,15 +182,28 @@
               android:layout_height="wrap_content"
               android:hint="@string/signupfragment_mobile_number"/>
 
-            <EditText
-              android:id="@+id/edittext_sign_up_mobile"
+            <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:inputType="phone"
-              android:maxLines="1"
-              android:background="@null"
-              android:imeOptions="actionNext"
-              android:singleLine="true"/>
+              android:layout_marginTop="@dimen/activity_vertical_margin"
+              android:orientation="horizontal">
+
+              <com.rilixtech.CountryCodePicker
+                android:id="@+id/countrycodepicker_signup_countrycode"
+                style="@style/AppLabelsTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+              <EditText
+                android:id="@+id/edittext_sign_up_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:singleLine="true"/>
+            </LinearLayout>
 
             <View
               android:layout_width="match_parent"
@@ -215,10 +228,10 @@
               android:id="@+id/edittext_sign_up_password"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:inputType="textPassword"
-              android:maxLines="1"
               android:background="@null"
               android:imeOptions="actionDone"
+              android:inputType="textPassword"
+              android:maxLines="1"
               android:singleLine="true"/>
 
             <View
@@ -234,18 +247,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/signupfragment_signup"
             android:background="@drawable/all_rounded_button"
+            android:text="@string/signupfragment_signup"
             android:textColor="@color/white"/>
 
           <TextView
             android:id="@+id/text_view_continue_as_guest"
             style="@style/AppLabelsTextAppearance"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimension_continue_as_guest"
             android:padding="@dimen/dimension_header_button_padding"
+            android:gravity="center"
             android:text="@string/all_continue_as_guest"/>
         </LinearLayout>
 
