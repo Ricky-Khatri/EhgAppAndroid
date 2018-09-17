@@ -86,12 +86,11 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       R.drawable.tab_share,
       R.drawable.tab_news,
       R.drawable.tab_profile,
-      R.drawable.tab_share
   };
 
   private TabLayout bottomTabLayout;
 
-  private String[] tabs = {"Home", "Search", "Share", "News", "Profile", "Settings"};
+  private String[] tabs = {"Home", "Search", "Share", "News", "Profile"};
 
   private Toolbar toolbar;
 
@@ -246,8 +245,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
         return new NewsFragment();
       case FragmentNavigationController.TAB5:
         return new ProfileFragment();
-      case FragmentNavigationController.TAB6:
-        return new SettingsFragment();
+
       default:
     }
     throw new IllegalStateException("Need to send an index that we know");
@@ -545,7 +543,11 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
         break;
 
       case R.id.imageview_home_showmore:
-        showMorePopUpWindow();
+        //showMorePopUpWindow();
+        Intent intent = new Intent(context,SettingsActivity.class);
+        startActivity(intent);
+        //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         break;
 
       default:
