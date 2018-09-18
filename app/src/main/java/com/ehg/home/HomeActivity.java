@@ -52,12 +52,11 @@ import com.ehg.home.BaseActivity.BroadCastMessageInterface;
 import com.ehg.home.adapter.ShowMoreListAdapter;
 import com.ehg.home.adapter.ShowMoreListAdapter.OnShowMoreListItemClickListener;
 import com.ehg.home.fragment.BaseFragment;
+import com.ehg.home.fragment.BookFragment;
 import com.ehg.home.fragment.HomeFragment;
-import com.ehg.home.fragment.NewsFragment;
 import com.ehg.home.fragment.OffersFragment;
-import com.ehg.home.fragment.ProfileFragment;
-import com.ehg.home.fragment.SettingsFragment;
-import com.ehg.home.fragment.ShareFragment;
+import com.ehg.home.fragment.ReservationsFragment;
+import com.ehg.home.fragment.UbyEmaarFragment;
 import com.ehg.home.navigation.FragmentNavigationController;
 import com.ehg.home.navigation.FragmentNavigationController.TransactionType;
 import com.ehg.maps.MapsActivity;
@@ -90,7 +89,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   private TabLayout bottomTabLayout;
 
-  private String[] tabs = {"Home", "Search", "Share", "News", "Profile"};
+  private String[] tabs = {"Home", "Book", "Reservations", "Offers", "U By Emaar"};
 
   private Toolbar toolbar;
 
@@ -238,13 +237,13 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       case FragmentNavigationController.TAB1:
         return new HomeFragment();
       case FragmentNavigationController.TAB2:
-        return new OffersFragment();
+        return new BookFragment();
       case FragmentNavigationController.TAB3:
-        return new ShareFragment();
+        return new ReservationsFragment();
       case FragmentNavigationController.TAB4:
-        return new NewsFragment();
+        return new OffersFragment();
       case FragmentNavigationController.TAB5:
-        return new ProfileFragment();
+        return new UbyEmaarFragment();
 
       default:
     }

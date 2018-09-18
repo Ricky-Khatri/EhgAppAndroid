@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.ehg.R;
 import com.ehg.home.HomeActivity;
@@ -19,18 +17,15 @@ import java.util.Objects;
 /**
  * Fragment class.
  */
-public class NewsFragment extends BaseFragment {
-
-  @BindView(R.id.btn_click_me)
-  public Button btnClickMe;
+public class BookFragment extends BaseFragment {
 
   private int fragCount;
   private FragmentNavigation fragmentNavigation;
 
-  public static NewsFragment newInstance(int instance) {
+  public static BookFragment newInstance(int instance) {
     Bundle args = new Bundle();
     args.putInt(ARGS_INSTANCE, instance);
-    NewsFragment fragment = new NewsFragment();
+    BookFragment fragment = new BookFragment();
     fragment.setArguments(args);
     return fragment;
   }
@@ -45,7 +40,7 @@ public class NewsFragment extends BaseFragment {
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
 
-    View view = inflater.inflate(R.layout.fragment_news, container, false);
+    View view = inflater.inflate(R.layout.fragment_book, container, false);
 
     ButterKnife.bind(this, view);
 
@@ -61,18 +56,9 @@ public class NewsFragment extends BaseFragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    btnClickMe.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (fragmentNavigation != null) {
-          fragmentNavigation.pushFragment(NewsFragment.newInstance(fragCount + 1));
-        }
-      }
-    });
-
     if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
       ((HomeActivity) Objects.requireNonNull(getActivity()))
-          .updateToolbarTitle((fragCount == 0) ? "News" : "Sub News " + fragCount);
+          .updateToolbarTitle(getResources().getString(R.string.book_title));
     }
   }
 }

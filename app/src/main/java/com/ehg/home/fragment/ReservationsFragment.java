@@ -7,13 +7,12 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.ButterKnife;
+
 import com.ehg.R;
 import com.ehg.home.HomeActivity;
 import java.util.Objects;
 
-public class ProfileFragment extends BaseFragment {
-
+public class ReservationsFragment extends BaseFragment {
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -25,13 +24,11 @@ public class ProfileFragment extends BaseFragment {
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
 
-    View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
-    ButterKnife.bind(this, view);
+    View view = inflater.inflate(R.layout.fragment_reservations, container, false);
 
     if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
       ((HomeActivity) Objects.requireNonNull(getActivity()))
-          .updateToolbarTitle("Profile");
+          .updateToolbarTitle(getResources().getString(R.string.reservations_title));
     }
 
     return view;

@@ -83,7 +83,7 @@
         android:background="@color/white"/>
     </LinearLayout>
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
       android:id="@+id/imageview_home_showmore"
       style="@style/BottomTabLayout"
       android:layout_width="0dp"
@@ -93,7 +93,8 @@
       android:background="@color/white"
       android:scaleType="centerCrop"
       android:visibility="visible"
-      android:src="@drawable/home_setting"/>
+      android:tint="@color/colorGray"
+      app:srcCompat="@drawable/home_setting"/>
 
   </LinearLayout>
 

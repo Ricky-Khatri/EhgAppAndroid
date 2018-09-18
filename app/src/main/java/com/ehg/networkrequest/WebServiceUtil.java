@@ -32,16 +32,16 @@ public class WebServiceUtil {
   public static final String BASE_URL = "";
 
   //Signup method
-  public static final String METHOD_SIGN_UP = "signUp";
+  public static final String METHOD_SIGN_UP = "/signUp/quickEnrollment/v1";
 
   //Login method
-  public static final String METHOD_LOGIN = "login";
+  public static final String METHOD_LOGIN = "/signUp/login/v1";
 
   //UpdateToken method
   public static final String METHOD_UPDATE_TOKEN = "updateToken";
 
   //ResetPassword method
-  public static final String METHOD_RESET_PASSWORD = "resetPassword/";
+  public static final String METHOD_RESET_PASSWORD = "/signUp/resetPassword/v1/";
 
 
   /**

@@ -122,4 +122,12 @@
   <string name="headersearchlayout_textviewhint"><![CDATA[Search for Hotels, Restaurent & More....]]></string>
   <string name="splash_bottom_label_description">Booking a hotel can be overwhelming but it\'s\n easy with Emaar Hospitality App\'s seamless\nbooking feature.</string>
   <string name="splash_book_hotel_title">Book a Hotel</string>
+
+  <!--Tab fragment titles-->
+  <string name="home_title">Home</string>
+  <string name="book_title">Book</string>
+  <string name="reservations_title">Reservations</string>
+  <string name="offers_title">Offers</string>
+  <string name="u_by_emaar_title">U By Emaar</string>
+
 </resources>

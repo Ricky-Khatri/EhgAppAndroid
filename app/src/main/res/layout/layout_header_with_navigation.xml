@@ -46,7 +46,7 @@
     android:layout_marginRight="@dimen/dimension_header_margin_right"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    style="@style/AppLabelsTextAppearance"
+    style="@style/HeaderTextAppearance"
     android:gravity="center"
     android:text=""/>
 

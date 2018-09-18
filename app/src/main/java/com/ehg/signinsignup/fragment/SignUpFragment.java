@@ -282,7 +282,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   /**
    * Method registers user at Emaar cloud.
    */
-  private void userSignup() {
+  private void userSignup(String emailId, String mobileNumber, String firstName, String lastName) {
     if (AppUtil.isNetworkAvailable(context)) {
       new HttpClientRequest().setApiResponseListner(this);
       JSONObject jsonObject = new JSONObject();
@@ -290,15 +290,10 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
       JSONObject detailObject = new JSONObject();
 
       try {
-        detailObject.put("prefix", "Mr.");
-        detailObject.put("suffix", "ER");
-        detailObject.put("emailId", "ricky.khatri@digivalet.com");
-        detailObject.put("mobileNumber", "8989898989");
-        detailObject.put("lastName", "KH");
-        detailObject.put("firstName", "RK");
-        detailObject.put("gender", "Male");
-        detailObject.put("birthday", "25-06-1987");
-        detailObject.put("country", "India");
+        detailObject.put("emailId", emailId);
+        detailObject.put("mobileNumber", mobileNumber);
+        detailObject.put("lastName", lastName);
+        detailObject.put("firstName", firstName);
 
         detailesArray.put(detailObject);
 

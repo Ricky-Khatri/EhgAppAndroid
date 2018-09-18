@@ -75,7 +75,7 @@ public class OffersFragment extends BaseFragment {
 
     if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
       ((HomeActivity) Objects.requireNonNull(getActivity()))
-          .updateToolbarTitle(context.getResources().getString(R.string.offersfragment_offers));
+          .updateToolbarTitle(getResources().getString(R.string.offers_title));
     }
 
     this.context = getActivity();
