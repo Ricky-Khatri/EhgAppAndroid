@@ -59,7 +59,7 @@
     android:layout_height="@dimen/dimension_header_back"
     android:padding="@dimen/dimension_header_button_padding"
     android:visibility="invisible"
-    android:src="@drawable/ic_launcher_background"
+    android:background="@drawable/ic_launcher_background"
     android:contentDescription="TODO"/>
 
 </RelativeLayout>
