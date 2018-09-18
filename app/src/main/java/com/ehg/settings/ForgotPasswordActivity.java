@@ -35,6 +35,7 @@ import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
 import com.loopj.android.http.RequestParams;
+import com.rilixtech.CountryCodePicker;
 
 /**
  * This class allows to get access of forgotten user password.
@@ -46,6 +47,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   private AutoCompleteTextView textViewEmail;
 
   private static final String FORGOT_PASSWORD_METHOD = "forgotPassword";
+  private CountryCodePicker countryCodePicker;
 
   /**
    * Called when activity created.
@@ -64,6 +66,9 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
    * Method init's view components.
    */
   private void initView() {
+
+    countryCodePicker = findViewById(R.id.countrycodepicker_forgot_password_countrycode);
+    countryCodePicker.setCountryForPhoneCode(971);
 
     TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
     textViewHeaderTitle.setText(R.string.all_forgotpassword);
@@ -109,45 +114,32 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
     String mobileNumber = textViewMobileNumber.getText().toString();
     String email = textViewEmail.getText().toString();
 
-    boolean cancel = false;
-    View focusView = null;
-
     // Check for a valid username
     if (TextUtils.isEmpty(mobileNumber) && TextUtils.isEmpty(email)) {
-      textViewMobileNumber.setError(getString(R.string.all_error_field_required));
-      textViewEmail.setError("");
-      focusView = textViewMobileNumber;
-      cancel = true;
+      textViewMobileNumber.setError(getString(R.string.all_please_enter_email_or_mobile_number));
+      textViewMobileNumber.requestFocus();
 
     } else {
 
-      if (TextUtils.isEmpty(mobileNumber)) {
-        textViewMobileNumber.setError(getString(R.string.all_error_field_required));
-        focusView = textViewMobileNumber;
-        cancel = true;
-      } else if (!AppUtil.isValidMobile(mobileNumber)) {
-        textViewMobileNumber.setError(getString(R.string.all_error_invalid_mobile));
-        focusView = textViewMobileNumber;
-        cancel = true;
+      if (!TextUtils.isEmpty(mobileNumber)) {
+        if (!AppUtil.isValidMobile(mobileNumber)) {
+          textViewMobileNumber.setError(getString(R.string.all_error_invalid_mobile));
+          textViewMobileNumber.requestFocus();
+        } else {
+          //TODO: Need to uncomment forgotPassword()
+          //forgotPassword();
+          finish();
+        }
+      } else if (!TextUtils.isEmpty(email)) {
+        if (!AppUtil.isEmailValid(email)) {
+          textViewEmail.setError(getString(R.string.all_error_invalid_email));
+          textViewEmail.requestFocus();
+        } else {
+          //TODO: Need to uncomment forgotPassword()
+          //forgotPassword();
+          finish();
+        }
       }
-
-      if (TextUtils.isEmpty(email)) {
-        textViewEmail.setError(getString(R.string.all_error_field_required));
-        focusView = textViewEmail;
-        cancel = true;
-      } else if (AppUtil.isEmailValid(email)) {
-        textViewEmail.setError(getString(R.string.all_error_invalid_email));
-        focusView = textViewEmail;
-        cancel = true;
-      }
-    }
-
-    if (cancel) {
-      focusView.requestFocus();
-    } else {
-      forgotPassword();
-      //TODO: To remove finish
-      finish();
     }
   }
 

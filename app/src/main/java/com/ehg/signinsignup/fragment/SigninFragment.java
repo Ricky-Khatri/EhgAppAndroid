@@ -21,6 +21,7 @@ package com.ehg.signinsignup.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,7 +29,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +51,7 @@ import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.settings.ForgotPasswordActivity;
 import com.ehg.utilities.AppUtil;
+import com.rilixtech.CountryCodePicker;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import org.json.JSONArray;
@@ -76,6 +81,8 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   private Button buttonLogin;
 
   private Context context;
+
+  private CountryCodePicker countryCodePicker;
 
   /**
    * Called when fragment created.
@@ -134,6 +141,9 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    */
   private void initView(View view) {
 
+    countryCodePicker = view.findViewById(R.id.countrycodepicker_signinfragment_countrycode);
+    countryCodePicker.setCountryForPhoneCode(971);
+
     AppCompatImageView appCompatImageViewLogo = view.findViewById(R.id.imageview_signin_logo);
     appCompatImageViewLogo.getLayoutParams().height = AppUtil.getDeviceHeight(
         (AppCompatActivity) context) / 4;
@@ -142,11 +152,10 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     autoCompleteTextViewMobileNumber = view.findViewById(R.id.textview_mobile);
 
     TextView textViewUbyEmaarAccount = view.findViewById(R.id.text_view_u_by_emaar_account);
-    textViewUbyEmaarAccount.setText(Html.fromHtml(
+    textViewUbyEmaarAccount.setText(AppUtil.fromHtml(
         getResources().getString(R.string.signinfragment_signin_to_tap)
-            + "\n<font color='black'>"
-            + getResources().getString(R.string.all_u_by_emaar) + "</font>\n"
-            + getResources().getString(R.string.all_account)));
+            + "<br><b>" + getResources().getString(R.string.all_u_by_emaar) + "</b> "
+            + getResources().getString(R.string.all_account)),TextView.BufferType.SPANNABLE);
 
     editTextPassword = view.findViewById(R.id.edittext_password);
     editTextPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -186,7 +195,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
       case R.id.text_view_forgot_password:
         intent = new Intent(context, ForgotPasswordActivity.class);
-        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
         break;
 
       case R.id.text_view_continue_as_guest:
