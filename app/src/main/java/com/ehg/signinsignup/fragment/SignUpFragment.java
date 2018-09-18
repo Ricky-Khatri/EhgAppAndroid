@@ -37,6 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
@@ -132,7 +133,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
     countryCodePicker = view.findViewById(R.id.countrycodepicker_signup_countrycode);
     countryCodePicker.setCountryForPhoneCode(971);
-    
+
     AppCompatImageView appCompatImageViewLogo = view.findViewById(R.id.imageview_sign_up_logo);
     appCompatImageViewLogo.getLayoutParams().height = AppUtil.getDeviceHeight(
         (AppCompatActivity) context) / 4;
@@ -148,7 +149,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
         getResources().getString(R.string.signupfragment_sign_up_and_create)
             + "<b> "
             + getResources().getString(R.string.all_u_by_emaar) + "</b> "
-            + getResources().getString(R.string.all_account)),TextView.BufferType.SPANNABLE);
+            + getResources().getString(R.string.all_account)), TextView.BufferType.SPANNABLE);
 
     TextView textViewContinueAsGuest = view.findViewById(R.id.text_view_continue_as_guest);
 
@@ -172,12 +173,11 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       case R.id.button_sign_up:
         validateSignUpFormFields();
-        //userSignup();
         break;
 
       case R.id.text_view_continue_as_guest:
         Intent intent = new Intent(context, HomeActivity.class);
-        AppUtil.startActivityWithAnimation((AppCompatActivity)context, intent, true);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
         break;
 
       case R.id.text_view_what_is_u_by_emaar_account:
@@ -237,7 +237,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
       focusView = edittextMobile;
       cancel = true;
 
-    } else if (!AppUtil.isMobileValid(mobile)) {
+    } else if (!AppUtil.isValidMobile(mobile)) {
 
       edittextMobile.setError(getResources().getString(R.string.all_error_invalid_mobile));
       focusView = edittextMobile;
@@ -265,7 +265,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       Intent intent = new Intent(context, HomeActivity.class);
       AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
-      //userSignup();
+      //userSignup(email,mobile,firstName,lastName,password);
     }
   }
 
@@ -274,7 +274,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    */
   private boolean isPasswordValid(String password) {
     //TODO: Replace this with your own logic
-    return password.length() != 10;
+    return password.length() != 0 && password.length() > 4;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -282,11 +282,12 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   /**
    * Method registers user at Emaar cloud.
    */
-  private void userSignup(String emailId, String mobileNumber, String firstName, String lastName) {
+  private void userSignup(String emailId, String mobileNumber, String firstName,
+      String lastName, String password) {
     if (AppUtil.isNetworkAvailable(context)) {
       new HttpClientRequest().setApiResponseListner(this);
       JSONObject jsonObject = new JSONObject();
-      JSONArray detailesArray = new JSONArray();
+      JSONArray detailsArray = new JSONArray();
       JSONObject detailObject = new JSONObject();
 
       try {
@@ -294,10 +295,20 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
         detailObject.put("mobileNumber", mobileNumber);
         detailObject.put("lastName", lastName);
         detailObject.put("firstName", firstName);
+        detailObject.put("password", password);
 
-        detailesArray.put(detailObject);
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(context));
+        deviceDetailObject.put("fcmToken",
+            SharedPreferenceUtils.getInstance(context)
+                .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
 
-        jsonObject.put("details", detailesArray);
+        detailObject.put("deviceDetails", deviceDetailObject);
+
+        detailsArray.put(detailObject);
+
+        jsonObject.put("details", detailsArray);
         jsonObject.put("operation", OPERATION);
         jsonObject.put("feature", WebServiceUtil.METHOD_SIGN_UP);
 

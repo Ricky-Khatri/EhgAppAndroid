@@ -2,7 +2,7 @@
 <resources>
 
   <!--Header dimensions-->
-  <dimen name="dimension_header_title">22sp</dimen>
+  <dimen name="dimension_header_title">20sp</dimen>
   <dimen name="dimension_app_labels">17sp</dimen>
   <dimen name="dimension_header_elevation">5dp</dimen>
   <dimen name="dimension_header_button_padding">10dp</dimen>

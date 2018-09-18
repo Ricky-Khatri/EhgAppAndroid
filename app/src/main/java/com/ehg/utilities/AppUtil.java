@@ -186,13 +186,6 @@ public class AppUtil {
   }
 
   /**
-   * Checks if passed mobile number is valid or not.
-   */
-  public static boolean isMobileValid(String mobileNumber) {
-    return (!TextUtils.isEmpty(mobileNumber) && Patterns.PHONE.matcher(mobileNumber).matches());
-  }
-
-  /**
    * Checks if passed phone number is  valid or not.
    */
   public static boolean isValidMobile(String phone) {

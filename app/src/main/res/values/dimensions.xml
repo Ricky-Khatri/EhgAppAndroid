@@ -5,7 +5,7 @@
   <dimen name="activity_vertical_margin">16dp</dimen>
 
   <!--Header dimensions-->
-  <dimen name="dimension_header_title">18sp</dimen>
+  <dimen name="dimension_header_title">17sp</dimen>
   <dimen name="dimension_app_labels">13sp</dimen>
   <dimen name="dimension_header_elevation">5dp</dimen>
   <dimen name="dimension_header_button_padding">8dp</dimen>

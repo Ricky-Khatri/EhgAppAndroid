@@ -25,8 +25,10 @@ package com.ehg.networkrequest;
 
 public class WebServiceUtil {
 
+  public static final String DEVICE_TYPE = "Android";
+
   //API Content type
-  public static final String CONTENT_TYPE = "application/vnd.digivalet.v1+json";
+  public static final String CONTENT_TYPE = "application/json";
 
   //API base url
   public static final String BASE_URL = "";

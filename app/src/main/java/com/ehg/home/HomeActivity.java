@@ -544,9 +544,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       case R.id.imageview_home_showmore:
         //showMorePopUpWindow();
         Intent intent = new Intent(context,SettingsActivity.class);
-        startActivity(intent);
-        //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        AppUtil.startActivityWithAnimation(this,intent,false);
         break;
 
       default:

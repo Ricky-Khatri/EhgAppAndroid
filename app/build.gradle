@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ehg"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -83,6 +83,9 @@ dependencies {
 
     //Page indicator lib for splash
     implementation 'com.romandanylyk:pageindicatorview:1.0.2'
+
+    //gson lib
+    implementation 'com.google.code.gson:gson:2.7'
 
 }
 

@@ -45,17 +45,13 @@
     android:layout_height="1dp"
     android:background="@drawable/bottom_shadow"/>
 
-
   <FrameLayout
     android:id="@+id/framelayout_home_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="9"
     android:orientation="vertical">
-
-
   </FrameLayout>
-
 
   <View
     android:layout_width="match_parent"
@@ -94,6 +90,9 @@
       android:scaleType="centerCrop"
       android:visibility="visible"
       android:tint="@color/colorGray"
+      android:clickable="true"
+      android:focusable="true"
+      android:foreground="?attr/selectableItemBackground"
       app:srcCompat="@drawable/home_setting"/>
 
   </LinearLayout>

@@ -29,7 +29,7 @@
   <string name="all_error_invalid_password">Password is too short</string>
   <string name="all_error_incorrect_password">Incorrect password</string>
   <string name="all_error_field_required">This field is required</string>
-  <string name="all_please_enter_email_or_mobile_number">Please enter registered email or mobile number.</string>
+  <string name="all_please_enter_email_or_mobile_number">Please enter registered mobile number or email.</string>
 
   <!--Strings related to permission checks-->
   <string name="all_permission_check_alert">User must allow these permissions to access all functions in app.</string>

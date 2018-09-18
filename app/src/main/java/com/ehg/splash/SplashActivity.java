@@ -153,12 +153,17 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
       try {
 
-        detailObject.put("appId", AppUtil.getDeviceId(this));
-        detailObject.put("deviceType", AppUtil.DEVICE_TYPE);
-        detailObject.put("emaarId", SharedPreferenceUtils.getInstance(this)
-            .getStringValue(SharedPreferenceUtils.EMAAR_ID, ""));
-        detailObject.put("fcmToken", SharedPreferenceUtils.getInstance(this)
-            .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
+        detailObject.put("loyaltyMemberId", SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""));
+
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(this));
+        deviceDetailObject.put("fcmToken",
+            SharedPreferenceUtils.getInstance(this)
+                .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
+
+        detailObject.put("deviceDetails", deviceDetailObject);
 
         detailesArray.put(detailObject);
 

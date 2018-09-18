@@ -96,5 +96,8 @@
     android:layout_alignParentBottom="true"
     android:background="@drawable/all_rounded_button"
     android:text="@string/splash_signin"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:textColor="@color/white"/>
 </RelativeLayout>

@@ -21,18 +21,13 @@ package com.ehg.signinsignup.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +46,9 @@ import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.settings.ForgotPasswordActivity;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rilixtech.CountryCodePicker;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
@@ -155,7 +153,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     textViewUbyEmaarAccount.setText(AppUtil.fromHtml(
         getResources().getString(R.string.signinfragment_signin_to_tap)
             + "<br><b>" + getResources().getString(R.string.all_u_by_emaar) + "</b> "
-            + getResources().getString(R.string.all_account)),TextView.BufferType.SPANNABLE);
+            + getResources().getString(R.string.all_account)), TextView.BufferType.SPANNABLE);
 
     editTextPassword = view.findViewById(R.id.edittext_password);
     editTextPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -306,10 +304,15 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
         detailObject.put("accountId", userName);
         detailObject.put("password", password);
-        detailObject.put("deviceType", AppUtil.DEVICE_TYPE);
-        detailObject.put("appId", AppUtil.getDeviceId(context));
-        detailObject.put("fcmToken", SharedPreferenceUtils.getInstance(context)
-            .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
+
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(context));
+        deviceDetailObject.put("fcmToken",
+            SharedPreferenceUtils.getInstance(context)
+                .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
+
+        detailObject.put("deviceDetails", deviceDetailObject);
 
         detailesArray.put(detailObject);
 
@@ -342,9 +345,21 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    */
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
-    if (requestMethod.equalsIgnoreCase(USER_LOGIN_METHOD)) {
-      Intent intent = new Intent(context, HomeActivity.class);
-      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+    if (requestMethod.equalsIgnoreCase(USER_LOGIN_METHOD)
+        && responseVal != null && !responseVal.equalsIgnoreCase("")
+        && !responseVal.startsWith("<")) {
+
+      SigninResponsePojo signinResponsePojo = new Gson().fromJson(responseVal,
+          new TypeToken<SigninResponsePojo>() {
+          }.getType());
+
+      if (signinResponsePojo != null && signinResponsePojo.getStatus().equalsIgnoreCase("true")) {
+
+        JsonParserUtil.getInstance(context).saveSigninResponsePojo(signinResponsePojo);
+
+        Intent intent = new Intent(context, HomeActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+      }
     }
   }
 

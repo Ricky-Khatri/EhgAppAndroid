@@ -121,7 +121,7 @@ public class HttpClientRequest {
 
       startFirebaseMonitorTrace(HttpMethod.POST);
 
-      asyncHttpClient.addHeader("Access-Token", ""); //TODO: Need to pass access-token
+      asyncHttpClient.addHeader("Access-Token", "dummy"); //TODO: Need to pass access-token
 
       asyncHttpClient.post(context, url, entity, contentType, new AsyncHttpResponseHandler() {
         @Override
@@ -188,7 +188,7 @@ public class HttpClientRequest {
 
       startFirebaseMonitorTrace(HttpMethod.GET);
 
-      asyncHttpClient.addHeader("Access-Token", "");//TODO: Need to update value
+      asyncHttpClient.addHeader("Access-Token", "dummy");//TODO: Need to update value
       asyncHttpClient.addHeader("Content-Type", contentType);
 
       asyncHttpClient.get(context, url, params, new TextHttpResponseHandler() {
