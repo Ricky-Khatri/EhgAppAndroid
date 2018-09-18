@@ -68,7 +68,7 @@
     android:layout_weight="1"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:weightSum="1.15">
+    android:weightSum="1.3">
 
     <LinearLayout
       android:layout_width="0dp"
@@ -91,9 +91,9 @@
       android:layout_weight="0.15"
       android:padding="@dimen/dimension_app_labels"
       android:background="@color/white"
-      android:rotation="90"
-      android:visibility="gone"
-      app:srcCompat="@drawable/ic_back_arrow"/>
+      android:scaleType="centerCrop"
+      android:visibility="visible"
+      android:src="@drawable/home_setting"/>
 
   </LinearLayout>
 

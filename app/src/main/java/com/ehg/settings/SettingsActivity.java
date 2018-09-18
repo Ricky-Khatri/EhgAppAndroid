@@ -35,11 +35,13 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
   /**
    * Called when activity created first.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.activity_settings);
 
     initView();
@@ -58,6 +60,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
   /**
    * Called when user click on any view attached OnClickListener.
+   *
    * @param view clicked view object
    */
   @Override
@@ -65,13 +68,17 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-        AppUtil.finishActivityWithAnimation(this);
+        //AppUtil.finishActivityWithAnimation(this);
+
+        finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         break;
     }
   }
 
   /**
    * OnKeyDown callback will be called when phone back key pressed.
+   *
    * @param keyCode keycode
    * @param event event
    * @return return boolean value

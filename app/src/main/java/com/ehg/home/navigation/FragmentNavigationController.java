@@ -55,7 +55,7 @@ public class FragmentNavigationController {
   public static final int TAB5 = 4;
   public static final int TAB6 = 5;
 
-  private static final int MAX_NUM_TABS = 6;
+  private static final int MAX_NUM_TABS = 5;
 
   // Extras used to store savedInstanceState
   private static final String EXTRA_TAG_COUNT = FragmentNavigationController.class.getName()
