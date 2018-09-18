@@ -24,10 +24,10 @@
   <!-- Strings related to login -->
   <string name="signinfragment_mobile_number">Mobile Number</string>
   <string name="all_password">Password</string>
-  <string name="all_error_invalid_email">This email address is invalid</string>
-  <string name="all_error_invalid_mobile">This mobile number is invalid</string>
-  <string name="all_error_invalid_password">This password is too short</string>
-  <string name="all_error_incorrect_password">This password is incorrect</string>
+  <string name="all_error_invalid_email">Invalid email address</string>
+  <string name="all_error_invalid_mobile">Invalid mobile number</string>
+  <string name="all_error_invalid_password">Password is too short</string>
+  <string name="all_error_incorrect_password">Incorrect password</string>
   <string name="all_error_field_required">This field is required</string>
   <string name="all_please_enter_email_or_mobile_number">Please enter registered email or mobile number.</string>
 
@@ -93,16 +93,7 @@
   <!-- Strings related to login -->
   <string name="prompt_email">Username (Email/Mobile No.)</string>
   <string name="prompt_password">Password</string>
-  <string name="action_sign_in">Sign in or register</string>
-  <string name="action_sign_in_short">Sign in</string>
-  <string name="error_invalid_email">This email address is invalid</string>
-  <string name="error_invalid_mobile">This mobile number is invalid</string>
-  <string name="error_invalid_password">This password is too short</string>
-  <string name="error_incorrect_password">This password is incorrect</string>
-  <string name="error_field_required">This field is required</string>
-  <string name="permission_rationale">"Contacts permissions are needed for providing email
-    completions."
-  </string>
+
 
   <!--Strings related to permission checks-->
   <string name="permission_check_alert">User must allow these permissions to access all functions in app.</string>
