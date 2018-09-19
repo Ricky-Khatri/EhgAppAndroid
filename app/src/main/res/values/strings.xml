@@ -122,6 +122,12 @@
   <string name="headersearchlayout_textviewhint"><![CDATA[Search for Hotels, Restaurent & More....]]></string>
   <string name="splash_bottom_label_description">Booking a hotel can be overwhelming but it\'s\n easy with Emaar Hospitality App\'s seamless\nbooking feature.</string>
   <string name="splash_book_hotel_title">Book a Hotel</string>
+  <string name="setting_preferences">PREFERENCES</string>
+  <string name="settings_support">SUPPORT</string>
+  <string name="settings_privacy_policy">PRIVACY POLICY</string>
+  <string name="settings_terms_and_conditions">TERMS AND CONDITIONS</string>
+  <string name="settings_language">LANGUAGE</string>
+  <string name="settings_sign_in_sign_up">SIGN-IN/SIGN-UP</string>
 
   <!--Tab fragment titles-->
   <string name="home_title">Home</string>
@@ -129,5 +135,7 @@
   <string name="reservations_title">Reservations</string>
   <string name="offers_title">Offers</string>
   <string name="u_by_emaar_title">U By Emaar</string>
+  <string name="settingpreferences_notifications">Notifications</string>
+  <string name="progress_pleasewait">Please Wait</string>
 
 </resources>

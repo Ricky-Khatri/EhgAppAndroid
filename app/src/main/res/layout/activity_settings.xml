@@ -36,172 +36,177 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     android:orientation="vertical">
-
     <LinearLayout
+      android:id="@+id/linearlayout_setting_preferences"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:padding="@dimen/dimension_app_labels"
+      android:gravity="center"
       android:orientation="horizontal">
-
-      <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/country_photo"
-        android:layout_width="@dimen/dimension_login_logo"
-        android:layout_height="@dimen/dimension_login_logo"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher_round"
-        app:riv_corner_radius="60dip"
-        />
-
-      <LinearLayout
+      <TextView
+        android:id="@+id/textview_settings_preferences"
+        style="@style/AppLabelsTextAppearance"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <RelativeLayout
-          android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/setting_preferences"/>
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatImageView
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_margin="@dimen/dimension_header_margin_left"
-          android:background="@drawable/all_rounded_border">
-
-          <TextView
-            android:id="@+id/textview_user_name"
-            style="@style/AppLabelsTextAppearance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimension_header_margin_right"
-            android:gravity="center"/>
-
-        </RelativeLayout>
-
-        <RelativeLayout
-          android:layout_width="match_parent"
+          app:srcCompat="@drawable/all_arrowpointtoright"/>
+      </LinearLayout>
+    </LinearLayout>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/colorHeaderView"/>
+    <LinearLayout
+      android:id="@+id/linearlayout_settings_support"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dimension_app_labels"
+      android:gravity="center"
+      android:orientation="horizontal">
+      <TextView
+        android:id="@+id/textview_settings_support"
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_support"/>
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatImageView
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_margin="@dimen/dimension_header_margin_left"
-          android:background="@drawable/all_rounded_border">
-
-          <TextView
-            android:id="@+id/textview_user_email"
-            style="@style/AppLabelsTextAppearance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimension_header_margin_right"
-            android:gravity="center"/>
-
-        </RelativeLayout>
-
+          app:srcCompat="@drawable/all_arrowpointtoright"/>
+      </LinearLayout>
+    </LinearLayout>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/colorHeaderView"/>
+    <LinearLayout
+      android:id="@+id/linearlayout_settings_privacypolicy"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dimension_app_labels"
+      android:gravity="center"
+      android:orientation="horizontal">
+      <TextView
+        android:id="@+id/textview_settings_privacypolicy"
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_privacy_policy"/>
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:srcCompat="@drawable/all_arrowpointtoright"/>
+      </LinearLayout>
+    </LinearLayout>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/colorHeaderView"/>
+    <LinearLayout
+      android:id="@+id/linearlayout_settings_termandconditions"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dimension_app_labels"
+      android:gravity="center"
+      android:orientation="horizontal">
+      <TextView
+        android:id="@+id/textview_settings_termandconditions"
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_terms_and_conditions"/>
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:srcCompat="@drawable/all_arrowpointtoright"/>
+      </LinearLayout>
+    </LinearLayout>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/colorHeaderView"/>
+    <LinearLayout
+      android:id="@+id/linearlayout_settings_language"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dimension_app_labels"
+      android:gravity="center"
+      android:orientation="horizontal">
+      <TextView
+        android:id="@+id/textview_settings_language"
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_language"/>
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:srcCompat="@drawable/all_arrowpointtoright"/>
+      </LinearLayout>
+    </LinearLayout>
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/colorHeaderView"/>
+    <LinearLayout
+      android:id="@+id/linearlayout_settings_userstate"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dimension_app_labels"
+      android:gravity="center"
+      android:orientation="horizontal">
+      <TextView
+        android:id="@+id/textview_settings_userstate"
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_sign_in_sign_up"/>
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:srcCompat="@drawable/all_arrowpointtoright"/>
       </LinearLayout>
     </LinearLayout>
 
-    <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="8dp">
 
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical">
-
-        <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-
-          <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-              android:id="@+id/textview_notification"
-              style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="@dimen/dimension_header_margin_right"
-              android:gravity="center"/>
-          </LinearLayout>
-          <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="end">
-
-            <Switch
-              android:id="@+id/switch_notification"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              />
-          </LinearLayout>
-
-
-        </LinearLayout>
-        <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:orientation="horizontal">
-
-          <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-              style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="@dimen/dimension_header_margin_right"
-              android:gravity="center"/>
-          </LinearLayout>
-          <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="end">
-
-            <Switch
-
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              />
-          </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:orientation="horizontal">
-
-          <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-            <TextView
-
-              style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_margin="@dimen/dimension_header_margin_right"
-              android:gravity="center"/>
-          </LinearLayout>
-          <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:gravity="end">
-
-            <Switch
-
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              />
-          </LinearLayout>
-        </LinearLayout>
-      </LinearLayout>
-
-    </ScrollView>
   </LinearLayout>
 </LinearLayout>

@@ -92,6 +92,10 @@
       android:label="@string/title_activity_google_map"
       android:name=".maps.ui.MapsActivity">
     </activity>
+    <activity android:name=".settings.PreferencesActivity"/>
+    <activity android:name=".settings.SupportActivity"/>
+    <activity android:name=".settings.PrivacyPolicyActivity"/>
+    <activity android:name=".settings.TermsAndConditionActivity"/>
 
   </application>
 
