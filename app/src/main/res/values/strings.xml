@@ -137,5 +137,17 @@
   <string name="u_by_emaar_title">U By Emaar</string>
   <string name="settingpreferences_notifications">Notifications</string>
   <string name="progress_pleasewait">Please Wait</string>
+  <string name="ubyemaar_username">Mr.John Doe</string>
+  <string name="ubyemaar_blacktext">Black</string>
+  <string name="ubyemaar_membershiplable">Membership</string>
+  <string name="ubyemaar_totalupoints">6027</string>
+  <string name="ubyemaar_totalupointslabel">Total Upoints</string>
+  <string name="ubyemaar_availabletoredeemlabel">Available to\nRedeem</string>
+  <string name="ubyemaar_amountlabel">270</string>
+  <string name="ubyemaar_profilelabels">PROFILE</string>
+  <string name="ubyemaar_upointlabel">UPOINT ACTIVITY</string>
+  <string name="ubyemaar_aedlabel">AED</string>
+  <string name="ubyemaar_preferenceslabel">PREFERENCES</string>
+  <string name="ubyemaar_benefitslabel">BENEFITS</string>
 
 </resources>
