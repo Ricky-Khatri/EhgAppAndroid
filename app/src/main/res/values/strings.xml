@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">EHG</string>
+  <string name="app_name">EHG App</string>
   <string name="text">test</string>
 
   <!--Strings related to select language-->
@@ -7,6 +7,10 @@
 
   <!--Strings related to ForgotPasswordActivity-->
   <string name="forgotpasswordactivity_resetpassword">Reset Password </string>
+
+  <!--String related to Reservation-->
+  <string name="reservation_upcoming">Upcoming</string>
+  <string name="reservation_past">Past</string>
 
   <!--Strings related to login options-->
   <string name="signinfragment_signin">SIGN-IN</string>
@@ -27,6 +31,7 @@
   <string name="all_error_invalid_email">Invalid email address</string>
   <string name="all_error_invalid_mobile">Invalid mobile number</string>
   <string name="all_error_invalid_password">Password is too short</string>
+  <string name="all_error_password_length">Password length must be 4 to 10 characters long</string>
   <string name="all_error_incorrect_password">Incorrect password</string>
   <string name="all_error_field_required">This field is required</string>
   <string name="all_please_enter_email_or_mobile_number">Please enter registered mobile number or email.</string>

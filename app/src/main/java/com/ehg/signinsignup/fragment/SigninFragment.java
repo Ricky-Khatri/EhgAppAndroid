@@ -242,7 +242,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       cancel = true;
 
     } else if (!isPasswordValid(password)) {
-      editTextPassword.setError(getString(R.string.all_error_invalid_password));
+      editTextPassword.setError(getString(R.string.all_error_password_length));
       focusView = editTextPassword;
       cancel = true;
     }
@@ -282,7 +282,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    */
   private boolean isPasswordValid(String password) {
     //TODO: Replace this with your own logic
-    return password.length() != 10;
+    return password.length() >= 4 && password.length() <= 10;
   }
 
   //****************************** API CALLING STUFF ******************************************

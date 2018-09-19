@@ -22,6 +22,9 @@
   <dimen name="dimension_guest_title">14sp</dimen>
   <dimen name="dimension_guest_detail">12sp</dimen>
 
-  <dimen name="size_itemhomehorizontalitem_roundedimageview">110dp</dimen>
-  <dimen name="size_itemhomehorizontalitem_linearlayout">170dp</dimen>
+  <dimen name="dimension_itemhomehorizontallist_roundedimage_size">110dp</dimen>
+  <dimen name="dimension_itemhomehorizontallist_linearlayout_size">170dp</dimen>
+
+  <dimen name="dimension_reservation_image_size">100dp</dimen>
+  <dimen name="dimension_location_image_size">20dp</dimen>
 </resources>
