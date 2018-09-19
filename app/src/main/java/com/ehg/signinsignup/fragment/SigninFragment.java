@@ -45,6 +45,7 @@ import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.settings.ForgotPasswordActivity;
+import com.ehg.signinsignup.signinpojo.SigninResponsePojo;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.JsonParserUtil;
 import com.google.gson.Gson;
@@ -353,7 +354,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
           new TypeToken<SigninResponsePojo>() {
           }.getType());
 
-      if (signinResponsePojo != null && signinResponsePojo.getStatus().equalsIgnoreCase("true")) {
+      if (signinResponsePojo != null && signinResponsePojo.getStatus()) {
 
         JsonParserUtil.getInstance(context).saveSigninResponsePojo(signinResponsePojo);
 

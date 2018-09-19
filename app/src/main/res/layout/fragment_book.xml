@@ -20,8 +20,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical">
+
+  <include layout="@layout/layout_header_with_navigation"/>
+
+  <include layout="@layout/layout_header_search"
+    android:visibility="gone"/>
+
+  <android.support.v7.widget.RecyclerView
+    android:visibility="gone"
+    android:id="@+id/recyclerview_book_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimension_header_button_padding">
+  </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
 

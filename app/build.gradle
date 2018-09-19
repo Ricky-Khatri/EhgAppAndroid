@@ -85,7 +85,7 @@ dependencies {
     implementation 'com.romandanylyk:pageindicatorview:1.0.2'
 
     //gson lib
-    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.google.code.gson:gson:2.8.0'
 
 }
 
