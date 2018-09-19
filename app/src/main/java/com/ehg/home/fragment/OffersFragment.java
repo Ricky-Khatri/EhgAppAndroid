@@ -32,8 +32,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
-import com.ehg.home.adapter.OfferListAdapter;
 import com.ehg.home.HomeActivity;
+import com.ehg.home.adapter.OfferListAdapter;
 import com.ehg.utilities.AppUtil;
 import com.yayandroid.parallaxrecyclerview.ParallaxRecyclerView;
 import java.util.Objects;
@@ -47,17 +47,32 @@ public class OffersFragment extends BaseFragment {
 
   private OfferListAdapter offerListAdapter;
 
+  /**
+   * Called when fragment created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
   }
 
+  /**
+   * Called to attach activity context to fragment.
+   * @param context activity context
+   */
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
     this.context = context;
   }
 
+  /**
+   * Called to inflate fragment view.
+   * @param inflater LayoutInflater
+   * @param container ViewGroup
+   * @param savedInstanceState Bundle
+   * @return View
+   */
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
@@ -69,6 +84,11 @@ public class OffersFragment extends BaseFragment {
     return view;
   }
 
+  /**
+   * Called to instantiate view components of fragment.
+   * @param view View
+   * @param savedInstanceState Bundle
+   */
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
@@ -83,7 +103,7 @@ public class OffersFragment extends BaseFragment {
   }
 
   /**
-   * Method init's view component of this fragment
+   * Method init's view component of this fragment.
    *
    * @param view view
    */

@@ -28,9 +28,10 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
-import com.ehg.signinsignup.fragment.SigninFragment;
 import com.ehg.signinsignup.fragment.SignUpFragment;
+import com.ehg.signinsignup.fragment.SigninFragment;
 import com.ehg.utilities.AppUtil;
+
 
 /**
  * This class shows Login options to users like: Login Signup Skip or explore app as guest user.
@@ -60,8 +61,10 @@ public class SignInSignupActivity extends BaseActivity {
     final ViewPager viewPager = findViewById(R.id.viewpager_all_fragment_viewpager);
 
     //Create tabs
-    tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.signinfragment_signin)));
-    tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.signupfragment_signup)));
+    tabLayout.addTab(tabLayout.newTab().setText(
+        getResources().getString(R.string.signinfragment_signin)));
+    tabLayout.addTab(tabLayout.newTab().setText(
+        getResources().getString(R.string.signupfragment_signup)));
     tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
     //Set viewpager fragment adapter
@@ -72,18 +75,18 @@ public class SignInSignupActivity extends BaseActivity {
 
     tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
       @Override
-      public void onTabSelected(TabLayout.Tab LayoutTab) {
+      public void onTabSelected(TabLayout.Tab layoutTab) {
 
-        viewPager.setCurrentItem(LayoutTab.getPosition());
+        viewPager.setCurrentItem(layoutTab.getPosition());
       }
 
       @Override
-      public void onTabUnselected(TabLayout.Tab LayoutTab) {
+      public void onTabUnselected(TabLayout.Tab layoutTab) {
 
       }
 
       @Override
-      public void onTabReselected(TabLayout.Tab LayoutTab) {
+      public void onTabReselected(TabLayout.Tab layoutTab) {
 
       }
     });

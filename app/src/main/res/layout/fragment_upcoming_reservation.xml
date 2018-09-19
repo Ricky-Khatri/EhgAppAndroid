@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~  Created by Emaar Hospitality Group on 9/8/18 11:07 AM
+  ~  Created by Emaar Hospitality Group on 19/9/18 3:06 PM
   ~  Copyright (C) 2018  All rights reserved.
-  ~  Last modified 9/8/18 11:07 AM
+  ~  Last modified 19/9/18 3:06 PM
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
   ~  you may not use this file except in compliance with the License.
@@ -18,20 +19,23 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-  <include layout="@layout/layout_header_search"
-    android:visibility="gone"/>
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
 
   <android.support.v7.widget.RecyclerView
-    android:visibility="gone"
-    android:id="@+id/recyclerview_book_list"
-    android:layout_width="match_parent"
+    android:id="@+id/recyclerview_upcomingreservation_reservationcategory"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dimension_header_button_padding">
   </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/recyclerview_upcomingreservation_reservation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/dimension_header_button_padding">
+  </android.support.v7.widget.RecyclerView>
 
+</LinearLayout>

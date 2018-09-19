@@ -21,8 +21,9 @@
   <!--Text View dimension-->
   <dimen name="dimension_guest_title">15sp</dimen>
   <dimen name="dimension_guest_detail">13sp</dimen>
-  <dimen name="size_itemhomehorizontalitem_roundedimageview">120dp</dimen>
-  <dimen name="size_itemhomehorizontalitem_linearlayout">200dp</dimen>
+  <dimen name="dimension_itemhomehorizontallist_roundedimage_size">120dp</dimen>
+  <dimen name="dimension_itemhomehorizontallist_linearlayout_size">200dp</dimen>
 
-
+  <dimen name="dimension_reservation_image_size">100dp</dimen>
+  <dimen name="dimension_location_image_size">17dp</dimen>
 </resources>

@@ -68,10 +68,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-        //AppUtil.finishActivityWithAnimation(this);
-
-        finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        AppUtil.finishActivityWithAnimation(this);
         break;
     }
   }

@@ -251,7 +251,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
     } else if (!isPasswordValid(password)) {
 
-      edittextPassword.setError(getResources().getString(R.string.all_error_invalid_password));
+      edittextPassword.setError(getResources().getString(R.string.all_error_password_length));
       focusView = edittextPassword;
       cancel = true;
 
@@ -274,7 +274,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    */
   private boolean isPasswordValid(String password) {
     //TODO: Replace this with your own logic
-    return password.length() != 0 && password.length() > 4;
+    return password.length() >= 4 && password.length() <= 10;
   }
 
   //****************************** API CALLING STUFF ******************************************
