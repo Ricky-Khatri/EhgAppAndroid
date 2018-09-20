@@ -200,6 +200,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+              <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/dimension_all_mobilefieldivider_size"
+                android:layout_marginRight="@dimen/dimension_header_elevation"
+                android:background="@color/colorGray"/>
+
               <EditText
                 android:id="@+id/edittext_sign_up_mobile"
                 android:layout_width="match_parent"

@@ -119,6 +119,10 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
       textViewMobileNumber.setError(getString(R.string.all_please_enter_email_or_mobile_number));
       textViewMobileNumber.requestFocus();
 
+    } else if (!TextUtils.isEmpty(mobileNumber) && !TextUtils.isEmpty(email)) {
+      textViewMobileNumber.setError(getString(R.string.all_please_enter_email_or_mobile_number));
+      textViewMobileNumber.requestFocus();
+
     } else {
 
       if (!TextUtils.isEmpty(mobileNumber)) {
@@ -126,18 +130,14 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
           textViewMobileNumber.setError(getString(R.string.all_error_invalid_mobile));
           textViewMobileNumber.requestFocus();
         } else {
-          //TODO: Need to uncomment forgotPassword()
-          //forgotPassword();
-          finish();
+          forgotPassword(mobileNumber);
         }
       } else if (!TextUtils.isEmpty(email)) {
         if (!AppUtil.isEmailValid(email)) {
           textViewEmail.setError(getString(R.string.all_error_invalid_email));
           textViewEmail.requestFocus();
         } else {
-          //TODO: Need to uncomment forgotPassword()
-          //forgotPassword();
-          finish();
+          forgotPassword(email);
         }
       }
     }
@@ -148,15 +148,16 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   /**
    * Method calls forgotPassword api.
    */
-  private void forgotPassword() {
+  private void forgotPassword(String accountId) {
+
     if (AppUtil.isNetworkAvailable(this)) {
+
       new HttpClientRequest().setApiResponseListner(this);
 
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_RESET_PASSWORD)
-          + SharedPreferenceUtils.getInstance(this)
-          .getStringValue(SharedPreferenceUtils.ACCOUNT_ID, ""),
+          + "nidhi.pacharne@digivalet.com",
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
-          FORGOT_PASSWORD_METHOD).httpGetRequest();
+          FORGOT_PASSWORD_METHOD,true).httpGetRequest();
     }
   }
 

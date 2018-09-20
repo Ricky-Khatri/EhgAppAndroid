@@ -497,6 +497,10 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     }*/
   }
 
+  /**
+   * Called when tab selected.
+   * @param tab tab
+   */
   @Override
   public void onTabSelected(Tab tab) {
 
@@ -505,10 +509,18 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     switchTab(tab.getPosition());
   }
 
+  /**
+   * Called when tab unselected.
+   * @param tab tab
+   */
   @Override
   public void onTabUnselected(Tab tab) {
   }
 
+  /**
+   * Called when tab reselected.
+   * @param tab tab
+   */
   @Override
   public void onTabReselected(Tab tab) {
 
@@ -517,7 +529,8 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     switchTab(tab.getPosition());
   }
 
-  @Override
+
+  /*@Override
   public boolean onOptionsItemSelected(MenuItem item) {
 
     switch (item.getItemId()) {
@@ -530,8 +543,12 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       default:
     }
     return super.onOptionsItemSelected(item);
-  }
+  }*/
 
+  /**
+   * Called when click event initiated.
+   * @param view clicked view reference
+   */
   @Override
   public void onClick(View view) {
 

@@ -29,6 +29,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -115,7 +116,9 @@ public class AppUtil {
    */
   public static void showLoadingIndicator(AppCompatActivity appCompatActivity) {
     if (appCompatActivity != null) {
-      progressDialog = new ProgressDialog(appCompatActivity);
+      progressDialog = new ProgressDialog(appCompatActivity,R.style.AppCompatAlertDialogStyle);
+      progressDialog.setMessage(appCompatActivity.getResources().getString(R.string.all_loading));
+      //progressDialog.setProgressStyle();
       progressDialog.show();
     }
   }
@@ -190,7 +193,7 @@ public class AppUtil {
    */
   public static boolean isValidMobile(String phone) {
     return /*android.util.Patterns.PHONE.matcher(phone).matches()*/
-          phone.length() > 0 && phone.length() == 10;
+        phone.length() > 0 && phone.length() == 10;
   }
 
   /**

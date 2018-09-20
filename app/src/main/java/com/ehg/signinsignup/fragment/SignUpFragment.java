@@ -29,6 +29,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,6 +37,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.HomeActivity;
@@ -54,7 +56,8 @@ import org.json.JSONObject;
  * This class allows new user to sign up in app as Emaar member.
  */
 
-public class SignUpFragment extends Fragment implements OnClickListener, ApiResponseListener {
+public class SignUpFragment extends Fragment implements OnClickListener, ApiResponseListener,
+    OnEditorActionListener {
 
   private static final String USER_SIGNUP_METHOD = "userSignup";
 
@@ -157,9 +160,30 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
     Button buttonSignUp = view.findViewById(R.id.button_sign_up);
 
+    //Set OnClickListener
     buttonSignUp.setOnClickListener(this);
     textViewContinueAsGuest.setOnClickListener(this);
     textViewWhatIsUbyEmaar.setOnClickListener(this);
+
+    //Set EditorCLickListener
+    edittextFirstName.setOnEditorActionListener(this);
+    edittextLastName.setOnEditorActionListener(this);
+    edittextEmail.setOnEditorActionListener(this);
+    edittextMobile.setOnEditorActionListener(this);
+    edittextPassword.setOnEditorActionListener(this);
+  }
+
+  /**
+   * Called when mobile phone keyboard keys clicked: enter/done/next keys.
+   * @param textView view currently focused
+   * @param index index
+   * @param keyEvent key event
+   * @return returns boolean value
+   */
+  @Override
+  public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
+    validateSignUpFormFields();
+    return false;
   }
 
   /**
@@ -263,9 +287,9 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
     } else {
 
-      Intent intent = new Intent(context, HomeActivity.class);
-      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
-      //userSignup(email,mobile,firstName,lastName,password);
+      /*Intent intent = new Intent(context, HomeActivity.class);
+      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);*/
+      userSignup(email,mobile,firstName,lastName,password);
     }
   }
 
@@ -274,7 +298,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    */
   private boolean isPasswordValid(String password) {
     //TODO: Replace this with your own logic
-    return password.length() >= 4 && password.length() <= 10;
+    return password.length() >= 4 && password.length() <= 8;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -284,15 +308,18 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    */
   private void userSignup(String emailId, String mobileNumber, String firstName,
       String lastName, String password) {
+
     if (AppUtil.isNetworkAvailable(context)) {
+
       new HttpClientRequest().setApiResponseListner(this);
+
       JSONObject jsonObject = new JSONObject();
       JSONArray detailsArray = new JSONArray();
       JSONObject detailObject = new JSONObject();
 
       try {
         detailObject.put("emailId", emailId);
-        detailObject.put("mobileNumber", mobileNumber);
+        detailObject.put("mobileNumber", countryCodePicker.getSelectedCountryCode() + mobileNumber);
         detailObject.put("lastName", lastName);
         detailObject.put("firstName", firstName);
         detailObject.put("password", password);
@@ -310,7 +337,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
         jsonObject.put("details", detailsArray);
         jsonObject.put("operation", OPERATION);
-        jsonObject.put("feature", WebServiceUtil.METHOD_SIGN_UP);
+        jsonObject.put("feature", WebServiceUtil.FEATURE_SIGN_UP);
 
       } catch (JSONException e) {
         e.printStackTrace();
@@ -325,7 +352,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_SIGN_UP),
           entity, WebServiceUtil.CONTENT_TYPE,
-          USER_SIGNUP_METHOD).httpPostRequest();
+          USER_SIGNUP_METHOD,true).httpPostRequest();
     }
   }
 

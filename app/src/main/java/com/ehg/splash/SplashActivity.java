@@ -184,7 +184,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_UPDATE_TOKEN),
           entity, WebServiceUtil.CONTENT_TYPE,
-          UPDATE_TOKEN_METHOD).httpPostRequest();
+          UPDATE_TOKEN_METHOD,false).httpPostRequest();
     }
   }
 

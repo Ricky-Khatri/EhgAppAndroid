@@ -93,8 +93,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+              <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/dimension_all_mobilefieldivider_size"
+                android:layout_marginRight="@dimen/dimension_header_elevation"
+                android:background="@color/colorGray"/>
+
               <AutoCompleteTextView
-                android:id="@+id/textview_mobile"
+                android:id="@+id/textview_signinfragment_mobile"
                 style="@style/AppLabelsTextAppearance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,7 +130,7 @@
               android:hint="@string/all_password"/>
 
             <EditText
-              android:id="@+id/edittext_password"
+              android:id="@+id/edittext_signinfragment_password"
               style="@style/AppLabelsTextAppearance"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"

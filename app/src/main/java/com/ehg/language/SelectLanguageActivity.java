@@ -162,7 +162,7 @@ public class SelectLanguageActivity extends BaseActivity implements
       new HttpClientRequest(this, shared.getFcmApi() +
           ConstatLib.PUSH_NOTIFICATION_REGISTRATION, entity,
           "application/vnd.digivalet.v1+json",
-          GET_LANGUAGE_LIST_METHOD).makeHttpRequest();*/
+          GET_LANGUAGE_LIST_METHOD,true).makeHttpRequest();*/
     }
   }
 

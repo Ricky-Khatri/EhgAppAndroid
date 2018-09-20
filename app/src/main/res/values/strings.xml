@@ -58,6 +58,7 @@
 
   <!--Strings related to alert toast-->
   <string name="please_check_network_settings">Please check your network settings.</string>
+  <string name="all_loading">Loading...</string>
 
   <!--String related to Setting activity-->
   <string name="settings">Settings</string>

@@ -28,7 +28,6 @@
     <item name="colorAccent">@color/colorBlackTransparent</item>
     <item name="actionMenuTextColor">@color/colorBlack</item>
     <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
-
   </style>
 
   <!--Header text appearance-->
@@ -56,11 +55,18 @@
     <item name="tabPaddingEnd">0dp</item>
     <item name="tabGravity">fill</item>
     <item name="tabMode">fixed</item>
+  </style>
 
+  <!--Loading indicator style-->
+  <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="colorAccent">@color/colorGray</item>
+    <item name="android:textColorPrimary">@color/colorGray</item>
+    <item name="android:background">@color/white</item>
+    <item name="android:textColor">@color/colorGray</item>
+    <item name="android:textSize">@dimen/dimension_app_labels</item>
   </style>
 
   <!--Tab layout theme-->
-
   <style name="Base.Widget.Design.TabLayout" parent="android:Widget">
     <item name="tabIndicatorColor">?attr/colorAccent</item>
     <item name="tabIndicatorHeight">2dp</item>

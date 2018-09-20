@@ -38,6 +38,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.HomeActivity;
@@ -61,7 +62,8 @@ import org.json.JSONObject;
 /**
  * A login screen that offers login via email/password.
  */
-public class SigninFragment extends Fragment implements OnClickListener, ApiResponseListener {
+public class SigninFragment extends Fragment implements OnClickListener, ApiResponseListener,
+    OnEditorActionListener {
 
   private static final String USER_LOGIN_METHOD = "userLogin";
 
@@ -74,6 +76,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   private static final String[] DUMMY_CREDENTIALS = new String[]{
       "foo@example.com:hello", "bar@example.com:world"
   };
+  private static final String OPERATION = "login";
 
   // UI references.
   private AutoCompleteTextView autoCompleteTextViewMobileNumber;
@@ -149,7 +152,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
         (AppCompatActivity) context) / 4;
 
     // Set up the login form.
-    autoCompleteTextViewMobileNumber = view.findViewById(R.id.textview_mobile);
+    autoCompleteTextViewMobileNumber = view.findViewById(R.id.textview_signinfragment_mobile);
 
     TextView textViewUbyEmaarAccount = view.findViewById(R.id.text_view_u_by_emaar_account);
     textViewUbyEmaarAccount.setText(AppUtil.fromHtml(
@@ -157,7 +160,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
             + "<br><b>" + getResources().getString(R.string.all_u_by_emaar) + "</b> "
             + getResources().getString(R.string.all_account)), TextView.BufferType.SPANNABLE);
 
-    editTextPassword = view.findViewById(R.id.edittext_password);
+    editTextPassword = view.findViewById(R.id.edittext_signinfragment_password);
     editTextPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
       @Override
       public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -177,6 +180,23 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     buttonLogin.setOnClickListener(this);
     textViewForgotPassword.setOnClickListener(this);
     textViewContinueAsGuest.setOnClickListener(this);
+
+    //Set EditorActionListener
+    autoCompleteTextViewMobileNumber.setOnEditorActionListener(this);
+    editTextPassword.setOnEditorActionListener(this);
+  }
+
+  /**
+   * Called when mobile phone keyboard keys clicked: enter/done/next keys.
+   * @param textView view currently focused
+   * @param index index
+   * @param keyEvent key event
+   * @return returns boolean value
+   */
+  @Override
+  public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
+    attemptLogin();
+    return false;
   }
 
   /**
@@ -248,14 +268,6 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       cancel = true;
     }
 
-    // Check for a valid password, if the user entered one.
-    /*if (!TextUtils.isEmpty(mobileNumber) && TextUtils.isEmpty(password)
-    && !isPasswordValid(password)) {
-      editTextPassword.setError(getString(R.string.all_error_invalid_password));
-      focusView = editTextPassword;
-      cancel = true;
-    }*/
-
     if (cancel) {
       // There was an error; don't attempt login and focus the first
       // form field with an error.
@@ -265,16 +277,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       // perform the user login attempt.
       AppUtil.hideKeyboard(context, editTextPassword);
 
-      Intent intent = new Intent(context, HomeActivity.class);
-      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
-
-      /*new Handler().postDelayed(new Runnable() {
-        @Override
-        public void run() {
-          Intent intent = new Intent(context, HomeActivity.class);
-          AppUtil.startActivityWithAnimation((AppCompatActivity)context,intent,true);
-        }
-      },1500);*/
+      userLogin(mobileNumber,password);
     }
   }
 
@@ -283,7 +286,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    */
   private boolean isPasswordValid(String password) {
     //TODO: Replace this with your own logic
-    return password.length() >= 4 && password.length() <= 10;
+    return password.length() >= 4 && password.length() <= 8;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -291,7 +294,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   /**
    * Method allows to authenticate user at Emaar cloud.
    */
-  private void userLogin(String userName, String password) {
+  private void userLogin(String mobileNumber, String password) {
     if (AppUtil.isNetworkAvailable(context)) {
       new HttpClientRequest().setApiResponseListner(this);
       JSONObject jsonObject = new JSONObject();
@@ -300,11 +303,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
       try {
 
-        //Store user in app preference
-        SharedPreferenceUtils.getInstance(context).setValue(
-            SharedPreferenceUtils.USERNAME, userName);
-
-        detailObject.put("accountId", userName);
+        detailObject.put("accountId", countryCodePicker.getSelectedCountryCode() + mobileNumber);
         detailObject.put("password", password);
 
         JSONObject deviceDetailObject = new JSONObject();
@@ -319,8 +318,8 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
         detailesArray.put(detailObject);
 
         jsonObject.put("details", detailesArray);
-        jsonObject.put("operation", WebServiceUtil.METHOD_LOGIN);
-        jsonObject.put("feature", WebServiceUtil.METHOD_SIGN_UP);
+        jsonObject.put("operation", OPERATION);
+        jsonObject.put("feature", WebServiceUtil.FEATURE_SIGN_UP);
 
       } catch (JSONException e) {
         e.printStackTrace();
@@ -335,7 +334,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
       new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_LOGIN),
           entity, WebServiceUtil.CONTENT_TYPE,
-          USER_LOGIN_METHOD).httpPostRequest();
+          USER_LOGIN_METHOD,true).httpPostRequest();
     }
   }
 
