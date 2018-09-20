@@ -13,8 +13,6 @@
     <color name="violet">#673AB7</color>
     <color name="green">#70c050</color>
 
-    <!--Glider slider indicator-->
-    <color name="glide_slider_indicator_color">#FFFFFF</color>
     <color name="colorHeaderView">#b4b4b4</color>
     <color name="colorGray">#4A4A4A</color>
 

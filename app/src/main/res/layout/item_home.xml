@@ -30,14 +30,14 @@
     android:textColor="@color/colorBlack"
     android:text="@string/item_home_fetauretext"
     android:textStyle="bold"
-    android:textSize="@dimen/dimension_guest_title"/>
+    android:textSize="@dimen/textsize_all_guesttitle"/>
   <TextView
     android:id="@+id/textview_item_home_showall"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
    android:text="@string/item_home_showall"
-    android:textSize="@dimen/dimension_guest_detail"/>
+    android:textSize="@dimen/textsize_all_guestdetail"/>
 
 
   <android.support.v7.widget.RecyclerView

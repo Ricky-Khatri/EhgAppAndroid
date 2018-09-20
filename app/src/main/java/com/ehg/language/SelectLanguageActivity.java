@@ -69,7 +69,7 @@ public class SelectLanguageActivity extends BaseActivity implements
   private void initView() {
 
     TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
-    textViewHeaderTitle.setText(R.string.selectlanguageactivity_select_language);
+    textViewHeaderTitle.setText(R.string.selectlanguage_title);
 
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
 
@@ -162,7 +162,7 @@ public class SelectLanguageActivity extends BaseActivity implements
       new HttpClientRequest(this, shared.getFcmApi() +
           ConstatLib.PUSH_NOTIFICATION_REGISTRATION, entity,
           "application/vnd.digivalet.v1+json",
-          GET_LANGUAGE_LIST_METHOD).makeHttpRequest();*/
+          GET_LANGUAGE_LIST_METHOD,true).makeHttpRequest();*/
     }
   }
 
@@ -185,7 +185,7 @@ public class SelectLanguageActivity extends BaseActivity implements
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog(this,errorMessage,false,
-        getResources().getString(R.string.alert_dialog_title_error),true);
+        getResources().getString(R.string.dialog_errortitle),true);
   }
 
   /**

@@ -62,7 +62,7 @@ public class SignInSignupActivity extends BaseActivity {
 
     //Create tabs
     tabLayout.addTab(tabLayout.newTab().setText(
-        getResources().getString(R.string.signinfragment_signin)));
+        getResources().getString(R.string.all_signin)));
     tabLayout.addTab(tabLayout.newTab().setText(
         getResources().getString(R.string.signupfragment_signup)));
     tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

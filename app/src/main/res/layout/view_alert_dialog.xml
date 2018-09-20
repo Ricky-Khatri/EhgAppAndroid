@@ -23,8 +23,8 @@
   android:layout_width="match_parent"
   android:orientation="vertical"
   android:gravity="top"
-  android:padding="@dimen/dimension_app_labels"
-  android:layout_height="wrap_content">
+  android:padding="@dimen/textsize_all_labels"
+  android:layout_height="@dimen/height_all_alertdialog">
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -37,10 +37,7 @@
       android:id="@+id/textview_alertdialog_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      style="@style/HeaderTextAppearance"
-       />
-
-
+      style="@style/HeaderTextAppearance"/>
   </LinearLayout>
 
   <LinearLayout
@@ -53,11 +50,9 @@
     <TextView
       android:id="@+id/textview_alertdialog_message"
       style="@style/AppLabelsTextAppearance"
-      android:padding="@dimen/dimension_app_labels"
+      android:padding="@dimen/textsize_all_labels"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      />
-
+      android:layout_height="wrap_content"/>
 
   </LinearLayout>
 
@@ -65,19 +60,19 @@
    android:layout_width="match_parent"
    android:layout_height="wrap_content"
    android:gravity="center"
-   android:layout_marginTop="@dimen/dimension_app_labels">
+   android:layout_marginTop="@dimen/textsize_all_labels">
 
    <Button
      android:id="@+id/button_alertdialog_ok"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:text="@string/alert_dialog_ok"
+     android:text="@string/dialog_ok"
      />
    <Button
      android:id="@+id/button_alertdialog_cancel"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     android:text="@string/alert_dialog_cancel"/>
+     android:text="@string/dialog_cancel"/>
  </LinearLayout>
 
 

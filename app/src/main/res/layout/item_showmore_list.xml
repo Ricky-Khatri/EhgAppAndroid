@@ -30,7 +30,7 @@
     style="@style/AppLabelsTextAppearance"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimension_header_margin_left"
+    android:layout_margin="@dimen/marginleft_all_header"
     android:gravity="center"
     android:textColor="@android:color/black"/>
 

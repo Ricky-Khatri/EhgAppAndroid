@@ -23,18 +23,18 @@
   android:id="@+id/relativelayout_itemreservationcategory"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:layout_margin="@dimen/dimension_header_elevation"
+  android:layout_margin="@dimen/elevation_all_header"
   android:background="@drawable/reservation_category_rounded_bg_selected">
 
   <TextView
     android:id="@+id/textview_itemreservationcategory_categoryname"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/dimension_header_elevation"
-    android:layout_marginRight="@dimen/dimension_header_elevation"
+    android:layout_marginLeft="@dimen/elevation_all_header"
+    android:layout_marginRight="@dimen/elevation_all_header"
     style="@style/AppLabelsTextAppearance"
-    android:paddingTop="@dimen/dimension_header_elevation"
-    android:paddingBottom="@dimen/dimension_header_elevation"
-    android:paddingLeft="@dimen/dimension_header_button_padding"
-    android:paddingRight="@dimen/dimension_header_button_padding"/>
+    android:paddingTop="@dimen/elevation_all_header"
+    android:paddingBottom="@dimen/elevation_all_header"
+    android:paddingLeft="@dimen/padding_all_headerbutton"
+    android:paddingRight="@dimen/padding_all_headerbutton"/>
 </RelativeLayout>

@@ -27,8 +27,8 @@ import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import com.ehg.R;
-import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
@@ -41,10 +41,10 @@ import com.rilixtech.CountryCodePicker;
  * This class allows to get access of forgotten user password.
  */
 public class ForgotPasswordActivity extends BaseActivity implements OnClickListener,
-    ApiResponseListener {
+    ApiResponseListener, OnEditorActionListener {
 
   private AutoCompleteTextView textViewMobileNumber;
-  private AutoCompleteTextView textViewEmail;
+  private AutoCompleteTextView textViewall_email;
 
   private static final String FORGOT_PASSWORD_METHOD = "forgotPassword";
   private CountryCodePicker countryCodePicker;
@@ -74,11 +74,29 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
     textViewHeaderTitle.setText(R.string.all_forgotpassword);
 
     textViewMobileNumber = findViewById(R.id.textview_forgot_password_mobile_number);
-    textViewEmail = findViewById(R.id.textview_forgot_password_email);
+    textViewall_email = findViewById(R.id.textview_forgot_password_all_email);
     Button buttonSubmit = findViewById(R.id.button_forgot_password_reset_password);
-    buttonSubmit.setOnClickListener(this);
 
+    //Set OnclickListener
+    buttonSubmit.setOnClickListener(this);
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
+
+    //Set OnEditorActionListener
+    textViewMobileNumber.setOnEditorActionListener(this);
+    textViewall_email.setOnEditorActionListener(this);
+  }
+
+  /**
+   * Called when phone keyboard action clicked.
+   * @param textView focused view
+   * @param index index
+   * @param keyEvent key event
+   * @return boolean
+   */
+  @Override
+  public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
+    validateUsername();
+    return false;
   }
 
   /**
@@ -103,41 +121,41 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   }
 
   /**
-   * Method checks for valid email or phone number. And on success submit it to Emaar cloud by
+   * Method checks for valid all_email or phone number. And on success submit it to Emaar cloud by
    * calling forgotPassword api.
    */
   private void validateUsername() {
 
     textViewMobileNumber.setError(null);
-    textViewEmail.setError(null);
+    textViewall_email.setError(null);
 
     String mobileNumber = textViewMobileNumber.getText().toString();
-    String email = textViewEmail.getText().toString();
+    String all_email = textViewall_email.getText().toString();
 
     // Check for a valid username
-    if (TextUtils.isEmpty(mobileNumber) && TextUtils.isEmpty(email)) {
-      textViewMobileNumber.setError(getString(R.string.all_please_enter_email_or_mobile_number));
+    if (TextUtils.isEmpty(mobileNumber) && TextUtils.isEmpty(all_email)) {
+      textViewMobileNumber.setError(getString(R.string.all_erroremailormobile));
+      textViewMobileNumber.requestFocus();
+
+    } else if (!TextUtils.isEmpty(mobileNumber) && !TextUtils.isEmpty(all_email)) {
+      textViewMobileNumber.setError(getString(R.string.all_erroremailormobile));
       textViewMobileNumber.requestFocus();
 
     } else {
 
       if (!TextUtils.isEmpty(mobileNumber)) {
         if (!AppUtil.isValidMobile(mobileNumber)) {
-          textViewMobileNumber.setError(getString(R.string.all_error_invalid_mobile));
+          textViewMobileNumber.setError(getString(R.string.all_invalidmobile));
           textViewMobileNumber.requestFocus();
         } else {
-          //TODO: Need to uncomment forgotPassword()
-          //forgotPassword();
-          finish();
+          forgotPassword(mobileNumber);
         }
-      } else if (!TextUtils.isEmpty(email)) {
-        if (!AppUtil.isEmailValid(email)) {
-          textViewEmail.setError(getString(R.string.all_error_invalid_email));
-          textViewEmail.requestFocus();
+      } else if (!TextUtils.isEmpty(all_email)) {
+        if (!AppUtil.isall_emailValid(all_email)) {
+          textViewall_email.setError(getString(R.string.all_invalidemail));
+          textViewall_email.requestFocus();
         } else {
-          //TODO: Need to uncomment forgotPassword()
-          //forgotPassword();
-          finish();
+          forgotPassword(all_email);
         }
       }
     }
@@ -148,15 +166,16 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   /**
    * Method calls forgotPassword api.
    */
-  private void forgotPassword() {
+  private void forgotPassword(String accountId) {
+
     if (AppUtil.isNetworkAvailable(this)) {
+
       new HttpClientRequest().setApiResponseListner(this);
 
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_RESET_PASSWORD)
-          + SharedPreferenceUtils.getInstance(this)
-          .getStringValue(SharedPreferenceUtils.ACCOUNT_ID, ""),
+          + "nidhi.pacharne@digivalet.com",
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
-          FORGOT_PASSWORD_METHOD).httpGetRequest();
+          FORGOT_PASSWORD_METHOD,true).httpGetRequest();
     }
   }
 
@@ -181,7 +200,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog(this, errorMessage, false,
-        getResources().getString(R.string.alert_dialog_title_error), true);
+        getResources().getString(R.string.dialog_errortitle), true);
   }
 
   /**

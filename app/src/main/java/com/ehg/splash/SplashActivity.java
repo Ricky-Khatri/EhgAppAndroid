@@ -135,7 +135,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
   public void onMessageReceived(String message, boolean flag) {
 
     if (!flag) {
-      AppUtil.showToast(this, getResources().getString(R.string.all_permission_check_alert));
+      AppUtil.showToast(this, getResources().getString(R.string.all_permissionalert));
     }
   }
 
@@ -184,7 +184,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_UPDATE_TOKEN),
           entity, WebServiceUtil.CONTENT_TYPE,
-          UPDATE_TOKEN_METHOD).httpPostRequest();
+          UPDATE_TOKEN_METHOD,false).httpPostRequest();
     }
   }
 

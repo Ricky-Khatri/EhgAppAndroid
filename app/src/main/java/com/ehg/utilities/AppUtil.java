@@ -29,6 +29,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -79,6 +80,9 @@ public class AppUtil {
   private static final String TAG = AppUtil.class.getName();
 
   public static final String DEVICE_TYPE = "android";
+
+  private static final int ALERT_DIALOG_DURATION = 500;
+
   private static ProgressDialog progressDialog;
 
   /**
@@ -100,7 +104,7 @@ public class AppUtil {
    * @return returns spanned content
    */
   @SuppressWarnings("deprecation")
-  public static Spanned fromHtml(String html){
+  public static Spanned fromHtml(String html) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
     } else {
@@ -115,7 +119,9 @@ public class AppUtil {
    */
   public static void showLoadingIndicator(AppCompatActivity appCompatActivity) {
     if (appCompatActivity != null) {
-      progressDialog = new ProgressDialog(appCompatActivity);
+      progressDialog = new ProgressDialog(appCompatActivity,R.style.AppCompatAlertDialogStyle);
+      progressDialog.setMessage(appCompatActivity.getResources().getString(R.string.all_loading));
+      //progressDialog.setProgressStyle();
       progressDialog.show();
     }
   }
@@ -181,7 +187,7 @@ public class AppUtil {
   /**
    * Checks if passed email string is valid or not.
    */
-  public static boolean isEmailValid(String email) {
+  public static boolean isall_emailValid(String email) {
     return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
   }
 
@@ -190,7 +196,7 @@ public class AppUtil {
    */
   public static boolean isValidMobile(String phone) {
     return /*android.util.Patterns.PHONE.matcher(phone).matches()*/
-          phone.length() > 0 && phone.length() == 10;
+        phone.length() > 0 && phone.length() == 10;
   }
 
   /**
@@ -347,7 +353,7 @@ public class AppUtil {
    * @param appCompatActivity calling class object
    * @param alertMessage message which will show as an alert
    * @param isRedirect if it is true than we will navigate to other activity, or if false than we
-   * will stay on same activity and perform required action.
+   *        will stay on same activity and perform required action.
    * @param alertTitle message will show on a dialog title
    * @param isCancelable Whether the dialog should be isCancelable when touched outside the window
    */
@@ -409,9 +415,9 @@ public class AppUtil {
       materialDesignAnimatedDialog.setCanceledOnTouchOutside(isCancelable);
       materialDesignAnimatedDialog.setCustomView(layout, appCompatActivity);
 
-      materialDesignAnimatedDialog.withDuration(700)
+      materialDesignAnimatedDialog.withDuration(ALERT_DIALOG_DURATION)
           .withMessage(null)
-          .withDialogColor("#1c90ec")
+          .withDialogColor(appCompatActivity.getResources().getColor(R.color.white))
           .withEffect(Effectstype.Fadein)
           .show();
     /*materialDesignAnimatedDialog

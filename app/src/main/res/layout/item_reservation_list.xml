@@ -23,20 +23,20 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_margin="@dimen/dimension_header_elevation"
+  android:layout_margin="@dimen/elevation_all_header"
   android:background="@drawable/all_itemlist_bg">
 
   <android.support.v7.widget.AppCompatImageView
     android:id="@+id/imageview_itemreservationlist_thumb"
     app:srcCompat="@drawable/placeholder"
     android:scaleType="fitXY"
-    android:layout_width="@dimen/dimension_reservation_image_size"
-    android:layout_height="@dimen/dimension_reservation_image_size"/>
+    android:layout_width="@dimen/imagesize_all_reservationimage"
+    android:layout_height="@dimen/imagesize_all_reservationimage"/>
 
   <LinearLayout
     android:layout_centerVertical="true"
-    android:layout_marginLeft="@dimen/dimension_header_elevation"
-    android:layout_marginRight="@dimen/dimension_header_elevation"
+    android:layout_marginLeft="@dimen/elevation_all_header"
+    android:layout_marginRight="@dimen/elevation_all_header"
     android:layout_toRightOf="@+id/imageview_itemreservationlist_thumb"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -57,12 +57,12 @@
       <android.support.v7.widget.AppCompatImageView
         app:srcCompat="@drawable/placeholder"
         android:scaleType="fitXY"
-        android:layout_width="@dimen/dimension_location_image_size"
-        android:layout_height="@dimen/dimension_location_image_size"/>
+        android:layout_width="@dimen/imagesize_all_locationimage"
+        android:layout_height="@dimen/imagesize_all_locationimage"/>
 
       <TextView
-        android:layout_marginLeft="@dimen/dimension_header_elevation"
-        android:layout_marginRight="@dimen/dimension_header_elevation"
+        android:layout_marginLeft="@dimen/elevation_all_header"
+        android:layout_marginRight="@dimen/elevation_all_header"
         style="@style/AppLabelsTextAppearance"
         android:id="@+id/textview_itemreservationlist_address"
         android:layout_width="wrap_content"
@@ -81,16 +81,16 @@
         android:layout_height="wrap_content">
 
         <TextView
-          android:layout_marginLeft="@dimen/dimension_header_elevation"
-          android:layout_marginRight="@dimen/dimension_header_elevation"
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
           style="@style/AppLabelsTextAppearance"
           android:id="@+id/textview_itemreservationlist_checkindate"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
         <TextView
-          android:layout_marginLeft="@dimen/dimension_header_elevation"
-          android:layout_marginRight="@dimen/dimension_header_elevation"
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
           style="@style/AppLabelsTextAppearance"
           android:id="@+id/textview_itemreservationlist_adults"
           android:layout_width="wrap_content"
@@ -105,16 +105,16 @@
         android:layout_height="wrap_content">
 
         <TextView
-          android:layout_marginLeft="@dimen/dimension_header_elevation"
-          android:layout_marginRight="@dimen/dimension_header_elevation"
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
           style="@style/AppLabelsTextAppearance"
           android:id="@+id/textview_itemreservationlist_checkoutdate"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"/>
 
         <TextView
-          android:layout_marginLeft="@dimen/dimension_header_elevation"
-          android:layout_marginRight="@dimen/dimension_header_elevation"
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
           style="@style/AppLabelsTextAppearance"
           android:id="@+id/textview_itemreservationlist_childs"
           android:layout_width="wrap_content"
@@ -132,12 +132,12 @@
         <android.support.v7.widget.AppCompatImageView
           app:srcCompat="@drawable/placeholder"
           android:scaleType="fitXY"
-          android:layout_width="@dimen/dimension_location_image_size"
-          android:layout_height="@dimen/dimension_location_image_size"/>
+          android:layout_width="@dimen/imagesize_all_locationimage"
+          android:layout_height="@dimen/imagesize_all_locationimage"/>
 
         <TextView
-          android:layout_marginLeft="@dimen/dimension_header_elevation"
-          android:layout_marginRight="@dimen/dimension_header_elevation"
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
           style="@style/AppLabelsTextAppearance"
           android:id="@+id/textview_itemreservationlist_time"
           android:layout_width="wrap_content"

@@ -23,6 +23,7 @@
     android:orientation="vertical"
     android:gravity="center">
 
-  <include layout="@layout/view_all_tab_layout"/>
+  <include layout="@layout/view_all_tab_layout"
+    android:visibility="gone"/>
 
 </LinearLayout>

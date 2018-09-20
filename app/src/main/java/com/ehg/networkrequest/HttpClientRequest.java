@@ -20,8 +20,10 @@
 package com.ehg.networkrequest;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import com.ehg.R;
+import com.ehg.utilities.AppUtil;
 import com.google.firebase.perf.FirebasePerformance;
 import com.google.firebase.perf.FirebasePerformance.HttpMethod;
 import com.google.firebase.perf.metrics.HttpMetric;
@@ -38,7 +40,7 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class HttpClientRequest {
 
-  private ApiResponseListener apiResponseListner;
+  public static ApiResponseListener apiResponseListner;
 
   private static final int TIME_OUT = 600000;
 
@@ -57,6 +59,8 @@ public class HttpClientRequest {
   //Fire-base api monitor members
   private HttpMetric httpMetric;
 
+  private boolean showLoadingIndicator;
+
   /**
    * Default constructor for HttpRequest class.
    */
@@ -73,7 +77,7 @@ public class HttpClientRequest {
    * @param methodClass - calling class method
    */
   public HttpClientRequest(Context context, String url, StringEntity stringEntity,
-      String contentType, String methodClass) {
+      String contentType, String methodClass, boolean showLoadingIndicator) {
 
     asyncHttpClient = new AsyncHttpClient(true, 80, 443);
     asyncHttpClient.setConnectTimeout(TIME_OUT);
@@ -84,7 +88,8 @@ public class HttpClientRequest {
     this.contentType = contentType;
 
     requestMethod = methodClass;
-    errorMessage = context.getResources().getString(R.string.api_error_message);
+    errorMessage = context.getResources().getString(R.string.all_apierrormessage);
+    this.showLoadingIndicator = showLoadingIndicator;
   }
 
   /**
@@ -98,7 +103,7 @@ public class HttpClientRequest {
    */
 
   public HttpClientRequest(Context context, String url, RequestParams requestParams,
-      String contentType, String methodClass) {
+      String contentType, String methodClass, boolean showLoadingIndicator) {
 
     asyncHttpClient = new AsyncHttpClient(true, 80, 443);
     asyncHttpClient.setConnectTimeout(TIME_OUT);
@@ -109,7 +114,8 @@ public class HttpClientRequest {
     this.contentType = contentType;
 
     requestMethod = methodClass;
-    errorMessage = context.getResources().getString(R.string.api_error_message);
+    errorMessage = context.getResources().getString(R.string.all_apierrormessage);
+    this.showLoadingIndicator = showLoadingIndicator;
   }
 
   /**
@@ -118,6 +124,10 @@ public class HttpClientRequest {
   public void httpPostRequest() {
 
     try {
+
+      if(showLoadingIndicator) {
+        AppUtil.showLoadingIndicator((AppCompatActivity) context);
+      }
 
       startFirebaseMonitorTrace(HttpMethod.POST);
 
@@ -128,6 +138,8 @@ public class HttpClientRequest {
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
           try {
+
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
 
             stopFirebaseMonitorTrace();
 
@@ -140,9 +152,11 @@ public class HttpClientRequest {
             }
 
           } catch (NullPointerException e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
             apiResponseListner.onFailureResponse(errorMessage);
             e.printStackTrace();
           } catch (Exception e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
             apiResponseListner.onFailureResponse(errorMessage);
             e.printStackTrace();
           }
@@ -153,6 +167,7 @@ public class HttpClientRequest {
             byte[] responseBody, Throwable error) {
 
           try {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
 
             stopFirebaseMonitorTrace();
 
@@ -165,16 +180,20 @@ public class HttpClientRequest {
             }
 
           } catch (NullPointerException e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
             apiResponseListner.onFailureResponse(errorMessage);
           } catch (Exception e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
             apiResponseListner.onFailureResponse(errorMessage);
           }
         }
       });
 
     } catch (NullPointerException e) {
+      AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
       apiResponseListner.onFailureResponse(errorMessage);
     } catch (Exception e) {
+      AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
       apiResponseListner.onFailureResponse(errorMessage);
     }
   }
@@ -185,6 +204,10 @@ public class HttpClientRequest {
   public void httpGetRequest() {
 
     try {
+
+      if(showLoadingIndicator) {
+        AppUtil.showLoadingIndicator((AppCompatActivity) context);
+      }
 
       startFirebaseMonitorTrace(HttpMethod.GET);
 
@@ -198,6 +221,8 @@ public class HttpClientRequest {
 
           try {
 
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
+
             stopFirebaseMonitorTrace();
 
             if (TextUtils.isEmpty(result)) {
@@ -207,8 +232,10 @@ public class HttpClientRequest {
             }
 
           } catch (NullPointerException e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
             apiResponseListner.onFailureResponse(errorMessage);
           } catch (Exception e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
             apiResponseListner.onFailureResponse(errorMessage);
           }
         }
@@ -216,6 +243,8 @@ public class HttpClientRequest {
         @Override
         public void onSuccess(int statusCode, Header[] headers, String result) {
           try {
+
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
 
             stopFirebaseMonitorTrace();
 
@@ -225,16 +254,20 @@ public class HttpClientRequest {
               apiResponseListner.onSuccessResponse(result, requestMethod);
             }
           } catch (NullPointerException e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
             apiResponseListner.onFailureResponse(errorMessage);
           } catch (Exception e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
             apiResponseListner.onFailureResponse(errorMessage);
           }
         }
       });
 
     } catch (NullPointerException e) {
+      AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
       apiResponseListner.onFailureResponse(errorMessage);
     } catch (Exception e) {
+      AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
       apiResponseListner.onFailureResponse(errorMessage);
     }
   }

@@ -128,7 +128,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
 
     if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
       ((HomeActivity) Objects.requireNonNull(getActivity()))
-          .updateToolbarTitle(context.getResources().getString(R.string.home));
+          .updateToolbarTitle(context.getResources().getString(R.string.home_title));
     }
 
     try {

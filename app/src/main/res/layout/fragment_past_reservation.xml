@@ -27,14 +27,14 @@
     android:id="@+id/recyclerview_pastreservation_reservationcategory"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimension_header_button_padding">
+    android:layout_margin="@dimen/padding_all_headerbutton">
   </android.support.v7.widget.RecyclerView>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recyclerview_pastreservation_reservation"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimension_header_button_padding">
+    android:layout_margin="@dimen/padding_all_headerbutton">
   </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

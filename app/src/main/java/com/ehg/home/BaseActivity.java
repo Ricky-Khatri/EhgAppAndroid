@@ -80,7 +80,6 @@ public class BaseActivity extends AppCompatActivity {
       /**
        * Get notification token and store locally.
        */
-      //String token = FirebaseInstanceId.getInstance().getToken();
       FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(this,
           new OnSuccessListener<InstanceIdResult>() {
             /**
@@ -91,7 +90,6 @@ public class BaseActivity extends AppCompatActivity {
             public void onSuccess(InstanceIdResult instanceIdResult) {
               String token = instanceIdResult.getToken();
               SharedPreferenceUtils.getInstance(BaseActivity.this).setValue(SharedPreferenceUtils.FCM_TOKEN,token);
-              Log.e("newToken",token);
             }
           });
       

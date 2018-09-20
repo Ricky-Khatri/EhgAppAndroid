@@ -38,8 +38,8 @@
 
       <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/country_photo"
-        android:layout_width="@dimen/dimension_login_logo"
-        android:layout_height="@dimen/dimension_login_logo"
+        android:layout_width="@dimen/size_all_bannerimage"
+        android:layout_height="@dimen/size_all_bannerimage"
         android:layout_gravity="center"
         android:src="@mipmap/ic_launcher_round"
         app:riv_corner_radius="60dip"
@@ -55,7 +55,7 @@
         <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_margin="@dimen/dimension_header_margin_left"
+          android:layout_margin="@dimen/marginleft_all_header"
           android:background="@drawable/all_rounded_border">
 
           <TextView
@@ -63,7 +63,7 @@
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimension_header_margin_right"
+            android:layout_margin="@dimen/marginright_all_header"
             android:gravity="center"/>
 
         </RelativeLayout>
@@ -71,15 +71,15 @@
         <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_margin="@dimen/dimension_header_margin_left"
+          android:layout_margin="@dimen/marginleft_all_header"
           android:background="@drawable/all_rounded_border">
 
           <TextView
-            android:id="@+id/textview_user_email"
+            android:id="@+id/textview_user_all_email"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimension_header_margin_right"
+            android:layout_margin="@dimen/marginright_all_header"
             android:gravity="center"/>
 
         </RelativeLayout>
@@ -113,7 +113,7 @@
               style="@style/AppLabelsTextAppearance"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_margin="@dimen/dimension_header_margin_right"
+              android:layout_margin="@dimen/marginright_all_header"
               android:gravity="center"/>
           </LinearLayout>
           <LinearLayout
@@ -146,7 +146,7 @@
               style="@style/AppLabelsTextAppearance"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_margin="@dimen/dimension_header_margin_right"
+              android:layout_margin="@dimen/marginright_all_header"
               android:gravity="center"/>
           </LinearLayout>
           <LinearLayout
@@ -178,7 +178,7 @@
               style="@style/AppLabelsTextAppearance"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_margin="@dimen/dimension_header_margin_right"
+              android:layout_margin="@dimen/marginright_all_header"
               android:gravity="center"/>
           </LinearLayout>
           <LinearLayout

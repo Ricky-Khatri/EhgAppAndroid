@@ -40,7 +40,7 @@
       android:id="@+id/linearlayout_setting_preferences"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/dimension_app_labels"
+      android:padding="@dimen/textsize_all_labels"
       android:gravity="center"
       android:orientation="horizontal">
       <TextView
@@ -69,7 +69,7 @@
       android:id="@+id/linearlayout_settings_support"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/dimension_app_labels"
+      android:padding="@dimen/textsize_all_labels"
       android:gravity="center"
       android:orientation="horizontal">
       <TextView
@@ -98,7 +98,7 @@
       android:id="@+id/linearlayout_settings_privacypolicy"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/dimension_app_labels"
+      android:padding="@dimen/textsize_all_labels"
       android:gravity="center"
       android:orientation="horizontal">
       <TextView
@@ -127,7 +127,7 @@
       android:id="@+id/linearlayout_settings_termandconditions"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/dimension_app_labels"
+      android:padding="@dimen/textsize_all_labels"
       android:gravity="center"
       android:orientation="horizontal">
       <TextView
@@ -156,7 +156,7 @@
       android:id="@+id/linearlayout_settings_language"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/dimension_app_labels"
+      android:padding="@dimen/textsize_all_labels"
       android:gravity="center"
       android:orientation="horizontal">
       <TextView
@@ -185,7 +185,7 @@
       android:id="@+id/linearlayout_settings_userstate"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="@dimen/dimension_app_labels"
+      android:padding="@dimen/textsize_all_labels"
       android:gravity="center"
       android:orientation="horizontal">
       <TextView

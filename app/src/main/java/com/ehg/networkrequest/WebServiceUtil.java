@@ -25,25 +25,26 @@ package com.ehg.networkrequest;
 
 public class WebServiceUtil {
 
+  //API base url
+  public static final String BASE_URL = "http://192.168.3.28:8080/ehg-cloud-gateway/";
+
   public static final String DEVICE_TYPE = "Android";
 
   //API Content type
   public static final String CONTENT_TYPE = "application/json";
 
-  //API base url
-  public static final String BASE_URL = "";
-
   //Signup method
-  public static final String METHOD_SIGN_UP = "/signUp/quickEnrollment/v1";
+  public static final String METHOD_SIGN_UP = "signUp/quickEnrollment/v1";
+  public static final String FEATURE_SIGN_UP = "signUp";
 
   //Login method
-  public static final String METHOD_LOGIN = "/signUp/login/v1";
+  public static final String METHOD_LOGIN = "signUp/login/v1";
 
   //UpdateToken method
   public static final String METHOD_UPDATE_TOKEN = "updateToken";
 
   //ResetPassword method
-  public static final String METHOD_RESET_PASSWORD = "/signUp/resetPassword/v1/";
+  public static final String METHOD_RESET_PASSWORD = "signUp/resetPassword/v1/";
 
 
   /**

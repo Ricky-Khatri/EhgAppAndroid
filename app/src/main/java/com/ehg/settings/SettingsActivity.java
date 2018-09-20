@@ -53,7 +53,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
   private void initView() {
 
     TextView textViewTitle = findViewById(R.id.textview_header_title);
-    textViewTitle.setText(getResources().getString(R.string.settings));
+    textViewTitle.setText(getResources().getString(R.string.settings_title));
 
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
   }
