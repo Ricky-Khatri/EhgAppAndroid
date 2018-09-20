@@ -39,7 +39,7 @@ public class Detail {
   @Expose
   private String dob;
   @Expose
-  private String emailId;
+  private String all_emailId;
   @Expose
   private String firstName;
   @Expose
@@ -162,17 +162,17 @@ public class Detail {
   /**
    * Getter method.
    *
-   * @return Gets the value of emailId and returns emailId.
+   * @return Gets the value of all_emailId and returns all_emailId.
    */
-  public String getEmailId() {
-    return emailId;
+  public String getall_emailId() {
+    return all_emailId;
   }
 
   /**
-   * Sets the emailId. You can use getEmailId() to get the value of emailId.
+   * Sets the all_emailId. You can use getall_emailId() to get the value of all_emailId.
    */
-  public void setEmailId(String emailId) {
-    this.emailId = emailId;
+  public void setall_emailId(String all_emailId) {
+    this.all_emailId = all_emailId;
   }
 
   /**

@@ -31,19 +31,19 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
       android:id="@+id/roundedimageview_itemhome_horizontalitem_brandimage"
-      android:layout_width="@dimen/dimension_reservation_image_size"
-      android:layout_height="@dimen/dimension_reservation_image_size"
+      android:layout_width="@dimen/imagesize_all_reservationimage"
+      android:layout_height="@dimen/imagesize_all_reservationimage"
       android:src="@drawable/emaar_logo"
       android:scaleType="centerCrop"
       app:riv_corner_radius="4dp"/>
 
     <TextView
       android:id="@+id/textview_itemhome_horizontalitem_brandname"
-      android:layout_width="@dimen/dimension_itemhomehorizontallist_roundedimage_size"
-      android:textSize="@dimen/dimension_guest_detail"
+      android:layout_width="@dimen/imagesize_all_roundedimage"
+      android:textSize="@dimen/textsize_all_guestdetail"
       android:text="@string/item_home_horizonalitem"
       android:gravity="left|center"
-      android:layout_marginTop="@dimen/dimension_guest_detail"
+      android:layout_marginTop="@dimen/textsize_all_guestdetail"
       android:layout_height="wrap_content"/>
 
   </LinearLayout>

@@ -24,7 +24,7 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:background="@color/colorGray"
-  android:elevation="@dimen/dimension_header_elevation">
+  android:elevation="@dimen/elevation_all_header">
 
   <android.support.v7.widget.AppCompatImageView
     android:layout_centerVertical="true"
@@ -33,20 +33,19 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    android:layout_width="@dimen/dimension_header_back"
-    android:layout_height="@dimen/dimension_header_back"
-    android:padding="@dimen/dimension_header_button_padding"
+    android:layout_width="@dimen/size_all_backicon"
+    android:layout_height="@dimen/size_all_backicon"
+    android:padding="@dimen/padding_all_headerbutton"
     android:tint="@color/white"
-    app:srcCompat="@drawable/ic_back_arrow"
-    android:contentDescription="@string/text"/>
+    app:srcCompat="@drawable/ic_back_arrow"/>
 
   <TextView
     android:layout_centerVertical="true"
     android:layout_toLeftOf="@+id/imageview_header_extra"
     android:layout_toRightOf="@+id/imageview_header_back"
     android:id="@+id/textview_header_title"
-    android:layout_marginLeft="@dimen/dimension_header_margin_left"
-    android:layout_marginRight="@dimen/dimension_header_margin_right"
+    android:layout_marginLeft="@dimen/marginleft_all_header"
+    android:layout_marginRight="@dimen/marginright_all_header"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     style="@style/HeaderTextAppearance"
@@ -58,9 +57,9 @@
     android:layout_centerVertical="true"
     android:layout_alignParentRight="true"
     android:id="@+id/imageview_header_extra"
-    android:layout_width="@dimen/dimension_header_back"
-    android:layout_height="@dimen/dimension_header_back"
-    android:padding="@dimen/dimension_header_button_padding"
+    android:layout_width="@dimen/size_all_backicon"
+    android:layout_height="@dimen/size_all_backicon"
+    android:padding="@dimen/padding_all_headerbutton"
     android:visibility="invisible"
     android:background="@drawable/ic_launcher_background"
     android:contentDescription="TODO"/>

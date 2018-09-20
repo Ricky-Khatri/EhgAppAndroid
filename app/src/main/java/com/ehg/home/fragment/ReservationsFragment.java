@@ -97,9 +97,9 @@ public class ReservationsFragment extends BaseFragment {
 
     //Create tabs
     tabLayout.addTab(tabLayout.newTab().setText(
-        getResources().getString(R.string.reservation_upcoming)));
+        getResources().getString(R.string.reservation_upcomingtab)));
     tabLayout.addTab(tabLayout.newTab().setText(
-        getResources().getString(R.string.reservation_past)));
+        getResources().getString(R.string.reservation_pasttab)));
     tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
     //Set viewpager fragment adapter

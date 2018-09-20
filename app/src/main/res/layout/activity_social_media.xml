@@ -31,7 +31,7 @@
     layout="@layout/layout_header_with_navigation"/>
 
   <LinearLayout
-    android:layout_margin="@dimen/activity_vertical_margin"
+    android:layout_margin="@dimen/margin_all_vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -40,25 +40,25 @@
 
     <ImageView
       android:id="@+id/imageview_social_media_facebook"
-      android:layout_width="@dimen/dimension_social_media_share_icon"
-      android:layout_height="@dimen/dimension_social_media_share_icon"
-      android:layout_margin="@dimen/dimension_header_margin_left"
+      android:layout_width="@dimen/size_socialmedia_mediaicon"
+      android:layout_height="@dimen/size_socialmedia_mediaicon"
+      android:layout_margin="@dimen/marginleft_all_header"
       android:background="@drawable/ic_facebook"
       android:text="@string/facebook"/>
 
     <ImageView
       android:id="@+id/imageview_social_media_twitter"
-      android:layout_width="@dimen/dimension_social_media_share_icon"
-      android:layout_margin="@dimen/dimension_header_margin_left"
-      android:layout_height="@dimen/dimension_social_media_share_icon"
+      android:layout_width="@dimen/size_socialmedia_mediaicon"
+      android:layout_margin="@dimen/marginleft_all_header"
+      android:layout_height="@dimen/size_socialmedia_mediaicon"
       android:background="@drawable/ic_twitter"
       android:text="@string/twitter"/>
 
     <ImageView
       android:id="@+id/imageview_social_media_instagram"
-      android:layout_width="@dimen/dimension_social_media_share_icon"
-      android:layout_margin="@dimen/dimension_header_margin_left"
-      android:layout_height="@dimen/dimension_social_media_share_icon"
+      android:layout_width="@dimen/size_socialmedia_mediaicon"
+      android:layout_margin="@dimen/marginleft_all_header"
+      android:layout_height="@dimen/size_socialmedia_mediaicon"
       android:background="@drawable/ic_instagram"
       android:text="@string/instagram"/>
   </LinearLayout>

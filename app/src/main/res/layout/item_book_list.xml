@@ -22,7 +22,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/relativelayout_itembooklist_list"
   android:layout_width="match_parent"
-  android:layout_marginBottom="@dimen/dimension_header_elevation"
+  android:layout_marginBottom="@dimen/elevation_all_header"
   android:layout_height="150dp">
 
   <ProgressBar

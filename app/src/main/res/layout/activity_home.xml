@@ -85,7 +85,7 @@
       android:layout_width="0dp"
       android:layout_height="match_parent"
       android:layout_weight="0.15"
-      android:padding="@dimen/dimension_app_labels"
+      android:padding="@dimen/textsize_all_labels"
       android:background="@color/white"
       android:scaleType="centerCrop"
       android:visibility="visible"

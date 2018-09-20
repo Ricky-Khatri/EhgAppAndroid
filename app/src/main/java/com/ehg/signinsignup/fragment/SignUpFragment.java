@@ -65,7 +65,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
   private EditText edittextFirstName;
   private EditText edittextLastName;
-  private EditText edittextEmail;
+  private EditText edittextall_email;
   private EditText edittextMobile;
   private EditText edittextPassword;
 
@@ -141,9 +141,9 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
     appCompatImageViewLogo.getLayoutParams().height = AppUtil.getDeviceHeight(
         (AppCompatActivity) context) / 4;
 
-    edittextFirstName = view.findViewById(R.id.edittext_sign_up_first_name);
-    edittextLastName = view.findViewById(R.id.edittext_sign_up_last_name);
-    edittextEmail = view.findViewById(R.id.edittext_sign_up_email);
+    edittextFirstName = view.findViewById(R.id.edittext_sign_up_all_firstname);
+    edittextLastName = view.findViewById(R.id.edittext_sign_up_all_lastname);
+    edittextall_email = view.findViewById(R.id.edittext_sign_up_all_email);
     edittextMobile = view.findViewById(R.id.edittext_sign_up_mobile);
     edittextPassword = view.findViewById(R.id.edittext_sign_up_password);
 
@@ -168,7 +168,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
     //Set EditorCLickListener
     edittextFirstName.setOnEditorActionListener(this);
     edittextLastName.setOnEditorActionListener(this);
-    edittextEmail.setOnEditorActionListener(this);
+    edittextall_email.setOnEditorActionListener(this);
     edittextMobile.setOnEditorActionListener(this);
     edittextPassword.setOnEditorActionListener(this);
   }
@@ -218,7 +218,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   private void validateSignUpFormFields() {
     edittextFirstName.setError(null);
     edittextLastName.setError(null);
-    edittextEmail.setError(null);
+    edittextall_email.setError(null);
     edittextMobile.setError(null);
     edittextPassword.setError(null);
 
@@ -227,55 +227,55 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
     String firstName = edittextFirstName.getText().toString();
     String lastName = edittextLastName.getText().toString();
-    String email = edittextEmail.getText().toString();
+    String all_email = edittextall_email.getText().toString();
     String mobile = edittextMobile.getText().toString();
     String password = edittextPassword.getText().toString();
 
     if (TextUtils.isEmpty(firstName)) {
 
-      edittextFirstName.setError(getResources().getString(R.string.all_error_field_required));
+      edittextFirstName.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextFirstName;
       cancel = true;
 
     } else if (TextUtils.isEmpty(lastName)) {
 
-      edittextLastName.setError(getResources().getString(R.string.all_error_field_required));
+      edittextLastName.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextLastName;
       cancel = true;
 
-    } else if (TextUtils.isEmpty(email)) {
+    } else if (TextUtils.isEmpty(all_email)) {
 
-      edittextEmail.setError(getResources().getString(R.string.all_error_field_required));
-      focusView = edittextEmail;
+      edittextall_email.setError(getResources().getString(R.string.all_fieldrequired));
+      focusView = edittextall_email;
       cancel = true;
 
-    } else if (!AppUtil.isEmailValid(email)) {
+    } else if (!AppUtil.isall_emailValid(all_email)) {
 
-      edittextEmail.setError(getResources().getString(R.string.all_error_invalid_email));
-      focusView = edittextEmail;
+      edittextall_email.setError(getResources().getString(R.string.all_invalidemail));
+      focusView = edittextall_email;
       cancel = true;
 
     } else if (TextUtils.isEmpty(mobile)) {
 
-      edittextMobile.setError(getResources().getString(R.string.all_error_field_required));
+      edittextMobile.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextMobile;
       cancel = true;
 
     } else if (!AppUtil.isValidMobile(mobile)) {
 
-      edittextMobile.setError(getResources().getString(R.string.all_error_invalid_mobile));
+      edittextMobile.setError(getResources().getString(R.string.all_invalidmobile));
       focusView = edittextMobile;
       cancel = true;
 
     } else if (TextUtils.isEmpty(password)) {
 
-      edittextPassword.setError(getResources().getString(R.string.all_error_field_required));
+      edittextPassword.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextPassword;
       cancel = true;
 
     } else if (!isPasswordValid(password)) {
 
-      edittextPassword.setError(getResources().getString(R.string.all_error_password_length));
+      edittextPassword.setError(getResources().getString(R.string.all_passwordlength));
       focusView = edittextPassword;
       cancel = true;
 
@@ -289,7 +289,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       /*Intent intent = new Intent(context, HomeActivity.class);
       AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);*/
-      userSignup(email,mobile,firstName,lastName,password);
+      userSignup(all_email,mobile,firstName,lastName,password);
     }
   }
 
@@ -306,7 +306,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   /**
    * Method registers user at Emaar cloud.
    */
-  private void userSignup(String emailId, String mobileNumber, String firstName,
+  private void userSignup(String all_emailId, String mobileNumber, String firstName,
       String lastName, String password) {
 
     if (AppUtil.isNetworkAvailable(context)) {
@@ -318,7 +318,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
       JSONObject detailObject = new JSONObject();
 
       try {
-        detailObject.put("emailId", emailId);
+        detailObject.put("all_emailId", all_emailId);
         detailObject.put("mobileNumber", countryCodePicker.getSelectedCountryCode() + mobileNumber);
         detailObject.put("lastName", lastName);
         detailObject.put("firstName", firstName);
@@ -379,6 +379,6 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
-        getResources().getString(R.string.alert_dialog_title_error), true);
+        getResources().getString(R.string.dialog_errortitle), true);
   }
 }

@@ -32,7 +32,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/layout_settingpreferences_header"
-    android:padding="@dimen/dimension_app_labels"
+    android:padding="@dimen/textsize_all_labels"
     android:gravity="center"
     android:weightSum="1.2">
     <TextView
@@ -51,7 +51,7 @@
         android:id="@+id/switch_settingprefernces_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/dimension_app_labels"
+        android:layout_marginEnd="@dimen/textsize_all_labels"
         />
     </LinearLayout>
   </LinearLayout>

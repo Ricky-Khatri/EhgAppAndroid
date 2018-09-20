@@ -86,7 +86,7 @@ public class SocialMediaUtil {
       }
     } else {
       AppUtil.showToast(appCompatActivity,
-          appCompatActivity.getResources().getString(R.string.please_check_network_settings));
+          appCompatActivity.getResources().getString(R.string.all_please_check_network_settings));
     }
   }
 
@@ -124,7 +124,7 @@ public class SocialMediaUtil {
 
     } else {
       AppUtil.showToast(appCompatActivity,
-          appCompatActivity.getResources().getString(R.string.please_check_network_settings));
+          appCompatActivity.getResources().getString(R.string.all_please_check_network_settings));
     }
   }
 
@@ -171,7 +171,7 @@ public class SocialMediaUtil {
       }
     } else {
       AppUtil.showToast(appCompatActivity,
-          appCompatActivity.getResources().getString(R.string.please_check_network_settings));
+          appCompatActivity.getResources().getString(R.string.all_please_check_network_settings));
     }
   }
 

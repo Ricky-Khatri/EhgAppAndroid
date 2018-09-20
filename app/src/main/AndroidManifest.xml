@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.ehg">
 
-  <!-- To auto-complete the email text field in the login form with the user's emails -->
+  <!-- To auto-complete the all_email text field in the login form with the user's all_emails -->
   <uses-permission android:name="android.permission.INTERNET"/>
 
   <!--
@@ -89,7 +89,7 @@
       android:value="@string/google_maps_key"/>
 
     <activity
-      android:label="@string/title_activity_google_map"
+      android:label="@string/map_title"
       android:name=".maps.ui.MapsActivity">
     </activity>
     <activity android:name=".settings.PreferencesActivity"/>

@@ -1,40 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <dimen name="activity_horizontal_margin">16dp</dimen>
-  <dimen name="activity_vertical_margin">16dp</dimen>
+  <dimen name="margin_all_horizontal">16dp</dimen>
+  <dimen name="margin_all_vertical">16dp</dimen>
 
   <!--Header dimensions-->
-  <dimen name="dimension_header_title">17sp</dimen>
-  <dimen name="dimension_app_labels">13sp</dimen>
-  <dimen name="dimension_header_elevation">5dp</dimen>
-  <dimen name="dimension_header_button_padding">8dp</dimen>
-  <dimen name="dimension_header_margin_left">5dp</dimen>
-  <dimen name="dimension_header_margin_right">5dp</dimen>
-  <dimen name="dimension_header_back">50dp</dimen>
-  <dimen name="dimension_header_extra">50dp</dimen>
+  <dimen name="textsize_all_headertitle">17sp</dimen>
+  <dimen name="textsize_all_labels">13sp</dimen>
+  <dimen name="elevation_all_header">5dp</dimen>
+  <dimen name="padding_all_headerbutton">8dp</dimen>
+  <dimen name="marginleft_all_header">5dp</dimen>
+  <dimen name="marginright_all_header">5dp</dimen>
+  <dimen name="size_all_backicon">50dp</dimen>
 
   <!--Login options dimensions-->
-  <dimen name="dimension_loginoptions_logo_margin">10dp</dimen>
-  <dimen name="dimension_login_logo">100dp</dimen>
-  <dimen name="dimension_all_mobilefieldivider_size">22dp</dimen>
+  <dimen name="margin_all_bannerimage">10dp</dimen>
+  <dimen name="size_all_bannerimage">100dp</dimen>
+  <dimen name="height_all_verticaldivider">22dp</dimen>
+  <dimen name="height_all_alertdialog">160dp</dimen>
 
   <!--Share screen dimensions-->
-  <dimen name="dimension_social_media_share_icon">50dp</dimen>
+  <dimen name="size_socialmedia_mediaicon">50dp</dimen>
 
-  <dimen name="dimension_continue_as_guest">15dp</dimen>
+  <dimen name="margin_all_continueasguest">15dp</dimen>
 
-  <dimen name="height_header_search_searchicon">40dp</dimen>
-  <dimen name="appcompatimageview_padding_headerdearch">7dp</dimen>
+  <dimen name="height_all_searchicon">40dp</dimen>
+  <dimen name="padding_all_imageview">7dp</dimen>
   <dimen name="marginstart_header_search">10dp</dimen>
   <dimen name="padding_headersearch_linearlayoutparent">7dp</dimen>
 
   <!--Text View dimension-->
-  <dimen name="dimension_guest_title">12sp</dimen>
-  <dimen name="dimension_guest_detail">10sp</dimen>
-  <dimen name="dimension_itemhomehorizontallist_roundedimage_size">100dp</dimen>
-  <dimen name="dimension_itemhomehorizontallist_linearlayout_size">150dp</dimen>
+  <dimen name="textsize_all_guesttitle">12sp</dimen>
+  <dimen name="textsize_all_guestdetail">10sp</dimen>
+  <dimen name="imagesize_all_roundedimage">100dp</dimen>
 
-  <dimen name="dimension_reservation_image_size">100dp</dimen>
-  <dimen name="dimension_location_image_size">15dp</dimen>
+  <dimen name="imagesize_all_reservationimage">100dp</dimen>
+  <dimen name="imagesize_all_locationimage">15dp</dimen>
 </resources>

@@ -88,7 +88,7 @@ public class HttpClientRequest {
     this.contentType = contentType;
 
     requestMethod = methodClass;
-    errorMessage = context.getResources().getString(R.string.api_error_message);
+    errorMessage = context.getResources().getString(R.string.all_apierrormessage);
     this.showLoadingIndicator = showLoadingIndicator;
   }
 
@@ -114,7 +114,7 @@ public class HttpClientRequest {
     this.contentType = contentType;
 
     requestMethod = methodClass;
-    errorMessage = context.getResources().getString(R.string.api_error_message);
+    errorMessage = context.getResources().getString(R.string.all_apierrormessage);
     this.showLoadingIndicator = showLoadingIndicator;
   }
 

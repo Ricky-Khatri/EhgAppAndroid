@@ -135,7 +135,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
   public void onMessageReceived(String message, boolean flag) {
 
     if (!flag) {
-      AppUtil.showToast(this, getResources().getString(R.string.all_permission_check_alert));
+      AppUtil.showToast(this, getResources().getString(R.string.all_permissionalert));
     }
   }
 

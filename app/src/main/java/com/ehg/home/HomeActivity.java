@@ -594,7 +594,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       Intent intent = new Intent(context, MapsActivity.class);
       startActivity(intent);
     } else {
-      AppUtil.showToast(this, getResources().getString(R.string.all_permission_check_alert));
+      AppUtil.showToast(this, getResources().getString(R.string.all_permissionalert));
     }
   }
 
@@ -614,7 +614,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
         AppUtil.startActivityWithAnimation(HomeActivity.this, intent, false);
       }
     } else {
-      AppUtil.showToast(this, getResources().getString(R.string.all_permission_check_alert));
+      AppUtil.showToast(this, getResources().getString(R.string.all_permissionalert));
     }
   }
 }

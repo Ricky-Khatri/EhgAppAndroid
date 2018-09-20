@@ -60,7 +60,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via all_email/password.
  */
 public class SigninFragment extends Fragment implements OnClickListener, ApiResponseListener,
     OnEditorActionListener {
@@ -156,7 +156,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
     TextView textViewUbyEmaarAccount = view.findViewById(R.id.text_view_u_by_emaar_account);
     textViewUbyEmaarAccount.setText(AppUtil.fromHtml(
-        getResources().getString(R.string.signinfragment_signin_to_tap)
+        getResources().getString(R.string.all_signin_to_tap)
             + "<br><b>" + getResources().getString(R.string.all_u_by_emaar) + "</b> "
             + getResources().getString(R.string.all_account)), TextView.BufferType.SPANNABLE);
 
@@ -230,7 +230,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
   /**
    * Attempts to sign in or register the account specified by the login form. If there are form
-   * errors (invalid email, missing fields, etc.), the errors are presented and no actual login
+   * errors (invalid all_email, missing fields, etc.), the errors are presented and no actual login
    * attempt is made.
    */
   private void attemptLogin() {
@@ -246,24 +246,24 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     boolean cancel = false;
     View focusView = null;
 
-    // Check for a valid email address.
+    // Check for a valid all_email address.
     if (TextUtils.isEmpty(mobileNumber)) {
-      autoCompleteTextViewMobileNumber.setError(getString(R.string.all_error_field_required));
+      autoCompleteTextViewMobileNumber.setError(getString(R.string.all_fieldrequired));
       focusView = autoCompleteTextViewMobileNumber;
       cancel = true;
 
     } else if (!AppUtil.isValidMobile(mobileNumber)) {
-      autoCompleteTextViewMobileNumber.setError(getString(R.string.all_error_invalid_mobile));
+      autoCompleteTextViewMobileNumber.setError(getString(R.string.all_invalidmobile));
       focusView = autoCompleteTextViewMobileNumber;
       cancel = true;
 
     } else if (TextUtils.isEmpty(password)) {
-      editTextPassword.setError(getString(R.string.all_error_field_required));
+      editTextPassword.setError(getString(R.string.all_fieldrequired));
       focusView = editTextPassword;
       cancel = true;
 
     } else if (!isPasswordValid(password)) {
-      editTextPassword.setError(getString(R.string.all_error_password_length));
+      editTextPassword.setError(getString(R.string.all_passwordlength));
       focusView = editTextPassword;
       cancel = true;
     }
@@ -372,7 +372,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
-        getResources().getString(R.string.alert_dialog_title_error), true);
+        getResources().getString(R.string.dialog_errortitle), true);
   }
 }
 

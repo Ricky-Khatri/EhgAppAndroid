@@ -26,9 +26,9 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/dimension_app_labels"
-    android:paddingLeft="@dimen/dimension_app_labels"
-    android:paddingRight="@dimen/dimension_app_labels"
+    android:paddingTop="@dimen/textsize_all_labels"
+    android:paddingLeft="@dimen/textsize_all_labels"
+    android:paddingRight="@dimen/textsize_all_labels"
     android:orientation="vertical">
     <ScrollView
       android:layout_width="match_parent"
@@ -84,7 +84,7 @@
             android:layout_below="@+id/textview_ubyemaar_membershiptype"
             android:text="@string/ubyemaar_membershiplable"
             android:textColor="@color/colorHeaderView"
-            android:textSize="@dimen/dimension_guest_title"/>
+            android:textSize="@dimen/textsize_all_guesttitle"/>
 
           <TextView
             android:id="@+id/textview_ubyemaar_totaluppointcount"
@@ -94,7 +94,7 @@
             android:layout_centerHorizontal="true"
             android:layout_toLeftOf="@+id/textview_ubyemaar_amount"
             android:layout_toRightOf="@+id/textview_ubyemaar_membershiptype"
-            android:paddingLeft="@dimen/dimension_guest_detail"
+            android:paddingLeft="@dimen/textsize_all_guestdetail"
             android:gravity="center"
             android:text="@string/ubyemaar_totalupoints"
             android:textColor="@color/colorHeaderView"
@@ -111,7 +111,7 @@
             android:gravity="center"
             android:text="@string/ubyemaar_totalupointslabel"
             android:textColor="@color/colorHeaderView"
-            android:textSize="@dimen/dimension_guest_title"/>
+            android:textSize="@dimen/textsize_all_guesttitle"/>
 
           <TextView
             android:id="@+id/textview_ubyemaar_amount"
@@ -127,12 +127,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginEnd="@dimen/dimension_continue_as_guest"
+            android:layout_marginEnd="@dimen/margin_all_continueasguest"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/textview_ubyemaar_amount"
             android:text="@string/ubyemaar_availabletoredeemlabel"
             android:textColor="@color/colorHeaderView"
-            android:textSize="@dimen/dimension_guest_title"/>
+            android:textSize="@dimen/textsize_all_guesttitle"/>
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -144,18 +144,18 @@
             android:gravity="center"
             android:text="@string/ubyemaar_aedlabel"
             android:textColor="@color/colorHeaderView"
-            android:textSize="@dimen/dimension_guest_detail"/>
+            android:textSize="@dimen/textsize_all_guestdetail"/>
 
         </RelativeLayout>
         <LinearLayout
           android:id="@+id/linearlayout_fragmentubyemaar_profile"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/dimension_guest_detail"
-          android:paddingTop="@dimen/dimension_continue_as_guest"
-          android:paddingBottom="@dimen/dimension_app_labels"
-          android:paddingStart="@dimen/dimension_guest_detail"
-          android:paddingEnd="@dimen/dimension_continue_as_guest"
+          android:layout_marginTop="@dimen/textsize_all_guestdetail"
+          android:paddingTop="@dimen/margin_all_continueasguest"
+          android:paddingBottom="@dimen/textsize_all_labels"
+          android:paddingStart="@dimen/textsize_all_guestdetail"
+          android:paddingEnd="@dimen/margin_all_continueasguest"
           android:gravity="center"
           android:orientation="horizontal">
           <TextView
@@ -179,17 +179,17 @@
         <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginStart="@dimen/appcompatimageview_padding_headerdearch"
-          android:layout_marginEnd="@dimen/appcompatimageview_padding_headerdearch"
+          android:layout_marginStart="@dimen/padding_all_imageview"
+          android:layout_marginEnd="@dimen/padding_all_imageview"
           android:background="@color/colorHeaderView"/>
         <LinearLayout
           android:id="@+id/linearlayout_fragmentubyemaar_upointactivity"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingTop="@dimen/dimension_continue_as_guest"
-          android:paddingBottom="@dimen/dimension_app_labels"
-          android:paddingStart="@dimen/dimension_guest_detail"
-          android:paddingEnd="@dimen/dimension_continue_as_guest"
+          android:paddingTop="@dimen/margin_all_continueasguest"
+          android:paddingBottom="@dimen/textsize_all_labels"
+          android:paddingStart="@dimen/textsize_all_guestdetail"
+          android:paddingEnd="@dimen/margin_all_continueasguest"
           android:gravity="center"
           android:orientation="horizontal">
           <TextView
@@ -213,17 +213,17 @@
         <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginStart="@dimen/appcompatimageview_padding_headerdearch"
-          android:layout_marginEnd="@dimen/appcompatimageview_padding_headerdearch"
+          android:layout_marginStart="@dimen/padding_all_imageview"
+          android:layout_marginEnd="@dimen/padding_all_imageview"
           android:background="@color/colorHeaderView"/>
         <LinearLayout
           android:id="@+id/linearlayout_fragmentubyemaar_preferences"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingTop="@dimen/dimension_continue_as_guest"
-          android:paddingBottom="@dimen/dimension_app_labels"
-          android:paddingStart="@dimen/dimension_guest_detail"
-          android:paddingEnd="@dimen/dimension_continue_as_guest"
+          android:paddingTop="@dimen/margin_all_continueasguest"
+          android:paddingBottom="@dimen/textsize_all_labels"
+          android:paddingStart="@dimen/textsize_all_guestdetail"
+          android:paddingEnd="@dimen/margin_all_continueasguest"
           android:gravity="center"
           android:orientation="horizontal">
           <TextView
@@ -247,17 +247,17 @@
         <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginStart="@dimen/appcompatimageview_padding_headerdearch"
-          android:layout_marginEnd="@dimen/appcompatimageview_padding_headerdearch"
+          android:layout_marginStart="@dimen/padding_all_imageview"
+          android:layout_marginEnd="@dimen/padding_all_imageview"
           android:background="@color/colorHeaderView"/>
         <LinearLayout
           android:id="@+id/linearlayout_fragmentubyemaar_benefits"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingTop="@dimen/dimension_continue_as_guest"
-          android:paddingBottom="@dimen/dimension_app_labels"
-          android:paddingStart="@dimen/dimension_guest_detail"
-          android:paddingEnd="@dimen/dimension_continue_as_guest"
+          android:paddingTop="@dimen/margin_all_continueasguest"
+          android:paddingBottom="@dimen/textsize_all_labels"
+          android:paddingStart="@dimen/textsize_all_guestdetail"
+          android:paddingEnd="@dimen/margin_all_continueasguest"
           android:gravity="center"
           android:orientation="horizontal">
           <TextView
@@ -281,8 +281,8 @@
         <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginStart="@dimen/appcompatimageview_padding_headerdearch"
-          android:layout_marginEnd="@dimen/appcompatimageview_padding_headerdearch"
+          android:layout_marginStart="@dimen/padding_all_imageview"
+          android:layout_marginEnd="@dimen/padding_all_imageview"
           android:background="@color/colorHeaderView"/>
       </LinearLayout>
     </ScrollView>
