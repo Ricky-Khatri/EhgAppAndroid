@@ -18,6 +18,7 @@
   <dimen name="size_all_bannerimage">100dp</dimen>
   <dimen name="height_all_verticaldivider">22dp</dimen>
   <dimen name="height_all_alertdialog">160dp</dimen>
+  <dimen name="textsize_signup_termsandcondition">12sp</dimen>
 
   <!--Share screen dimensions-->
   <dimen name="size_socialmedia_mediaicon">50dp</dimen>

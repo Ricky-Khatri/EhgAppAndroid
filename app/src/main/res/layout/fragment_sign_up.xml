@@ -253,6 +253,14 @@
 
           </LinearLayout>
 
+          <TextView
+            android:layout_marginTop="@dimen/margin_all_vertical"
+            style="@style/AppLabelsTextAppearance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textsize_signup_termsandcondition"
+            android:text="@string/signup_termsandcondition"/>
+
           <Button
             android:id="@+id/button_sign_up"
             style="@style/AppLabelsTextAppearance"

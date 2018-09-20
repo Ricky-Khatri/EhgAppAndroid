@@ -12,6 +12,7 @@
   <!--SignInSignupActivity-->
   <dimen name="margin_all_bannerimage">20dp</dimen>
   <dimen name="size_all_bannerimage">110dp</dimen>
+  <dimen name="textsize_signup_termsandcondition">14sp</dimen>
 
   <!--Share screen dimensions-->
   <dimen name="size_socialmedia_mediaicon">70dp</dimen>

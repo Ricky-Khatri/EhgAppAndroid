@@ -12,7 +12,7 @@
   <!--Login options dimensions-->
   <dimen name="margin_all_bannerimage">25dp</dimen>
   <dimen name="size_all_bannerimage">120dp</dimen>
-
+  <dimen name="textsize_signup_termsandcondition">13sp</dimen>
   <!--Share screen dimensions-->
   <dimen name="size_socialmedia_mediaicon">60dp</dimen>
 

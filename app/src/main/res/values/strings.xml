@@ -36,6 +36,7 @@
   <string name="all_erroremailormobile">Please enter registered mobile number or email.</string>
 
   <!--Strings related to signup-->
+  <string name="signup_termsandcondition">By tapping on Sign-up you are agree to our\nTerms and Conditions</string>
   <string name="all_email">Email address</string>
   <string name="all_or">Or</string>
   <string name="forgotpassword_instruction">Give us your mobile number or email address\nand we\'ll send you password reset instructions</string>
