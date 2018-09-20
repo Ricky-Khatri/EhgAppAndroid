@@ -29,6 +29,7 @@
     android:paddingLeft="@dimen/dimension_app_labels"
     android:paddingRight="@dimen/dimension_app_labels"
     android:orientation="vertical">
+
     <ScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -38,10 +39,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="200dp"
           android:background="@drawable/all_rounded_button">
+
           <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageview_ubyemaar_profile"
             android:layout_width="@dimen/mdtp_time_label_subscript_size"
@@ -51,6 +54,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             app:srcCompat="@drawable/all_profileimage_svg"/>
+
           <TextView
             android:id="@+id/textview_ubyemaar_username"
             style="@style/AppLabelsTextAppearance"
@@ -69,13 +73,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="47dp"
             android:layout_alignParentBottom="true"
-
             android:layout_alignStart="@+id/imageview_ubyemaar_profile"
             android:text="@string/ubyemaar_blacktext"
             android:textColor="@color/colorHeaderView"/>
+
           <TextView
             android:id="@+id/textview_ubyemaar_membership"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="-47dp"
@@ -98,11 +101,11 @@
             android:text="@string/ubyemaar_totalupoints"
             android:textColor="@color/colorHeaderView"
             android:textSize="@dimen/mdtp_time_label_subscript_size"/>
+
           <TextView
             android:id="@+id/textview_ubyemaar_totaluppointlabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_below="@+id/textview_ubyemaar_totaluppointcount"
             android:layout_centerHorizontal="true"
             android:layout_toLeftOf="@+id/textview_ubyemaar_amountlabel"
@@ -121,26 +124,26 @@
             android:layout_alignStart="@+id/textview_ubyemaar_amountlabel"
             android:text="@string/ubyemaar_amountlabel"
             android:textColor="@color/colorHeaderView"/>
+
           <TextView
             android:id="@+id/textview_ubyemaar_amountlabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginEnd="@dimen/dimension_continue_as_guest"
+
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/textview_ubyemaar_amount"
             android:text="@string/ubyemaar_availabletoredeemlabel"
             android:textColor="@color/colorHeaderView"
             android:textSize="@dimen/dimension_guest_title"/>
+
           <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/mdtp_time_label_subscript_size"
             android:layout_alignBaseline="@+id/textview_ubyemaar_amount"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/textview_ubyemaar_membershiptype"
             android:layout_toRightOf="@+id/textview_ubyemaar_amount"
-            android:gravity="center"
             android:text="@string/ubyemaar_aedlabel"
             android:textColor="@color/colorHeaderView"
             android:textSize="@dimen/dimension_guest_detail"/>
