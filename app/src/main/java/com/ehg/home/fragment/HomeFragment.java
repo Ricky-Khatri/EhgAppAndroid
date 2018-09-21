@@ -38,7 +38,7 @@ import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
 import com.ehg.home.adapter.HomeFragmentAdapter;
 import com.ehg.home.adapter.HomeRoomControlAdapter;
-import com.ehg.home.adapter.OfferListAdapter;
+import com.ehg.offers.adapter.OfferListAdapter;
 import com.ehg.utilities.AppUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
 import com.glide.slider.library.SliderLayout;

@@ -67,7 +67,7 @@
     </service>
 
     <!-- ForgotPasswordActivity -->
-    <activity android:name=".settings.ForgotPasswordActivity">
+    <activity android:name=".signinsignup.ForgotPasswordActivity">
     </activity>
     <activity android:name=".settings.SettingsActivity">
     </activity>

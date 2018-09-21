@@ -45,7 +45,7 @@ import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
-import com.ehg.settings.ForgotPasswordActivity;
+import com.ehg.signinsignup.ForgotPasswordActivity;
 import com.ehg.signinsignup.signinpojo.SigninResponsePojo;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.JsonParserUtil;

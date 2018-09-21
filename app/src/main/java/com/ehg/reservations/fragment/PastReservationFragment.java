@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 19/9/18 3:05 PM
+ *  Created by Emaar Hospitality Group on 21/9/18 3:42 PM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 19/9/18 3:05 PM
+ *  Last modified 21/9/18 3:41 PM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.home.fragment;
+package com.ehg.reservations.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -31,10 +31,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
-import com.ehg.home.adapter.ReservationAdapter;
-import com.ehg.home.adapter.ReservationCategoryAdapter;
-import com.ehg.home.pojo.ReservationCategoryPojo;
-import com.ehg.home.pojo.ReservationPojo;
+import com.ehg.home.fragment.BaseFragment;
+import com.ehg.reservations.adapter.ReservationAdapter;
+import com.ehg.reservations.adapter.ReservationCategoryAdapter;
+import com.ehg.reservations.pojo.ReservationCategoryPojo;
+import com.ehg.reservations.pojo.ReservationPojo;
 import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 
