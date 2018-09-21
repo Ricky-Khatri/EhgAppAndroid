@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~  Created by Emaar Hospitality Group on 24/8/18 4:12 PM
+  ~  Created by Emaar Hospitality Group on 21/9/18 4:20 PM
   ~  Copyright (C) 2018  All rights reserved.
-  ~  Last modified 24/8/18 4:12 PM
+  ~  Last modified 21/9/18 4:20 PM
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
   ~  you may not use this file except in compliance with the License.
@@ -18,9 +18,22 @@
   ~
   -->
 
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white"
+  android:orientation="vertical"
+  tools:context=".webview.WebviewActivity">
 
-<set xmlns:android="http://schemas.android.com/apk/res/android">
-  <translate android:fromXDelta="0" android:toXDelta="100%p"
-    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
-    android:duration="@android:integer/config_mediumAnimTime"/>
-</set>
+  <include layout="@layout/layout_header_with_navigation"/>
+
+  <WebView
+    android:id="@+id/webview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  </WebView>
+
+</LinearLayout>

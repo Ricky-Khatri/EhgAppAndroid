@@ -56,40 +56,46 @@ public class SignInSignupActivity extends BaseActivity {
    */
   private void initView() {
 
-    //Init tab layout
-    TabLayout tabLayout = findViewById(R.id.tab_layout_all);
-    final ViewPager viewPager = findViewById(R.id.viewpager_all_fragment_viewpager);
+    try {
+      //Init tab layout
+      TabLayout tabLayout = findViewById(R.id.tab_layout_all);
+      final ViewPager viewPager = findViewById(R.id.viewpager_all_fragment_viewpager);
 
-    //Create tabs
-    tabLayout.addTab(tabLayout.newTab().setText(
-        getResources().getString(R.string.all_signin)));
-    tabLayout.addTab(tabLayout.newTab().setText(
-        getResources().getString(R.string.signupfragment_signup)));
-    tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+      //Create tabs
+      tabLayout.addTab(tabLayout.newTab().setText(
+          getResources().getString(R.string.all_signin)));
+      tabLayout.addTab(tabLayout.newTab().setText(
+          getResources().getString(R.string.signupfragment_signup)));
+      tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-    //Set viewpager fragment adapter
-    FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
-    viewPager.setAdapter(fragmentAdapter);
+      //Set viewpager fragment adapter
+      FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+      viewPager.setAdapter(fragmentAdapter);
 
-    viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+      viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-    tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-      @Override
-      public void onTabSelected(TabLayout.Tab layoutTab) {
+      tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab layoutTab) {
+          AppUtil.hideKeyboard(SignInSignupActivity.this,viewPager);
+          viewPager.setCurrentItem(layoutTab.getPosition());
+        }
 
-        viewPager.setCurrentItem(layoutTab.getPosition());
-      }
+        @Override
+        public void onTabUnselected(TabLayout.Tab layoutTab) {
 
-      @Override
-      public void onTabUnselected(TabLayout.Tab layoutTab) {
+        }
 
-      }
+        @Override
+        public void onTabReselected(TabLayout.Tab layoutTab) {
 
-      @Override
-      public void onTabReselected(TabLayout.Tab layoutTab) {
-
-      }
-    });
+        }
+      });
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -125,7 +131,6 @@ public class SignInSignupActivity extends BaseActivity {
       }
     }
   }
-
 
   /**
    * OnKeyDown callback will be called when phone back key pressed.

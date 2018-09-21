@@ -45,7 +45,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
-          android:id="@+id/imageview_sign_up_logo"
+          android:id="@+id/imageview_signup_logo"
           android:layout_width="match_parent"
           android:layout_height="@dimen/size_all_bannerimage"
           android:layout_marginTop="@dimen/margin_all_bannerimage"
@@ -63,7 +63,7 @@
           android:orientation="vertical">
 
           <TextView
-            android:id="@+id/text_view_u_by_emaar_account"
+            android:id="@+id/textview_signup_ubyemaaraccount"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
             />
 
           <TextView
-            android:id="@+id/text_view_what_is_u_by_emaar_account"
+            android:id="@+id/textview_signup_whatisubyemaar"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
               android:hint="@string/all_firstname"/>
 
             <EditText
-              android:id="@+id/edittext_sign_up_all_firstname"
+              android:id="@+id/edittext_signup_firstname"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@null"
@@ -130,7 +130,7 @@
               android:hint="@string/all_lastname"/>
 
             <EditText
-              android:id="@+id/edittext_sign_up_all_lastname"
+              android:id="@+id/edittext_signup_lastname"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@null"
@@ -160,7 +160,7 @@
               android:hint="@string/all_email"/>
 
             <EditText
-              android:id="@+id/edittext_sign_up_all_email"
+              android:id="@+id/edittext_signup_email"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@null"
@@ -207,7 +207,7 @@
                 android:background="@color/colorGray"/>
 
               <EditText
-                android:id="@+id/edittext_sign_up_mobile"
+                android:id="@+id/edittext_signup_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -237,7 +237,7 @@
               android:hint="@string/all_password"/>
 
             <EditText
-              android:id="@+id/edittext_sign_up_password"
+              android:id="@+id/edittext_signup_password"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@null"
@@ -254,6 +254,7 @@
           </LinearLayout>
 
           <TextView
+            android:id="@+id/textview_signup_termsandconditions"
             android:layout_marginTop="@dimen/margin_all_vertical"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
@@ -275,7 +276,7 @@
             android:textColor="@color/white"/>
 
           <TextView
-            android:id="@+id/text_view_continue_as_guest"
+            android:id="@+id/textview_signup_continueasguest"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

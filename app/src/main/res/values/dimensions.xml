@@ -4,7 +4,6 @@
   <dimen name="margin_all_horizontal">16dp</dimen>
   <dimen name="margin_all_vertical">16dp</dimen>
 
-  <!--Header dimensions-->
   <dimen name="textsize_all_headertitle">17sp</dimen>
   <dimen name="textsize_all_labels">13sp</dimen>
   <dimen name="elevation_all_header">5dp</dimen>
@@ -13,14 +12,12 @@
   <dimen name="marginright_all_header">5dp</dimen>
   <dimen name="size_all_backicon">50dp</dimen>
 
-  <!--Login options dimensions-->
   <dimen name="margin_all_bannerimage">10dp</dimen>
   <dimen name="size_all_bannerimage">100dp</dimen>
   <dimen name="height_all_verticaldivider">22dp</dimen>
   <dimen name="height_all_alertdialog">160dp</dimen>
   <dimen name="textsize_signup_termsandcondition">12sp</dimen>
 
-  <!--Share screen dimensions-->
   <dimen name="size_socialmedia_mediaicon">50dp</dimen>
 
   <dimen name="margin_all_continueasguest">15dp</dimen>
@@ -30,7 +27,6 @@
   <dimen name="marginstart_header_search">10dp</dimen>
   <dimen name="padding_headersearch_linearlayoutparent">7dp</dimen>
 
-  <!--Text View dimension-->
   <dimen name="textsize_all_guesttitle">12sp</dimen>
   <dimen name="textsize_medium">15sp</dimen>
   <dimen name="textsize_all_guestdetail">10sp</dimen>
@@ -38,4 +34,5 @@
 
   <dimen name="imagesize_all_reservationimage">100dp</dimen>
   <dimen name="imagesize_all_locationimage">15dp</dimen>
+  <dimen name="margin_all_large">30dp</dimen>
 </resources>

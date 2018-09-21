@@ -173,7 +173,7 @@
             android:text="@string/all_forgotpassword"/>
 
           <TextView
-            android:id="@+id/text_view_continue_as_guest"
+            android:id="@+id/textview_signup_continueasguest"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

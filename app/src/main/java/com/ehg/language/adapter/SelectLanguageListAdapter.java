@@ -142,8 +142,8 @@ public class SelectLanguageListAdapter extends
       //AppUtil.clickAnimation(view);
 
       if (onItemClickListener != null) {
-        checkbox.setChecked(true);
         onItemClickListener.onItemClick(getAdapterPosition());
+        checkbox.setChecked(true);
         notifyDataSetChanged();
       }
     }
