@@ -96,6 +96,7 @@
     <activity android:name=".settings.SupportActivity"/>
     <activity android:name=".settings.PrivacyPolicyActivity"/>
     <activity android:name=".settings.TermsAndConditionActivity"/>
+    <activity android:name=".ubyemaar.UpointActivity"/>
 
   </application>
 

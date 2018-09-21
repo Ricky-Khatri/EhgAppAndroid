@@ -22,7 +22,7 @@
   <!--Text View dimension-->
   <dimen name="textsize_all_guesttitle">14sp</dimen>
   <dimen name="textsize_all_guestdetail">12sp</dimen>
-
+  <dimen name="textsize_medium">18sp</dimen>
   <dimen name="imagesize_all_roundedimage">110dp</dimen>
   <dimen name="dimension_itemhomehorizontallist_linearlayout_size">170dp</dimen>
 

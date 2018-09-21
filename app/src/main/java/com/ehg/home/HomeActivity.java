@@ -60,6 +60,7 @@ import com.ehg.home.navigation.FragmentNavigationController.TransactionType;
 import com.ehg.maps.MapsActivity;
 import com.ehg.settings.SettingsActivity;
 import com.ehg.socialmedia.SocialMediaActivity;
+import com.ehg.ubyemaar.fragment.UbyEmaarFragment;
 import com.ehg.utilities.AppPermissionCheckerUtil;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.FragmentHistoryUtil;

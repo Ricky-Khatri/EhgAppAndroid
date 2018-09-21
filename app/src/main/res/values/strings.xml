@@ -110,5 +110,10 @@
   <string name="ubyemaar_aedlabel">AED</string>
   <string name="ubyemaar_preferenceslabel">PREFERENCES</string>
   <string name="ubyemaar_benefitslabel">BENEFITS</string>
+  <string name="upoint_title">Last 5 Transactions</string>
+  <string name="upointsactivity_descriptiondatelabel">Description/Date</string>
+  <string name="upointsactivity_upointslabel">Upoints</string>
+  <string name="upointactivity_valuelabel">Value</string>
+  <string name="upointactivuty_title">Upoint Activity</string>
 
 </resources>

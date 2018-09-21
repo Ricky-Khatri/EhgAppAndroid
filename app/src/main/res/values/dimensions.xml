@@ -32,6 +32,7 @@
 
   <!--Text View dimension-->
   <dimen name="textsize_all_guesttitle">12sp</dimen>
+  <dimen name="textsize_medium">15sp</dimen>
   <dimen name="textsize_all_guestdetail">10sp</dimen>
   <dimen name="imagesize_all_roundedimage">100dp</dimen>
 
