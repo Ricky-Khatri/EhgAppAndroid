@@ -86,7 +86,7 @@
   <string name="setting_preferences">PREFERENCES</string>
   <string name="settings_support">SUPPORT</string>
   <string name="settings_privacy_policy">PRIVACY POLICY</string>
-  <string name="settings_terms_and_conditions">TERMS AND CONDITIONS</string>
+  <string name="settings_termsandconditions">TERMS AND CONDITIONS</string>
   <string name="settings_language">LANGUAGE</string>
   <string name="settings_sign_in_sign_up">SIGN-IN/SIGN-UP</string>
 

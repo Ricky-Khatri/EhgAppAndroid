@@ -174,7 +174,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
     buttonLogin = view.findViewById(R.id.button_signin_login);
     TextView textViewForgotPassword = view.findViewById(R.id.text_view_forgot_password);
-    TextView textViewContinueAsGuest = view.findViewById(R.id.text_view_continue_as_guest);
+    TextView textViewContinueAsGuest = view.findViewById(R.id.textview_signup_continueasguest);
 
     //Set OnClickListener
     buttonLogin.setOnClickListener(this);
@@ -188,6 +188,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
   /**
    * Called when mobile phone keyboard keys clicked: enter/done/next keys.
+   *
    * @param textView view currently focused
    * @param index index
    * @param keyEvent key event
@@ -195,7 +196,9 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    */
   @Override
   public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
-    attemptLogin();
+    if(index == EditorInfo.IME_ACTION_DONE) {
+      attemptLogin();
+    }
     return false;
   }
 
@@ -218,7 +221,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
         AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
         break;
 
-      case R.id.text_view_continue_as_guest:
+      case R.id.textview_signup_continueasguest:
         intent = new Intent(context, HomeActivity.class);
         AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
         break;

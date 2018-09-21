@@ -24,12 +24,13 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.language.SelectLanguageActivity;
+import com.ehg.signinsignup.SignInSignupActivity;
 import com.ehg.utilities.AppUtil;
+import com.ehg.webview.WebviewActivity;
 
 /**
  * This class allows users to do local app settings.
@@ -90,15 +91,21 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
         break;
 
       case R.id.linearlayout_settings_privacypolicy:
-        AppUtil.finishActivityWithAnimation(this);
+        intent = new Intent(this, WebviewActivity.class);
+        intent.putExtra("title",getResources().getString(R.string.settings_privacy_policy));
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
 
       case R.id.linearlayout_settings_termandconditions:
-        AppUtil.finishActivityWithAnimation(this);
+        intent = new Intent(this, WebviewActivity.class);
+        intent.putExtra("title",getResources().getString(R.string.settings_termsandconditions));
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
 
       case R.id.linearlayout_settings_support:
-        AppUtil.finishActivityWithAnimation(this);
+        intent = new Intent(this, WebviewActivity.class);
+        intent.putExtra("title",getResources().getString(R.string.settings_support));
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
 
       case R.id.linearlayout_settings_language:
@@ -107,7 +114,9 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
         break;
 
       case R.id.linearlayout_settings_userstate:
-        AppUtil.finishActivityWithAnimation(this);
+        intent = new Intent(this, SignInSignupActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        AppUtil.startActivityWithAnimation(this, intent, true);
         break;
 
       default:

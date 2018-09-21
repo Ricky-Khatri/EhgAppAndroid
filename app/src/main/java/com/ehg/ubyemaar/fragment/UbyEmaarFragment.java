@@ -95,7 +95,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     this.context = getActivity();
 
     //Call getMemberDetail api
-    getMemberDetails("");
+    //getMemberDetails("08989732840");
   }
 
   /**

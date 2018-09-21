@@ -22,6 +22,7 @@ package com.ehg.networkrequest;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import com.ehg.R;
 import com.ehg.utilities.AppUtil;
 import com.google.firebase.perf.FirebasePerformance;
@@ -40,9 +41,10 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class HttpClientRequest {
 
+  private static final String TAG = HttpClientRequest.class.getName();
   public static ApiResponseListener apiResponseListner;
 
-  private static final int TIME_OUT = 600000;
+  private static final int TIME_OUT = 6000;
 
   private Context context;
 
@@ -80,7 +82,7 @@ public class HttpClientRequest {
       String contentType, String methodClass, boolean showLoadingIndicator) {
 
     asyncHttpClient = new AsyncHttpClient(true, 80, 443);
-    asyncHttpClient.setConnectTimeout(TIME_OUT);
+    asyncHttpClient.setTimeout(TIME_OUT);
     this.url = url;
     this.context = context;
     entity = stringEntity;
@@ -106,7 +108,7 @@ public class HttpClientRequest {
       String contentType, String methodClass, boolean showLoadingIndicator) {
 
     asyncHttpClient = new AsyncHttpClient(true, 80, 443);
-    asyncHttpClient.setConnectTimeout(TIME_OUT);
+    asyncHttpClient.setTimeout(TIME_OUT);
     this.url = url;
     this.context = context;
     params = requestParams;
@@ -125,7 +127,7 @@ public class HttpClientRequest {
 
     try {
 
-      if(showLoadingIndicator) {
+      if (showLoadingIndicator) {
         AppUtil.showLoadingIndicator((AppCompatActivity) context);
       }
 
@@ -144,6 +146,8 @@ public class HttpClientRequest {
             stopFirebaseMonitorTrace();
 
             String result = new String(responseBody);
+
+            Log.e(TAG + "======", result);
 
             if (TextUtils.isEmpty(result)) {
               apiResponseListner.onFailureResponse(errorMessage);
@@ -172,6 +176,8 @@ public class HttpClientRequest {
             stopFirebaseMonitorTrace();
 
             String result = new String(responseBody);
+
+            Log.e(TAG + "======", result);
 
             if (TextUtils.isEmpty(result)) {
               apiResponseListner.onFailureResponse(errorMessage);
@@ -205,7 +211,7 @@ public class HttpClientRequest {
 
     try {
 
-      if(showLoadingIndicator) {
+      if (showLoadingIndicator) {
         AppUtil.showLoadingIndicator((AppCompatActivity) context);
       }
 
@@ -227,8 +233,10 @@ public class HttpClientRequest {
 
             if (TextUtils.isEmpty(result)) {
               apiResponseListner.onFailureResponse(errorMessage);
+              Log.e(TAG + "======", errorMessage);
             } else {
               apiResponseListner.onFailureResponse(result);
+              Log.e(TAG + "======", result);
             }
 
           } catch (NullPointerException e) {
@@ -250,8 +258,10 @@ public class HttpClientRequest {
 
             if (TextUtils.isEmpty(result)) {
               apiResponseListner.onFailureResponse(errorMessage);
+              Log.e(TAG + "======", errorMessage);
             } else {
               apiResponseListner.onSuccessResponse(result, requestMethod);
+              Log.e(TAG + "======", result);
             }
           } catch (NullPointerException e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);

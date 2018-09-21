@@ -26,4 +26,5 @@
 
   <dimen name="imagesize_all_reservationimage">100dp</dimen>
   <dimen name="imagesize_all_locationimage">17dp</dimen>
+  <dimen name="margin_all_large">35dp</dimen>
 </resources>
