@@ -173,7 +173,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
       new HttpClientRequest().setApiResponseListner(this);
 
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_RESET_PASSWORD)
-          + "nidhi.pacharne@digivalet.com",
+          + accountId,
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
           FORGOT_PASSWORD_METHOD,true).httpGetRequest();
     }

@@ -19,12 +19,10 @@
 
 package com.ehg.language;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -36,7 +34,6 @@ import com.ehg.language.adapter.SelectLanguageListAdapter.OnItemClickListener;
 import com.ehg.language.pojo.LanguagePojo;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
-import com.ehg.signinsignup.SignInSignupActivity;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.LanguageUtil;
 import java.util.ArrayList;

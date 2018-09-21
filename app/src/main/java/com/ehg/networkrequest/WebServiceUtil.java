@@ -46,6 +46,9 @@ public class WebServiceUtil {
   //ResetPassword method
   public static final String METHOD_RESET_PASSWORD = "signUp/resetPassword/v1/";
 
+  //GetMemberDetails method
+  public static final String METHOD_GET_MEMBER_DETAIL = "/signUp/memberDetails/v1/";
+
 
   /**
    * Returns complete api url.

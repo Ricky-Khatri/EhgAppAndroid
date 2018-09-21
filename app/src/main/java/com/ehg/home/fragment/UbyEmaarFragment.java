@@ -6,16 +6,23 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import com.ehg.R;
 import com.ehg.home.HomeActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.utilities.AppUtil;
+import com.loopj.android.http.RequestParams;
 import java.util.Objects;
 
-public class UbyEmaarFragment extends BaseFragment {
+public class UbyEmaarFragment extends BaseFragment implements ApiResponseListener {
 
+  private static final String GET_MEMBER_DETAIL_METHOD = "getMemberDetailMethod";
   private Context context;
 
   /**
@@ -66,6 +73,9 @@ public class UbyEmaarFragment extends BaseFragment {
     }
 
     this.context = getActivity();
+
+    //Call getMemberDetail api
+    getMemberDetails("");
   }
 
   /**
@@ -76,5 +86,45 @@ public class UbyEmaarFragment extends BaseFragment {
   public void onAttach(Context context) {
     super.onAttach(context);
     this.context = context;
+  }
+
+  /**
+   * Method calls getMemberDetail api.
+   */
+  private void getMemberDetails(String accountId) {
+
+    if (AppUtil.isNetworkAvailable(context)) {
+
+      new HttpClientRequest().setApiResponseListner(this);
+
+      new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_GET_MEMBER_DETAIL)
+          + accountId,
+          new RequestParams(), WebServiceUtil.CONTENT_TYPE,
+          GET_MEMBER_DETAIL_METHOD,true).httpGetRequest();
+    }
+  }
+
+  /**
+   * Called on successful api response.
+   *
+   * @param responseVal response string
+   * @param requestMethod requested method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+    if (GET_MEMBER_DETAIL_METHOD.equalsIgnoreCase(requestMethod)) {
+      //TODO: Parse api response
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true);
   }
 }
