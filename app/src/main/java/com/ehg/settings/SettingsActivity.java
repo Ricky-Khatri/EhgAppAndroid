@@ -19,13 +19,16 @@
 
 package com.ehg.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
+import com.ehg.language.SelectLanguageActivity;
 import com.ehg.utilities.AppUtil;
 
 /**
@@ -55,7 +58,15 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
     TextView textViewTitle = findViewById(R.id.textview_header_title);
     textViewTitle.setText(getResources().getString(R.string.settings_title));
 
+    //Set OnClickListener
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
+    findViewById(R.id.linearlayout_setting_preferences).setOnClickListener(this);
+    findViewById(R.id.linearlayout_settings_support).setOnClickListener(this);
+    findViewById(R.id.linearlayout_settings_privacypolicy).setOnClickListener(this);
+    findViewById(R.id.linearlayout_settings_termandconditions).setOnClickListener(this);
+    findViewById(R.id.linearlayout_settings_language).setOnClickListener(this);
+    findViewById(R.id.linearlayout_settings_userstate).setOnClickListener(this);
+
   }
 
   /**
@@ -65,10 +76,41 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
    */
   @Override
   public void onClick(View view) {
+
+    Intent intent;
+
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      case R.id.linearlayout_setting_preferences:
+        AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      case R.id.linearlayout_settings_privacypolicy:
+        AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      case R.id.linearlayout_settings_termandconditions:
+        AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      case R.id.linearlayout_settings_support:
+        AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      case R.id.linearlayout_settings_language:
+        intent = new Intent(this, SelectLanguageActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
+        break;
+
+      case R.id.linearlayout_settings_userstate:
+        AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      default:
         break;
     }
   }

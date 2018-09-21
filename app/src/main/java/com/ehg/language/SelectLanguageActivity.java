@@ -21,8 +21,10 @@ package com.ehg.language;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,6 +33,7 @@ import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.language.adapter.SelectLanguageListAdapter;
 import com.ehg.language.adapter.SelectLanguageListAdapter.OnItemClickListener;
+import com.ehg.language.pojo.LanguagePojo;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.signinsignup.SignInSignupActivity;
@@ -49,7 +52,7 @@ public class SelectLanguageActivity extends BaseActivity implements
 
   private RecyclerView recyclerViewSelectLanguage;
 
-  private ArrayList<String> languageList;
+  private ArrayList<LanguagePojo> languageList;
 
   /**
    * Called when activity created.
@@ -77,6 +80,9 @@ public class SelectLanguageActivity extends BaseActivity implements
 
     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
     recyclerViewSelectLanguage.setLayoutManager(layoutManager);
+    DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewSelectLanguage.getContext(),
+        LinearLayoutManager.VERTICAL);
+    recyclerViewSelectLanguage.addItemDecoration(dividerItemDecoration);
 
     setLanguageListAdapter();
   }
@@ -87,9 +93,22 @@ public class SelectLanguageActivity extends BaseActivity implements
   private void setLanguageListAdapter() {
     //Initialize language list
     languageList = new ArrayList<>();
-    languageList.add("English");
-    languageList.add("Arabic");
-    languageList.add("Chinese");
+    LanguagePojo languagePojo = new LanguagePojo();
+    languagePojo.setLanguageCode("en");
+    languagePojo.setLanguageName("English");
+    languageList.add(languagePojo);
+    languagePojo = new LanguagePojo();
+    languagePojo.setLanguageCode("ar");
+    languagePojo.setLanguageName("عربى");
+    languageList.add(languagePojo);
+    languagePojo = new LanguagePojo();
+    languagePojo.setLanguageCode("zh");
+    languagePojo.setLanguageName("中文");
+    languageList.add(languagePojo);
+    languagePojo = new LanguagePojo();
+    languagePojo.setLanguageCode("es");
+    languagePojo.setLanguageName("Español");
+    languageList.add(languagePojo);
 
     //Set list to adapter
     SelectLanguageListAdapter selectLanguageListAdapter =
@@ -104,14 +123,12 @@ public class SelectLanguageActivity extends BaseActivity implements
   @Override
   public void onItemClick(int position) {
     if (languageList != null && languageList.size() > 0) {
-      String selectedLanguage = languageList.get(position);
+      String selectedLanguageCode = languageList.get(position).getLanguageCode();
 
       //Set app locale
-      selectedLanguage = "en";
-      LanguageUtil.setLocale(this, selectedLanguage);
+      LanguageUtil.setLocale(this, selectedLanguageCode);
     }
-    Intent intent = new Intent(this, SignInSignupActivity.class);
-    AppUtil.startActivityWithAnimation(this, intent, true);
+    AppUtil.finishActivityWithAnimation(this);
   }
 
   /**

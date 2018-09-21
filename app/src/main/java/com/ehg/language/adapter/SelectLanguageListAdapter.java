@@ -26,9 +26,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import com.ehg.R;
-import com.ehg.utilities.AppUtil;
+import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.language.pojo.LanguagePojo;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +40,7 @@ import java.util.ArrayList;
 public class SelectLanguageListAdapter extends
     RecyclerView.Adapter<SelectLanguageListAdapter.ViewHolder> {
 
-  private ArrayList<String> languageList = null;
+  private ArrayList<LanguagePojo> languageList = null;
 
   private Context context;
 
@@ -48,7 +50,7 @@ public class SelectLanguageListAdapter extends
    * This is parametrized constructor of this adapter class.
    */
   public SelectLanguageListAdapter(Context context,
-      ArrayList<String> languageList, OnItemClickListener onItemClickListener) {
+      ArrayList<LanguagePojo> languageList, OnItemClickListener onItemClickListener) {
     this.context = context;
     this.languageList = languageList;
     this.onItemClickListener = onItemClickListener;
@@ -56,6 +58,7 @@ public class SelectLanguageListAdapter extends
 
   /**
    * Called to inflate layout item and returns ViewHolder object.
+   *
    * @param viewGroup viewGroup object
    * @param position integer position
    * @return returns ViewHolder object
@@ -72,18 +75,34 @@ public class SelectLanguageListAdapter extends
 
   /**
    * Called to bind data values with viewHolder items.
+   *
    * @param viewHolder viewHolder object
    * @param position integer position
    */
   @Override
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-    String languageName = languageList.get(position);
+    LanguagePojo languagePojo = languageList.get(position);
+    String languageName = languagePojo.getLanguageName();
+    String languageCode = languagePojo.getLanguageCode();
+
+    String selectedLanguageCode = SharedPreferenceUtils.getInstance(context)
+        .getStringValue(SharedPreferenceUtils.APP_LANGUAGE, "");
+
     viewHolder.textViewLanguageName.setText(languageName);
+
+    if (selectedLanguageCode.equalsIgnoreCase(languageCode)) {
+      languagePojo.setLanguageSelected(true);
+      viewHolder.checkbox.setChecked(true);
+    } else {
+      languagePojo.setLanguageSelected(false);
+      viewHolder.checkbox.setChecked(false);
+    }
   }
 
   /**
    * Returns total number of items in adapter.
+   *
    * @return itemCount
    */
   @Override
@@ -95,6 +114,9 @@ public class SelectLanguageListAdapter extends
 
     // each data item is just a string in this case
     public TextView textViewLanguageName;
+
+    public CheckBox checkbox;
+
     public View itemView;
 
     /**
@@ -103,13 +125,15 @@ public class SelectLanguageListAdapter extends
     public ViewHolder(View view) {
       super(view);
       itemView = view;
-      textViewLanguageName = view.findViewById(R.id.textview_select_language_language_name);
+      textViewLanguageName = view.findViewById(R.id.textview_selectlanguage_language);
+      checkbox = view.findViewById(R.id.checkbox_selectlanguage_languagechekbox);
 
       itemView.setOnClickListener(this);
     }
 
     /**
      * Called when view clicked.
+     *
      * @param view view
      */
     @Override
@@ -118,7 +142,9 @@ public class SelectLanguageListAdapter extends
       //AppUtil.clickAnimation(view);
 
       if (onItemClickListener != null) {
+        checkbox.setChecked(true);
         onItemClickListener.onItemClick(getAdapterPosition());
+        notifyDataSetChanged();
       }
     }
   }
