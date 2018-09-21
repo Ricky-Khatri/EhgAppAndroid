@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 19/9/18 6:06 PM
+ *  Created by Emaar Hospitality Group on 21/9/18 3:43 PM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 19/9/18 6:06 PM
+ *  Last modified 19/9/18 6:28 PM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.home.pojo;
+package com.ehg.reservations.pojo;
 
 /**
  * Pojo for reservation fragment.

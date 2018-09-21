@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 25/8/18 11:04 AM
+ *  Created by Emaar Hospitality Group on 21/9/18 3:46 PM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 24/8/18 6:04 PM
+ *  Last modified 21/9/18 3:21 PM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.settings;
+package com.ehg.signinsignup;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -173,7 +173,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
       new HttpClientRequest().setApiResponseListner(this);
 
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_RESET_PASSWORD)
-          + "nidhi.pacharne@digivalet.com",
+          + accountId,
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
           FORGOT_PASSWORD_METHOD,true).httpGetRequest();
     }

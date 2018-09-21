@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 19/9/18 1:42 PM
+ *  Created by Emaar Hospitality Group on 21/9/18 3:39 PM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 19/9/18 1:42 PM
+ *  Last modified 19/9/18 2:01 PM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.home.adapter;
+package com.ehg.book.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
@@ -27,9 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
 import com.ehg.R;
-import com.ehg.home.pojo.BookPojo;
+import com.ehg.book.pojo.BookPojo;
 import java.util.ArrayList;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {

@@ -1,4 +1,23 @@
-package com.ehg.home.fragment;
+/*
+ *  Created by Emaar Hospitality Group on 21/9/18 3:41 PM
+ *  Copyright (C) 2018  All rights reserved.
+ *  Last modified 20/9/18 5:59 PM
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
+package com.ehg.reservations.fragment;
 
 import android.content.Context;
 import android.os.Build.VERSION;
@@ -16,10 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.ehg.R;
 import com.ehg.home.HomeActivity;
-import com.ehg.signinsignup.SignInSignupActivity;
-import com.ehg.signinsignup.SignInSignupActivity.FragmentAdapter;
-import com.ehg.signinsignup.fragment.SignUpFragment;
-import com.ehg.signinsignup.fragment.SigninFragment;
+import com.ehg.home.fragment.BaseFragment;
 import java.util.Objects;
 
 public class ReservationsFragment extends BaseFragment {

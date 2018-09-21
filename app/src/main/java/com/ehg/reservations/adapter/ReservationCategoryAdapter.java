@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 19/9/18 3:16 PM
+ *  Created by Emaar Hospitality Group on 21/9/18 3:41 PM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 19/9/18 3:16 PM
+ *  Last modified 19/9/18 4:42 PM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.home.adapter;
+package com.ehg.reservations.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ehg.R;
-import com.ehg.home.pojo.ReservationCategoryPojo;
+import com.ehg.reservations.pojo.ReservationCategoryPojo;
 import java.util.ArrayList;
 
 /**
