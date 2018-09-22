@@ -196,7 +196,7 @@
 
               <com.rilixtech.CountryCodePicker
                 android:id="@+id/countrycodepicker_signup_countrycode"
-                style="@style/AppLabelsTextAppearance"
+                app:ccp_textSize="@dimen/textsize_all_labels"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

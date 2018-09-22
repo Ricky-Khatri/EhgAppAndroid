@@ -2,8 +2,8 @@
 <resources>
 
   <!--Header dimensions-->
-  <dimen name="textsize_all_headertitle">20sp</dimen>
-  <dimen name="textsize_all_labels">17sp</dimen>
+  <dimen name="textsize_all_headertitle">19sp</dimen>
+  <dimen name="textsize_all_labels">16sp</dimen>
   <dimen name="elevation_all_header">5dp</dimen>
   <dimen name="padding_all_headerbutton">10dp</dimen>
   <dimen name="marginleft_all_header">10dp</dimen>
@@ -12,7 +12,7 @@
   <!--SignInSignupActivity-->
   <dimen name="margin_all_bannerimage">20dp</dimen>
   <dimen name="size_all_bannerimage">110dp</dimen>
-  <dimen name="textsize_signup_termsandcondition">14sp</dimen>
+  <dimen name="textsize_signup_termsandcondition">13sp</dimen>
 
   <!--Share screen dimensions-->
   <dimen name="size_socialmedia_mediaicon">70dp</dimen>
@@ -22,12 +22,12 @@
   <!--Text View dimension-->
   <dimen name="textsize_all_guesttitle">14sp</dimen>
   <dimen name="textsize_all_guestdetail">12sp</dimen>
-  <dimen name="textsize_medium">18sp</dimen>
+  <dimen name="textsize_medium">17sp</dimen>
   <dimen name="imagesize_all_roundedimage">110dp</dimen>
   <dimen name="dimension_itemhomehorizontallist_linearlayout_size">170dp</dimen>
 
   <dimen name="imagesize_all_reservationimage">100dp</dimen>
   <dimen name="imagesize_all_locationimage">20dp</dimen>
   <dimen name="margin_all_large">35dp</dimen>
-  <dimen name="textsize_ubyemaar_points">28sp</dimen>
+  <dimen name="textsize_ubyemaar_points">26sp</dimen>
 </resources>
