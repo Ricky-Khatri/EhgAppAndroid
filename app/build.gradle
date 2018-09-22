@@ -75,7 +75,6 @@ dependencies {
 
     //Material animated dialogue
     implementation 'com.nineoldandroids:library:2.4.0'
-    implementation 'com.github.sd6352051.niftydialogeffects:niftydialogeffects:1.0.0@aar'
 
     //Country code picker lib
     implementation 'io.michaelrocks:libphonenumber-android:8.8.5'

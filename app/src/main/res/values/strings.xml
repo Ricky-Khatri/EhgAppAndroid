@@ -50,7 +50,7 @@
 
   <!--Strings related to alert toast-->
   <string name="all_please_check_network_settings">Please check your network settings.</string>
-  <string name="all_loading">Loading...</string>
+  <string name="all_loading">Loading please wait...</string>
 
   <!--strings related to Social media share activity-->
   <string name="share">Share</string>

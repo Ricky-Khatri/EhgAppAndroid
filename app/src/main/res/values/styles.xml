@@ -57,12 +57,19 @@
     <item name="tabMode">fixed</item>
   </style>
 
+  <!--Alert dialog animation style-->
+  <style name="AlertDialogAnimation">
+    <item name="android:windowEnterAnimation">@anim/fade_in</item>
+    <item name="android:windowExitAnimation">@anim/fade_out</item>
+  </style>
+
   <!--Loading indicator style-->
   <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
     <item name="colorAccent">@color/colorGray</item>
     <item name="android:textColorPrimary">@color/colorGray</item>
     <item name="android:background">@color/white</item>
     <item name="android:textColor">@color/colorGray</item>
+    <item name="android:textStyle">bold</item>
     <item name="android:textSize">@dimen/textsize_all_labels</item>
   </style>
 

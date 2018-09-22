@@ -66,7 +66,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
 
-    View view = inflater.inflate(R.layout.fragment_u_by_emaar, container, false);
+    View view = inflater.inflate(R.layout.fragment_ubyemaar, container, false);
 
     ButterKnife.bind(this, view);
 

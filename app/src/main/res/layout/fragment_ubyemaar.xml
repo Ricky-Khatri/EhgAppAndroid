@@ -39,10 +39,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <RelativeLayout
+          android:id="@+id/relativelayout_ubyemaar_usercard"
           android:layout_width="match_parent"
           android:layout_height="200dp"
           android:background="@drawable/all_rounded_button">
+
           <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageview_ubyemaar_profile"
             android:layout_width="@dimen/mdtp_time_label_subscript_size"
@@ -52,6 +55,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             app:srcCompat="@drawable/all_profileimage_svg"/>
+
           <TextView
             android:id="@+id/textview_ubyemaar_username"
             style="@style/AppLabelsTextAppearance"
@@ -63,88 +67,130 @@
             android:text="@string/ubyemaar_username"
             android:textColor="@color/white"/>
 
-          <TextView
-            android:id="@+id/textview_ubyemaar_membershiptype"
-            style="@style/HeaderTextAppearance"
-            android:layout_width="wrap_content"
+          <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="47dp"
             android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/imageview_ubyemaar_profile"
-            android:text="@string/ubyemaar_blacktext"
-            android:textColor="@color/colorHeaderView"/>
+            android:layout_marginBottom="@dimen/margin_all_vertical"
+            android:orientation="horizontal">
 
-          <TextView
-            android:id="@+id/textview_ubyemaar_membership"
+            <LinearLayout
+              android:id="@+id/linearlayout_ubyemaar_membership"
+              android:layout_centerVertical="true"
+              android:layout_marginLeft="@dimen/margin_all_horizontal"
+              android:layout_alignParentLeft="true"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+              <TextView
+                android:id="@+id/textview_ubyemaar_membershiptype"
+                style="@style/HeaderTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/imageview_ubyemaar_profile"
+                android:text="@string/ubyemaar_blacktext"
+                android:textColor="@color/colorHeaderView"/>
+
+              <TextView
+                android:id="@+id/textview_ubyemaar_membership"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/imageview_ubyemaar_profile"
+                android:layout_below="@+id/textview_ubyemaar_membershiptype"
+                android:text="@string/ubyemaar_membershiplable"
+                android:textColor="@color/colorHeaderView"
+                android:textSize="@dimen/textsize_all_guesttitle"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+              android:layout_centerVertical="true"
+              android:layout_marginLeft="@dimen/margin_all_horizontal"
+              android:id="@+id/linearlayout_ubyemaar_totalpoints"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:layout_toRightOf="@+id/linearlayout_ubyemaar_membership"
+              android:orientation="vertical">
+
+              <TextView
+                android:layout_marginTop="-10dp"
+                android:id="@+id/textview_ubyemaar_totaluppointcount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textview_ubyemaar_membershiptype"
+                android:layout_toLeftOf="@+id/textview_ubyemaar_amount"
+                android:layout_toRightOf="@+id/textview_ubyemaar_membershiptype"
+                android:gravity="left"
+                android:text="@string/ubyemaar_totalupoints"
+                android:textColor="@color/colorHeaderView"
+                android:textSize="@dimen/textsize_ubyemaar_points"/>
+
+              <TextView
+                android:id="@+id/textview_ubyemaar_totaluppointlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textview_ubyemaar_totaluppointcount"
+                android:layout_toLeftOf="@+id/textview_ubyemaar_amountlabel"
+                android:layout_toRightOf="@+id/textview_ubyemaar_membership"
+                android:gravity="left"
+                android:text="@string/ubyemaar_totalupointslabel"
+                android:textColor="@color/colorHeaderView"
+                android:textSize="@dimen/textsize_all_guesttitle"/>
+            </LinearLayout>
+
+          <LinearLayout
+            android:id="@+id/linearlayout_ubyemaar_aed"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_all_horizontal"
+            android:layout_marginRight="@dimen/elevation_all_header"
+            android:layout_toRightOf="@+id/linearlayout_ubyemaar_totalpoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-47dp"
-            android:layout_alignStart="@+id/imageview_ubyemaar_profile"
-            android:layout_below="@+id/textview_ubyemaar_membershiptype"
-            android:text="@string/ubyemaar_membershiplable"
-            android:textColor="@color/colorHeaderView"
-            android:textSize="@dimen/textsize_all_guesttitle"/>
+            android:gravity="left"
+            android:orientation="vertical">
 
-          <TextView
-            android:id="@+id/textview_ubyemaar_totaluppointcount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textview_ubyemaar_membershiptype"
-            android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/textview_ubyemaar_amount"
-            android:layout_toRightOf="@+id/textview_ubyemaar_membershiptype"
-            android:paddingLeft="@dimen/textsize_all_guestdetail"
-            android:gravity="center"
-            android:text="@string/ubyemaar_totalupoints"
-            android:textColor="@color/colorHeaderView"
-            android:textSize="@dimen/mdtp_time_label_subscript_size"/>
+            <LinearLayout
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
 
-          <TextView
-            android:id="@+id/textview_ubyemaar_totaluppointlabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textview_ubyemaar_totaluppointcount"
-            android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/textview_ubyemaar_amountlabel"
-            android:layout_toRightOf="@+id/textview_ubyemaar_membership"
-            android:gravity="center"
-            android:text="@string/ubyemaar_totalupointslabel"
-            android:textColor="@color/colorHeaderView"
-            android:textSize="@dimen/textsize_all_guesttitle"/>
+              <TextView
+                android:id="@+id/textview_ubyemaar_amount"
+                style="@style/HeaderTextAppearance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:layout_alignBaseline="@+id/textview_ubyemaar_totaluppointcount"
+                android:layout_alignStart="@+id/textview_ubyemaar_amountlabel"
+                android:text="@string/ubyemaar_amountlabel"
+                android:textColor="@color/colorHeaderView"/>
 
-          <TextView
-            android:id="@+id/textview_ubyemaar_amount"
-            style="@style/HeaderTextAppearance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textview_ubyemaar_totaluppointcount"
-            android:layout_alignStart="@+id/textview_ubyemaar_amountlabel"
-            android:text="@string/ubyemaar_amountlabel"
-            android:textColor="@color/colorHeaderView"/>
+              <TextView
+                android:layout_marginLeft="@dimen/elevation_all_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="@string/ubyemaar_aedlabel"
+                android:textColor="@color/colorHeaderView"
+                android:textSize="@dimen/textsize_all_guestdetail"/>
 
-          <TextView
-            android:id="@+id/textview_ubyemaar_amountlabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_all_continueasguest"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/textview_ubyemaar_amount"
-            android:text="@string/ubyemaar_availabletoredeemlabel"
-            android:textColor="@color/colorHeaderView"
-            android:textSize="@dimen/textsize_all_guesttitle"/>
+            </LinearLayout>
 
-          <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/mdtp_time_label_subscript_size"
-            android:layout_alignBaseline="@+id/textview_ubyemaar_amount"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/textview_ubyemaar_membershiptype"
-            android:layout_toRightOf="@+id/textview_ubyemaar_amount"
-            android:gravity="center"
-            android:text="@string/ubyemaar_aedlabel"
-            android:textColor="@color/colorHeaderView"
-            android:textSize="@dimen/textsize_all_guestdetail"/>
+            <TextView
+              android:id="@+id/textview_ubyemaar_amountlabel"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:layout_below="@+id/textview_ubyemaar_amount"
+              android:text="@string/ubyemaar_availabletoredeemlabel"
+              android:textColor="@color/colorHeaderView"
+              android:textSize="@dimen/textsize_all_guesttitle"/>
+
+          </LinearLayout>
+          </RelativeLayout>
 
         </RelativeLayout>
 

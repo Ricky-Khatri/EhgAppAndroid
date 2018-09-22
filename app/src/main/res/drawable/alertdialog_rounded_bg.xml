@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~  Created by Emaar Hospitality Group on 17/9/18 6:42 PM
+  ~  Created by Emaar Hospitality Group on 22/9/18 12:11 PM
   ~  Copyright (C) 2018  All rights reserved.
-  ~  Last modified 17/9/18 6:42 PM
+  ~  Last modified 22/9/18 12:11 PM
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
   ~  you may not use this file except in compliance with the License.
@@ -18,8 +18,17 @@
   ~
   -->
 
-<alpha xmlns:android="http://schemas.android.com/apk/res/android"
-  android:interpolator="@android:anim/accelerate_interpolator"
-  android:fromAlpha="1.0" android:toAlpha="0.0"
-  android:fillAfter="true"
-  android:duration="250" />
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+  <corners
+    android:radius="5dp"
+    android:topRightRadius="5dp"
+    android:bottomRightRadius="5dp"
+    android:bottomLeftRadius="5dp" />
+
+  <solid android:color="@color/white"/>
+
+  <stroke
+    android:width="1dp"
+    android:color="@color/white" />
+</shape>

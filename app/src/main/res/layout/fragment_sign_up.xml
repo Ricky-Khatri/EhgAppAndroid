@@ -214,6 +214,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="phone"
                 android:maxLines="1"
+                android:maxLength="10"
                 android:singleLine="true"/>
             </LinearLayout>
 
@@ -244,6 +245,7 @@
               android:imeOptions="actionDone"
               android:inputType="textPassword"
               android:maxLines="1"
+              android:maxLength="8"
               android:singleLine="true"/>
 
             <View

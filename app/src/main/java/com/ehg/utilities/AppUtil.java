@@ -19,6 +19,7 @@
 
 package com.ehg.utilities;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +30,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Paint.Style;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -47,10 +47,9 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -58,9 +57,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ehg.R;
-import com.ehg.home.BaseActivity;
-import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
-import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -70,7 +66,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import java.util.Objects;
 
 /**
  * This class contains common utility methods required for the app.
@@ -100,6 +95,7 @@ public class AppUtil {
 
   /**
    * Called to get string from html string content.
+   *
    * @param html html string
    * @return returns spanned content
    */
@@ -119,9 +115,9 @@ public class AppUtil {
    */
   public static void showLoadingIndicator(AppCompatActivity appCompatActivity) {
     if (appCompatActivity != null) {
-      progressDialog = new ProgressDialog(appCompatActivity,R.style.AppCompatAlertDialogStyle);
+      progressDialog = new ProgressDialog(appCompatActivity, R.style.AppCompatAlertDialogStyle);
       progressDialog.setMessage(appCompatActivity.getResources().getString(R.string.all_loading));
-      //progressDialog.setProgressStyle();
+      progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
       progressDialog.show();
     }
   }
@@ -358,82 +354,43 @@ public class AppUtil {
    * @param isCancelable Whether the dialog should be isCancelable when touched outside the window
    */
   public static void showAlertDialog(final AppCompatActivity appCompatActivity,
-      String alertMessage, boolean isRedirect, String alertTitle, boolean isCancelable) {
+      String alertMessage, final boolean isRedirect, String alertTitle, boolean isCancelable) {
 
     try {
 
-      final NiftyDialogBuilder materialDesignAnimatedDialog
-          = NiftyDialogBuilder.getInstance(appCompatActivity);
-
       // We need to get the instance of the LayoutInflater
+      final Dialog dialog = new Dialog(appCompatActivity);
+      dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+      dialog.setCancelable(isCancelable);
+      dialog.setContentView(R.layout.view_alertdialog);
+      dialog.getWindow().getAttributes().windowAnimations = R.style.AlertDialogAnimation;
 
-      LayoutInflater inflater = (LayoutInflater)
-          appCompatActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      View layout = Objects.requireNonNull(inflater).inflate(R.layout.view_alert_dialog,
-          (ViewGroup) appCompatActivity.findViewById(R.id.linearlayout_alertdialog));
-
-      Button buttonOk = layout.findViewById(R.id.button_alertdialog_ok);
-      Button buttonCancel = layout.findViewById(R.id.button_alertdialog_cancel);
-      TextView textViewTitle = layout.findViewById(R.id.textview_alertdialog_title);
-      TextView textViewAlertMessage = layout.findViewById(R.id.textview_alertdialog_message);
+      Button buttonCancel = dialog.findViewById(R.id.button_alertdialog_cancel);
+      buttonCancel.setVisibility(View.GONE);
+      TextView textViewTitle = dialog.findViewById(R.id.textview_alertdialog_title);
+      TextView textViewAlertMessage = dialog.findViewById(R.id.textview_alertdialog_message);
 
       if (TextUtils.isEmpty(alertTitle)) {
-
-        textViewAlertMessage.setText(alertMessage);
-        materialDesignAnimatedDialog.withTitle(null);
-
-        buttonOk.setOnClickListener(new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-          }
-        });
-
-        buttonCancel.setOnClickListener(new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-            materialDesignAnimatedDialog.dismiss();
-          }
-        });
-
+        dialog.findViewById(R.id.liearlayout_alertdialog_title).setVisibility(View.GONE);
       } else {
+        dialog.findViewById(R.id.liearlayout_alertdialog_title).setVisibility(View.VISIBLE);
+        textViewTitle.setText(alertTitle);
+      }
 
-        // textViewTitle.setText(alert);
-        materialDesignAnimatedDialog.withTitle(alertTitle);
-        textViewAlertMessage.setText(alertMessage);
-        buttonCancel.setVisibility(View.GONE);
+      textViewAlertMessage.setText(alertMessage);
 
-        buttonOk.setOnClickListener(new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            materialDesignAnimatedDialog.dismiss();
+      Button buttonOk = dialog.findViewById(R.id.button_alertdialog_ok);
+      buttonOk.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          if (isRedirect) {
+            finishActivityWithAnimation(appCompatActivity);
           }
-        });
-      }
+          dialog.dismiss();
+        }
+      });
 
-      materialDesignAnimatedDialog.setCanceledOnTouchOutside(isCancelable);
-      materialDesignAnimatedDialog.setCustomView(layout, appCompatActivity);
-
-      materialDesignAnimatedDialog.withDuration(ALERT_DIALOG_DURATION)
-          .withMessage(null)
-          .withDialogColor(appCompatActivity.getResources().getColor(R.color.white))
-          .withEffect(Effectstype.Fadein)
-          .show();
-    /*materialDesignAnimatedDialog
-        .withMessage(null)
-        .withDialogColor("#1c90ec")
-        .withButton1Text("OK")
-        .withDuration(700)
-        .withEffect(Effectstype.Fadein)
-        .show();
-      materialDesignAnimatedDialog.setButton1Click(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-
-        showToast(appCompatActivity,"Ok Clicked");
-      }
-    });*/
+      dialog.show();
 
     } catch (NullPointerException n) {
       n.printStackTrace();
@@ -539,10 +496,16 @@ public class AppUtil {
    */
   public static void setStatusBarColor(AppCompatActivity context, int color) {
 
-    if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      context.getWindow().setStatusBarColor(
-          darkenColor(
-              ContextCompat.getColor(context, color)));
+    try {
+      if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        context.getWindow().setStatusBarColor(
+            darkenColor(
+                ContextCompat.getColor(context, color)));
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

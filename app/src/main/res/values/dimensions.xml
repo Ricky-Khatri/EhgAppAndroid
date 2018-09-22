@@ -15,7 +15,7 @@
   <dimen name="margin_all_bannerimage">10dp</dimen>
   <dimen name="size_all_bannerimage">100dp</dimen>
   <dimen name="height_all_verticaldivider">22dp</dimen>
-  <dimen name="height_all_alertdialog">160dp</dimen>
+  <dimen name="height_all_alertdialog">150dp</dimen>
   <dimen name="textsize_signup_termsandcondition">12sp</dimen>
 
   <dimen name="size_socialmedia_mediaicon">50dp</dimen>
@@ -35,4 +35,5 @@
   <dimen name="imagesize_all_reservationimage">100dp</dimen>
   <dimen name="imagesize_all_locationimage">15dp</dimen>
   <dimen name="margin_all_large">30dp</dimen>
+  <dimen name="textsize_ubyemaar_points">24sp</dimen>
 </resources>
