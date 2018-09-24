@@ -115,5 +115,9 @@
   <string name="upointsactivity_upointslabel">Upoints</string>
   <string name="upointactivity_valuelabel">Value</string>
   <string name="upointactivuty_title">Upoint Activity</string>
+  <string name="all_sort">Sort</string>
+  <string name="all_filter">Filter</string>
+  <string name="offers_latest">Latest</string>
+  <string name="offers_foryou">For you</string>
 
 </resources>

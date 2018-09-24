@@ -25,6 +25,11 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -33,8 +38,10 @@ import android.view.ViewGroup;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
-import com.ehg.offers.adapter.OfferListAdapter;
 import com.ehg.home.fragment.BaseFragment;
+import com.ehg.offers.adapter.OfferListAdapter;
+import com.ehg.reservations.fragment.PastReservationFragment;
+import com.ehg.reservations.fragment.UpcomingReservationFragment;
 import com.ehg.utilities.AppUtil;
 import com.yayandroid.parallaxrecyclerview.ParallaxRecyclerView;
 import java.util.Objects;
@@ -104,11 +111,44 @@ public class OffersFragment extends BaseFragment {
   }
 
   /**
-   * Method init's view component of this fragment.
-   *
+   * Init's view components of this screen.
    * @param view view
    */
   private void initView(View view) {
+
+    //Init tab layout
+    TabLayout tabLayout = view.findViewById(R.id.tab_layout_all);
+    final ViewPager viewPager = view.findViewById(R.id.viewpager_all_fragment_viewpager);
+
+    //Create tabs
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.offers_latest));
+    tabLayout.addTab(tabLayout.newTab().setText(R.string.offers_foryou));
+    tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+    //Set viewpager fragment adapter
+    FragmentAdapter fragmentAdapter = new FragmentAdapter(getFragmentManager());
+    viewPager.setAdapter(fragmentAdapter);
+
+    viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+    tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+      @Override
+      public void onTabSelected(TabLayout.Tab layoutTab) {
+
+        viewPager.setCurrentItem(layoutTab.getPosition());
+      }
+
+      @Override
+      public void onTabUnselected(TabLayout.Tab layoutTab) {
+
+      }
+
+      @Override
+      public void onTabReselected(TabLayout.Tab layoutTab) {
+
+      }
+    });
+
     ParallaxRecyclerView recyclerViewOfferList = view
         .findViewById(R.id.parallax_recyclerView_offer_fragment_list);
     recyclerViewOfferList.setLayoutManager(new LinearLayoutManager(context));
@@ -119,5 +159,39 @@ public class OffersFragment extends BaseFragment {
     offerListAdapter = new OfferListAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context));
     recyclerViewOfferList.setAdapter(offerListAdapter);
+  }
+
+  /**
+   * This class initializes viewpager fragment adapter.
+   */
+  public class FragmentAdapter extends FragmentStatePagerAdapter {
+
+    /**
+     * Constructor.
+     *
+     * @param fragmentManager para
+     */
+    public FragmentAdapter(FragmentManager fragmentManager) {
+      super(fragmentManager);
+    }
+
+    // Returns total number of pages
+    @Override
+    public int getCount() {
+      return 2;
+    }
+
+    // Returns the fragment to display for that page
+    @Override
+    public Fragment getItem(int position) {
+      switch (position) {
+        case 0:
+          return new LatestOffersFragment();
+        case 1:
+          return new ForYouOffersFragment();
+        default:
+          return null;
+      }
+    }
   }
 }
