@@ -200,7 +200,7 @@ public class LanguageActivity extends BaseActivity implements
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog(this,errorMessage,false,
-        getResources().getString(R.string.dialog_errortitle),true);
+        getResources().getString(R.string.dialog_errortitle),true,null);
   }
 
   /**

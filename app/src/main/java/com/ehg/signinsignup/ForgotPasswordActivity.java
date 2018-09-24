@@ -36,6 +36,8 @@ import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
 import com.loopj.android.http.RequestParams;
 import com.rilixtech.CountryCodePicker;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class allows to get access of forgotten user password.
@@ -88,6 +90,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
 
   /**
    * Called when phone keyboard action clicked.
+   *
    * @param textView focused view
    * @param index index
    * @param keyEvent key event
@@ -175,7 +178,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_RESET_PASSWORD)
           + accountId,
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
-          FORGOT_PASSWORD_METHOD,true).httpGetRequest();
+          FORGOT_PASSWORD_METHOD, true).httpGetRequest();
     }
   }
 
@@ -188,7 +191,16 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
     if (FORGOT_PASSWORD_METHOD.equalsIgnoreCase(requestMethod)) {
-      //TODO: Parse api response
+      try {
+        JSONObject jsonObject = new JSONObject(responseVal);
+        if (jsonObject.getBoolean("status")) {
+          AppUtil.showAlertDialog(this
+              , jsonObject.getString("message")
+              , true, getResources().getString(R.string.dialog_alerttitle), false,null);
+        }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -200,7 +212,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog(this, errorMessage, false,
-        getResources().getString(R.string.dialog_errortitle), true);
+        getResources().getString(R.string.dialog_errortitle), true,null);
   }
 
   /**

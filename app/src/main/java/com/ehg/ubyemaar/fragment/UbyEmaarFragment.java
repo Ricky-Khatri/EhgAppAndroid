@@ -145,6 +145,6 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
-        getResources().getString(R.string.dialog_errortitle), true);
+        getResources().getString(R.string.dialog_errortitle), true,null);
   }
 }

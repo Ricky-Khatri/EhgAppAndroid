@@ -46,12 +46,7 @@ import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.signinsignup.ForgotPasswordActivity;
-import com.ehg.signinsignup.signinpojo.SigninResponsePojo;
 import com.ehg.utilities.AppUtil;
-import com.ehg.utilities.JsonParserUtil;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.rilixtech.CountryCodePicker;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
@@ -196,7 +191,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    */
   @Override
   public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
-    if(index == EditorInfo.IME_ACTION_DONE) {
+    if (index == EditorInfo.IME_ACTION_DONE) {
       validateSigninFormField();
     }
     return false;
@@ -280,7 +275,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       // perform the user login attempt.
       AppUtil.hideKeyboard(context, editTextPassword);
 
-      userSignin(mobileNumber,password);
+      userSignin(mobileNumber, password);
     }
   }
 
@@ -308,7 +303,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
         //TODO: Need to uncomment countryCode field
         //detailObject.put("accountId", countryCodePicker.getSelectedCountryCode() + mobileNumber);
 
-        detailObject.put("accountId",  mobileNumber);
+        detailObject.put("accountId", mobileNumber);
         detailObject.put("password", password);
 
         JSONObject deviceDetailObject = new JSONObject();
@@ -339,7 +334,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
       new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_LOGIN),
           entity, WebServiceUtil.CONTENT_TYPE,
-          USER_LOGIN_METHOD,true).httpPostRequest();
+          USER_LOGIN_METHOD, true).httpPostRequest();
     }
   }
 
@@ -351,11 +346,13 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    */
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
-    if (requestMethod.equalsIgnoreCase(USER_LOGIN_METHOD)
-        && responseVal != null && !responseVal.equalsIgnoreCase("")
-        && !responseVal.startsWith("<")) {
 
-      SigninResponsePojo signinResponsePojo = new Gson().fromJson(responseVal,
+    try {
+      if (requestMethod.equalsIgnoreCase(USER_LOGIN_METHOD)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<")) {
+
+        /*SigninResponsePojo signinResponsePojo = new Gson().fromJson(responseVal,
           new TypeToken<SigninResponsePojo>() {
           }.getType());
 
@@ -365,7 +362,29 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
         Intent intent = new Intent(context, HomeActivity.class);
         AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+      }*/
+
+        JSONObject jsonObject = new JSONObject(responseVal);
+
+        if (jsonObject.getBoolean("status")) {
+          JSONObject dataObject = jsonObject.getJSONObject("data");
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            SharedPreferenceUtils.getInstance(context)
+                .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
+                    detailArray.getJSONObject(0).getString("loyaltyMemberId"));
+
+            Intent intent = new Intent(context, HomeActivity.class);
+            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+          }
+        }
       }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
@@ -377,7 +396,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
-        getResources().getString(R.string.dialog_errortitle), true);
+        getResources().getString(R.string.dialog_errortitle), true,null);
   }
 }
 

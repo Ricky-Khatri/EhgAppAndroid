@@ -381,9 +381,31 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
     if (requestMethod.equalsIgnoreCase(USER_SIGNUP_METHOD)) {
-      /*Intent intent = new Intent(this, SigninFragment.class);
-      startActivity(intent);
-      finish();*/
+
+      try {
+        JSONObject jsonObject = new JSONObject(responseVal);
+        if (jsonObject.getBoolean("status")) {
+
+          JSONObject dataObject = jsonObject.getJSONObject("data");
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            SharedPreferenceUtils.getInstance(context)
+                .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
+                    detailArray.getJSONObject(0).getString("loyaltyMemberId"));
+
+            Intent intent = new Intent(context, HomeActivity.class);
+            AppUtil.showAlertDialog((AppCompatActivity) context
+                , jsonObject.getString("message")
+                , true, getResources().getString(R.string.dialog_alerttitle), false, intent);
+          }
+        }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      } catch (NullPointerException n) {
+        n.printStackTrace();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -395,6 +417,6 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
-        getResources().getString(R.string.dialog_errortitle), true);
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }

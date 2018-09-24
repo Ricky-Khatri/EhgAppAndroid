@@ -31,6 +31,7 @@ import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.BaseActivity.BroadCastMessageInterface;
+import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
@@ -70,7 +71,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
      *Checking permission for app.
      */
     AppPermissionCheckerUtil.checkAppPermission(SplashActivity.this,
-        new String[] {permission.WRITE_EXTERNAL_STORAGE, permission.ACCESS_FINE_LOCATION});
+        new String[]{permission.WRITE_EXTERNAL_STORAGE, permission.ACCESS_FINE_LOCATION});
   }
 
   /**
@@ -114,15 +115,14 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
   private void switchActivity() throws RuntimeException {
 
     Intent intent;
-        /*if (SharedPreferenceUtils.getInstance(SplashActivity.this)
-            .getStringValue(SharedPreferenceUtils.APP_LANGUAGE, "").equalsIgnoreCase("")) {
-          intent = new Intent(SplashActivity.this, SignInSignupActivity.class);
-        } else {
-          intent = new Intent(SplashActivity.this, HomeActivity.class);
-        }*/
-    intent = new Intent(SplashActivity.this, SignInSignupActivity.class);
+    if (SharedPreferenceUtils.getInstance(SplashActivity.this)
+        .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
+        .equalsIgnoreCase("")) {
+      intent = new Intent(SplashActivity.this, SignInSignupActivity.class);
+    } else {
+      intent = new Intent(SplashActivity.this, HomeActivity.class);
+    }
     AppUtil.startActivityWithAnimation(SplashActivity.this, intent, true);
-
   }
 
   /**
@@ -184,7 +184,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_UPDATE_TOKEN),
           entity, WebServiceUtil.CONTENT_TYPE,
-          UPDATE_TOKEN_METHOD,false).httpPostRequest();
+          UPDATE_TOKEN_METHOD, false).httpPostRequest();
     }
   }
 
@@ -196,9 +196,9 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
    */
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
-    if (requestMethod.equalsIgnoreCase(UPDATE_TOKEN_METHOD)) {
+    /*if (requestMethod.equalsIgnoreCase(UPDATE_TOKEN_METHOD)) {
 
-    }
+    }*/
   }
 
   /**

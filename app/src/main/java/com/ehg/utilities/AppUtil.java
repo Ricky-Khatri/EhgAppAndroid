@@ -354,7 +354,8 @@ public class AppUtil {
    * @param isCancelable Whether the dialog should be isCancelable when touched outside the window
    */
   public static void showAlertDialog(final AppCompatActivity appCompatActivity,
-      String alertMessage, final boolean isRedirect, String alertTitle, boolean isCancelable) {
+      String alertMessage, final boolean isRedirect, String alertTitle, boolean isCancelable
+      , final Intent intent) {
 
     try {
 
@@ -384,7 +385,12 @@ public class AppUtil {
         @Override
         public void onClick(View view) {
           if (isRedirect) {
-            finishActivityWithAnimation(appCompatActivity);
+
+            if (intent != null) {
+              startActivityWithAnimation(appCompatActivity, intent, true);
+            } else {
+              finishActivityWithAnimation(appCompatActivity);
+            }
           }
           dialog.dismiss();
         }
