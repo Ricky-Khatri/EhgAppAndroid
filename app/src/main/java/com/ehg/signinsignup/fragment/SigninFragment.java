@@ -165,7 +165,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       @Override
       public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
         if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-          attemptLogin();
+          validateSigninFormField();
           return true;
         }
         return false;
@@ -197,7 +197,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
     if(index == EditorInfo.IME_ACTION_DONE) {
-      attemptLogin();
+      validateSigninFormField();
     }
     return false;
   }
@@ -213,7 +213,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     switch (view.getId()) {
 
       case R.id.button_signin_login:
-        attemptLogin();
+        validateSigninFormField();
         break;
 
       case R.id.text_view_forgot_password:
@@ -236,7 +236,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    * errors (invalid all_email, missing fields, etc.), the errors are presented and no actual login
    * attempt is made.
    */
-  private void attemptLogin() {
+  private void validateSigninFormField() {
 
     // Reset errors.
     autoCompleteTextViewMobileNumber.setError(null);
@@ -280,7 +280,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       // perform the user login attempt.
       AppUtil.hideKeyboard(context, editTextPassword);
 
-      userLogin(mobileNumber,password);
+      userSignin(mobileNumber,password);
     }
   }
 
@@ -297,7 +297,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   /**
    * Method allows to authenticate user at Emaar cloud.
    */
-  private void userLogin(String mobileNumber, String password) {
+  private void userSignin(String mobileNumber, String password) {
     if (AppUtil.isNetworkAvailable(context)) {
       new HttpClientRequest().setApiResponseListner(this);
       JSONObject jsonObject = new JSONObject();

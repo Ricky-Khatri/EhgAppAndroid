@@ -20,7 +20,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/relativelayout_itembooklist_list"
+  android:id="@+id/relativelayout_itembookinglist_list"
   android:layout_width="match_parent"
   android:layout_marginBottom="@dimen/elevation_all_header"
   android:layout_height="150dp">
@@ -38,7 +38,7 @@
     android:layout_marginBottom="20dp"/>
 
   <android.support.v7.widget.AppCompatImageView
-    android:id="@+id/imageview_itembooklist_image"
+    android:id="@+id/imageview_itembookinglist_image"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:srcCompat="@drawable/placeholder"
@@ -46,7 +46,7 @@
 
 
   <TextView
-    android:id="@+id/textview_itembooklist_title"
+    android:id="@+id/textview_itembookinglist_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"

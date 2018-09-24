@@ -141,7 +141,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
       textViewAdults = view.findViewById(R.id.textview_itemreservationlist_adults);
       textViewChilds = view.findViewById(R.id.textview_itemreservationlist_childs);
       textViewTime = view.findViewById(R.id.textview_itemreservationlist_time);
-      appCompatImageViewThumb = view.findViewById(R.id.imageview_itembooklist_image);
+      appCompatImageViewThumb = view.findViewById(R.id.imageview_itembookinglist_image);
       linearLayoutCheckoutDate = view
           .findViewById(R.id.linearlayout_itemreservationlist_checkoutdate);
       linearLayoutTime = view.findViewById(R.id.linearlayout_itemreservationlist_time);

@@ -40,8 +40,8 @@
     <!-- BaseActivity -->
     <activity android:name=".home.BaseActivity"/>
 
-    <!-- SelectLanguageActivity -->
-    <activity android:name=".language.SelectLanguageActivity"/>
+    <!-- LanguageActivity -->
+    <activity android:name=".language.LanguageActivity"/>
 
     <!-- SignInSignupActivity -->
     <activity android:name=".signinsignup.SignInSignupActivity"/>

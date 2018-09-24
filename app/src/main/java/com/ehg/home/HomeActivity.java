@@ -47,7 +47,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.ehg.R;
-import com.ehg.book.fragment.BookFragment;
+import com.ehg.booking.fragment.BookingFragment;
 import com.ehg.home.BaseActivity.BroadCastMessageInterface;
 import com.ehg.home.adapter.ShowMoreListAdapter;
 import com.ehg.home.adapter.ShowMoreListAdapter.OnShowMoreListItemClickListener;
@@ -236,7 +236,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       case FragmentNavigationController.TAB1:
         return new HomeFragment();
       case FragmentNavigationController.TAB2:
-        return new BookFragment();
+        return new BookingFragment();
       case FragmentNavigationController.TAB3:
         return new ReservationsFragment();
       case FragmentNavigationController.TAB4:

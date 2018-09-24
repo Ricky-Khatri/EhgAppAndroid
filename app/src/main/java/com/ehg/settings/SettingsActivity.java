@@ -27,7 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
-import com.ehg.language.SelectLanguageActivity;
+import com.ehg.language.LanguageActivity;
 import com.ehg.signinsignup.SignInSignupActivity;
 import com.ehg.utilities.AppUtil;
 import com.ehg.webview.WebviewActivity;
@@ -109,7 +109,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
         break;
 
       case R.id.linearlayout_settings_language:
-        intent = new Intent(this, SelectLanguageActivity.class);
+        intent = new Intent(this, LanguageActivity.class);
         AppUtil.startActivityWithAnimation(this, intent, false);
         break;
 

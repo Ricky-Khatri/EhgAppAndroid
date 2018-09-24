@@ -43,7 +43,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-      style="@style/HeaderTextAppearance"
+      style="@style/AppLabelsTextAppearance"
       android:id="@+id/textview_itemreservationlist_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

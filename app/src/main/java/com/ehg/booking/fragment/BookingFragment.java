@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.book.fragment;
+package com.ehg.booking.fragment;
 
 import android.content.Context;
 import android.os.Build.VERSION;
@@ -34,9 +34,9 @@ import android.view.ViewGroup;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
-import com.ehg.book.adapter.BookAdapter;
+import com.ehg.booking.adapter.BookingAdapter;
 import com.ehg.home.fragment.BaseFragment;
-import com.ehg.book.pojo.BookPojo;
+import com.ehg.booking.pojo.BookingPojo;
 import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -44,7 +44,7 @@ import java.util.Objects;
 /**
  * Fragment class.
  */
-public class BookFragment extends BaseFragment {
+public class BookingFragment extends BaseFragment {
 
   private Context context;
 
@@ -69,7 +69,7 @@ public class BookFragment extends BaseFragment {
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
 
-    View view = inflater.inflate(R.layout.fragment_book, container, false);
+    View view = inflater.inflate(R.layout.fragment_booking, container, false);
 
     return view;
   }
@@ -109,38 +109,38 @@ public class BookFragment extends BaseFragment {
    */
   private void initView(View view) {
     RecyclerView recyclerViewBookList = view
-        .findViewById(R.id.recyclerview_book_list);
+        .findViewById(R.id.recyclerview_booking_list);
     recyclerViewBookList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewBookList.setHasFixedSize(true);
 
     //Prepare data
-    ArrayList<BookPojo> bookList = new ArrayList<>();
-    BookPojo bookPojo = new BookPojo();
-    bookPojo.setTitle("Book a Hotel");
-    bookPojo.setImageUrl("");
-    bookList.add(bookPojo);
-    bookPojo = new BookPojo();
-    bookPojo.setTitle("Book a Restaurant");
-    bookPojo.setImageUrl("");
-    bookList.add(bookPojo);
-    bookPojo = new BookPojo();
-    bookPojo.setTitle("Book a Spa Treatment");
-    bookPojo.setImageUrl("");
-    bookList.add(bookPojo);
-    bookPojo = new BookPojo();
-    bookPojo.setTitle("Book a Round of Golf");
-    bookPojo.setImageUrl("");
-    bookList.add(bookPojo);
-    bookPojo = new BookPojo();
-    bookPojo.setTitle("Book an Experience");
-    bookPojo.setImageUrl("");
-    bookList.add(bookPojo);
+    ArrayList<BookingPojo> bookList = new ArrayList<>();
+    BookingPojo bookingPojo = new BookingPojo();
+    bookingPojo.setTitle("Book a Hotel");
+    bookingPojo.setImageUrl("");
+    bookList.add(bookingPojo);
+    bookingPojo = new BookingPojo();
+    bookingPojo.setTitle("Book a Restaurant");
+    bookingPojo.setImageUrl("");
+    bookList.add(bookingPojo);
+    bookingPojo = new BookingPojo();
+    bookingPojo.setTitle("Book a Spa Treatment");
+    bookingPojo.setImageUrl("");
+    bookList.add(bookingPojo);
+    bookingPojo = new BookingPojo();
+    bookingPojo.setTitle("Book a Round of Golf");
+    bookingPojo.setImageUrl("");
+    bookList.add(bookingPojo);
+    bookingPojo = new BookingPojo();
+    bookingPojo.setTitle("Book an Experience");
+    bookingPojo.setImageUrl("");
+    bookList.add(bookingPojo);
 
     //Set adapter
     DisplayMetrics displaymetrics = new DisplayMetrics();
     ((BaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-    BookAdapter bookAdapter = new BookAdapter(context,
+    BookingAdapter bookingAdapter = new BookingAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context),bookList);
-    recyclerViewBookList.setAdapter(bookAdapter);
+    recyclerViewBookList.setAdapter(bookingAdapter);
   }
 }

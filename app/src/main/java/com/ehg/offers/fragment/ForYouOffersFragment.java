@@ -23,6 +23,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -30,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.fragment.BaseFragment;
@@ -39,6 +41,9 @@ import com.ehg.reservations.pojo.ReservationPojo;
 import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 
+/***
+ * This class will show list of guest specific offers.
+ */
 public class ForYouOffersFragment extends BaseFragment implements OnClickListener {
 
   private Context context;
@@ -106,9 +111,16 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
 
       initForYouOfferList(view);
 
+      LinearLayout linearLayoutSort = view.findViewById(R.id.linearlayout_foryouoffers_sort);
+      linearLayoutSort.getLayoutParams().width
+          = (AppUtil.getDeviceWidth((AppCompatActivity) context) / 2) - 30;
+      LinearLayout linearLayoutFilter = view.findViewById(R.id.linearlayout_foryouoffers_filter);
+      linearLayoutFilter.getLayoutParams().width
+          = (AppUtil.getDeviceWidth((AppCompatActivity) context) / 2) - 30;
+
       //Set OnClickedListener
-      view.findViewById(R.id.linearlayout_foryouoffers_sort).setOnClickListener(this);
-      view.findViewById(R.id.linearlayout_foryouoffers_filter).setOnClickListener(this);
+      linearLayoutSort.setOnClickListener(this);
+      linearLayoutFilter.setOnClickListener(this);
 
     } catch (NullPointerException n) {
       n.printStackTrace();

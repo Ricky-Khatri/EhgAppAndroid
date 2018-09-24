@@ -95,7 +95,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
    */
   @Override
   public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
-    validateUsername();
+    validateFormFiled();
     return false;
   }
 
@@ -108,7 +108,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   public void onClick(View view) {
     switch (view.getId()) {
       case R.id.button_forgot_password_reset_password:
-        validateUsername();
+        validateFormFiled();
         break;
 
       case R.id.imageview_header_back:
@@ -124,7 +124,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
    * Method checks for valid all_email or phone number. And on success submit it to Emaar cloud by
    * calling forgotPassword api.
    */
-  private void validateUsername() {
+  private void validateFormFiled() {
 
     textViewMobileNumber.setError(null);
     textViewall_email.setError(null);

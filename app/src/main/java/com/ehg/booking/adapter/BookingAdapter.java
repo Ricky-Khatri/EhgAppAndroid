@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.book.adapter;
+package com.ehg.booking.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.AppCompatImageView;
@@ -28,22 +28,22 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ehg.R;
-import com.ehg.book.pojo.BookPojo;
+import com.ehg.booking.pojo.BookingPojo;
 import java.util.ArrayList;
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
+public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHolder> {
 
   private Context context;
   private LayoutInflater inflater;
 
   private int itemHeight;
 
-  private ArrayList<BookPojo> bookList;
+  private ArrayList<BookingPojo> bookList;
 
   /**
    * Parameterized constructor for offer list adapter.
    */
-  public BookAdapter(Context context, int itemHeight, ArrayList<BookPojo> bookList) {
+  public BookingAdapter(Context context, int itemHeight, ArrayList<BookingPojo> bookList) {
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     this.itemHeight = itemHeight / 4;
@@ -57,8 +57,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
    * @return returns ViewHolder object
    */
   @Override
-  public BookAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
-    return new BookAdapter.ViewHolder(inflater.inflate(R.layout.item_book_list,
+  public BookingAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
+    return new BookingAdapter.ViewHolder(inflater.inflate(R.layout.item_booking_list,
         viewGroup, false));
   }
 
@@ -68,7 +68,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
    * @param position integer position
    */
   @Override
-  public void onBindViewHolder(final BookAdapter.ViewHolder viewHolder, int position) {
+  public void onBindViewHolder(final BookingAdapter.ViewHolder viewHolder, int position) {
 
     /*Glide.with(context).load(bookList.get(position).getImageUrl())
         .into(viewHolder.appCompatImageView);*/
@@ -104,9 +104,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     public ViewHolder(View view) {
       super(view);
 
-      textViewTitle = view.findViewById(R.id.textview_itembooklist_title);
-      relativeLayout = view.findViewById(R.id.relativelayout_itembooklist_list);
-      appCompatImageView = view.findViewById(R.id.imageview_itembooklist_image);
+      textViewTitle = view.findViewById(R.id.textview_itembookinglist_title);
+      relativeLayout = view.findViewById(R.id.relativelayout_itembookinglist_list);
+      appCompatImageView = view.findViewById(R.id.imageview_itembookinglist_image);
 
       //Set dynamic height of item layout
       relativeLayout.getLayoutParams().height = itemHeight;

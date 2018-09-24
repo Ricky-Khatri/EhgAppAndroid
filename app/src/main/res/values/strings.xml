@@ -119,5 +119,9 @@
   <string name="all_filter">Filter</string>
   <string name="offers_latest">Latest</string>
   <string name="offers_foryou">For you</string>
+  <string name="sortoffersdialog_alphabetical_atoz">Alphabetical A-Z</string>
+  <string name="sortoffersdialog_alphabetical_ztoa">Alphabetical Z-A</string>
+  <string name="sortoffersdialog_apply">Apply</string>
+  <string name="sortoffersdialog_pleasechooseoneoption">Please choose one option.</string>
 
 </resources>

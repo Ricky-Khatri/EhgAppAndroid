@@ -17,12 +17,12 @@
  *
  */
 
-package com.ehg.book.pojo;
+package com.ehg.booking.pojo;
 
 /**
  * Pojo class for BookListFragment.
  */
-public class BookPojo {
+public class BookingPojo {
 
   private String title;
   private String imageUrl;

@@ -58,7 +58,7 @@
   </style>
 
   <!--Alert dialog animation style-->
-  <style name="AlertDialogAnimation">
+  <style name="AlertDialogAnimation" parent="Theme.AppCompat.Light.Dialog.Alert">
     <item name="android:windowEnterAnimation">@anim/fade_in</item>
     <item name="android:windowExitAnimation">@anim/fade_out</item>
   </style>
