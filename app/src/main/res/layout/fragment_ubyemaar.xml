@@ -21,7 +21,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
-  android:visibility="gone">
+  android:visibility="visible">
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -148,7 +148,7 @@
             android:layout_toRightOf="@+id/linearlayout_ubyemaar_totalpoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="start"
             android:orientation="vertical">
 
             <LinearLayout
@@ -161,17 +161,15 @@
                 style="@style/HeaderTextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_alignBaseline="@+id/textview_ubyemaar_totaluppointcount"
-                android:layout_alignStart="@+id/textview_ubyemaar_amountlabel"
+                android:gravity="start"
                 android:text="@string/ubyemaar_amountlabel"
                 android:textColor="@color/colorHeaderView"/>
 
               <TextView
-                android:layout_marginLeft="@dimen/elevation_all_header"
+                android:layout_marginStart="@dimen/elevation_all_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="start"
                 android:text="@string/ubyemaar_aedlabel"
                 android:textColor="@color/colorHeaderView"
                 android:textSize="@dimen/textsize_all_guestdetail"/>
@@ -182,8 +180,7 @@
               android:id="@+id/textview_ubyemaar_amountlabel"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:gravity="left"
-              android:layout_below="@+id/textview_ubyemaar_amount"
+              android:gravity="start"
               android:text="@string/ubyemaar_availabletoredeemlabel"
               android:textColor="@color/colorHeaderView"
               android:textSize="@dimen/textsize_all_guesttitle"/>
