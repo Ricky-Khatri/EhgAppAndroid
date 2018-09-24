@@ -370,9 +370,14 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
           JSONObject dataObject = jsonObject.getJSONObject("data");
           JSONArray detailArray = dataObject.optJSONArray("detail");
           if (detailArray != null && detailArray.length() > 0) {
+            //Save loyaltyMEmberId
             SharedPreferenceUtils.getInstance(context)
                 .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
                     detailArray.getJSONObject(0).getString("loyaltyMemberId"));
+            //Save mobile number as accoundId
+            SharedPreferenceUtils.getInstance(context)
+                .setValue(SharedPreferenceUtils.ACCOUNT_ID,
+                    autoCompleteTextViewMobileNumber.getText().toString().trim());
 
             Intent intent = new Intent(context, HomeActivity.class);
             AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
@@ -396,7 +401,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
-        getResources().getString(R.string.dialog_errortitle), true,null);
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }
 

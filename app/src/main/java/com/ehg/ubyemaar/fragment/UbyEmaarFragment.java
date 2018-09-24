@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.HomeActivity;
 import com.ehg.home.fragment.BaseFragment;
 import com.ehg.networkrequest.HttpClientRequest;
@@ -47,6 +48,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
 
   /**
    * Called when fragment created.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
@@ -56,6 +58,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
 
   /**
    * Called to inflate fragment view.
+   *
    * @param inflater LayoutInflater
    * @param container ViewGroup
    * @param savedInstanceState Bundle
@@ -80,6 +83,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
 
   /**
    * Called to instantiate view components of fragment.
+   *
    * @param view View
    * @param savedInstanceState Bundle
    */
@@ -95,11 +99,13 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     this.context = getActivity();
 
     //Call getMemberDetail api
-    //getMemberDetails("08989732840");
+    getMemberDetails(SharedPreferenceUtils.getInstance(context).getStringValue(
+        SharedPreferenceUtils.ACCOUNT_ID, ""));
   }
 
   /**
    * Called to attach activity context to fragment.
+   *
    * @param context activity context
    */
   @Override
@@ -120,7 +126,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
       new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_GET_MEMBER_DETAIL)
           + accountId,
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
-          GET_MEMBER_DETAIL_METHOD,true).httpGetRequest();
+          GET_MEMBER_DETAIL_METHOD, true).httpGetRequest();
     }
   }
 
@@ -145,6 +151,6 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
-        getResources().getString(R.string.dialog_errortitle), true,null);
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }
