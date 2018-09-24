@@ -19,6 +19,7 @@
 
 package com.ehg.offers.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,7 +32,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.fragment.BaseFragment;
@@ -40,19 +45,28 @@ import com.ehg.reservations.pojo.ReservationCategoryPojo;
 import com.ehg.reservations.pojo.ReservationPojo;
 import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /***
  * This class will show list of guest specific offers.
  */
 public class ForYouOffersFragment extends BaseFragment implements OnClickListener {
 
+  private static final String OPTION_A_TO_Z = "sortAtoZ";
+  private static final String OPTION_Z_TO_A = "sortZtoA";
+
   private Context context;
 
-  private ArrayList<ReservationCategoryPojo> reservationCategoryList;
   private ArrayList<ReservationPojo> reservationList;
+  private RecyclerView recyclerViewForYouOffers;
+  private ReservationAdapter reservationAdapter;
+
+  private String selectSortingOption;
 
   /**
    * Called when fragment created.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
@@ -62,6 +76,7 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
 
   /**
    * Called to inflate fragment view.
+   *
    * @param inflater LayoutInflater
    * @param container ViewGroup
    * @param savedInstanceState Bundle
@@ -79,6 +94,7 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
 
   /**
    * Called to instantiate view components of fragment.
+   *
    * @param view View
    * @param savedInstanceState Bundle
    */
@@ -92,6 +108,7 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
 
   /**
    * Called to attach activity context to fragment.
+   *
    * @param context activity context
    */
   @Override
@@ -139,11 +156,11 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
     switch (view.getId()) {
 
       case R.id.linearlayout_foryouoffers_sort:
-
+        showSortDialog();
         break;
 
       case R.id.linearlayout_foryouoffers_filter:
-
+        showSortDialog();
         break;
 
       default:
@@ -153,15 +170,16 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
 
   /**
    * Called to init guest specific (For you) offer list.
+   *
    * @param view view
    */
   private void initForYouOfferList(View view) {
     //Init vertical reservation recycler view
-    RecyclerView recyclerViewReservation = view
+    recyclerViewForYouOffers = view
         .findViewById(R.id.recyclerview_foryouoffers_foryouofferlist);
-    recyclerViewReservation.setLayoutManager(
+    recyclerViewForYouOffers.setLayoutManager(
         new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-    recyclerViewReservation.setHasFixedSize(true);
+    recyclerViewForYouOffers.setHasFixedSize(true);
 
     //Prepare data
     reservationList = new ArrayList<>();
@@ -214,8 +232,119 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
     //Set adapter
     DisplayMetrics displaymetrics = new DisplayMetrics();
     ((BaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-    ReservationAdapter reservationAdapter = new ReservationAdapter(context,
-        AppUtil.getDeviceHeight((BaseActivity) context),reservationList);
-    recyclerViewReservation.setAdapter(reservationAdapter);
+    reservationAdapter = new ReservationAdapter(context,
+        AppUtil.getDeviceHeight((BaseActivity) context), reservationList);
+    recyclerViewForYouOffers.setAdapter(reservationAdapter);
+  }
+
+  /**
+   * Called to sort list A-Z or Z-A.
+   *
+   * @param sortAToZ boolean to decide sorting order
+   */
+  private void sortList(boolean sortAToZ) {
+
+    if (reservationList != null && reservationList.size() > 0) {
+      Collections.sort(reservationList, new Comparator<ReservationPojo>() {
+        @Override
+        public int compare(ReservationPojo first, ReservationPojo second) {
+          return first.getTitle().compareToIgnoreCase(second.getTitle());
+        }
+      });
+
+      //Sort list Z-A
+      if (!sortAToZ) {
+        Collections.reverse(reservationList);
+      }
+
+      //Notify adapter after sorting list
+      if (reservationAdapter != null) {
+        reservationAdapter.notifyDataSetChanged();
+      }
+    }
+  }
+
+  /**
+   * This method will use to show sort dialog.
+   */
+  private void showSortDialog() {
+    try {
+      // We need to get the instance of the LayoutInflater
+      final Dialog dialog = new Dialog(context);
+      dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+      dialog.setContentView(R.layout.view_sortoffersdialog);
+      dialog.getWindow().getAttributes().windowAnimations = R.style.AlertDialogAnimation;
+
+      final RadioButton radioButtonSortAtoZ = dialog
+          .findViewById(R.id.radiobutton_sortoffersdialog_atoz);
+      final RadioButton radioButtonSortZtoA = dialog
+          .findViewById(R.id.radiobutton_sortoffersdialog_ztoa);
+
+      if (selectSortingOption != null && selectSortingOption.equalsIgnoreCase(OPTION_A_TO_Z)) {
+        radioButtonSortAtoZ.setChecked(true);
+        radioButtonSortZtoA.setChecked(false);
+      } else {
+        if (selectSortingOption != null && selectSortingOption.equalsIgnoreCase(OPTION_Z_TO_A)) {
+          radioButtonSortAtoZ.setChecked(false);
+          radioButtonSortZtoA.setChecked(true);
+        }
+      }
+
+      Button buttonApply = dialog.findViewById(R.id.button_sortoffersdialog_apply);
+      buttonApply.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+          if (radioButtonSortAtoZ.isChecked() && !radioButtonSortZtoA.isChecked()) {
+
+            sortList(true);
+            dialog.dismiss();
+
+          } else if (!radioButtonSortAtoZ.isChecked() && radioButtonSortZtoA.isChecked()) {
+
+            sortList(false);
+            dialog.dismiss();
+
+          } else if (!radioButtonSortAtoZ.isChecked() && !radioButtonSortZtoA.isChecked()) {
+
+            AppUtil.showToast(context,
+                context.getResources().getString(R.string.sortoffersdialog_pleasechooseoneoption));
+
+          }
+        }
+      });
+
+      RelativeLayout relativeLayoutSortAtoZ = dialog
+          .findViewById(R.id.relativelayout_sortoffersdialog_sortatoz);
+      relativeLayoutSortAtoZ.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          radioButtonSortAtoZ.setChecked(true);
+          radioButtonSortZtoA.setChecked(false);
+          selectSortingOption = OPTION_A_TO_Z;
+        }
+      });
+
+      RelativeLayout relativeLayoutSortZtoA = dialog
+          .findViewById(R.id.relativelayout_sortoffersdialog_sortztoa);
+      relativeLayoutSortZtoA.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+          radioButtonSortAtoZ.setChecked(false);
+          radioButtonSortZtoA.setChecked(true);
+          selectSortingOption = OPTION_Z_TO_A;
+        }
+      });
+
+      dialog.show();
+
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (RuntimeException rte) {
+      rte.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }

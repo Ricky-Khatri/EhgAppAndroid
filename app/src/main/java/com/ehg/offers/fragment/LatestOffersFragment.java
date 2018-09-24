@@ -60,9 +60,8 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
 
   private Context context;
 
-  private ArrayList<ReservationCategoryPojo> reservationCategoryList;
   private ArrayList<ReservationPojo> reservationList;
-  private RecyclerView recyclerViewReservation;
+  private RecyclerView recyclerViewLatetsOffers;
   private ReservationAdapter reservationAdapter;
 
   private String selectSortingOption;
@@ -178,11 +177,11 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
    */
   private void initLatestOfferList(View view) {
     //Init vertical reservation recycler view
-    recyclerViewReservation = view
+    recyclerViewLatetsOffers = view
         .findViewById(R.id.recyclerview_latestoffers_latestofferlist);
-    recyclerViewReservation.setLayoutManager(
+    recyclerViewLatetsOffers.setLayoutManager(
         new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-    recyclerViewReservation.setHasFixedSize(true);
+    recyclerViewLatetsOffers.setHasFixedSize(true);
 
     //Prepare data
     reservationList = new ArrayList<>();
@@ -237,9 +236,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     ((BaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
     reservationAdapter = new ReservationAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context), reservationList);
-    recyclerViewReservation.setAdapter(reservationAdapter);
-
-    sortList(true);
+    recyclerViewLatetsOffers.setAdapter(reservationAdapter);
   }
 
   /**

@@ -140,7 +140,6 @@
               android:imeOptions="actionDone"
               android:inputType="textPassword"
               android:maxLines="1"
-              android:maxLength="8"
               android:singleLine="true"/>
 
             <View

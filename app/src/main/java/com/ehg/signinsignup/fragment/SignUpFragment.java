@@ -302,8 +302,6 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
     } else {
 
-      /*Intent intent = new Intent(context, HomeActivity.class);
-      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);*/
       userSignup(email, mobile, firstName, lastName, password);
     }
   }
@@ -312,8 +310,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    * Checks if password is valid or not.
    */
   private boolean isPasswordValid(String password) {
-    //TODO: Replace this with your own logic
-    return password.length() >= 4 && password.length() <= 8;
+    return password.length() >= 4;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -334,7 +331,11 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       try {
         detailObject.put("emailId", emailId);
-        detailObject.put("mobileNumber", countryCodePicker.getSelectedCountryCode() + mobileNumber);
+
+        //TODO: Need to un comment countryCode filed
+        //detailObject.put("mobileNumber", countryCodePicker.getSelectedCountryCode() + mobileNumber);
+
+        detailObject.put("mobileNumber", mobileNumber);
         detailObject.put("lastName", lastName);
         detailObject.put("firstName", firstName);
         detailObject.put("password", password);

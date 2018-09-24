@@ -30,7 +30,7 @@
   <string name="all_invalidemail">Invalid email address</string>
   <string name="all_invalidmobile">Invalid mobile number</string>
   <string name="all_invalidpassword">Password is too short</string>
-  <string name="all_passwordlength">Password length must be 4 to 8 characters long</string>
+  <string name="all_passwordlength">Password length must be greater than 4 digits.</string>
   <string name="all_incorrectpassword">Incorrect password</string>
   <string name="all_fieldrequired">This field is required</string>
   <string name="all_erroremailormobile">Please enter registered mobile number or email.</string>

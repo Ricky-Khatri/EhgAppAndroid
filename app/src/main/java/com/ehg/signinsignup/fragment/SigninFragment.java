@@ -288,8 +288,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    * Checks if password is valid or not.
    */
   private boolean isPasswordValid(String password) {
-    //TODO: Replace this with your own logic
-    return password.length() >= 4 && password.length() <= 8;
+    return password.length() >= 4;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -306,7 +305,10 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
       try {
 
-        detailObject.put("accountId", countryCodePicker.getSelectedCountryCode() + mobileNumber);
+        //TODO: Need to uncomment countryCode field
+        //detailObject.put("accountId", countryCodePicker.getSelectedCountryCode() + mobileNumber);
+
+        detailObject.put("accountId",  mobileNumber);
         detailObject.put("password", password);
 
         JSONObject deviceDetailObject = new JSONObject();
