@@ -79,10 +79,6 @@ public class AppUtil {
 
   private static final String TAG = AppUtil.class.getName();
 
-  public static final String DEVICE_TYPE = "android";
-
-  private static final int ALERT_DIALOG_DURATION = 500;
-
   private static ProgressDialog progressDialog;
 
   /**

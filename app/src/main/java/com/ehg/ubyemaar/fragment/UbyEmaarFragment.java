@@ -33,7 +33,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import com.ehg.R;
-import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.HomeActivity;
 import com.ehg.home.fragment.BaseFragment;
 import com.ehg.networkrequest.HttpClientRequest;

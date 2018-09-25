@@ -19,10 +19,6 @@
 
 package com.ehg.settings;
 
-import static com.ehg.utilities.AppUtil.PRIVACY_POLICY_URL;
-import static com.ehg.utilities.AppUtil.SUPPORT_URL;
-import static com.ehg.utilities.AppUtil.TERMS_AND_CONDITIONS_URL;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,7 +35,6 @@ import com.ehg.home.BaseActivity;
 import com.ehg.language.LanguageActivity;
 import com.ehg.signinsignup.SignInSignupActivity;
 import com.ehg.utilities.AppUtil;
-import com.ehg.webview.WebviewActivity;
 
 /**
  * This class allows users to do local app settings.
@@ -173,7 +168,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
   }
 
   /**
-   * This method will use to show Sign out dialog.
+   * This method will use to show Sign out dialog and allows user to Sign-out from app.
    *
    * @param appCompatActivity calling class object
    */

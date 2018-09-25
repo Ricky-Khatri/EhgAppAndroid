@@ -82,7 +82,7 @@
       android:id="@+id/button_alertdialog_ok"
       style="@style/AppLabelsTextAppearance"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/size_alertdialogbutton"
       android:background="@drawable/all_rounded_button"
       android:text="@string/dialog_ok"
       android:textColor="@color/white"/>
@@ -91,7 +91,7 @@
       android:id="@+id/button_alertdialog_cancel"
       style="@style/AppLabelsTextAppearance"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/size_alertdialogbutton"
       android:layout_marginLeft="@dimen/margin_all_horizontal"
       android:background="@drawable/all_rounded_button"
       android:text="@string/dialog_cancel"
