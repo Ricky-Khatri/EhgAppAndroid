@@ -211,21 +211,22 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
         break;
 
       case R.id.textview_signup_whatisubyemaar:
-        intent = new Intent(context, WebviewActivity.class);
-        intent.putExtra("title", textViewWhatIsUbyEmaar.getText().toString());
-        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+        AppUtil.loadWebView((AppCompatActivity) context,
+            textViewWhatIsUbyEmaar.getText().toString(), "",false);
         break;
 
       case R.id.textview_signup_termsandconditions:
-        intent = new Intent(context, WebviewActivity.class);
-        intent.putExtra("title", getResources().getString(R.string.settings_termsandconditions));
-        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+        AppUtil.loadWebView((AppCompatActivity) context,
+            getResources().getString(R.string.settings_termsandconditions),
+            AppUtil.TERMS_AND_CONDITIONS_URL,false);
         break;
 
       default:
         break;
     }
   }
+
+
 
   /**
    * Method validates sign up form fields.
@@ -394,9 +395,9 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
                     detailArray.getJSONObject(0).getString("loyaltyMemberId"));
 
             Intent intent = new Intent(context, HomeActivity.class);
-            AppUtil.showAlertDialog((AppCompatActivity) context
-                , jsonObject.getString("message")
-                , true, getResources().getString(R.string.dialog_alerttitle), false, intent);
+            AppUtil.showAlertDialog((AppCompatActivity) context,
+                jsonObject.getString("message"),
+                true, getResources().getString(R.string.dialog_alerttitle), false, intent);
           }
         }
       } catch (JSONException e) {

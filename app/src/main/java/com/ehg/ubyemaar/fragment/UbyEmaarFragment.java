@@ -20,6 +20,7 @@
 package com.ehg.ubyemaar.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import butterknife.ButterKnife;
 import com.ehg.R;
@@ -37,11 +39,13 @@ import com.ehg.home.fragment.BaseFragment;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.ubyemaar.UpointActivity;
+import com.ehg.ubyemaar.UserPreferencesActivity;
 import com.ehg.utilities.AppUtil;
 import com.loopj.android.http.RequestParams;
 import java.util.Objects;
 
-public class UbyEmaarFragment extends BaseFragment implements ApiResponseListener {
+public class UbyEmaarFragment extends BaseFragment implements ApiResponseListener, OnClickListener {
 
   private static final String GET_MEMBER_DETAIL_METHOD = "getMemberDetailMethod";
   private Context context;
@@ -97,10 +101,11 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     }
 
     this.context = getActivity();
+    initView(view);
 
     //Call getMemberDetail api
-    getMemberDetails(SharedPreferenceUtils.getInstance(context).getStringValue(
-        SharedPreferenceUtils.ACCOUNT_ID, ""));
+    /*getMemberDetails(SharedPreferenceUtils.getInstance(context).getStringValue(
+        SharedPreferenceUtils.ACCOUNT_ID, ""));*/
   }
 
   /**
@@ -112,6 +117,49 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
   public void onAttach(Context context) {
     super.onAttach(context);
     this.context = context;
+  }
+
+  /**
+   * Called to init view components of this fragment.
+   */
+  private void initView(View view) {
+    view.findViewById(R.id.linearlayout_ubyemaar_profile).setOnClickListener(this);
+    view.findViewById(R.id.linearlayout_ubyemaar_upointactivity).setOnClickListener(this);
+    view.findViewById(R.id.linearlayout_ubyemaar_preferences).setOnClickListener(this);
+    view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);
+  }
+
+  /**
+   * Called when click event initiated by any component.
+   *
+   * @param view clicked view
+   */
+  @Override
+  public void onClick(View view) {
+
+    Intent intent;
+
+    switch (view.getId()) {
+
+      case R.id.linearlayout_ubyemaar_profile:
+        break;
+
+      case R.id.linearlayout_ubyemaar_upointactivity:
+        intent = new Intent(context, UpointActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+        break;
+
+      case R.id.linearlayout_ubyemaar_preferences:
+        intent = new Intent(context, UserPreferencesActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+        break;
+
+      case R.id.linearlayout_ubyemaar_benefits:
+        break;
+
+      default:
+        break;
+    }
   }
 
   /**

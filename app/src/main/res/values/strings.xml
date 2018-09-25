@@ -62,6 +62,10 @@
   <string name="map_title">Map</string>
   <string name="dialog_errortitle">Error</string>
   <string name="dialog_alerttitle">Alert</string>
+  <string name="all_confirmtitle">Confirm</string>
+  <string name="setting_signoutmessage">Are you sure do you want to Signout ?</string>
+  <string name="all_yes">Yes</string>
+  <string name="all_no">No</string>
 
   <!--String related to Error message-->
   <string name="all_apierrormessage">Our system encountered a problem. Please try again later!</string>
@@ -80,7 +84,7 @@
   <string name="item_home_fetauretext">HOTELS AND RESORTS</string>
   <string name="item_home_showall">Show all</string>
   <string name="item_home_horizonalitem">ADDRESS HOTELS RESORT</string>
-  <string name="headersearchlayout_textviewhint"><![CDATA[Search for Hotels, Restaurent & More....]]></string>
+  <string name="headersearchlayout_textviewhint"><![CDATA[Search for Hotels, Restaurant & More....]]></string>
   <string name="splash_bottom_label_description">Booking a hotel can be overwhelming but it\'s\n easy with Emaar Hospitality App\'s seamless\nbooking feature.</string>
   <string name="splash_book_hotel_title">Book a Hotel</string>
   <string name="setting_preferences">PREFERENCES</string>
@@ -89,6 +93,7 @@
   <string name="settings_termsandconditions">TERMS AND CONDITIONS</string>
   <string name="settings_language">LANGUAGE</string>
   <string name="settings_sign_in_sign_up">SIGN-IN/SIGN-UP</string>
+  <string name="settings_signuot">SIGN-OUT</string>
 
   <!--Tab fragment titles-->
   <string name="home_title">Home</string>
@@ -123,5 +128,7 @@
   <string name="sortoffersdialog_alphabetical_ztoa">Alphabetical Z-A</string>
   <string name="sortoffersdialog_apply">Apply</string>
   <string name="sortoffersdialog_pleasechooseoneoption">Please choose one option.</string>
+  <string name="userpreferences_preferences">Preferences</string>
+  <string name="userpreferences_experiencesyoulike">Experiences you like</string>
 
 </resources>

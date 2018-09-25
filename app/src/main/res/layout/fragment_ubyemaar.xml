@@ -191,7 +191,7 @@
         </RelativeLayout>
 
         <LinearLayout
-          android:id="@+id/linearlayout_fragmentubyemaar_profile"
+          android:id="@+id/linearlayout_ubyemaar_profile"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/textsize_all_guestdetail"
@@ -203,7 +203,7 @@
           android:orientation="horizontal">
 
           <TextView
-            android:id="@+id/textview_fragmentubyemaar_profile"
+            android:id="@+id/textview_ubyemaar_profile"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -233,7 +233,7 @@
           android:background="@color/colorHeaderView"/>
 
         <LinearLayout
-          android:id="@+id/linearlayout_fragmentubyemaar_upointactivity"
+          android:id="@+id/linearlayout_ubyemaar_upointactivity"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="@dimen/margin_all_continueasguest"
@@ -244,7 +244,7 @@
           android:orientation="horizontal">
 
           <TextView
-            android:id="@+id/textview_fragmentubyemaar_upointactivity"
+            android:id="@+id/textview_ubyemaar_upointactivity"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -274,7 +274,7 @@
           android:background="@color/colorHeaderView"/>
 
         <LinearLayout
-          android:id="@+id/linearlayout_fragmentubyemaar_preferences"
+          android:id="@+id/linearlayout_ubyemaar_preferences"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="@dimen/margin_all_continueasguest"
@@ -285,7 +285,7 @@
           android:orientation="horizontal">
 
           <TextView
-            android:id="@+id/textview_fragmentubyemaar_preferences"
+            android:id="@+id/textview_ubyemaar_preferences"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -315,7 +315,7 @@
           android:background="@color/colorHeaderView"/>
 
         <LinearLayout
-          android:id="@+id/linearlayout_fragmentubyemaar_benefits"
+          android:id="@+id/linearlayout_ubyemaar_benefits"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingTop="@dimen/margin_all_continueasguest"
@@ -326,7 +326,7 @@
           android:orientation="horizontal">
 
           <TextView
-            android:id="@+id/textview_fragmentubyemaar_benefits"
+            android:id="@+id/textview_ubyemaar_benefits"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

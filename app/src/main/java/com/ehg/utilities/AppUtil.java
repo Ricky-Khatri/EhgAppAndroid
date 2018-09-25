@@ -57,6 +57,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ehg.R;
+import com.ehg.webview.WebviewActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -71,6 +72,10 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
  * This class contains common utility methods required for the app.
  */
 public class AppUtil {
+
+  public static final String PRIVACY_POLICY_URL = "https://www.emaar.com/en/privacy-policy/index.aspx";
+  public static final String TERMS_AND_CONDITIONS_URL = "https://www.emaar.com/en/terms-and-conditions/index.aspx";
+  public static final String SUPPORT_URL = "https://www.emaar.com/en/faq/";
 
   private static final String TAG = AppUtil.class.getName();
 
@@ -354,8 +359,8 @@ public class AppUtil {
    * @param isCancelable Whether the dialog should be isCancelable when touched outside the window
    */
   public static void showAlertDialog(final AppCompatActivity appCompatActivity,
-      String alertMessage, final boolean isRedirect, String alertTitle, boolean isCancelable
-      , final Intent intent) {
+      String alertMessage, final boolean isRedirect, String alertTitle, boolean isCancelable,
+      final Intent intent) {
 
     try {
 
@@ -492,6 +497,33 @@ public class AppUtil {
     }
 
     return isSuccess;
+  }
+
+  /**
+   * Called to load a web page (url) in webview.
+   *
+   * @param context activity context
+   * @param title webview activity title
+   * @param url url to load in webview
+   * @param isRedirect has to finish current activity or not
+   */
+  public static void loadWebView(AppCompatActivity context, String title, String url,
+      boolean isRedirect) {
+
+    if (context != null) {
+      if (isNetworkAvailable(context)) {
+        Intent intent = new Intent(context, WebviewActivity.class);
+        intent.putExtra("title", title);
+        if (!url.equalsIgnoreCase("")) {
+          intent.putExtra("url", url);
+        }
+        AppUtil.startActivityWithAnimation(context, intent, isRedirect);
+      } else {
+        showAlertDialog(context,
+            context.getResources().getString(R.string.all_please_check_network_settings),
+            false,"",true,null);
+      }
+    }
   }
 
   /**
