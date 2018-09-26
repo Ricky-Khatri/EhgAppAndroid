@@ -89,18 +89,17 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
    */
   private void initView() {
 
-    Button buttonSignin = findViewById(R.id.button_splash_signin);
+    buttonSignIn = findViewById(R.id.button_splash_signin);
 
     if (SharedPreferenceUtils.getInstance(this)
         .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
         .equalsIgnoreCase("")) {
-      buttonSignin.setText(getResources().getString(R.string.splash_signin));
+      buttonSignIn.setText(getResources().getString(R.string.splash_signin));
     } else {
-      buttonSignin.setText(getResources().getString(R.string.splash_next));
+      buttonSignIn.setText(getResources().getString(R.string.splash_next));
     }
 
     cardViewPager = findViewById(R.id.viewpager_splash_offers);
-    buttonSignIn = findViewById(R.id.button_splash_signin);
 
     //set page margin between pages for viewpager
     DisplayMetrics metrics = new DisplayMetrics();

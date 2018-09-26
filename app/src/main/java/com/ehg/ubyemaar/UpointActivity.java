@@ -38,7 +38,7 @@ import com.ehg.utilities.AppUtil;
 
 public class UpointActivity extends BaseActivity implements View.OnClickListener {
 
-  Context context;
+  private Context context;
   private RecyclerView recycleViewUpoint;
 
   private AppCompatImageView buttonBack;
@@ -66,6 +66,7 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
 
     recycleViewUpoint = findViewById(R.id.recyclerview_upointactivity);
     buttonBack = findViewById(R.id.imageview_header_back);
+    buttonBack.setOnClickListener(this);
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     textViewHeaderTitle.setText(R.string.upointactivuty_title);
 
@@ -74,9 +75,6 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
     recycleViewUpoint.setLayoutManager(manager);
     recycleViewUpoint.setHasFixedSize(true);
     recycleViewUpoint.setAdapter(new UpointAdapter(context));
-
-    headerBackButton.setOnClickListener(this);
-
   }
 
   /**
@@ -94,6 +92,7 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
         break;
 
       default:
+        break;
     }
   }
 }
