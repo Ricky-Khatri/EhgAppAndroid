@@ -49,4 +49,5 @@
   <dimen name="margin_all_large">25dp</dimen>
 
   <dimen name="textsize_ubyemaar_points">22sp</dimen>
+  <dimen name="textsize_all_small">5sp</dimen>
 </resources>

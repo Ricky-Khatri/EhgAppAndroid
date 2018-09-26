@@ -28,5 +28,6 @@
   <dimen name="imagesize_all_locationimage">17dp</dimen>
   <dimen name="margin_all_large">35dp</dimen>
   <dimen name="textsize_ubyemaar_points">24sp</dimen>
+  <dimen name="textsize_all_small">9sp</dimen>
 
 </resources>

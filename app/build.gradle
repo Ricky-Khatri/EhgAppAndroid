@@ -86,6 +86,9 @@ dependencies {
     //gson lib
     implementation 'com.google.code.gson:gson:2.8.2'
 
+    //card view
+    implementation 'com.android.support:cardview-v7:28.0.0'
+
 }
 
 //Fire base crashlytics plugin

@@ -97,6 +97,7 @@
     <activity android:name=".ubyemaar.UpointActivity"/>
     <activity android:name=".webview.WebviewActivity">
     </activity>
+    <activity android:name=".reservations.BookingSummaryActivity"/>
   </application>
 
 </manifest>

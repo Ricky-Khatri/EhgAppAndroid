@@ -30,4 +30,5 @@
   <dimen name="imagesize_all_locationimage">20dp</dimen>
   <dimen name="margin_all_large">35dp</dimen>
   <dimen name="textsize_ubyemaar_points">26sp</dimen>
+  <dimen name="textsize_all_small">11sp</dimen>
 </resources>

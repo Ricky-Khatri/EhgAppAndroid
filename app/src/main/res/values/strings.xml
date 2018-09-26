@@ -115,6 +115,10 @@
   <string name="upointsactivity_upointslabel">Upoints</string>
   <string name="upointactivity_valuelabel">Value</string>
   <string name="upointactivuty_title">Upoint Activity</string>
+  <string name="bookingsummary_clientname">Dear Mr John Doe,</string>
+  <string name="bookingsummery_reservationtitle">Your Room Reservation :</string>
+  <string name="bookingsummary_bookingconfirmation">Booking Confirmation :</string>
+  <string name="bookingsummary_hotellabel">Hotel :</string>
   <string name="all_sort">Sort</string>
   <string name="all_filter">Filter</string>
   <string name="offers_latest">Latest</string>
@@ -123,5 +127,17 @@
   <string name="sortoffersdialog_alphabetical_ztoa">Alphabetical Z-A</string>
   <string name="sortoffersdialog_apply">Apply</string>
   <string name="sortoffersdialog_pleasechooseoneoption">Please choose one option.</string>
+  <string name="bookingsummary_telephonelabel">Telephone :</string>
+  <string name="bookingsummary_emaillabel">Email :</string>
+  <string name="bookingsummary_guestroomtypelabel">Room Type :</string>
+  <string name="bookingsummary_guestcheckinlabel">Checkin :</string>
+  <string name="bookingsummary_guestcheckoutlabel">Check out :</string>
+  <string name="bookingsummary_pricelabel">Price</string>
+  <string name="bookingsummary_guestcount">No of People</string>
+  <string name="bookingsummary_abouthotal">Learn More About the Hotel</string>
+  <string name="bookingsummary_disclaimer">Disclaimer</string>
+  <string name="bookingsummary_disclamer">The sample documents below are provided for general information purposes only. Your use of any of these sample documents is at your own risk, and you should not use any of these sample documents without first seeking legal and other professional advice. The provision of these sample documents (and the documents themselves) do not constitute legal advice or opinions of any kind, or any advertising or solicitation. No lawyer-client, advisory, fiduciary or other relationship is created between Moneris Solutions Corporation (Moneris) and any person accessing or otherwise using any of the sample documents. Moneris and its affiliates (and any of their respective directors, officers, agents, contractors, interns, suppliers and employees) will not be liable for any damages, losses or causes of action of any nature arising from any use of any of the sample documents or the provision of these sample documents.</string>
+  <string name="bookingsummary_modifybooking">Modify Booking</string>
+  <string name="bookingsummary_cancelbooking">Cancel Booking</string>
 
 </resources>

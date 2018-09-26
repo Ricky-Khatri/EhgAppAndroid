@@ -21,6 +21,7 @@ package com.ehg.ubyemaar;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,7 @@ import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.ubyemaar.adapter.UpointAdapter;
+import com.ehg.utilities.AppUtil;
 
 /**
  * This class is using to show Upoint of the user.
@@ -74,6 +76,8 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
     upointRecycleView.setHasFixedSize(true);
     upointRecycleView.setAdapter(new UpointAdapter(context));
 
+    headerBackButton.setOnClickListener(this);
+
   }
 
   /**
@@ -87,7 +91,7 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-        finish();
+        AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
 
       default:

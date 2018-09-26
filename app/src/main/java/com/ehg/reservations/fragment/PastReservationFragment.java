@@ -69,9 +69,7 @@ public class PastReservationFragment  extends BaseFragment {
       Bundle savedInstanceState) {
     // Inflate the layout for this fragment
 
-    View view = inflater.inflate(R.layout.fragment_past_reservation, container, false);
-
-    return view;
+    return inflater.inflate(R.layout.fragment_past_reservation, container, false);
   }
 
   /**
