@@ -29,7 +29,8 @@
       android:value="GlideModule"/>
 
     <!-- SplashActivity -->
-    <activity android:name=".splash.SplashActivity">
+    <activity android:name=".splash.SplashActivity"
+      android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -38,13 +39,16 @@
     </activity>
 
     <!-- BaseActivity -->
-    <activity android:name=".home.BaseActivity"/>
+    <activity android:name=".home.BaseActivity"
+      android:screenOrientation="portrait"/>
 
     <!-- LanguageActivity -->
-    <activity android:name=".language.LanguageActivity"/>
+    <activity android:name=".language.LanguageActivity"
+      android:screenOrientation="portrait"/>
 
     <!-- SignInSignupActivity -->
-    <activity android:name=".signinsignup.SignInSignupActivity"/>
+    <activity android:name=".signinsignup.SignInSignupActivity"
+      android:screenOrientation="portrait"/>
 
     <!-- SigninFragment -->
     <activity android:name=".signinsignup.fragment.SigninFragment"/>
@@ -54,7 +58,8 @@
     </activity>
 
     <!-- HomeActivity -->
-    <activity android:name=".home.HomeActivity">
+    <activity android:name=".home.HomeActivity"
+      android:screenOrientation="portrait">
     </activity>
 
     <!-- Fire base messaging services -->
@@ -65,13 +70,16 @@
     </service>
 
     <!-- ForgotPasswordActivity -->
-    <activity android:name=".signinsignup.ForgotPasswordActivity">
+    <activity android:name=".signinsignup.ForgotPasswordActivity"
+      android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".settings.SettingsActivity">
+    <activity android:name=".settings.SettingsActivity"
+      android:screenOrientation="portrait">
     </activity>
 
     <!-- SocialMediaActivity -->
-    <activity android:name=".socialmedia.SocialMediaActivity">
+    <activity android:name=".socialmedia.SocialMediaActivity"
+      android:screenOrientation="portrait">
     </activity>
 
     <!--
@@ -88,17 +96,28 @@
 
     <activity
       android:label="@string/map_title"
-      android:name=".maps.ui.MapsActivity">
+      android:name=".maps.ui.MapsActivity"
+      android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".settings.PreferencesActivity"/>
-    <activity android:name=".settings.SupportActivity"/>
-    <activity android:name=".settings.PrivacyPolicyActivity"/>
-    <activity android:name=".settings.TermsAndConditionActivity"/>
-    <activity android:name=".ubyemaar.UpointActivity"/>
-    <activity android:name=".webview.WebviewActivity">
+
+    <!--App preference activity-->
+    <activity android:name=".settings.PreferencesActivity"
+      android:screenOrientation="portrait"/>
+
+    <!--Upoint activity-->
+    <activity android:name=".ubyemaar.UpointActivity"
+      android:screenOrientation="portrait"/>
+
+    <!--Webview activity-->
+    <activity android:name=".webview.WebviewActivity"
+      android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".ubyemaar.UserPreferencesActivity">
+
+    <!--User preferences activity-->
+    <activity android:name=".ubyemaar.UserPreferencesActivity"
+      android:screenOrientation="portrait">
     </activity>
+
   </application>
 
 </manifest>

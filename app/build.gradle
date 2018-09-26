@@ -15,7 +15,9 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //For optimizing and shrinking resources at byte level
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -85,6 +87,9 @@ dependencies {
 
     //gson lib
     implementation 'com.google.code.gson:gson:2.8.2'
+
+    //AVI loading indicator lib
+    implementation 'com.wang.avi:library:2.1.3'
 
 }
 

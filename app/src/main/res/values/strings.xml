@@ -130,5 +130,6 @@
   <string name="sortoffersdialog_pleasechooseoneoption">Please choose one option.</string>
   <string name="userpreferences_preferences">Preferences</string>
   <string name="userpreferences_experiencesyoulike">Experiences you like</string>
+  <string name="splash_next">Next</string>
 
 </resources>

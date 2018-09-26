@@ -54,6 +54,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
   public static final int SPLASH_TIME_OUT = 3000;
   private static final String UPDATE_TOKEN_METHOD = "updateToken";
+  private static final String FEATURE_SIGNUP = "signUp";
   public ViewPager cardViewPager;
   private Button buttonSignIn;
   public static int FIRST_PAGE = 1;
@@ -64,20 +65,39 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
 
-    initView();
-    setBroadCastMessageInterface(this);
+    try {
 
-    /*
-     *Checking permission for app.
-     */
-    AppPermissionCheckerUtil.checkAppPermission(SplashActivity.this,
-        new String[]{permission.WRITE_EXTERNAL_STORAGE, permission.ACCESS_FINE_LOCATION});
+      initView();
+
+      setBroadCastMessageInterface(this);
+
+      /*
+       *Checking permission for app.
+       */
+      AppPermissionCheckerUtil.checkAppPermission(SplashActivity.this,
+          new String[]{permission.WRITE_EXTERNAL_STORAGE, permission.ACCESS_FINE_LOCATION});
+
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
    * initialising View component of the Splash Activity.
    */
   private void initView() {
+
+    Button buttonSignin = findViewById(R.id.button_splash_signin);
+
+    if (SharedPreferenceUtils.getInstance(this)
+        .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
+        .equalsIgnoreCase("")) {
+      buttonSignin.setText(getResources().getString(R.string.splash_signin));
+    } else {
+      buttonSignin.setText(getResources().getString(R.string.splash_next));
+    }
 
     cardViewPager = findViewById(R.id.viewpager_splash_offers);
     buttonSignIn = findViewById(R.id.button_splash_signin);
@@ -148,7 +168,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
     if (AppUtil.isNetworkAvailable(this)) {
       new HttpClientRequest().setApiResponseListner(this);
       JSONObject jsonObject = new JSONObject();
-      JSONArray detailesArray = new JSONArray();
+      JSONArray detailsArray = new JSONArray();
       JSONObject detailObject = new JSONObject();
 
       try {
@@ -165,11 +185,11 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
         detailObject.put("deviceDetails", deviceDetailObject);
 
-        detailesArray.put(detailObject);
+        detailsArray.put(detailObject);
 
-        jsonObject.put("details", detailesArray);
+        jsonObject.put("details", detailsArray);
         jsonObject.put("operation", UPDATE_TOKEN_METHOD);
-        jsonObject.put("feature", WebServiceUtil.METHOD_SIGN_UP);
+        jsonObject.put("feature", FEATURE_SIGNUP);
 
       } catch (JSONException e) {
         e.printStackTrace();
