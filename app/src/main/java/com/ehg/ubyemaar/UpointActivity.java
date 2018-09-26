@@ -41,7 +41,7 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
   private Context context;
   private RecyclerView recycleViewUpoint;
 
-  private AppCompatImageView buttonBack;
+  private AppCompatImageView imageviewBack;
   private TextView textViewHeaderTitle;
 
   /**
@@ -65,8 +65,8 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
   private void initView() {
 
     recycleViewUpoint = findViewById(R.id.recyclerview_upointactivity);
-    buttonBack = findViewById(R.id.imageview_header_back);
-    buttonBack.setOnClickListener(this);
+    imageviewBack = findViewById(R.id.imageview_header_back);
+    imageviewBack.setOnClickListener(this);
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     textViewHeaderTitle.setText(R.string.upointactivuty_title);
 
