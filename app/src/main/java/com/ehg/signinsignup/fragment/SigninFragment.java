@@ -71,6 +71,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   private static final String[] DUMMY_CREDENTIALS = new String[]{
       "foo@example.com:hello", "bar@example.com:world"
   };
+
   private static final String OPERATION = "login";
 
   // UI references.

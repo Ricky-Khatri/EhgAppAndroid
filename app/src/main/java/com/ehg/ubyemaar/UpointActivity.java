@@ -39,10 +39,10 @@ import com.ehg.utilities.AppUtil;
 public class UpointActivity extends BaseActivity implements View.OnClickListener {
 
   Context context;
-  private RecyclerView upointRecycleView;
+  private RecyclerView recycleViewUpoint;
 
-  private AppCompatImageView headerBackButton;
-  private TextView headertextView;
+  private AppCompatImageView buttonBack;
+  private TextView textViewHeaderTitle;
 
   /**
    * Called when activity created first.
@@ -64,17 +64,16 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
    */
   private void initView() {
 
-    upointRecycleView = findViewById(R.id.recyclerview_upointactivity);
-    headerBackButton = findViewById(R.id.imageview_header_back);
-    headertextView = findViewById(R.id.textview_header_title);
-
-    headertextView.setText(R.string.upointactivuty_title);
+    recycleViewUpoint = findViewById(R.id.recyclerview_upointactivity);
+    buttonBack = findViewById(R.id.imageview_header_back);
+    textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    textViewHeaderTitle.setText(R.string.upointactivuty_title);
 
     LinearLayoutManager manager = new LinearLayoutManager(context,
         LinearLayoutManager.VERTICAL, false);
-    upointRecycleView.setLayoutManager(manager);
-    upointRecycleView.setHasFixedSize(true);
-    upointRecycleView.setAdapter(new UpointAdapter(context));
+    recycleViewUpoint.setLayoutManager(manager);
+    recycleViewUpoint.setHasFixedSize(true);
+    recycleViewUpoint.setAdapter(new UpointAdapter(context));
 
     headerBackButton.setOnClickListener(this);
 

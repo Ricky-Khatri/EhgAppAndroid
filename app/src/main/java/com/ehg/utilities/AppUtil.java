@@ -50,6 +50,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -57,6 +58,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ehg.R;
+import com.ehg.webview.WebviewActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -66,19 +68,22 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * This class contains common utility methods required for the app.
  */
 public class AppUtil {
 
+  public static final String PRIVACY_POLICY_URL = "https://www.emaar.com/en/privacy-policy/index.aspx";
+  public static final String TERMS_AND_CONDITIONS_URL = "https://www.emaar.com/en/terms-and-conditions/index.aspx";
+  public static final String SUPPORT_URL = "https://www.emaar.com/en/faq/";
+
   private static final String TAG = AppUtil.class.getName();
 
-  public static final String DEVICE_TYPE = "android";
+  //private static ProgressDialog progressDialog;
 
-  private static final int ALERT_DIALOG_DURATION = 500;
-
-  private static ProgressDialog progressDialog;
+  private static Dialog dialogLoadingIndicator;
 
   /**
    * Method returns device screen width in pixel.
@@ -114,12 +119,32 @@ public class AppUtil {
    * @param appCompatActivity activity context
    */
   public static void showLoadingIndicator(AppCompatActivity appCompatActivity) {
-    if (appCompatActivity != null) {
+
+    try {
+      // We need to get the instance of the LayoutInflater
+      dialogLoadingIndicator = new Dialog(appCompatActivity);
+      dialogLoadingIndicator.requestWindowFeature(Window.FEATURE_NO_TITLE);
+      dialogLoadingIndicator.setContentView(R.layout.view_loadingindicator);
+      dialogLoadingIndicator.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+      AVLoadingIndicatorView avLoadingIndicatorView = dialogLoadingIndicator
+          .findViewById(R.id.avloadingindicator);
+      avLoadingIndicatorView.show();
+      dialogLoadingIndicator.show();
+
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (RuntimeException rte) {
+      rte.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    /*if (appCompatActivity != null) {
       progressDialog = new ProgressDialog(appCompatActivity, R.style.AppCompatAlertDialogStyle);
       progressDialog.setMessage(appCompatActivity.getResources().getString(R.string.all_loading));
       progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
       progressDialog.show();
-    }
+    }*/
   }
 
   /**
@@ -128,8 +153,12 @@ public class AppUtil {
    * @param appCompatActivity activity context
    */
   public static void dismissLoadingIndicator(AppCompatActivity appCompatActivity) {
-    if (appCompatActivity != null && progressDialog != null && progressDialog.isShowing()) {
+    /*if (appCompatActivity != null && progressDialog != null && progressDialog.isShowing()) {
       progressDialog.dismiss();
+    }*/
+    if (appCompatActivity != null && dialogLoadingIndicator != null && dialogLoadingIndicator
+        .isShowing()) {
+      dialogLoadingIndicator.dismiss();
     }
   }
 
@@ -256,10 +285,14 @@ public class AppUtil {
    * Check network availability.
    */
   public static boolean isNetworkAvailable(Context context) {
-    ConnectivityManager connectivityManager
-        = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    if (context != null) {
+      ConnectivityManager connectivityManager
+          = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+      NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+      return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -281,14 +314,16 @@ public class AppUtil {
    */
   public static String getVersionName(Context context) {
 
-    PackageInfo pinfo = null;
+    PackageInfo packageInfo = null;
     try {
-      pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+      packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
+    } catch (NullPointerException n) {
+      n.printStackTrace();
     }
-    assert pinfo != null;
-    return pinfo.versionName;
+    assert packageInfo != null;
+    return packageInfo.versionName;
   }
 
   /**
@@ -354,11 +389,10 @@ public class AppUtil {
    * @param isCancelable Whether the dialog should be isCancelable when touched outside the window
    */
   public static void showAlertDialog(final AppCompatActivity appCompatActivity,
-      String alertMessage, final boolean isRedirect, String alertTitle, boolean isCancelable
-      , final Intent intent) {
+      String alertMessage, final boolean isRedirect, String alertTitle, boolean isCancelable,
+      final Intent intent) {
 
     try {
-
       // We need to get the instance of the LayoutInflater
       final Dialog dialog = new Dialog(appCompatActivity);
       dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -492,6 +526,33 @@ public class AppUtil {
     }
 
     return isSuccess;
+  }
+
+  /**
+   * Called to load a web page (url) in webview.
+   *
+   * @param context activity context
+   * @param title webview activity title
+   * @param url url to load in webview
+   * @param isRedirect has to finish current activity or not
+   */
+  public static void loadWebView(AppCompatActivity context, String title, String url,
+      boolean isRedirect) {
+
+    if (context != null) {
+      if (isNetworkAvailable(context)) {
+        Intent intent = new Intent(context, WebviewActivity.class);
+        intent.putExtra("title", title);
+        if (!url.equalsIgnoreCase("")) {
+          intent.putExtra("url", url);
+        }
+        AppUtil.startActivityWithAnimation(context, intent, isRedirect);
+      } else {
+        showAlertDialog(context,
+            context.getResources().getString(R.string.all_please_check_network_settings),
+            false, "", true, null);
+      }
+    }
   }
 
   /**

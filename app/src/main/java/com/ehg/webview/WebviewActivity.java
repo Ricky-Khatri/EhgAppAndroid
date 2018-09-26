@@ -59,14 +59,14 @@ public class WebviewActivity extends BaseActivity {
 
       if (getIntent().getStringExtra("url") != null) {
         url = getIntent().getStringExtra("url");
+      } else {
+        url = "https://www.emaar.com/en/";
       }
 
       if (getIntent() != null && getIntent().getStringExtra("title") != null) {
         TextView titleTv = findViewById(R.id.textview_header_title);
         titleTv.setText(getIntent().getStringExtra("title"));
       }
-
-      url = "https://www.emaar.com/en/";
 
       //Load url
       loadWebview();
