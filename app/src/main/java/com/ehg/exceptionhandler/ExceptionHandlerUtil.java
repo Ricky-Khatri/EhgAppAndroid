@@ -116,7 +116,6 @@ public class ExceptionHandlerUtil {
   /**
    * Method collect crash data and send it to fire base server.
    */
-  @SuppressWarnings("unchecked")
   public void uncaughtException(Thread thread, Throwable throwable) {
     StringBuilder report = new StringBuilder();
     try {
