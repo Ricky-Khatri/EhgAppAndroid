@@ -40,7 +40,6 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -48,21 +47,20 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.fragment.BookingFragment;
 import com.ehg.home.BaseActivity.BroadCastMessageInterface;
 import com.ehg.home.adapter.ShowMoreListAdapter;
 import com.ehg.home.adapter.ShowMoreListAdapter.OnShowMoreListItemClickListener;
 import com.ehg.home.fragment.BaseFragment;
 import com.ehg.home.fragment.HomeFragment;
-import com.ehg.home.fragment.NewsFragment;
-import com.ehg.home.fragment.OffersFragment;
-import com.ehg.home.fragment.ProfileFragment;
-import com.ehg.home.fragment.SettingsFragment;
-import com.ehg.home.fragment.ShareFragment;
 import com.ehg.home.navigation.FragmentNavigationController;
 import com.ehg.home.navigation.FragmentNavigationController.TransactionType;
 import com.ehg.maps.MapsActivity;
+import com.ehg.offers.fragment.OffersFragment;
+import com.ehg.reservations.fragment.ReservationsFragment;
 import com.ehg.settings.SettingsActivity;
 import com.ehg.socialmedia.SocialMediaActivity;
+import com.ehg.ubyemaar.fragment.UbyEmaarFragment;
 import com.ehg.utilities.AppPermissionCheckerUtil;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.FragmentHistoryUtil;
@@ -90,7 +88,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   private TabLayout bottomTabLayout;
 
-  private String[] tabs = {"Home", "Search", "Share", "News", "Profile"};
+  private String[] tabs = {"Home", "Book", "Reservations", "Offers", "U By Emaar"};
 
   private Toolbar toolbar;
 
@@ -238,13 +236,13 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       case FragmentNavigationController.TAB1:
         return new HomeFragment();
       case FragmentNavigationController.TAB2:
-        return new OffersFragment();
+        return new BookingFragment();
       case FragmentNavigationController.TAB3:
-        return new ShareFragment();
+        return new ReservationsFragment();
       case FragmentNavigationController.TAB4:
-        return new NewsFragment();
+        return new OffersFragment();
       case FragmentNavigationController.TAB5:
-        return new ProfileFragment();
+        return new UbyEmaarFragment();
 
       default:
     }
@@ -498,6 +496,10 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     }*/
   }
 
+  /**
+   * Called when tab selected.
+   * @param tab tab
+   */
   @Override
   public void onTabSelected(Tab tab) {
 
@@ -506,10 +508,18 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     switchTab(tab.getPosition());
   }
 
+  /**
+   * Called when tab unselected.
+   * @param tab tab
+   */
   @Override
   public void onTabUnselected(Tab tab) {
   }
 
+  /**
+   * Called when tab reselected.
+   * @param tab tab
+   */
   @Override
   public void onTabReselected(Tab tab) {
 
@@ -518,7 +528,8 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     switchTab(tab.getPosition());
   }
 
-  @Override
+
+  /*@Override
   public boolean onOptionsItemSelected(MenuItem item) {
 
     switch (item.getItemId()) {
@@ -531,8 +542,12 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       default:
     }
     return super.onOptionsItemSelected(item);
-  }
+  }*/
 
+  /**
+   * Called when click event initiated.
+   * @param view clicked view reference
+   */
   @Override
   public void onClick(View view) {
 
@@ -545,9 +560,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       case R.id.imageview_home_showmore:
         //showMorePopUpWindow();
         Intent intent = new Intent(context,SettingsActivity.class);
-        startActivity(intent);
-        //overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        AppUtil.startActivityWithAnimation(this,intent,false);
         break;
 
       default:
@@ -580,7 +593,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
       Intent intent = new Intent(context, MapsActivity.class);
       startActivity(intent);
     } else {
-      AppUtil.showToast(this, getResources().getString(R.string.all_permission_check_alert));
+      AppUtil.showToast(this, getResources().getString(R.string.all_permissionalert));
     }
   }
 
@@ -600,7 +613,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
         AppUtil.startActivityWithAnimation(HomeActivity.this, intent, false);
       }
     } else {
-      AppUtil.showToast(this, getResources().getString(R.string.all_permission_check_alert));
+      AppUtil.showToast(this, getResources().getString(R.string.all_permissionalert));
     }
   }
 }

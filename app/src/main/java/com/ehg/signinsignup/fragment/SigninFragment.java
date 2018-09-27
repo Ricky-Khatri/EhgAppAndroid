@@ -21,18 +21,13 @@ package com.ehg.signinsignup.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
-import android.text.Html;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,13 +38,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
-import com.ehg.settings.ForgotPasswordActivity;
+import com.ehg.signinsignup.ForgotPasswordActivity;
 import com.ehg.utilities.AppUtil;
 import com.rilixtech.CountryCodePicker;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -59,9 +55,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via all_email/password.
  */
-public class SigninFragment extends Fragment implements OnClickListener, ApiResponseListener {
+public class SigninFragment extends Fragment implements OnClickListener, ApiResponseListener,
+    OnEditorActionListener {
 
   private static final String USER_LOGIN_METHOD = "userLogin";
 
@@ -74,6 +71,8 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   private static final String[] DUMMY_CREDENTIALS = new String[]{
       "foo@example.com:hello", "bar@example.com:world"
   };
+
+  private static final String OPERATION = "login";
 
   // UI references.
   private AutoCompleteTextView autoCompleteTextViewMobileNumber;
@@ -149,20 +148,20 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
         (AppCompatActivity) context) / 4;
 
     // Set up the login form.
-    autoCompleteTextViewMobileNumber = view.findViewById(R.id.textview_mobile);
+    autoCompleteTextViewMobileNumber = view.findViewById(R.id.textview_signinfragment_mobile);
 
     TextView textViewUbyEmaarAccount = view.findViewById(R.id.text_view_u_by_emaar_account);
     textViewUbyEmaarAccount.setText(AppUtil.fromHtml(
-        getResources().getString(R.string.signinfragment_signin_to_tap)
+        getResources().getString(R.string.all_signin_to_tap)
             + "<br><b>" + getResources().getString(R.string.all_u_by_emaar) + "</b> "
-            + getResources().getString(R.string.all_account)),TextView.BufferType.SPANNABLE);
+            + getResources().getString(R.string.all_account)), TextView.BufferType.SPANNABLE);
 
-    editTextPassword = view.findViewById(R.id.edittext_password);
+    editTextPassword = view.findViewById(R.id.edittext_signinfragment_password);
     editTextPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
       @Override
       public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
         if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-          attemptLogin();
+          validateSigninFormField();
           return true;
         }
         return false;
@@ -171,12 +170,32 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
     buttonLogin = view.findViewById(R.id.button_signin_login);
     TextView textViewForgotPassword = view.findViewById(R.id.text_view_forgot_password);
-    TextView textViewContinueAsGuest = view.findViewById(R.id.text_view_continue_as_guest);
+    TextView textViewContinueAsGuest = view.findViewById(R.id.textview_signup_continueasguest);
 
     //Set OnClickListener
     buttonLogin.setOnClickListener(this);
     textViewForgotPassword.setOnClickListener(this);
     textViewContinueAsGuest.setOnClickListener(this);
+
+    //Set EditorActionListener
+    autoCompleteTextViewMobileNumber.setOnEditorActionListener(this);
+    editTextPassword.setOnEditorActionListener(this);
+  }
+
+  /**
+   * Called when mobile phone keyboard keys clicked: enter/done/next keys.
+   *
+   * @param textView view currently focused
+   * @param index index
+   * @param keyEvent key event
+   * @return returns boolean value
+   */
+  @Override
+  public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
+    if (index == EditorInfo.IME_ACTION_DONE) {
+      validateSigninFormField();
+    }
+    return false;
   }
 
   /**
@@ -190,7 +209,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     switch (view.getId()) {
 
       case R.id.button_signin_login:
-        attemptLogin();
+        validateSigninFormField();
         break;
 
       case R.id.text_view_forgot_password:
@@ -198,7 +217,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
         AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
         break;
 
-      case R.id.text_view_continue_as_guest:
+      case R.id.textview_signup_continueasguest:
         intent = new Intent(context, HomeActivity.class);
         AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
         break;
@@ -210,10 +229,10 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
   /**
    * Attempts to sign in or register the account specified by the login form. If there are form
-   * errors (invalid email, missing fields, etc.), the errors are presented and no actual login
+   * errors (invalid all_email, missing fields, etc.), the errors are presented and no actual login
    * attempt is made.
    */
-  private void attemptLogin() {
+  private void validateSigninFormField() {
 
     // Reset errors.
     autoCompleteTextViewMobileNumber.setError(null);
@@ -226,35 +245,27 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     boolean cancel = false;
     View focusView = null;
 
-    // Check for a valid email address.
+    // Check for a valid all_email address.
     if (TextUtils.isEmpty(mobileNumber)) {
-      autoCompleteTextViewMobileNumber.setError(getString(R.string.all_error_field_required));
+      autoCompleteTextViewMobileNumber.setError(getString(R.string.all_fieldrequired));
       focusView = autoCompleteTextViewMobileNumber;
       cancel = true;
 
     } else if (!AppUtil.isValidMobile(mobileNumber)) {
-      autoCompleteTextViewMobileNumber.setError(getString(R.string.all_error_invalid_mobile));
+      autoCompleteTextViewMobileNumber.setError(getString(R.string.all_invalidmobile));
       focusView = autoCompleteTextViewMobileNumber;
       cancel = true;
 
     } else if (TextUtils.isEmpty(password)) {
-      editTextPassword.setError(getString(R.string.all_error_field_required));
+      editTextPassword.setError(getString(R.string.all_fieldrequired));
       focusView = editTextPassword;
       cancel = true;
 
     } else if (!isPasswordValid(password)) {
-      editTextPassword.setError(getString(R.string.all_error_invalid_password));
+      editTextPassword.setError(getString(R.string.all_passwordlength));
       focusView = editTextPassword;
       cancel = true;
     }
-
-    // Check for a valid password, if the user entered one.
-    /*if (!TextUtils.isEmpty(mobileNumber) && TextUtils.isEmpty(password)
-    && !isPasswordValid(password)) {
-      editTextPassword.setError(getString(R.string.all_error_invalid_password));
-      focusView = editTextPassword;
-      cancel = true;
-    }*/
 
     if (cancel) {
       // There was an error; don't attempt login and focus the first
@@ -265,16 +276,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       // perform the user login attempt.
       AppUtil.hideKeyboard(context, editTextPassword);
 
-      Intent intent = new Intent(context, HomeActivity.class);
-      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
-
-      /*new Handler().postDelayed(new Runnable() {
-        @Override
-        public void run() {
-          Intent intent = new Intent(context, HomeActivity.class);
-          AppUtil.startActivityWithAnimation((AppCompatActivity)context,intent,true);
-        }
-      },1500);*/
+      userSignin(mobileNumber, password);
     }
   }
 
@@ -282,8 +284,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    * Checks if password is valid or not.
    */
   private boolean isPasswordValid(String password) {
-    //TODO: Replace this with your own logic
-    return password.length() != 10;
+    return password.length() >= 4;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -291,7 +292,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   /**
    * Method allows to authenticate user at Emaar cloud.
    */
-  private void userLogin(String userName, String password) {
+  private void userSignin(String mobileNumber, String password) {
     if (AppUtil.isNetworkAvailable(context)) {
       new HttpClientRequest().setApiResponseListner(this);
       JSONObject jsonObject = new JSONObject();
@@ -300,22 +301,26 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
       try {
 
-        //Store user in app preference
-        SharedPreferenceUtils.getInstance(context).setValue(
-            SharedPreferenceUtils.USERNAME, userName);
+        //TODO: Need to uncomment countryCode field
+        //detailObject.put("accountId", countryCodePicker.getSelectedCountryCode() + mobileNumber);
 
-        detailObject.put("accountId", userName);
+        detailObject.put("accountId", mobileNumber);
         detailObject.put("password", password);
-        detailObject.put("deviceType", AppUtil.DEVICE_TYPE);
-        detailObject.put("appId", AppUtil.getDeviceId(context));
-        detailObject.put("fcmToken", SharedPreferenceUtils.getInstance(context)
-            .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
+
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(context));
+        deviceDetailObject.put("fcmToken",
+            SharedPreferenceUtils.getInstance(context)
+                .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
+
+        detailObject.put("deviceDetails", deviceDetailObject);
 
         detailesArray.put(detailObject);
 
         jsonObject.put("details", detailesArray);
-        jsonObject.put("operation", WebServiceUtil.METHOD_LOGIN);
-        jsonObject.put("feature", WebServiceUtil.METHOD_SIGN_UP);
+        jsonObject.put("operation", OPERATION);
+        jsonObject.put("feature", WebServiceUtil.FEATURE_SIGN_UP);
 
       } catch (JSONException e) {
         e.printStackTrace();
@@ -330,7 +335,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
       new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_LOGIN),
           entity, WebServiceUtil.CONTENT_TYPE,
-          USER_LOGIN_METHOD).httpPostRequest();
+          USER_LOGIN_METHOD, true).httpPostRequest();
     }
   }
 
@@ -342,9 +347,50 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    */
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
-    if (requestMethod.equalsIgnoreCase(USER_LOGIN_METHOD)) {
-      Intent intent = new Intent(context, HomeActivity.class);
-      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+
+    try {
+      if (requestMethod.equalsIgnoreCase(USER_LOGIN_METHOD)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<")) {
+
+        /*SigninResponsePojo signinResponsePojo = new Gson().fromJson(responseVal,
+          new TypeToken<SigninResponsePojo>() {
+          }.getType());
+
+      if (signinResponsePojo != null && signinResponsePojo.getStatus()) {
+
+        JsonParserUtil.getInstance(context).saveSigninResponsePojo(signinResponsePojo);
+
+        Intent intent = new Intent(context, HomeActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+      }*/
+
+        JSONObject jsonObject = new JSONObject(responseVal);
+
+        if (jsonObject.getBoolean("status")) {
+          JSONObject dataObject = jsonObject.getJSONObject("data");
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            //Save loyaltyMEmberId
+            SharedPreferenceUtils.getInstance(context)
+                .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
+                    detailArray.getJSONObject(0).getString("loyaltyMemberId"));
+            //Save mobile number as accoundId
+            SharedPreferenceUtils.getInstance(context)
+                .setValue(SharedPreferenceUtils.ACCOUNT_ID,
+                    autoCompleteTextViewMobileNumber.getText().toString().trim());
+
+            Intent intent = new Intent(context, HomeActivity.class);
+            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+          }
+        }
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
@@ -356,7 +402,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
-        getResources().getString(R.string.alert_dialog_title_error), true);
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }
 

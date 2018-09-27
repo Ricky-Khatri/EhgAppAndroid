@@ -29,14 +29,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
@@ -53,7 +57,8 @@ import org.json.JSONObject;
  * This class allows new user to sign up in app as Emaar member.
  */
 
-public class SignUpFragment extends Fragment implements OnClickListener, ApiResponseListener {
+public class SignUpFragment extends Fragment implements OnClickListener, ApiResponseListener,
+    OnEditorActionListener {
 
   private static final String USER_SIGNUP_METHOD = "userSignup";
 
@@ -67,6 +72,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
   private Context context;
   private CountryCodePicker countryCodePicker;
+  private TextView textViewWhatIsUbyEmaar;
 
   /**
    * Called when fragment created.
@@ -132,33 +138,56 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
     countryCodePicker = view.findViewById(R.id.countrycodepicker_signup_countrycode);
     countryCodePicker.setCountryForPhoneCode(971);
-    
-    AppCompatImageView appCompatImageViewLogo = view.findViewById(R.id.imageview_sign_up_logo);
+
+    AppCompatImageView appCompatImageViewLogo = view.findViewById(R.id.imageview_signup_logo);
     appCompatImageViewLogo.getLayoutParams().height = AppUtil.getDeviceHeight(
         (AppCompatActivity) context) / 4;
 
-    edittextFirstName = view.findViewById(R.id.edittext_sign_up_first_name);
-    edittextLastName = view.findViewById(R.id.edittext_sign_up_last_name);
-    edittextEmail = view.findViewById(R.id.edittext_sign_up_email);
-    edittextMobile = view.findViewById(R.id.edittext_sign_up_mobile);
-    edittextPassword = view.findViewById(R.id.edittext_sign_up_password);
+    edittextFirstName = view.findViewById(R.id.edittext_signup_firstname);
+    edittextLastName = view.findViewById(R.id.edittext_signup_lastname);
+    edittextEmail = view.findViewById(R.id.edittext_signup_email);
+    edittextMobile = view.findViewById(R.id.edittext_signup_mobile);
+    edittextPassword = view.findViewById(R.id.edittext_signup_password);
 
-    TextView textViewUbyEmaarAccount = view.findViewById(R.id.text_view_u_by_emaar_account);
+    TextView textViewUbyEmaarAccount = view.findViewById(R.id.textview_signup_ubyemaaraccount);
     textViewUbyEmaarAccount.setText(Html.fromHtml(
         getResources().getString(R.string.signupfragment_sign_up_and_create)
             + "<b> "
             + getResources().getString(R.string.all_u_by_emaar) + "</b> "
-            + getResources().getString(R.string.all_account)),TextView.BufferType.SPANNABLE);
+            + getResources().getString(R.string.all_account)), TextView.BufferType.SPANNABLE);
 
-    TextView textViewContinueAsGuest = view.findViewById(R.id.text_view_continue_as_guest);
-
-    TextView textViewWhatIsUbyEmaar = view.findViewById(R.id.text_view_what_is_u_by_emaar_account);
-
+    TextView textViewContinueAsGuest = view.findViewById(R.id.textview_signup_continueasguest);
+    textViewWhatIsUbyEmaar = view.findViewById(R.id.textview_signup_whatisubyemaar);
     Button buttonSignUp = view.findViewById(R.id.button_sign_up);
 
+    //Set OnClickListener
     buttonSignUp.setOnClickListener(this);
     textViewContinueAsGuest.setOnClickListener(this);
     textViewWhatIsUbyEmaar.setOnClickListener(this);
+    view.findViewById(R.id.textview_signup_termsandconditions).setOnClickListener(this);
+
+    //Set EditorCLickListener
+    edittextFirstName.setOnEditorActionListener(this);
+    edittextLastName.setOnEditorActionListener(this);
+    edittextEmail.setOnEditorActionListener(this);
+    edittextMobile.setOnEditorActionListener(this);
+    edittextPassword.setOnEditorActionListener(this);
+  }
+
+  /**
+   * Called when mobile phone keyboard keys clicked: enter/done/next keys.
+   *
+   * @param textView view currently focused
+   * @param index index
+   * @param keyEvent key event
+   * @return returns boolean value
+   */
+  @Override
+  public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
+    if (index == EditorInfo.IME_ACTION_DONE) {
+      validateSignUpFormFields();
+    }
+    return false;
   }
 
   /**
@@ -168,25 +197,35 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    */
   @Override
   public void onClick(View view) {
+    Intent intent;
     switch (view.getId()) {
 
       case R.id.button_sign_up:
         validateSignUpFormFields();
-        //userSignup();
         break;
 
-      case R.id.text_view_continue_as_guest:
-        Intent intent = new Intent(context, HomeActivity.class);
-        AppUtil.startActivityWithAnimation((AppCompatActivity)context, intent, true);
+      case R.id.textview_signup_continueasguest:
+        intent = new Intent(context, HomeActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
         break;
 
-      case R.id.text_view_what_is_u_by_emaar_account:
+      case R.id.textview_signup_whatisubyemaar:
+        AppUtil.loadWebView((AppCompatActivity) context,
+            textViewWhatIsUbyEmaar.getText().toString(), "",false);
+        break;
+
+      case R.id.textview_signup_termsandconditions:
+        AppUtil.loadWebView((AppCompatActivity) context,
+            getResources().getString(R.string.settings_termsandconditions),
+            AppUtil.TERMS_AND_CONDITIONS_URL,false);
         break;
 
       default:
         break;
     }
   }
+
+
 
   /**
    * Method validates sign up form fields.
@@ -209,49 +248,49 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
     if (TextUtils.isEmpty(firstName)) {
 
-      edittextFirstName.setError(getResources().getString(R.string.all_error_field_required));
+      edittextFirstName.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextFirstName;
       cancel = true;
 
     } else if (TextUtils.isEmpty(lastName)) {
 
-      edittextLastName.setError(getResources().getString(R.string.all_error_field_required));
+      edittextLastName.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextLastName;
       cancel = true;
 
     } else if (TextUtils.isEmpty(email)) {
 
-      edittextEmail.setError(getResources().getString(R.string.all_error_field_required));
+      edittextEmail.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextEmail;
       cancel = true;
 
-    } else if (!AppUtil.isEmailValid(email)) {
+    } else if (!AppUtil.isall_emailValid(email)) {
 
-      edittextEmail.setError(getResources().getString(R.string.all_error_invalid_email));
+      edittextEmail.setError(getResources().getString(R.string.all_invalidemail));
       focusView = edittextEmail;
       cancel = true;
 
     } else if (TextUtils.isEmpty(mobile)) {
 
-      edittextMobile.setError(getResources().getString(R.string.all_error_field_required));
+      edittextMobile.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextMobile;
       cancel = true;
 
-    } else if (!AppUtil.isMobileValid(mobile)) {
+    } else if (!AppUtil.isValidMobile(mobile)) {
 
-      edittextMobile.setError(getResources().getString(R.string.all_error_invalid_mobile));
+      edittextMobile.setError(getResources().getString(R.string.all_invalidmobile));
       focusView = edittextMobile;
       cancel = true;
 
     } else if (TextUtils.isEmpty(password)) {
 
-      edittextPassword.setError(getResources().getString(R.string.all_error_field_required));
+      edittextPassword.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextPassword;
       cancel = true;
 
     } else if (!isPasswordValid(password)) {
 
-      edittextPassword.setError(getResources().getString(R.string.all_error_invalid_password));
+      edittextPassword.setError(getResources().getString(R.string.all_passwordlength));
       focusView = edittextPassword;
       cancel = true;
 
@@ -263,9 +302,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
     } else {
 
-      Intent intent = new Intent(context, HomeActivity.class);
-      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
-      //userSignup();
+      userSignup(email, mobile, firstName, lastName, password);
     }
   }
 
@@ -273,8 +310,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    * Checks if password is valid or not.
    */
   private boolean isPasswordValid(String password) {
-    //TODO: Replace this with your own logic
-    return password.length() != 10;
+    return password.length() >= 4;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -282,29 +318,42 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   /**
    * Method registers user at Emaar cloud.
    */
-  private void userSignup() {
+  private void userSignup(String emailId, String mobileNumber, String firstName,
+      String lastName, String password) {
+
     if (AppUtil.isNetworkAvailable(context)) {
+
       new HttpClientRequest().setApiResponseListner(this);
+
       JSONObject jsonObject = new JSONObject();
-      JSONArray detailesArray = new JSONArray();
+      JSONArray detailsArray = new JSONArray();
       JSONObject detailObject = new JSONObject();
 
       try {
-        detailObject.put("prefix", "Mr.");
-        detailObject.put("suffix", "ER");
-        detailObject.put("emailId", "ricky.khatri@digivalet.com");
-        detailObject.put("mobileNumber", "8989898989");
-        detailObject.put("lastName", "KH");
-        detailObject.put("firstName", "RK");
-        detailObject.put("gender", "Male");
-        detailObject.put("birthday", "25-06-1987");
-        detailObject.put("country", "India");
+        detailObject.put("emailId", emailId);
 
-        detailesArray.put(detailObject);
+        //TODO: Need to un comment countryCode filed
+        //detailObject.put("mobileNumber", countryCodePicker.getSelectedCountryCode() + mobileNumber);
 
-        jsonObject.put("details", detailesArray);
+        detailObject.put("mobileNumber", mobileNumber);
+        detailObject.put("lastName", lastName);
+        detailObject.put("firstName", firstName);
+        detailObject.put("password", password);
+
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(context));
+        deviceDetailObject.put("fcmToken",
+            SharedPreferenceUtils.getInstance(context)
+                .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
+
+        detailObject.put("deviceDetails", deviceDetailObject);
+
+        detailsArray.put(detailObject);
+
+        jsonObject.put("details", detailsArray);
         jsonObject.put("operation", OPERATION);
-        jsonObject.put("feature", WebServiceUtil.METHOD_SIGN_UP);
+        jsonObject.put("feature", WebServiceUtil.FEATURE_SIGN_UP);
 
       } catch (JSONException e) {
         e.printStackTrace();
@@ -319,7 +368,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_SIGN_UP),
           entity, WebServiceUtil.CONTENT_TYPE,
-          USER_SIGNUP_METHOD).httpPostRequest();
+          USER_SIGNUP_METHOD, true).httpPostRequest();
     }
   }
 
@@ -332,9 +381,31 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
     if (requestMethod.equalsIgnoreCase(USER_SIGNUP_METHOD)) {
-      /*Intent intent = new Intent(this, SigninFragment.class);
-      startActivity(intent);
-      finish();*/
+
+      try {
+        JSONObject jsonObject = new JSONObject(responseVal);
+        if (jsonObject.getBoolean("status")) {
+
+          JSONObject dataObject = jsonObject.getJSONObject("data");
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            SharedPreferenceUtils.getInstance(context)
+                .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
+                    detailArray.getJSONObject(0).getString("loyaltyMemberId"));
+
+            Intent intent = new Intent(context, HomeActivity.class);
+            AppUtil.showAlertDialog((AppCompatActivity) context,
+                jsonObject.getString("message"),
+                true, getResources().getString(R.string.dialog_alerttitle), false, intent);
+          }
+        }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      } catch (NullPointerException n) {
+        n.printStackTrace();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
   }
 
@@ -346,6 +417,6 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
-        getResources().getString(R.string.alert_dialog_title_error), true);
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }

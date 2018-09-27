@@ -88,7 +88,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback,
   private void initView() {
     TextView textViewHeader = findViewById(R.id.textview_header_title);
     ImageView imageViewBack = findViewById(R.id.imageview_header_back);
-    textViewHeader.setText(R.string.map);
+    textViewHeader.setText(R.string.map_title);
     imageViewBack.setVisibility(View.VISIBLE);
     imageViewBack.setOnClickListener(new OnClickListener() {
       @Override

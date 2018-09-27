@@ -35,9 +35,10 @@ public class SharedPreferenceUtils {
   //SharedPreference keys
   public static final String APP_LANGUAGE = "AppLanguage";
   public static final String FCM_TOKEN = "FcmToken";
-  public static final String EMAAR_ID = "EmmarId";
+  public static final String LOYALTY_MEMBER_ID = "LoyaltyMemberId";
   public static final String USERNAME = "UserName";
   public static final String PASSWORD = "Password";
+  public static final String ACCOUNT_ID = "AccountId";
 
   /**
    * Parameterized constructor of this class.

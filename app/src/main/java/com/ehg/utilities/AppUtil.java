@@ -19,6 +19,7 @@
 
 package com.ehg.utilities;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -46,10 +47,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -57,9 +58,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ehg.R;
-import com.ehg.home.BaseActivity;
-import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
-import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+import com.ehg.webview.WebviewActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -69,17 +68,22 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import java.util.Objects;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * This class contains common utility methods required for the app.
  */
 public class AppUtil {
 
+  public static final String PRIVACY_POLICY_URL = "https://www.emaar.com/en/privacy-policy/index.aspx";
+  public static final String TERMS_AND_CONDITIONS_URL = "https://www.emaar.com/en/terms-and-conditions/index.aspx";
+  public static final String SUPPORT_URL = "https://www.emaar.com/en/faq/";
+
   private static final String TAG = AppUtil.class.getName();
 
-  public static final String DEVICE_TYPE = "android";
-  private static ProgressDialog progressDialog;
+  //private static ProgressDialog progressDialog;
+
+  private static Dialog dialogLoadingIndicator;
 
   /**
    * Method returns device screen width in pixel.
@@ -96,11 +100,12 @@ public class AppUtil {
 
   /**
    * Called to get string from html string content.
+   *
    * @param html html string
    * @return returns spanned content
    */
   @SuppressWarnings("deprecation")
-  public static Spanned fromHtml(String html){
+  public static Spanned fromHtml(String html) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
     } else {
@@ -114,10 +119,32 @@ public class AppUtil {
    * @param appCompatActivity activity context
    */
   public static void showLoadingIndicator(AppCompatActivity appCompatActivity) {
-    if (appCompatActivity != null) {
-      progressDialog = new ProgressDialog(appCompatActivity);
-      progressDialog.show();
+
+    try {
+      // We need to get the instance of the LayoutInflater
+      dialogLoadingIndicator = new Dialog(appCompatActivity);
+      dialogLoadingIndicator.requestWindowFeature(Window.FEATURE_NO_TITLE);
+      dialogLoadingIndicator.setContentView(R.layout.view_loadingindicator);
+      dialogLoadingIndicator.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+      AVLoadingIndicatorView avLoadingIndicatorView = dialogLoadingIndicator
+          .findViewById(R.id.avloadingindicator);
+      avLoadingIndicatorView.show();
+      dialogLoadingIndicator.show();
+
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (RuntimeException rte) {
+      rte.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    /*if (appCompatActivity != null) {
+      progressDialog = new ProgressDialog(appCompatActivity, R.style.AppCompatAlertDialogStyle);
+      progressDialog.setMessage(appCompatActivity.getResources().getString(R.string.all_loading));
+      progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+      progressDialog.show();
+    }*/
   }
 
   /**
@@ -126,8 +153,12 @@ public class AppUtil {
    * @param appCompatActivity activity context
    */
   public static void dismissLoadingIndicator(AppCompatActivity appCompatActivity) {
-    if (appCompatActivity != null && progressDialog != null && progressDialog.isShowing()) {
+    /*if (appCompatActivity != null && progressDialog != null && progressDialog.isShowing()) {
       progressDialog.dismiss();
+    }*/
+    if (appCompatActivity != null && dialogLoadingIndicator != null && dialogLoadingIndicator
+        .isShowing()) {
+      dialogLoadingIndicator.dismiss();
     }
   }
 
@@ -181,15 +212,8 @@ public class AppUtil {
   /**
    * Checks if passed email string is valid or not.
    */
-  public static boolean isEmailValid(String email) {
+  public static boolean isall_emailValid(String email) {
     return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
-  }
-
-  /**
-   * Checks if passed mobile number is valid or not.
-   */
-  public static boolean isMobileValid(String mobileNumber) {
-    return (!TextUtils.isEmpty(mobileNumber) && Patterns.PHONE.matcher(mobileNumber).matches());
   }
 
   /**
@@ -197,7 +221,7 @@ public class AppUtil {
    */
   public static boolean isValidMobile(String phone) {
     return /*android.util.Patterns.PHONE.matcher(phone).matches()*/
-          phone.length() > 0 && phone.length() == 10;
+        phone.length() > 0 && phone.length() == 10;
   }
 
   /**
@@ -261,10 +285,14 @@ public class AppUtil {
    * Check network availability.
    */
   public static boolean isNetworkAvailable(Context context) {
-    ConnectivityManager connectivityManager
-        = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    if (context != null) {
+      ConnectivityManager connectivityManager
+          = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+      NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+      return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -286,14 +314,16 @@ public class AppUtil {
    */
   public static String getVersionName(Context context) {
 
-    PackageInfo pinfo = null;
+    PackageInfo packageInfo = null;
     try {
-      pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+      packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
+    } catch (NullPointerException n) {
+      n.printStackTrace();
     }
-    assert pinfo != null;
-    return pinfo.versionName;
+    assert packageInfo != null;
+    return packageInfo.versionName;
   }
 
   /**
@@ -354,87 +384,53 @@ public class AppUtil {
    * @param appCompatActivity calling class object
    * @param alertMessage message which will show as an alert
    * @param isRedirect if it is true than we will navigate to other activity, or if false than we
-   * will stay on same activity and perform required action.
+   *        will stay on same activity and perform required action.
    * @param alertTitle message will show on a dialog title
    * @param isCancelable Whether the dialog should be isCancelable when touched outside the window
    */
   public static void showAlertDialog(final AppCompatActivity appCompatActivity,
-      String alertMessage, boolean isRedirect, String alertTitle, boolean isCancelable) {
+      String alertMessage, final boolean isRedirect, String alertTitle, boolean isCancelable,
+      final Intent intent) {
 
     try {
-
-      final NiftyDialogBuilder materialDesignAnimatedDialog
-          = NiftyDialogBuilder.getInstance(appCompatActivity);
-
       // We need to get the instance of the LayoutInflater
+      final Dialog dialog = new Dialog(appCompatActivity);
+      dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+      dialog.setCancelable(isCancelable);
+      dialog.setContentView(R.layout.view_alertdialog);
+      dialog.getWindow().getAttributes().windowAnimations = R.style.AlertDialogAnimation;
 
-      LayoutInflater inflater = (LayoutInflater)
-          appCompatActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-      View layout = Objects.requireNonNull(inflater).inflate(R.layout.view_alert_dialog,
-          (ViewGroup) appCompatActivity.findViewById(R.id.linearlayout_alertdialog));
-
-      Button buttonOk = layout.findViewById(R.id.button_alertdialog_ok);
-      Button buttonCancel = layout.findViewById(R.id.button_alertdialog_cancel);
-      TextView textViewTitle = layout.findViewById(R.id.textview_alertdialog_title);
-      TextView textViewAlertMessage = layout.findViewById(R.id.textview_alertdialog_message);
+      Button buttonCancel = dialog.findViewById(R.id.button_alertdialog_cancel);
+      buttonCancel.setVisibility(View.GONE);
+      TextView textViewTitle = dialog.findViewById(R.id.textview_alertdialog_title);
+      TextView textViewAlertMessage = dialog.findViewById(R.id.textview_alertdialog_message);
 
       if (TextUtils.isEmpty(alertTitle)) {
-
-        textViewAlertMessage.setText(alertMessage);
-        materialDesignAnimatedDialog.withTitle(null);
-
-        buttonOk.setOnClickListener(new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-          }
-        });
-
-        buttonCancel.setOnClickListener(new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-
-            materialDesignAnimatedDialog.dismiss();
-          }
-        });
-
+        dialog.findViewById(R.id.liearlayout_alertdialog_title).setVisibility(View.GONE);
       } else {
+        dialog.findViewById(R.id.liearlayout_alertdialog_title).setVisibility(View.VISIBLE);
+        textViewTitle.setText(alertTitle);
+      }
 
-        // textViewTitle.setText(alert);
-        materialDesignAnimatedDialog.withTitle(alertTitle);
-        textViewAlertMessage.setText(alertMessage);
-        buttonCancel.setVisibility(View.GONE);
+      textViewAlertMessage.setText(alertMessage);
 
-        buttonOk.setOnClickListener(new OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            materialDesignAnimatedDialog.dismiss();
+      Button buttonOk = dialog.findViewById(R.id.button_alertdialog_ok);
+      buttonOk.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          if (isRedirect) {
+
+            if (intent != null) {
+              startActivityWithAnimation(appCompatActivity, intent, true);
+            } else {
+              finishActivityWithAnimation(appCompatActivity);
+            }
           }
-        });
-      }
+          dialog.dismiss();
+        }
+      });
 
-      materialDesignAnimatedDialog.setCanceledOnTouchOutside(isCancelable);
-      materialDesignAnimatedDialog.setCustomView(layout, appCompatActivity);
-
-      materialDesignAnimatedDialog.withDuration(700)
-          .withMessage(null)
-          .withDialogColor("#1c90ec")
-          .withEffect(Effectstype.Fadein)
-          .show();
-    /*materialDesignAnimatedDialog
-        .withMessage(null)
-        .withDialogColor("#1c90ec")
-        .withButton1Text("OK")
-        .withDuration(700)
-        .withEffect(Effectstype.Fadein)
-        .show();
-      materialDesignAnimatedDialog.setButton1Click(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-
-        showToast(appCompatActivity,"Ok Clicked");
-      }
-    });*/
+      dialog.show();
 
     } catch (NullPointerException n) {
       n.printStackTrace();
@@ -533,6 +529,33 @@ public class AppUtil {
   }
 
   /**
+   * Called to load a web page (url) in webview.
+   *
+   * @param context activity context
+   * @param title webview activity title
+   * @param url url to load in webview
+   * @param isRedirect has to finish current activity or not
+   */
+  public static void loadWebView(AppCompatActivity context, String title, String url,
+      boolean isRedirect) {
+
+    if (context != null) {
+      if (isNetworkAvailable(context)) {
+        Intent intent = new Intent(context, WebviewActivity.class);
+        intent.putExtra("title", title);
+        if (!url.equalsIgnoreCase("")) {
+          intent.putExtra("url", url);
+        }
+        AppUtil.startActivityWithAnimation(context, intent, isRedirect);
+      } else {
+        showAlertDialog(context,
+            context.getResources().getString(R.string.all_please_check_network_settings),
+            false, "", true, null);
+      }
+    }
+  }
+
+  /**
    * Sets status bar color of app.
    *
    * @param context activity context
@@ -540,10 +563,16 @@ public class AppUtil {
    */
   public static void setStatusBarColor(AppCompatActivity context, int color) {
 
-    if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      context.getWindow().setStatusBarColor(
-          darkenColor(
-              ContextCompat.getColor(context, color)));
+    try {
+      if (context != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        context.getWindow().setStatusBarColor(
+            darkenColor(
+                ContextCompat.getColor(context, color)));
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

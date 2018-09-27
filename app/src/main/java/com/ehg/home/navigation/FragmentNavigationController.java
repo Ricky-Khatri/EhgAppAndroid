@@ -709,34 +709,34 @@ public class FragmentNavigationController {
   @CheckResult
   private FragmentTransaction createTransactionWithOptions(
       @Nullable FragmentNavigationTransactionOptions transactionOptions) {
-    FragmentTransaction ft = mfragmentManager.beginTransaction();
+    FragmentTransaction fragmentTransaction = mfragmentManager.beginTransaction();
     if (transactionOptions == null) {
       transactionOptions = mdefaultTransactionOptions;
     }
     if (transactionOptions != null) {
 
-      ft.setCustomAnimations(transactionOptions.enterAnimation, transactionOptions.exitAnimation,
+      fragmentTransaction.setCustomAnimations(transactionOptions.enterAnimation, transactionOptions.exitAnimation,
           transactionOptions.popEnterAnimation, transactionOptions.popExitAnimation);
-      ft.setTransitionStyle(transactionOptions.transitionStyle);
+      fragmentTransaction.setTransitionStyle(transactionOptions.transitionStyle);
 
-      ft.setTransition(transactionOptions.transition);
+      fragmentTransaction.setTransition(transactionOptions.transition);
 
       if (transactionOptions.sharedElements != null) {
         for (Pair<View, String> sharedElement : transactionOptions.sharedElements) {
-          ft.addSharedElement(sharedElement.first, sharedElement.second);
+          fragmentTransaction.addSharedElement(sharedElement.first, sharedElement.second);
         }
       }
 
       if (transactionOptions.breadCrumbTitle != null) {
-        ft.setBreadCrumbTitle(transactionOptions.breadCrumbTitle);
+        fragmentTransaction.setBreadCrumbTitle(transactionOptions.breadCrumbTitle);
       }
 
       if (transactionOptions.breadCrumbShortTitle != null) {
-        ft.setBreadCrumbShortTitle(transactionOptions.breadCrumbShortTitle);
+        fragmentTransaction.setBreadCrumbShortTitle(transactionOptions.breadCrumbShortTitle);
 
       }
     }
-    return ft;
+    return fragmentTransaction;
   }
 
   //endregion

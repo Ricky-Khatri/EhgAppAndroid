@@ -55,28 +55,28 @@
         android:layout_height="wrap_content"
         android:text="@string/splash_book_hotel_title"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/dimension_guest_title"/>
+        android:textSize="@dimen/textsize_all_guesttitle"/>
 
       <TextView
         android:id="@+id/textview_splash_branddescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimension_guest_detail"
+        android:layout_marginTop="@dimen/textsize_all_guestdetail"
         android:gravity="center"
         android:text="@string/splash_bottom_label_description"
-        android:textSize="@dimen/dimension_guest_detail"/>
+        android:textSize="@dimen/textsize_all_guestdetail"/>
 
       <com.rd.PageIndicatorView
         android:id="@+id/pageindicatorview_splash_pageindicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dimension_app_labels"
+        android:layout_marginTop="@dimen/textsize_all_labels"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         app:piv_animationType="scale"
         app:piv_dynamicCount="true"
         app:piv_interactiveAnimation="true"
-        app:piv_selectedColor="@color/btn_press_color"
+        app:piv_selectedColor="@color/colorGray"
         app:piv_unselectedColor="@color/colorHeaderView"
         app:piv_viewPager="@id/viewpager_splash_offers"
         attrs:piv_padding="6dp"
@@ -89,12 +89,15 @@
     style="@style/AppLabelsTextAppearance"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:layout_marginBottom="@dimen/dimension_header_elevation"
-    android:layout_marginRight="@dimen/dimension_header_elevation"
-    android:layout_marginLeft="@dimen/dimension_header_elevation"
+    android:layout_marginTop="@dimen/margin_all_vertical"
+    android:layout_marginBottom="@dimen/elevation_all_header"
+    android:layout_marginRight="@dimen/elevation_all_header"
+    android:layout_marginLeft="@dimen/elevation_all_header"
     android:layout_alignParentBottom="true"
     android:background="@drawable/all_rounded_button"
     android:text="@string/splash_signin"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:textColor="@color/white"/>
 </RelativeLayout>

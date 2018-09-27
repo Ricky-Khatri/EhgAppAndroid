@@ -32,8 +32,8 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
       android:id="@+id/roundedimageview_item_roomcontrol_roomcontrolimage"
-      android:layout_width="@dimen/size_itemhomehorizontalitem_roundedimageview"
-      android:layout_height="@dimen/size_itemhomehorizontalitem_roundedimageview"
+      android:layout_width="@dimen/imagesize_all_roundedimage"
+      android:layout_height="@dimen/imagesize_all_roundedimage"
       android:scaleType="centerCrop"
       android:src="@drawable/emaar_logo"
       app:riv_corner_radius="4dp"/>
@@ -42,12 +42,12 @@
       android:id="@+id/textview_item_roomcontrol_roomcontrolname"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/dimension_guest_detail"
+      android:layout_marginBottom="@dimen/textsize_all_guestdetail"
       android:layout_gravity="center|bottom"
 
       android:textStyle="bold"
       android:textColor="@color/colorWhite"
-      android:textSize="@dimen/dimension_guest_detail"/>
+      android:textSize="@dimen/textsize_all_guestdetail"/>
 
   </FrameLayout>
 </LinearLayout>

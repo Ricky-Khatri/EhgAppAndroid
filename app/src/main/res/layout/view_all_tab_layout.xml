@@ -28,18 +28,18 @@
     android:id="@+id/tab_layout_all"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/dimension_header_elevation"
-    android:layout_marginRight="@dimen/dimension_header_elevation"
+    android:layout_marginLeft="@dimen/elevation_all_header"
+    android:layout_marginRight="@dimen/elevation_all_header"
     android:background="@color/transparent"
     android:theme="@style/Base.Widget.Design.TabLayout"
-    android:elevation="@dimen/dimension_header_elevation"
+    android:elevation="@dimen/elevation_all_header"
     app:tabIndicatorColor="@color/colorGray"
     android:minHeight="?attr/actionBarSize"/>
 
   <View
     android:layout_width="match_parent"
-    android:layout_marginLeft="@dimen/dimension_header_elevation"
-    android:layout_marginRight="@dimen/dimension_header_elevation"
+    android:layout_marginLeft="@dimen/elevation_all_header"
+    android:layout_marginRight="@dimen/elevation_all_header"
     android:layout_height="1dp"
     android:background="@color/colorBlackTransparent"/>
 
@@ -47,8 +47,5 @@
     android:id="@+id/viewpager_all_fragment_viewpager"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-
-
-
   </android.support.v4.view.ViewPager>
 </LinearLayout>

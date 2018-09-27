@@ -79,7 +79,7 @@
           android:id="@+id/sliderlayout_home"
           android:layout_width="match_parent"
           android:layout_height="200dp"
-          android:elevation="@dimen/dimension_header_elevation"/>
+          android:elevation="@dimen/elevation_all_header"/>
 
         <com.glide.slider.library.Indicators.PagerIndicator
           android:id="@+id/custom_indicator"

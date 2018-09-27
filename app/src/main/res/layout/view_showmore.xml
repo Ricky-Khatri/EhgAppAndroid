@@ -23,7 +23,7 @@
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:layout_gravity="center"
-  android:padding="@dimen/dimension_header_margin_left"
+  android:padding="@dimen/marginleft_all_header"
   android:gravity="center"
   android:background="@drawable/all_rounded_border"
   android:orientation="vertical">

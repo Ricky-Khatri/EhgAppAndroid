@@ -55,12 +55,12 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
    * Called to inflate layout item and returns ViewHolder object.
    *
    * @param viewGroup viewGroup object
-   * @param i integer position
+   * @param position integer position
    * @return returns ViewHolder object
    */
   @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
     return new ViewHolder(inflater.inflate(R.layout.item_home,
         viewGroup, false));
   }
@@ -69,10 +69,10 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
    * Called to bind data values with viewHolder items.
    *
    * @param viewHolder viewHolder object
-   * @param i integer position
+   * @param position integer position
    */
   @Override
-  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
     viewHolder.recycleViewFeatureHotel.setHasFixedSize(true);
     viewHolder.recycleViewFeatureHotel

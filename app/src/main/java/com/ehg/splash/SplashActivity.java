@@ -31,6 +31,7 @@ import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.BaseActivity.BroadCastMessageInterface;
+import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
@@ -53,6 +54,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
   public static final int SPLASH_TIME_OUT = 3000;
   private static final String UPDATE_TOKEN_METHOD = "updateToken";
+  private static final String FEATURE_SIGNUP = "signUp";
   public ViewPager cardViewPager;
   private Button buttonSignIn;
   public static int FIRST_PAGE = 1;
@@ -63,14 +65,23 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash);
 
-    initView();
-    setBroadCastMessageInterface(this);
+    try {
 
-    /*
-     *Checking permission for app.
-     */
-    AppPermissionCheckerUtil.checkAppPermission(SplashActivity.this,
-        new String[] {permission.WRITE_EXTERNAL_STORAGE, permission.ACCESS_FINE_LOCATION});
+      initView();
+
+      setBroadCastMessageInterface(this);
+
+      /*
+       *Checking permission for app.
+       */
+      AppPermissionCheckerUtil.checkAppPermission(SplashActivity.this,
+          new String[]{permission.WRITE_EXTERNAL_STORAGE, permission.ACCESS_FINE_LOCATION});
+
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -78,8 +89,17 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
    */
   private void initView() {
 
-    cardViewPager = findViewById(R.id.viewpager_splash_offers);
     buttonSignIn = findViewById(R.id.button_splash_signin);
+
+    if (SharedPreferenceUtils.getInstance(this)
+        .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
+        .equalsIgnoreCase("")) {
+      buttonSignIn.setText(getResources().getString(R.string.splash_signin));
+    } else {
+      buttonSignIn.setText(getResources().getString(R.string.splash_next));
+    }
+
+    cardViewPager = findViewById(R.id.viewpager_splash_offers);
 
     //set page margin between pages for viewpager
     DisplayMetrics metrics = new DisplayMetrics();
@@ -114,15 +134,14 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
   private void switchActivity() throws RuntimeException {
 
     Intent intent;
-        /*if (SharedPreferenceUtils.getInstance(SplashActivity.this)
-            .getStringValue(SharedPreferenceUtils.APP_LANGUAGE, "").equalsIgnoreCase("")) {
-          intent = new Intent(SplashActivity.this, SignInSignupActivity.class);
-        } else {
-          intent = new Intent(SplashActivity.this, HomeActivity.class);
-        }*/
-    intent = new Intent(SplashActivity.this, SignInSignupActivity.class);
+    if (SharedPreferenceUtils.getInstance(SplashActivity.this)
+        .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
+        .equalsIgnoreCase("")) {
+      intent = new Intent(SplashActivity.this, SignInSignupActivity.class);
+    } else {
+      intent = new Intent(SplashActivity.this, HomeActivity.class);
+    }
     AppUtil.startActivityWithAnimation(SplashActivity.this, intent, true);
-
   }
 
   /**
@@ -135,7 +154,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
   public void onMessageReceived(String message, boolean flag) {
 
     if (!flag) {
-      AppUtil.showToast(this, getResources().getString(R.string.all_permission_check_alert));
+      AppUtil.showToast(this, getResources().getString(R.string.all_permissionalert));
     }
   }
 
@@ -148,23 +167,28 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
     if (AppUtil.isNetworkAvailable(this)) {
       new HttpClientRequest().setApiResponseListner(this);
       JSONObject jsonObject = new JSONObject();
-      JSONArray detailesArray = new JSONArray();
+      JSONArray detailsArray = new JSONArray();
       JSONObject detailObject = new JSONObject();
 
       try {
 
-        detailObject.put("appId", AppUtil.getDeviceId(this));
-        detailObject.put("deviceType", AppUtil.DEVICE_TYPE);
-        detailObject.put("emaarId", SharedPreferenceUtils.getInstance(this)
-            .getStringValue(SharedPreferenceUtils.EMAAR_ID, ""));
-        detailObject.put("fcmToken", SharedPreferenceUtils.getInstance(this)
-            .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
+        detailObject.put("loyaltyMemberId", SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""));
 
-        detailesArray.put(detailObject);
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(this));
+        deviceDetailObject.put("fcmToken",
+            SharedPreferenceUtils.getInstance(this)
+                .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
 
-        jsonObject.put("details", detailesArray);
+        detailObject.put("deviceDetails", deviceDetailObject);
+
+        detailsArray.put(detailObject);
+
+        jsonObject.put("details", detailsArray);
         jsonObject.put("operation", UPDATE_TOKEN_METHOD);
-        jsonObject.put("feature", WebServiceUtil.METHOD_SIGN_UP);
+        jsonObject.put("feature", FEATURE_SIGNUP);
 
       } catch (JSONException e) {
         e.printStackTrace();
@@ -179,7 +203,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_UPDATE_TOKEN),
           entity, WebServiceUtil.CONTENT_TYPE,
-          UPDATE_TOKEN_METHOD).httpPostRequest();
+          UPDATE_TOKEN_METHOD, false).httpPostRequest();
     }
   }
 
@@ -191,9 +215,9 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
    */
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
-    if (requestMethod.equalsIgnoreCase(UPDATE_TOKEN_METHOD)) {
+    /*if (requestMethod.equalsIgnoreCase(UPDATE_TOKEN_METHOD)) {
 
-    }
+    }*/
   }
 
   /**

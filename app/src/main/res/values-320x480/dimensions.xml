@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 22/9/18 3:41 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 22/9/18 11:13 AM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<resources>
+
+  <!--Header dimensions-->
+  <dimen name="textsize_all_headertitle">16sp</dimen>
+  <dimen name="textsize_all_labels">12sp</dimen>
+  <dimen name="elevation_all_header">5dp</dimen>
+  <dimen name="padding_all_headerbutton">8dp</dimen>
+  <dimen name="marginleft_all_header">5dp</dimen>
+  <dimen name="marginright_all_header">5dp</dimen>
+
+  <!--Login options dimensions-->
+  <dimen name="margin_all_bannerimage">20dp</dimen>
+  <dimen name="size_all_bannerimage">100dp</dimen>
+  <dimen name="textsize_signup_termsandcondition">11sp</dimen>
+  <!--Share screen dimensions-->
+  <dimen name="size_socialmedia_mediaicon">50dp</dimen>
+
+  <dimen name="margin_all_continueasguest">15dp</dimen>
+
+  <!--Text View dimension-->
+  <dimen name="textsize_all_guesttitle">12sp</dimen>
+  <dimen name="textsize_medium">13sp</dimen>
+  <dimen name="textsize_all_guestdetail">11sp</dimen>
+  <dimen name="imagesize_all_roundedimage">100dp</dimen>
+  <dimen name="dimension_itemhomehorizontallist_linearlayout_size">200dp</dimen>
+
+  <dimen name="imagesize_all_reservationimage">100dp</dimen>
+  <dimen name="imagesize_all_locationimage">15dp</dimen>
+  <dimen name="margin_all_large">25dp</dimen>
+
+  <dimen name="textsize_ubyemaar_points">22sp</dimen>
+  <dimen name="textsize_all_small">5sp</dimen>
+</resources>

@@ -1,18 +1,21 @@
 <resources>
-  <string name="app_name">EHG</string>
-  <string name="text">test</string>
+  <string name="app_name">EHG App</string>
 
   <!--Strings related to select language-->
-  <string name="selectlanguageactivity_select_language">Select Language</string>
+  <string name="selectlanguage_title">Select Language</string>
 
   <!--Strings related to ForgotPasswordActivity-->
-  <string name="forgotpasswordactivity_resetpassword">Reset Password </string>
+  <string name="forgotpassword_resetpassword">Reset Password </string>
+
+  <!--String related to Reservation-->
+  <string name="reservation_upcomingtab">Upcoming</string>
+  <string name="reservation_pasttab">Past</string>
 
   <!--Strings related to login options-->
-  <string name="signinfragment_signin">SIGN-IN</string>
+  <string name="all_signin">SIGN-IN</string>
   <string name="splash_signin">Sign-in</string>
   <string name="all_forgotpassword">Forgot Password </string>
-  <string name="signinfragment_signin_to_tap">Sign-In to tap with your</string>
+  <string name="all_signin_to_tap">Sign-In to tap with your</string>
   <string name="all_u_by_emaar"><b>U By Emaar</b></string>
   <string name="signupfragment_sign_up_and_create">Sign-Up &amp; Create </string>
   <string name="signupfragment_what_is_u_by_emaar"><u>What is U By Emaar ?</u></string>
@@ -22,105 +25,58 @@
   <string name="all_continue_as_guest">Continue as guest </string>
 
   <!-- Strings related to login -->
-  <string name="signinfragment_mobile_number">Mobile Number</string>
+  <string name="all_mobilenumber">Mobile Number</string>
   <string name="all_password">Password</string>
-  <string name="all_error_invalid_email">This email address is invalid</string>
-  <string name="all_error_invalid_mobile">This mobile number is invalid</string>
-  <string name="all_error_invalid_password">This password is too short</string>
-  <string name="all_error_incorrect_password">This password is incorrect</string>
-  <string name="all_error_field_required">This field is required</string>
-  <string name="all_please_enter_email_or_mobile_number">Please enter registered email or mobile number.</string>
-
-  <!--Strings related to permission checks-->
-  <string name="all_permission_check_alert">User must allow these permissions to access all functions in app.</string>
+  <string name="all_invalidemail">Invalid email address</string>
+  <string name="all_invalidmobile">Invalid mobile number</string>
+  <string name="all_invalidpassword">Password is too short</string>
+  <string name="all_passwordlength">Password length must be greater than 4 digits.</string>
+  <string name="all_incorrectpassword">Incorrect password</string>
+  <string name="all_fieldrequired">This field is required</string>
+  <string name="all_erroremailormobile">Please enter registered mobile number or email.</string>
 
   <!--Strings related to signup-->
-  <string name="signupfragment_mobile_number">Mobile Number</string>
-  <string name="signupfragment_first_name">First name</string>
-  <string name="signupfragment_last_name">Last name</string>
-  <string name="signupfragment_email">Email address</string>
-  <string name="all_or">Or</string>
-  <string name="forgotpasswordactivity_instruction">Give us your mobile number or email address\nand we\'ll send you password reset instructions</string>
+  <string name="signup_termsandcondition">By tapping on Sign-up you are agree to our\nTerms and Conditions</string>
+  <string name="all_email">Email address</string>
+  <string name="all_or">OR</string>
+  <string name="forgotpassword_instruction">Give us your mobile number or email address\nand we\'ll send you password reset instructions</string>
 
   <!--String related to offers-->
   <string name="offersfragment_offers">Offers</string>
 
   <!--String related to Home tabs-->
   <string name="homefragment_home">Home</string>
-  <string name="title_activity_settings">Settings</string>
-
-  <!-- Strings related to Settings -->
+  <string name="settings_title">Settings</string>
 
   <!--Strings related to alert toast-->
-  <string name="please_check_network_settings">Please check your network settings.</string>
-
-  <!--String related to Setting activity-->
-  <string name="settings">Settings</string>
+  <string name="all_please_check_network_settings">Please check your network settings.</string>
+  <string name="all_loading">Loading please wait...</string>
 
   <!--strings related to Social media share activity-->
   <string name="share">Share</string>
   <string name="twitter">Twitter</string>
   <string name="instagram">Instagram</string>
   <string name="facebook">Facebook</string>
-  <string name="alert_dialog_ok">Ok</string>
-  <string name="alert_dialog_cancel">Cancel</string>
-  <string name="title_activity_google_map">Map</string>
-  <string name="alert_dialog_title_error">Error</string>
-  <string name="alert_dialog_title_alert">Alert</string>
-
-  <!--Strings related to Map activity-->
-  <string name="map">Map</string>
+  <string name="dialog_ok">Ok</string>
+  <string name="dialog_cancel">Cancel</string>
+  <string name="map_title">Map</string>
+  <string name="dialog_errortitle">Error</string>
+  <string name="dialog_alerttitle">Alert</string>
+  <string name="all_confirmtitle">Confirm</string>
+  <string name="setting_signoutmessage">Are you sure do you want to Signout ?</string>
+  <string name="all_yes">Yes</string>
+  <string name="all_no">No</string>
 
   <!--String related to Error message-->
-  <string name="api_error_message">Our system encountered a problem. Please try again later!</string>
-
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
-  <!--Strings related to select language-->
-  <string name="select_language">Select Language</string>
-  <string name="login_home">Login Home</string>
-
-  <!--Strings related to login options-->
-  <string name="login">Login</string>
-  <string name="forgotpassword">Forgot password ?</string>
-  <string name="submit">Submit</string>
-  <string name="signup">Sign Up</string>
-  <string name="continue_as_guest">Continue as guest </string>
-  <string name="title_activity_login">Sign in</string>
-
-  <!-- Strings related to login -->
-  <string name="prompt_email">Username (Email/Mobile No.)</string>
-  <string name="prompt_password">Password</string>
-  <string name="action_sign_in">Sign in or register</string>
-  <string name="action_sign_in_short">Sign in</string>
-  <string name="error_invalid_email">This email address is invalid</string>
-  <string name="error_invalid_mobile">This mobile number is invalid</string>
-  <string name="error_invalid_password">This password is too short</string>
-  <string name="error_incorrect_password">This password is incorrect</string>
-  <string name="error_field_required">This field is required</string>
-  <string name="permission_rationale">"Contacts permissions are needed for providing email
-    completions."
-  </string>
+  <string name="all_apierrormessage">Our system encountered a problem. Please try again later!</string>
 
   <!--Strings related to permission checks-->
-  <string name="permission_check_alert">User must allow these permissions to access all functions in app.</string>
+  <string name="all_permissionalert">User must allow these permissions to access all functions in app.</string>
 
   <!--Strings related to signup-->
-  <string name="first_name">First name</string>
-  <string name="last_name">Last name</string>
-  <string name="email">Email</string>
-  <string name="birth">Birth</string>
-  <string name="address">Address</string>
-  <string name="country">Country</string>
-  <string name="gender">Gender</string>
-
-  <!--String related to offers-->
-  <string name="offers">Offers</string>
-
-  <!--String related to Home tabs-->
-  <string name="home">Home</string>
+  <string name="all_firstname">First name</string>
+  <string name="all_lastname">Last name</string>
+  <string name="email">email</string>
 
   <string name="homefragment_guestname_title">Hello Mr John Doe,</string>
   <string name="homefragment_guest_information">You have an upcoming reservation at Address Downtown from 14th to 17th September ,2018</string>
@@ -128,7 +84,68 @@
   <string name="item_home_fetauretext">HOTELS AND RESORTS</string>
   <string name="item_home_showall">Show all</string>
   <string name="item_home_horizonalitem">ADDRESS HOTELS RESORT</string>
-  <string name="headersearchlayout_textviewhint"><![CDATA[Search for Hotels, Restaurent & More....]]></string>
+  <string name="headersearchlayout_textviewhint"><![CDATA[Search for Hotels, Restaurant & More....]]></string>
   <string name="splash_bottom_label_description">Booking a hotel can be overwhelming but it\'s\n easy with Emaar Hospitality App\'s seamless\nbooking feature.</string>
   <string name="splash_book_hotel_title">Book a Hotel</string>
+  <string name="setting_preferences">PREFERENCES</string>
+  <string name="settings_support">SUPPORT</string>
+  <string name="settings_privacy_policy">PRIVACY POLICY</string>
+  <string name="settings_termsandconditions">TERMS AND CONDITIONS</string>
+  <string name="settings_language">LANGUAGE</string>
+  <string name="settings_sign_in_sign_up">SIGN-IN/SIGN-UP</string>
+  <string name="settings_signuot">SIGN-OUT</string>
+
+  <!--Tab fragment titles-->
+  <string name="home_title">Home</string>
+  <string name="book_title">Book</string>
+  <string name="reservations_title">Reservations</string>
+  <string name="offers_title">Offers</string>
+  <string name="u_by_emaar_title">U By Emaar</string>
+  <string name="settingpreferences_notifications">Notifications</string>
+  <string name="progress_pleasewait">Please Wait</string>
+  <string name="ubyemaar_username">Mr.John Doe</string>
+  <string name="ubyemaar_blacktext">Black</string>
+  <string name="ubyemaar_membershiplable">Membership</string>
+  <string name="ubyemaar_totalupoints">6027</string>
+  <string name="ubyemaar_totalupointslabel">Total Upoints</string>
+  <string name="ubyemaar_availabletoredeemlabel">Available to\nRedeem</string>
+  <string name="ubyemaar_amountlabel">270</string>
+  <string name="ubyemaar_profilelabels">PROFILE</string>
+  <string name="ubyemaar_upointlabel">UPOINT ACTIVITY</string>
+  <string name="ubyemaar_aedlabel">AED</string>
+  <string name="ubyemaar_preferenceslabel">PREFERENCES</string>
+  <string name="ubyemaar_benefitslabel">BENEFITS</string>
+  <string name="upoint_title">Last 5 Transactions</string>
+  <string name="upointsactivity_descriptiondatelabel">Description/Date</string>
+  <string name="upointsactivity_upointslabel">Upoints</string>
+  <string name="upointactivity_valuelabel">Value</string>
+  <string name="upointactivuty_title">Upoint Activity</string>
+  <string name="bookingsummary_clientname">Dear Mr John Doe,</string>
+  <string name="bookingsummery_reservationtitle">Your Room Reservation :</string>
+  <string name="bookingsummary_bookingconfirmation">Booking Confirmation :</string>
+  <string name="bookingsummary_hotellabel">Hotel :</string>
+  <string name="all_sort">Sort</string>
+  <string name="all_filter">Filter</string>
+  <string name="offers_latest">Latest</string>
+  <string name="offers_foryou">For you</string>
+  <string name="sortoffersdialog_alphabetical_atoz">Alphabetical A-Z</string>
+  <string name="sortoffersdialog_alphabetical_ztoa">Alphabetical Z-A</string>
+  <string name="sortoffersdialog_apply">Apply</string>
+  <string name="sortoffersdialog_pleasechooseoneoption">Please choose one option.</string>
+  <string name="bookingsummary_telephonelabel">Telephone :</string>
+  <string name="bookingsummary_emaillabel">Email :</string>
+  <string name="bookingsummary_guestroomtypelabel">Room Type :</string>
+  <string name="bookingsummary_guestcheckinlabel">Checkin :</string>
+  <string name="bookingsummary_guestcheckoutlabel">Check out :</string>
+  <string name="bookingsummary_pricelabel">Price</string>
+  <string name="bookingsummary_guestcount">No of People</string>
+  <string name="bookingsummary_abouthotal">Learn More About the Hotel</string>
+  <string name="bookingsummary_disclaimer">Disclaimer</string>
+  <string name="bookingsummary_disclamer">The sample documents below are provided for general information purposes only. Your use of any of these sample documents is at your own risk, and you should not use any of these sample documents without first seeking legal and other professional advice. The provision of these sample documents (and the documents themselves) do not constitute legal advice or opinions of any kind, or any advertising or solicitation. No lawyer-client, advisory, fiduciary or other relationship is created between Moneris Solutions Corporation (Moneris) and any person accessing or otherwise using any of the sample documents. Moneris and its affiliates (and any of their respective directors, officers, agents, contractors, interns, suppliers and employees) will not be liable for any damages, losses or causes of action of any nature arising from any use of any of the sample documents or the provision of these sample documents.</string>
+  <string name="bookingsummary_modifybooking">Modify Booking</string>
+  <string name="bookingsummary_cancelbooking">Cancel Booking</string>
+  <string name="userpreferences_preferences">Preferences</string>
+  <string name="userpreferences_experiencesyoulike">Experiences you like</string>
+  <string name="splash_next">Next</string>
+
 </resources>

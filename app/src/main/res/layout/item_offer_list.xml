@@ -23,7 +23,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/relativelayout_offer_list"
   android:layout_width="match_parent"
-  android:layout_marginBottom="@dimen/dimension_header_elevation"
+  android:layout_marginBottom="@dimen/elevation_all_header"
   android:layout_height="150dp">
 
   <ProgressBar

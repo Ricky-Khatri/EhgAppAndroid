@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 19/9/18 5:18 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 19/9/18 5:18 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_margin="@dimen/elevation_all_header"
+  android:background="@drawable/all_itemlist_bg">
+
+  <android.support.v7.widget.AppCompatImageView
+    android:id="@+id/imageview_itemreservationlist_thumb"
+    app:srcCompat="@drawable/placeholder"
+    android:scaleType="fitXY"
+    android:layout_width="@dimen/imagesize_all_reservationimage"
+    android:layout_height="@dimen/imagesize_all_reservationimage"/>
+
+  <LinearLayout
+    android:layout_centerVertical="true"
+    android:layout_marginLeft="@dimen/elevation_all_header"
+    android:layout_marginRight="@dimen/elevation_all_header"
+    android:layout_toRightOf="@+id/imageview_itemreservationlist_thumb"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+      style="@style/AppLabelsTextAppearance"
+      android:id="@+id/textview_itemreservationlist_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAllCaps="true"/>
+
+    <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+      <android.support.v7.widget.AppCompatImageView
+        app:srcCompat="@drawable/placeholder"
+        android:scaleType="fitXY"
+        android:layout_width="@dimen/imagesize_all_locationimage"
+        android:layout_height="@dimen/imagesize_all_locationimage"/>
+
+      <TextView
+        android:layout_marginLeft="@dimen/elevation_all_header"
+        android:layout_marginRight="@dimen/elevation_all_header"
+        style="@style/AppLabelsTextAppearance"
+        android:id="@+id/textview_itemreservationlist_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
+          style="@style/AppLabelsTextAppearance"
+          android:id="@+id/textview_itemreservationlist_checkindate"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+        <TextView
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
+          style="@style/AppLabelsTextAppearance"
+          android:id="@+id/textview_itemreservationlist_adults"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/linearlayout_itemreservationlist_checkoutdate"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
+          style="@style/AppLabelsTextAppearance"
+          android:id="@+id/textview_itemreservationlist_checkoutdate"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+        <TextView
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
+          style="@style/AppLabelsTextAppearance"
+          android:id="@+id/textview_itemreservationlist_childs"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/linearlayout_itemreservationlist_time"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <android.support.v7.widget.AppCompatImageView
+          app:srcCompat="@drawable/placeholder"
+          android:scaleType="fitXY"
+          android:layout_width="@dimen/imagesize_all_locationimage"
+          android:layout_height="@dimen/imagesize_all_locationimage"/>
+
+        <TextView
+          android:layout_marginLeft="@dimen/elevation_all_header"
+          android:layout_marginRight="@dimen/elevation_all_header"
+          style="@style/AppLabelsTextAppearance"
+          android:id="@+id/textview_itemreservationlist_time"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+      </LinearLayout>
+
+    </LinearLayout>
+  </LinearLayout>
+
+</RelativeLayout>
