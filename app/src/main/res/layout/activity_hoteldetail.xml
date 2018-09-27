@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 27/9/18 11:36 AM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 27/9/18 11:35 AM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".booking.hotel.HotelActivity">
+  <include
+    android:id="@+id/layout_hoteldetail_header"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/linearlayout_hoteldetail"
+    android:layout_below="@+id/layout_hoteldetail_header">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <android.support.v7.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_all_alertdialog"
+        android:layout_marginTop="@dimen/marginstart_header_search"
+        android:layout_marginStart="@dimen/marginstart_header_search"
+        android:layout_marginEnd="@dimen/marginstart_header_search"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/placeholder"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/imagesize_all_roundedimage"
+        android:layout_marginTop="@dimen/marginstart_header_search"
+        android:layout_marginStart="@dimen/marginstart_header_search"
+        android:layout_marginEnd="@dimen/marginstart_header_search"
+        android:padding="@dimen/padding_all_headerbutton"
+        android:background="@drawable/all_rounded_border"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+          android:id="@+id/appcompatimageview_hoteldetail_mapview"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="0.5"
+          android:scaleType="centerCrop"
+          app:srcCompat="@drawable/placeholder"/>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:padding="@dimen/padding_all_headerbutton"
+          android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/textview_hoteldetail_hoteladdress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sheikh Mohammed bin Rashid Blvd Dubai, United Arab Emirates"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/imagesize_all_locationimage"
+            android:text="@string/hoteldetail_hoteldirection"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+        </LinearLayout>
+      </LinearLayout>
+
+      <TextView
+        android:id="@+id/textView_hoteldetail_abouthotel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_socialmedia_mediaicon"
+        android:layout_marginTop="@dimen/marginstart_header_search"
+        android:layout_marginStart="@dimen/marginstart_header_search"
+        android:layout_marginEnd="@dimen/marginstart_header_search"
+        android:gravity="center"
+        android:text="@string/hoteldetail_abouthotel"/>
+
+      <TextView
+        android:id="@+id/textview_hoteldetail_readmore"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/imagesize_all_locationimage"
+        android:gravity="center"
+        android:text="@string/hoteldetail_readmore"
+        android:textColor="@color/colorBlack"/>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/marginstart_header_search"
+        android:background="@color/colorGray"/>
+
+      <TextView
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/imagesize_all_locationimage"
+        android:gravity="center"
+        android:text="@string/hoteldetail_amenitieslabel"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_headertitle"/>
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_hoteldetail_amenities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/imagesize_all_locationimage"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"/>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/marginstart_header_search"
+        android:background="@color/colorGray"/>
+
+      <TextView
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/imagesize_all_locationimage"
+        android:gravity="center"
+        android:text="@string/hoteldetai_gallerylabel"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_headertitle"/>
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_hoteldetail_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/imagesize_all_locationimage"
+        android:layout_marginBottom="@dimen/imagesize_all_locationimage"
+        android:layout_marginStart="@dimen/marginstart_header_search"
+        android:layout_marginEnd="@dimen/marginstart_header_search"/>
+    </LinearLayout>
+  </ScrollView>
+
+  <LinearLayout
+    android:id="@+id/linearlayout_hoteldetail"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mdtp_material_button_minwidth"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical">
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/colorGray"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingTop="@dimen/padding_all_imageview"
+      android:paddingBottom="@dimen/padding_all_imageview"
+      android:paddingStart="@dimen/height_all_verticaldivider"
+      android:paddingEnd="@dimen/height_all_verticaldivider"
+      android:orientation="horizontal">
+
+      <Button
+        android:id="@+id/button_hoteldetail_booknow"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/colorGray"
+        android:text="@string/hoteldetail_booknow"
+        android:textAllCaps="true"
+        android:textColor="@color/white"/>
+
+      <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.2"
+        android:layout_marginTop="@dimen/marginstart_header_search"
+        />
+      <Button
+        android:id="@+id/button_hoteldetail_callus"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/all_rounded_border"
+        android:text="@string/hoteldetail_callus"
+        android:textAllCaps="true"/>
+    </LinearLayout>
+
+  </LinearLayout>
+</RelativeLayout>

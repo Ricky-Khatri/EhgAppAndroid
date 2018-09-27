@@ -19,16 +19,27 @@
 
 package com.ehg.reservations;
 
+import android.content.Context;
 import android.os.Bundle;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 
 public class BookingSummaryActivity extends BaseActivity {
 
+  private Context context;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_bookingsummary);
+
+    context = this;
+
   }
+
+  private void initView() {
+
+  }
+
 }

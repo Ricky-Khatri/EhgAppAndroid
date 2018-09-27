@@ -23,11 +23,14 @@ import android.os.Bundle;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 
-public class HotelActivity extends BaseActivity {
+/**
+ * This activity will show hotel details.
+ */
+public class HotelDetaiActivity extends BaseActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_hotel);
+    setContentView(R.layout.activity_hoteldetail);
   }
 }

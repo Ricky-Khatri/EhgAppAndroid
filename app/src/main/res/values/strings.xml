@@ -147,5 +147,12 @@
   <string name="userpreferences_preferences">Preferences</string>
   <string name="userpreferences_experiencesyoulike">Experiences you like</string>
   <string name="splash_next">Next</string>
+  <string name="hoteldetail_hoteldirection"><u>Get Direction</u></string>
+  <string name="hoteldetail_abouthotel">With aspirations that soar even higher than its marvelously elegant form, the award-winning Address Downtown is an iconic flagship hotel that presents an altogether new and visionary view of the future of luxury hospitality. It is only fitting that one of the world’s foremost references for premium luxury is also effortlessly accessible. On the 15-minute limousine ride from Dubai International Airport, the traditional beauty of old Dubai blends into the fantastic futurism of new Dubai, a prelude to the sublime refinement of Address Downtown. Qualifying it as iconic in every sense is a triad of locational advantages: Poised directly before the magnificent Burj Khalifa, adjacent to The Dubai Mall, and taking pride of place at the centre of Downtown Dubai. Whether inside or around this monumental icon, you will find that there is, quite simply, no other place like it anywhere in the world.</string>
+  <string name="hoteldetail_readmore">Read More</string>
+  <string name="hoteldetail_amenitieslabel">Amenities</string>
+  <string name="hoteldetai_gallerylabel">Gallery</string>
+  <string name="hoteldetail_callus">Call us</string>
+  <string name="hoteldetail_booknow">Book Now</string>
 
 </resources>
