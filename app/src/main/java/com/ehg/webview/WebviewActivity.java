@@ -43,6 +43,10 @@ public class WebviewActivity extends BaseActivity {
 
   private String url = "";
 
+  /**
+   * Called when activity created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
