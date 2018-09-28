@@ -30,11 +30,11 @@
     android:id="@+id/textview_itemreservationcategory_categoryname"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/elevation_all_header"
-    android:layout_marginRight="@dimen/elevation_all_header"
+    android:layout_marginStart="@dimen/elevation_all_header"
+    android:layout_marginEnd="@dimen/elevation_all_header"
     style="@style/AppLabelsTextAppearance"
     android:paddingTop="@dimen/elevation_all_header"
     android:paddingBottom="@dimen/elevation_all_header"
-    android:paddingLeft="@dimen/padding_all_headerbutton"
-    android:paddingRight="@dimen/padding_all_headerbutton"/>
+    android:paddingStart="@dimen/padding_all_headerbutton"
+    android:paddingEnd="@dimen/padding_all_headerbutton"/>
 </RelativeLayout>

@@ -31,15 +31,15 @@
   <TextView
     android:layout_margin="@dimen/margin_all_vertical"
     android:id="@+id/textview_userpreferences_title"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     style="@style/HeaderTextAppearance"
     android:textColor="@color/colorGray"
     android:text="@string/userpreferences_experiencesyoulike"/>
 
   <View
-    android:layout_marginLeft="@dimen/margin_all_vertical"
-    android:layout_marginRight="@dimen/margin_all_vertical"
+    android:layout_marginStart="@dimen/margin_all_vertical"
+    android:layout_marginEnd="@dimen/margin_all_vertical"
     android:layout_width="match_parent"
     android:background="@color/colorGray"
     android:layout_height="0.5dp"/>

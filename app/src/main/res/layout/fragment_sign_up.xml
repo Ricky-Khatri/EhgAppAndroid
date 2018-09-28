@@ -58,8 +58,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:paddingBottom="@dimen/margin_all_vertical"
-          android:paddingLeft="@dimen/margin_all_horizontal"
-          android:paddingRight="@dimen/margin_all_horizontal"
+          android:paddingStart="@dimen/margin_all_horizontal"
+          android:paddingEnd="@dimen/margin_all_horizontal"
           android:orientation="vertical">
 
           <TextView
@@ -96,13 +96,13 @@
 
             <TextView
               style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:hint="@string/all_firstname"/>
 
             <EditText
               android:id="@+id/edittext_signup_firstname"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:background="@null"
               android:imeOptions="actionNext"
@@ -125,13 +125,13 @@
 
             <TextView
               style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:hint="@string/all_lastname"/>
 
             <EditText
               android:id="@+id/edittext_signup_lastname"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:background="@null"
               android:imeOptions="actionNext"
@@ -155,13 +155,13 @@
 
             <TextView
               style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:hint="@string/all_email"/>
 
             <EditText
               android:id="@+id/edittext_signup_email"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:background="@null"
               android:imeOptions="actionNext"
@@ -184,7 +184,7 @@
 
             <TextView
               style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:hint="@string/all_mobilenumber"/>
 
@@ -203,12 +203,12 @@
               <View
                 android:layout_width="1dp"
                 android:layout_height="@dimen/height_all_verticaldivider"
-                android:layout_marginRight="@dimen/elevation_all_header"
+                android:layout_marginEnd="@dimen/elevation_all_header"
                 android:background="@color/colorGray"/>
 
               <EditText
                 android:id="@+id/edittext_signup_mobile"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:imeOptions="actionNext"
@@ -233,13 +233,13 @@
 
             <TextView
               style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:hint="@string/all_password"/>
 
             <EditText
               android:id="@+id/edittext_signup_password"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:background="@null"
               android:imeOptions="actionDone"
@@ -258,7 +258,7 @@
             android:id="@+id/textview_signup_termsandconditions"
             android:layout_marginTop="@dimen/margin_all_vertical"
             style="@style/AppLabelsTextAppearance"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textsize_signup_termsandcondition"
             android:text="@string/signup_termsandcondition"/>

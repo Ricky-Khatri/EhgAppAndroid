@@ -21,7 +21,7 @@ package com.ehg.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import com.ehg.signinsignup.signinpojo.SigninResponsePojo;
+import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -37,7 +37,7 @@ public class JsonParserUtil {
   private SharedPreferences.Editor sharedPreferencesEditor;
 
   //Constants
-  private static final String SIGNIN_RESPONSE_POJO = "SigninResponsePojo";
+  private static final String USER_PROFILE_POJO = "UserProfilePojo";
 
   /**
    * Parameterized constructor of this class.
@@ -65,36 +65,36 @@ public class JsonParserUtil {
 
   //*********************** Sign-in Response Pojo *****************************
   /**
-   * Called to save Signin response pojo.
-   * @param signinResponsePojo object
+   * Called to save UserProfile pojo.
+   * @param userProfilePojo object
    */
-  public void saveSigninResponsePojo(SigninResponsePojo signinResponsePojo) {
+  public void saveUserProfilePojo(UserProfilePojo userProfilePojo) {
 
     Gson gson = new Gson();
 
-    String json = gson.toJson(signinResponsePojo);
+    String json = gson.toJson(userProfilePojo);
 
-    sharedPreferencesEditor.putString(SIGNIN_RESPONSE_POJO, json);
+    sharedPreferencesEditor.putString(USER_PROFILE_POJO, json);
     sharedPreferencesEditor.commit();
   }
 
   /**
-   * Returns SigninResponsePojo object.
+   * Returns UserProfilePojo object.
    * @return object
    */
-  public SigninResponsePojo getSigninResponsePojo() {
+  public UserProfilePojo getUserProfilePojo() {
     Gson gson = new Gson();
-    SigninResponsePojo signinResponsePojo;
+    UserProfilePojo userProfilePojo;
 
-    String jsonPreferences = sharedPreferences.getString(SIGNIN_RESPONSE_POJO, "");
+    String jsonPreferences = sharedPreferences.getString(USER_PROFILE_POJO, "");
 
-    Type type = new TypeToken<SigninResponsePojo>() {}.getType();
-    signinResponsePojo = gson.fromJson(jsonPreferences, type);
+    Type type = new TypeToken<UserProfilePojo>() {}.getType();
+    userProfilePojo = gson.fromJson(jsonPreferences, type);
 
-    if (signinResponsePojo == null) {
-      return new SigninResponsePojo();
+    if (userProfilePojo == null) {
+      return new UserProfilePojo();
     }
-    return signinResponsePojo;
+    return userProfilePojo;
   }
   //****************************************************************************
 }
