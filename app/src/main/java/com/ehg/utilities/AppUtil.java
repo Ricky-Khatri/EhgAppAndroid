@@ -392,52 +392,54 @@ public class AppUtil {
       String alertMessage, final boolean isRedirect, String alertTitle, boolean isCancelable,
       final Intent intent) {
 
-    try {
-      // We need to get the instance of the LayoutInflater
-      final Dialog dialog = new Dialog(appCompatActivity);
-      dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-      dialog.setCancelable(isCancelable);
-      dialog.setContentView(R.layout.view_alertdialog);
-      dialog.getWindow().getAttributes().windowAnimations = R.style.AlertDialogAnimation;
+    if (appCompatActivity != null) {
+      try {
+        // We need to get the instance of the LayoutInflater
+        final Dialog dialog = new Dialog(appCompatActivity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(isCancelable);
+        dialog.setContentView(R.layout.view_alertdialog);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.AlertDialogAnimation;
 
-      Button buttonCancel = dialog.findViewById(R.id.button_alertdialog_cancel);
-      buttonCancel.setVisibility(View.GONE);
-      TextView textViewTitle = dialog.findViewById(R.id.textview_alertdialog_title);
-      TextView textViewAlertMessage = dialog.findViewById(R.id.textview_alertdialog_message);
+        Button buttonCancel = dialog.findViewById(R.id.button_alertdialog_cancel);
+        buttonCancel.setVisibility(View.GONE);
+        TextView textViewTitle = dialog.findViewById(R.id.textview_alertdialog_title);
+        TextView textViewAlertMessage = dialog.findViewById(R.id.textview_alertdialog_message);
 
-      if (TextUtils.isEmpty(alertTitle)) {
-        dialog.findViewById(R.id.liearlayout_alertdialog_title).setVisibility(View.GONE);
-      } else {
-        dialog.findViewById(R.id.liearlayout_alertdialog_title).setVisibility(View.VISIBLE);
-        textViewTitle.setText(alertTitle);
-      }
-
-      textViewAlertMessage.setText(alertMessage);
-
-      Button buttonOk = dialog.findViewById(R.id.button_alertdialog_ok);
-      buttonOk.setOnClickListener(new OnClickListener() {
-        @Override
-        public void onClick(View view) {
-          if (isRedirect) {
-
-            if (intent != null) {
-              startActivityWithAnimation(appCompatActivity, intent, true);
-            } else {
-              finishActivityWithAnimation(appCompatActivity);
-            }
-          }
-          dialog.dismiss();
+        if (TextUtils.isEmpty(alertTitle)) {
+          dialog.findViewById(R.id.liearlayout_alertdialog_title).setVisibility(View.GONE);
+        } else {
+          dialog.findViewById(R.id.liearlayout_alertdialog_title).setVisibility(View.VISIBLE);
+          textViewTitle.setText(alertTitle);
         }
-      });
 
-      dialog.show();
+        textViewAlertMessage.setText(alertMessage);
 
-    } catch (NullPointerException n) {
-      n.printStackTrace();
-    } catch (RuntimeException rte) {
-      rte.printStackTrace();
-    } catch (Exception e) {
-      e.printStackTrace();
+        Button buttonOk = dialog.findViewById(R.id.button_alertdialog_ok);
+        buttonOk.setOnClickListener(new OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            if (isRedirect) {
+
+              if (intent != null) {
+                startActivityWithAnimation(appCompatActivity, intent, true);
+              } else {
+                finishActivityWithAnimation(appCompatActivity);
+              }
+            }
+            dialog.dismiss();
+          }
+        });
+
+        dialog.show();
+
+      } catch (NullPointerException n) {
+        n.printStackTrace();
+      } catch (RuntimeException rte) {
+        rte.printStackTrace();
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     }
   }
 
