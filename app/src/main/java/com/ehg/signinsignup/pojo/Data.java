@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 18/9/18 5:51 PM
+ *  Created by Emaar Hospitality Group on 28/9/18 1:08 PM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 18/9/18 5:51 PM
+ *  Last modified 28/9/18 1:08 PM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,32 +17,30 @@
  *
  */
 
-package com.ehg.signinsignup.signinpojo;
+package com.ehg.signinsignup.pojo;
 
-import com.google.gson.annotations.Expose;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
- * Data class for SigninResponsePojo.
+ * Data class of UserProfile Pojo class.
  */
 public class Data {
 
-  @Expose
-  private List<Detail> detail;
+  public ArrayList<Object> detail = new ArrayList<Object>();
 
   /**
    * Getter method.
    *
    * @return Gets the value of detail and returns detail.
    */
-  public List<Detail> getDetail() {
+  public ArrayList<Object> getDetail() {
     return detail;
   }
 
   /**
    * Sets the detail. You can use getDetail() to get the value of detail.
    */
-  public void setDetail(List<Detail> detail) {
+  public void setDetail(ArrayList<Object> detail) {
     this.detail = detail;
   }
 }

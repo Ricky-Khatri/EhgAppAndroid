@@ -46,7 +46,11 @@ import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.signinsignup.ForgotPasswordActivity;
+import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rilixtech.CountryCodePicker;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
@@ -63,14 +67,6 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   private static final String USER_LOGIN_METHOD = "userLogin";
 
   private static final String TAG = "SigninFragment";
-
-  /**
-   * A dummy authentication store containing known user names and passwords. TODO: remove after
-   * connecting to a real authentication system.
-   */
-  private static final String[] DUMMY_CREDENTIALS = new String[]{
-      "foo@example.com:hello", "bar@example.com:world"
-  };
 
   private static final String OPERATION = "login";
 
@@ -353,17 +349,17 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<")) {
 
-        /*SigninResponsePojo signinResponsePojo = new Gson().fromJson(responseVal,
-          new TypeToken<SigninResponsePojo>() {
-          }.getType());
+        /*UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
+            new TypeToken<UserProfilePojo>() {
+            }.getType());
 
-      if (signinResponsePojo != null && signinResponsePojo.getStatus()) {
+        if (userProfilePojo != null && userProfilePojo.isStatus()) {
 
-        JsonParserUtil.getInstance(context).saveSigninResponsePojo(signinResponsePojo);
+          JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
 
-        Intent intent = new Intent(context, HomeActivity.class);
-        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
-      }*/
+          Intent intent = new Intent(context, HomeActivity.class);
+          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+        }*/
 
         JSONObject jsonObject = new JSONObject(responseVal);
 

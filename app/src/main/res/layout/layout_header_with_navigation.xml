@@ -28,7 +28,7 @@
 
   <android.support.v7.widget.AppCompatImageView
     android:layout_centerVertical="true"
-    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
     android:id="@+id/imageview_header_back"
     android:clickable="true"
     android:focusable="true"
@@ -41,11 +41,11 @@
 
   <TextView
     android:layout_centerVertical="true"
-    android:layout_toLeftOf="@+id/imageview_header_extra"
-    android:layout_toRightOf="@+id/imageview_header_back"
+    android:layout_toStartOf="@+id/imageview_header_extra"
+    android:layout_toEndOf="@+id/imageview_header_back"
     android:id="@+id/textview_header_title"
-    android:layout_marginLeft="@dimen/marginleft_all_header"
-    android:layout_marginRight="@dimen/marginright_all_header"
+    android:layout_marginStart="@dimen/marginleft_all_header"
+    android:layout_marginEnd="@dimen/marginright_all_header"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     style="@style/HeaderTextAppearance"
@@ -55,7 +55,7 @@
 
   <ImageView
     android:layout_centerVertical="true"
-    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
     android:id="@+id/imageview_header_extra"
     android:layout_width="@dimen/size_all_backicon"
     android:layout_height="@dimen/size_all_backicon"

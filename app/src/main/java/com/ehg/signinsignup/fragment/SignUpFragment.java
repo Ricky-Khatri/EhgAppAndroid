@@ -383,6 +383,19 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
     if (requestMethod.equalsIgnoreCase(USER_SIGNUP_METHOD)) {
 
       try {
+
+        /*UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
+            new TypeToken<UserProfilePojo>() {
+            }.getType());
+
+        if (userProfilePojo != null && userProfilePojo.isStatus()) {
+
+          JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
+
+          Intent intent = new Intent(context, HomeActivity.class);
+          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+        }*/
+
         JSONObject jsonObject = new JSONObject(responseVal);
         if (jsonObject.getBoolean("status")) {
 

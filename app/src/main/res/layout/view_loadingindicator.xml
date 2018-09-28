@@ -34,4 +34,5 @@
     android:layout_height="@dimen/height_loadingindicatordialog_indicator"
     app:indicatorColor="@color/white"
     app:indicatorName="LineScaleIndicator"/>
+
 </FrameLayout>

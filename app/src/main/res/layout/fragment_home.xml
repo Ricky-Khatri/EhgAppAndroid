@@ -34,8 +34,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
-    android:paddingLeft="@dimen/textsize_all_labels"
-    android:paddingRight="@dimen/textsize_all_labels"
+    android:paddingStart="@dimen/textsize_all_labels"
+    android:paddingEnd="@dimen/textsize_all_labels"
 
     android:orientation="vertical">
     <TextView
@@ -72,8 +72,8 @@
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/padding_headersearch_linearlayoutparent"
-      android:layout_marginRight="@dimen/padding_headersearch_linearlayoutparent"
+      android:layout_marginStart="@dimen/padding_headersearch_linearlayoutparent"
+      android:layout_marginEnd="@dimen/padding_headersearch_linearlayoutparent"
       android:id="@+id/linearlayout_homefragment_roomcontrols"
       android:padding="10dp"
       android:background="@drawable/all_rounded_border"

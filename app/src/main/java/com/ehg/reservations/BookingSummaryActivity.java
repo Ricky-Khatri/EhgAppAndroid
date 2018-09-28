@@ -21,9 +21,13 @@ package com.ehg.reservations;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 
+/**
+ * This class will show booking summary of rooms, restaurants, spa, golf etc.
+ */
 public class BookingSummaryActivity extends BaseActivity {
 
   private Context context;
@@ -36,10 +40,32 @@ public class BookingSummaryActivity extends BaseActivity {
 
     context = this;
 
+    initView();
   }
 
+  /**
+   * Called to init view components of this activity.
+   */
   private void initView() {
-
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
   }
 
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
+  }
 }

@@ -75,7 +75,29 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
     recycleViewUpoint.setLayoutManager(manager);
     recycleViewUpoint.setHasFixedSize(true);
     recycleViewUpoint.setAdapter(new UpointAdapter(context));
+
+    setBackArrowRtl(imageviewBack);
   }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
+  }
+
 
   /**
    * Called when a view has been clicked.

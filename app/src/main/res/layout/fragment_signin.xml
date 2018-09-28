@@ -77,7 +77,7 @@
 
             <TextView
               style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:hint="@string/all_mobilenumber"/>
 
@@ -96,13 +96,13 @@
               <View
                 android:layout_width="1dp"
                 android:layout_height="@dimen/height_all_verticaldivider"
-                android:layout_marginRight="@dimen/elevation_all_header"
+                android:layout_marginEnd="@dimen/elevation_all_header"
                 android:background="@color/colorGray"/>
 
               <AutoCompleteTextView
                 android:id="@+id/textview_signinfragment_mobile"
                 style="@style/AppLabelsTextAppearance"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:imeOptions="actionNext"
@@ -126,14 +126,14 @@
 
             <TextView
               style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:hint="@string/all_password"/>
 
             <EditText
               android:id="@+id/edittext_signinfragment_password"
               style="@style/AppLabelsTextAppearance"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:background="@null"
               android:imeActionId="6"
@@ -164,7 +164,8 @@
           <TextView
             android:id="@+id/text_view_forgot_password"
             style="@style/AppLabelsTextAppearance"
-            android:layout_width="match_parent"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"

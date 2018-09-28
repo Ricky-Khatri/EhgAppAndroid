@@ -22,6 +22,7 @@ package com.ehg.utilities;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import java.util.Locale;
@@ -44,6 +45,11 @@ public class LanguageUtil {
       DisplayMetrics displayMetrics = resources.getDisplayMetrics();
       Configuration configuration = resources.getConfiguration();
       configuration.locale = locale;
+
+      if (Build.VERSION.SDK_INT >= 17) {
+        configuration.setLayoutDirection(locale);
+      }
+
       resources.updateConfiguration(configuration, displayMetrics);
 
       //Store selected app language in preference

@@ -43,10 +43,10 @@
       android:textColor="@color/colorGray"/>
 
     <View
-      android:layout_marginTop="@dimen/elevation_all_header"
-      android:layout_marginBottom="@dimen/elevation_all_header"
       android:layout_width="match_parent"
       android:layout_height="0.1dp"
+      android:layout_marginTop="@dimen/elevation_all_header"
+      android:layout_marginBottom="@dimen/elevation_all_header"
       android:background="@color/colorGray"/>
 
   </LinearLayout>
@@ -64,9 +64,9 @@
       style="@style/AppLabelsTextAppearance"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_margin="@dimen/margin_all_vertical"
       android:gravity="center"
-      android:maxLines="3"
-      android:layout_margin="@dimen/margin_all_vertical"/>
+      android:maxLines="3"/>
 
   </LinearLayout>
 
@@ -92,7 +92,7 @@
       style="@style/AppLabelsTextAppearance"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/size_alertdialogbutton"
-      android:layout_marginLeft="@dimen/margin_all_horizontal"
+      android:layout_marginStart="@dimen/margin_all_horizontal"
       android:background="@drawable/all_rounded_button"
       android:text="@string/dialog_cancel"
       android:textColor="@color/white"/>

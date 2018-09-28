@@ -186,7 +186,18 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
     if (GET_MEMBER_DETAIL_METHOD.equalsIgnoreCase(requestMethod)) {
-      //TODO: Parse api response
+
+      /*UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
+            new TypeToken<UserProfilePojo>() {
+            }.getType());
+
+        if (userProfilePojo != null && userProfilePojo.isStatus()) {
+
+          JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
+
+          Intent intent = new Intent(context, HomeActivity.class);
+          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+        }*/
     }
   }
 

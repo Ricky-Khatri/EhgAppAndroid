@@ -20,6 +20,7 @@
 package com.ehg.language;
 
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
 import com.ehg.language.adapter.LanguageListAdapter;
 import com.ehg.language.adapter.LanguageListAdapter.OnItemClickListener;
@@ -83,6 +85,27 @@ public class LanguageActivity extends BaseActivity implements
     recyclerViewLanguageList.addItemDecoration(dividerItemDecoration);
 
     setLanguageListAdapter();
+
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
   }
 
   /**
@@ -116,7 +139,7 @@ public class LanguageActivity extends BaseActivity implements
 
   /**
    * OnItemClick callback method.
-   * @param position
+   * @param position position of clicked row
    */
   @Override
   public void onItemClick(int position) {

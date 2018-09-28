@@ -20,32 +20,33 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:padding="10dp"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:padding="10dp">
 
   <TextView
     android:id="@+id/textview_item_home_featuretitle"
+    android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textColor="@color/colorBlack"
     android:text="@string/item_home_fetauretext"
-    android:textStyle="bold"
+    android:textColor="@color/colorBlack"
     android:textSize="@dimen/textsize_all_guesttitle"/>
+
   <TextView
     android:id="@+id/textview_item_home_showall"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
-   android:text="@string/item_home_showall"
+    android:text="@string/item_home_showall"
     android:textSize="@dimen/textsize_all_guestdetail"/>
 
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recyclerview_item_home"
     android:layout_width="match_parent"
-    android:layout_below="@+id/textview_item_home_featuretitle"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_marginTop="10dp"/>
+    android:layout_marginTop="10dp"
+    android:layout_below="@+id/textview_item_home_featuretitle"
+    android:orientation="horizontal"/>
 
 </RelativeLayout>

@@ -22,7 +22,8 @@ package com.ehg.home;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.AppCompatImageView;
+import android.view.View;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.exceptionhandler.ExceptionHandlerUtil;
@@ -89,14 +90,36 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
               String token = instanceIdResult.getToken();
-              SharedPreferenceUtils.getInstance(BaseActivity.this).setValue(SharedPreferenceUtils.FCM_TOKEN,token);
+              SharedPreferenceUtils.getInstance(BaseActivity.this)
+                  .setValue(SharedPreferenceUtils.FCM_TOKEN, token);
             }
           });
-      
+
     } catch (NullPointerException npe) {
       npe.printStackTrace();
     } catch (RuntimeException rte) {
       rte.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called to update back arrow navigation image with layout direction.
+   * @param appCompatImageView imageview object
+   */
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    try {
+      if (appCompatImageView != null) {
+        if (SharedPreferenceUtils.getInstance(this).getStringValue(
+            SharedPreferenceUtils.APP_LANGUAGE, "").equalsIgnoreCase("ar")) {
+          appCompatImageView.setImageResource(R.drawable.ic_forward_arrow);
+        } else {
+          appCompatImageView.setImageResource(R.drawable.ic_back_arrow);
+        }
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -114,6 +137,26 @@ public class BaseActivity extends AppCompatActivity {
         exceptionHandlerUtil.uncaughtException(thread, e);
       }
     });
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    try {
+      if (SharedPreferenceUtils.getInstance(this).getStringValue(
+          SharedPreferenceUtils.APP_LANGUAGE, "").equalsIgnoreCase("ar")) {
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+      } else {
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+      }
+    } catch (NullPointerException npe) {
+      npe.printStackTrace();
+    } catch (RuntimeException rte) {
+      rte.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**

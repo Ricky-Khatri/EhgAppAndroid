@@ -32,6 +32,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -95,7 +96,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
   private FragmentHistoryUtil fragmentHistory;
   private FragmentNavigationController mnavController;
 
-  private ImageView headerBackButton;
+  private AppCompatImageView headerBackButton;
 
   private TextView headerTextView;
   private ImageView imageViewSettings;
@@ -104,51 +105,56 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   private PopupWindow popupWindow;
 
+  /**
+   * Called when activity created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_home);
+    try {
 
-    context = this;
+      setContentView(R.layout.activity_home);
 
-    //Register broadcast message interface for HomeActivity
-    setBroadCastMessageInterface(this);
+      context = this;
 
-    initView();
+      //Register broadcast message interface for HomeActivity
+      setBroadCastMessageInterface(this);
 
-    //initToolbar();
+      initView();
 
-    initTab();
+      //initToolbar();
 
-    /*
-      registering listeners
-     */
-    bottomTabLayout.addOnTabSelectedListener(this);
-    headerBackButton.setOnClickListener(this);
-    imageViewSettings.setOnClickListener(this);
+      initTab();
 
-    /*
-      Initialing "FragmentHistoryUtil" class.
-     */
-    fragmentHistory = new FragmentHistoryUtil();
+      //registering listeners
+      bottomTabLayout.addOnTabSelectedListener(this);
+      headerBackButton.setOnClickListener(this);
+      imageViewSettings.setOnClickListener(this);
 
-    /*
-      Initialing "FragmentNavigationController" with required parameter.
-     */
-    mnavController = FragmentNavigationController
-        .newBuilder(savedInstanceState, getSupportFragmentManager(),
-            R.id.framelayout_home_fragment_container)
-        .transactionListener(this)
-        .rootFragmentListener(this, tabs.length)
-        .build();
+      //Initialing "FragmentHistoryUtil" class.
+      fragmentHistory = new FragmentHistoryUtil();
 
-    switchTab(0);
+      //Initialing "FragmentNavigationController" with required parameter.
+      mnavController = FragmentNavigationController
+          .newBuilder(savedInstanceState, getSupportFragmentManager(),
+              R.id.framelayout_home_fragment_container)
+          .transactionListener(this)
+          .rootFragmentListener(this, tabs.length)
+          .build();
 
-    //Check for app location permissions
-    if (AppPermissionCheckerUtil.checkAppPermission(this,
-        new String[]{permission.ACCESS_FINE_LOCATION})) {
-      //TODO: Need to implement
+      switchTab(0);
+
+      //Check for app location permissions
+      if (AppPermissionCheckerUtil.checkAppPermission(this,
+          new String[]{permission.ACCESS_FINE_LOCATION})) {
+        //TODO: Need to implement
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception n) {
+      n.printStackTrace();
     }
   }
 
@@ -162,6 +168,17 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     imageViewSettings = findViewById(R.id.imageview_home_showmore);
     //toolbar = findViewById(R.id.toolbar);
     //headerBackButton.setVisibility(View.INVISIBLE);
+    setBackArrowRtl(headerBackButton);
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
   }
 
   /**
@@ -228,6 +245,11 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     }
   }
 
+  /**
+   * Called to return root fragment object.
+   *
+   * @param index the index that the root of the stack Fragment needs to go
+   */
   @Override
   public Fragment getRootFragment(int index) {
 
@@ -338,6 +360,11 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     }
   }
 
+  /**
+   * Called when tab transaction initiated.
+   * @param fragment fragment object
+   * @param index index
+   */
   @Override
   public void onTabTransaction(Fragment fragment, int index) {
 
@@ -383,6 +410,11 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     }
   }
 
+  /**
+   * Called when back stack pressed on fragment.
+   * @param fragment object
+   * @param transactionType transaction type
+   */
   @Override
   public void onFragmentTransaction(Fragment fragment, TransactionType transactionType) {
 
@@ -395,31 +427,51 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     }
   }
 
+  /**
+   * Called when activity started.
+   */
   @Override
   protected void onStart() {
     super.onStart();
   }
 
+  /**
+   * Called when activity stopped.
+   */
   @Override
   protected void onStop() {
     super.onStop();
   }
 
+  /**
+   * Called when tab switched.
+   * @param position integer position
+   */
   private void switchTab(int position) {
     mnavController.switchTab(position);
     /* updateToolbarTitle(position); */
   }
 
+  /**
+   * Called when activity resumed.
+   */
   @Override
   protected void onResume() {
     super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
   }
 
+  /**
+   * Called when activity paused.
+   */
   @Override
   protected void onPause() {
     super.onPause();
   }
 
+  /**
+   * Called when device back button pressed.
+   */
   @Override
   public void onBackPressed() {
 
@@ -498,6 +550,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   /**
    * Called when tab selected.
+   *
    * @param tab tab
    */
   @Override
@@ -510,6 +563,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   /**
    * Called when tab unselected.
+   *
    * @param tab tab
    */
   @Override
@@ -518,6 +572,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   /**
    * Called when tab reselected.
+   *
    * @param tab tab
    */
   @Override
@@ -546,6 +601,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   /**
    * Called when click event initiated.
+   *
    * @param view clicked view reference
    */
   @Override
@@ -559,8 +615,8 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
       case R.id.imageview_home_showmore:
         //showMorePopUpWindow();
-        Intent intent = new Intent(context,SettingsActivity.class);
-        AppUtil.startActivityWithAnimation(this,intent,false);
+        Intent intent = new Intent(context, SettingsActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
 
       default:
@@ -570,6 +626,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   /**
    * OnKeyDown callback will be called when phone back key pressed.
+   *
    * @param keyCode keycode
    * @param event event
    * @return return boolean value
@@ -589,7 +646,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
   protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     //TODO: Need to implement
-    if(resultCode == -1) {
+    if (resultCode == -1) {
       Intent intent = new Intent(context, MapsActivity.class);
       startActivity(intent);
     } else {

@@ -21,6 +21,7 @@ package com.ehg.settings;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.widget.Switch;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
@@ -54,5 +55,26 @@ public class PreferencesActivity extends BaseActivity {
   private void initView() {
 
     notificationSwitch = findViewById(R.id.switch_settingprefernces_notification);
+
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
   }
 }
