@@ -148,7 +148,7 @@
       android:screenOrientation="portrait">
     </activity>
     <activity
-      android:name=".booking.hotel.HotelDetaiActivity"
+      android:name=".booking.hotel.HotelDetailActivity"
       android:screenOrientation="portrait"/>
   </application>
 

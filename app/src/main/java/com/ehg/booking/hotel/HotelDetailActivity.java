@@ -26,7 +26,7 @@ import com.ehg.home.BaseActivity;
 /**
  * This activity will show hotel details.
  */
-public class HotelDetaiActivity extends BaseActivity {
+public class HotelDetailActivity extends BaseActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
