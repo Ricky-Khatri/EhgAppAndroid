@@ -134,14 +134,22 @@
     <activity
       android:name=".reservations.BookingSummaryActivity"
       android:screenOrientation="portrait"/>
-    <activity android:name=".booking.hotel.HotelActivity">
+
+    <activity
+      android:name=".booking.golf.GolfActivity"
+      android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".booking.golf.GolfActivity">
+    <activity
+      android:name=".booking.restaurant.RestaurantActivity"
+      android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".booking.restaurant.RestaurantActivity">
+    <activity
+      android:name=".booking.spa.SpaActivity"
+      android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".booking.spa.SpaActivity">
-    </activity>
+    <activity
+      android:name=".booking.hotel.HotelDetaiActivity"
+      android:screenOrientation="portrait"/>
   </application>
 
 </manifest>
