@@ -25,6 +25,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.KeyEvent;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
@@ -91,11 +92,28 @@ public class SignInSignupActivity extends BaseActivity {
 
         }
       });
+
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
   }
 
   /**

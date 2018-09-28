@@ -20,6 +20,7 @@
 package com.ehg.signinsignup;
 
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -33,6 +34,7 @@ import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.ubyemaar.UserPreferencesActivity;
 import com.ehg.utilities.AppUtil;
 import com.loopj.android.http.RequestParams;
 import com.rilixtech.CountryCodePicker;
@@ -46,7 +48,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
     ApiResponseListener, OnEditorActionListener {
 
   private AutoCompleteTextView textViewMobileNumber;
-  private AutoCompleteTextView textViewall_email;
+  private AutoCompleteTextView textViewEmail;
 
   private static final String FORGOT_PASSWORD_METHOD = "forgotPassword";
   private CountryCodePicker countryCodePicker;
@@ -76,7 +78,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
     textViewHeaderTitle.setText(R.string.all_forgotpassword);
 
     textViewMobileNumber = findViewById(R.id.textview_forgot_password_mobile_number);
-    textViewall_email = findViewById(R.id.textview_forgot_password_all_email);
+    textViewEmail = findViewById(R.id.textview_forgot_password_all_email);
     Button buttonSubmit = findViewById(R.id.button_forgot_password_reset_password);
 
     //Set OnclickListener
@@ -85,7 +87,28 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
 
     //Set OnEditorActionListener
     textViewMobileNumber.setOnEditorActionListener(this);
-    textViewall_email.setOnEditorActionListener(this);
+    textViewEmail.setOnEditorActionListener(this);
+
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
   }
 
   /**
@@ -130,17 +153,17 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   private void validateFormFiled() {
 
     textViewMobileNumber.setError(null);
-    textViewall_email.setError(null);
+    textViewEmail.setError(null);
 
     String mobileNumber = textViewMobileNumber.getText().toString();
-    String all_email = textViewall_email.getText().toString();
+    String email = textViewEmail.getText().toString();
 
     // Check for a valid username
-    if (TextUtils.isEmpty(mobileNumber) && TextUtils.isEmpty(all_email)) {
+    if (TextUtils.isEmpty(mobileNumber) && TextUtils.isEmpty(email)) {
       textViewMobileNumber.setError(getString(R.string.all_erroremailormobile));
       textViewMobileNumber.requestFocus();
 
-    } else if (!TextUtils.isEmpty(mobileNumber) && !TextUtils.isEmpty(all_email)) {
+    } else if (!TextUtils.isEmpty(mobileNumber) && !TextUtils.isEmpty(email)) {
       textViewMobileNumber.setError(getString(R.string.all_erroremailormobile));
       textViewMobileNumber.requestFocus();
 
@@ -153,12 +176,12 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
         } else {
           forgotPassword(mobileNumber);
         }
-      } else if (!TextUtils.isEmpty(all_email)) {
-        if (!AppUtil.isall_emailValid(all_email)) {
-          textViewall_email.setError(getString(R.string.all_invalidemail));
-          textViewall_email.requestFocus();
+      } else if (!TextUtils.isEmpty(email)) {
+        if (!AppUtil.isall_emailValid(email)) {
+          textViewEmail.setError(getString(R.string.all_invalidemail));
+          textViewEmail.requestFocus();
         } else {
-          forgotPassword(all_email);
+          forgotPassword(email);
         }
       }
     }
@@ -194,9 +217,9 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
       try {
         JSONObject jsonObject = new JSONObject(responseVal);
         if (jsonObject.getBoolean("status")) {
-          AppUtil.showAlertDialog(this
-              , jsonObject.getString("message")
-              , true, getResources().getString(R.string.dialog_alerttitle), false,null);
+          AppUtil.showAlertDialog(this,
+              jsonObject.getString("message"),
+              true, getResources().getString(R.string.dialog_alerttitle), false, null);
         }
       } catch (JSONException e) {
         e.printStackTrace();
@@ -212,7 +235,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   @Override
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog(this, errorMessage, false,
-        getResources().getString(R.string.dialog_errortitle), true,null);
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 
   /**

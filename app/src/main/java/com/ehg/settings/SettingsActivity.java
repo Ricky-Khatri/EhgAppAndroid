@@ -23,6 +23,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,6 +43,13 @@ import com.ehg.utilities.AppUtil;
 public class SettingsActivity extends BaseActivity implements OnClickListener {
 
   private TextView textViewUserState;
+
+  private AppCompatImageView imageViewPreference;
+  private AppCompatImageView imageViewSupport;
+  private AppCompatImageView imageViewPrivacyPolicy;
+  private AppCompatImageView imageViewTermsAndCondition;
+  private AppCompatImageView imageViewLanguage;
+  private AppCompatImageView imageViewUserState;
 
   /**
    * Called when activity created first.
@@ -85,6 +93,55 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
     } else {
 
       textViewUserState.setText(getResources().getString(R.string.settings_signuot));
+    }
+
+    imageViewPreference = findViewById(R.id.imageview_setting_preference);
+    imageViewSupport = findViewById(R.id.imageview_setting_support);
+    imageViewPrivacyPolicy = findViewById(R.id.imageview_setting_privacypolicy);
+    imageViewTermsAndCondition = findViewById(R.id.imageview_setting_termsandcondition);
+    imageViewLanguage = findViewById(R.id.imageview_setting_language);
+    imageViewUserState = findViewById(R.id.imageview_setting_userstate);
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+
+    try {
+      setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+      if (SharedPreferenceUtils.getInstance(this).getStringValue(
+          SharedPreferenceUtils.APP_LANGUAGE, "").equalsIgnoreCase("ar")) {
+        imageViewPreference.setImageResource(R.drawable.ic_back_arrow_white);
+        imageViewSupport.setImageResource(R.drawable.ic_back_arrow_white);
+        imageViewPrivacyPolicy.setImageResource(R.drawable.ic_back_arrow_white);
+        imageViewTermsAndCondition.setImageResource(R.drawable.ic_back_arrow_white);
+        imageViewLanguage.setImageResource(R.drawable.ic_back_arrow_white);
+        imageViewUserState.setImageResource(R.drawable.ic_back_arrow_white);
+      } else {
+        imageViewPreference.setImageResource(R.drawable.all_arrowpointtoright);
+        imageViewSupport.setImageResource(R.drawable.all_arrowpointtoright);
+        imageViewPrivacyPolicy.setImageResource(R.drawable.all_arrowpointtoright);
+        imageViewTermsAndCondition.setImageResource(R.drawable.all_arrowpointtoright);
+        imageViewLanguage.setImageResource(R.drawable.all_arrowpointtoright);
+        imageViewUserState.setImageResource(R.drawable.all_arrowpointtoright);
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

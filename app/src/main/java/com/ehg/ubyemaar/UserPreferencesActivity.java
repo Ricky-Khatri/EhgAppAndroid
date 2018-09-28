@@ -20,6 +20,7 @@
 package com.ehg.ubyemaar;
 
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -35,8 +36,7 @@ import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 
 /**
- * This class allows to set user preferences.
- * Like: Dine, Stay, Relax, Play etc.
+ * This class allows to set user preferences. Like: Dine, Stay, Relax, Play etc.
  */
 public class UserPreferencesActivity extends BaseActivity
     implements OnUserPreferenceClickListener {
@@ -90,32 +90,56 @@ public class UserPreferencesActivity extends BaseActivity
     recyclerViewUserPreferencesList.setLayoutManager(manager);
     recyclerViewUserPreferencesList.setHasFixedSize(true);
     UserPreferencesAdapter userPreferencesAdapter =
-        new UserPreferencesAdapter(this,userPreferencesList);
+        new UserPreferencesAdapter(this, userPreferencesList);
     recyclerViewUserPreferencesList.setAdapter(userPreferencesAdapter);
 
     //Set OnClickListener
-    findViewById(R.id.imageview_header_back).setOnClickListener(new OnClickListener() {
+    AppCompatImageView appCompatImageViewBackArrow = findViewById(R.id.imageview_header_back);
+    appCompatImageViewBackArrow.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View view) {
         AppUtil.finishActivityWithAnimation(UserPreferencesActivity.this);
       }
     });
+
+    setBackArrowRtl(appCompatImageViewBackArrow);
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
   }
 
   /**
    * Called when user preference selected from list.
+   *
    * @param userPreferencesPojo user preference object
    */
   @Override
   public void onPreferenceSelect(UserPreferencesPojo userPreferencesPojo, int position) {
     if (userPreferencesList != null && userPreferencesList.size() > 0
         && position > 0 && position < userPreferencesList.size()) {
-      userPreferencesList.set(position,userPreferencesPojo);
+      userPreferencesList.set(position, userPreferencesPojo);
     }
   }
 
   /**
    * OnKeyDown callback will be called when phone back key pressed.
+   *
    * @param keyCode keycode
    * @param event event
    * @return return boolean value

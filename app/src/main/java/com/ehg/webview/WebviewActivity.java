@@ -21,6 +21,7 @@ package com.ehg.webview;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings.PluginState;
@@ -75,18 +76,39 @@ public class WebviewActivity extends BaseActivity {
       //Load url
       loadWebview();
 
-      findViewById(R.id.imageview_header_back).setOnClickListener(new View.OnClickListener() {
+      AppCompatImageView appCompatImageViewBackArrow = findViewById(R.id.imageview_header_back);
+      appCompatImageViewBackArrow.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           AppUtil.finishActivityWithAnimation(WebviewActivity.this);
         }
       });
 
+      setBackArrowRtl(appCompatImageViewBackArrow);
+
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception n) {
       n.printStackTrace();
     }
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
   }
 
   /**
