@@ -32,6 +32,10 @@ public class BookingSummaryActivity extends BaseActivity {
 
   private Context context;
 
+  /**
+   * Called when activity created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
