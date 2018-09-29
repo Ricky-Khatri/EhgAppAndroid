@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 28/9/18 1:05 PM
+ *  Created by Emaar Hospitality Group on 13/8/18 11:12 AM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 28/9/18 1:05 PM
+ *  Last modified 13/8/18 11:12 AM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,30 +19,36 @@
 
 package com.ehg.signinsignup.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Pojo for UserProfile.
+ * UserProfilePojo class.
  */
 public class UserProfilePojo {
 
-  private boolean status;
+  @SerializedName("data")
+  private Data data;
+  @SerializedName("message")
   private String message;
-  public Data dataObject;
-  private float responseTag;
+  @SerializedName("responseTag")
+  private Long responseTag;
+  @SerializedName("status")
+  private Boolean status;
 
   /**
    * Getter method.
    *
-   * @return Gets the value of status and returns status.
+   * @return Gets the value of data and returns data.
    */
-  public boolean isStatus() {
-    return status;
+  public Data getData() {
+    return data;
   }
 
   /**
-   * Sets the status. You can use getStatus() to get the value of status.
+   * Sets the data. You can use getData() to get the value of data.
    */
-  public void setStatus(boolean status) {
-    this.status = status;
+  public void setData(Data data) {
+    this.data = data;
   }
 
   /**
@@ -64,32 +70,32 @@ public class UserProfilePojo {
   /**
    * Getter method.
    *
-   * @return Gets the value of DataObject and returns DataObject.
-   */
-  public Data getDataObject() {
-    return dataObject;
-  }
-
-  /**
-   * Sets the DataObject. You can use getDataObject() to get the value of DataObject.
-   */
-  public void setDataObject(Data dataObject) {
-    dataObject = dataObject;
-  }
-
-  /**
-   * Getter method.
-   *
    * @return Gets the value of responseTag and returns responseTag.
    */
-  public float getResponseTag() {
+  public Long getResponseTag() {
     return responseTag;
   }
 
   /**
    * Sets the responseTag. You can use getResponseTag() to get the value of responseTag.
    */
-  public void setResponseTag(float responseTag) {
+  public void setResponseTag(Long responseTag) {
     this.responseTag = responseTag;
+  }
+
+  /**
+   * Getter method.
+   *
+   * @return Gets the value of status and returns status.
+   */
+  public Boolean getStatus() {
+    return status;
+  }
+
+  /**
+   * Sets the status. You can use getStatus() to get the value of status.
+   */
+  public void setStatus(Boolean status) {
+    this.status = status;
   }
 }

@@ -349,19 +349,27 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<")) {
 
-        /*UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
+        UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
             new TypeToken<UserProfilePojo>() {
             }.getType());
 
-        if (userProfilePojo != null && userProfilePojo.isStatus()) {
+        if (userProfilePojo != null && userProfilePojo.getStatus()) {
 
           JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
+          //Save loyaltyMEmberId
+          SharedPreferenceUtils.getInstance(context)
+              .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
+                  userProfilePojo.getData().getDetail().get(0).getLoyaltyMemberId());
+          //Save mobile number as accoundId
+          SharedPreferenceUtils.getInstance(context)
+              .setValue(SharedPreferenceUtils.ACCOUNT_ID,
+                  userProfilePojo.getData().getDetail().get(0).getMobileNumber());
 
           Intent intent = new Intent(context, HomeActivity.class);
           AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
-        }*/
+        }
 
-        JSONObject jsonObject = new JSONObject(responseVal);
+        /*JSONObject jsonObject = new JSONObject(responseVal);
 
         if (jsonObject.getBoolean("status")) {
           JSONObject dataObject = jsonObject.getJSONObject("data");
@@ -379,9 +387,11 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
             Intent intent = new Intent(context, HomeActivity.class);
             AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
           }
-        }
+        }*/
       }
-    } catch (JSONException e) {
+    } /*catch (JSONException e) {
+      e.printStackTrace();
+    }*/ catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     } catch (NullPointerException e) {
       e.printStackTrace();
