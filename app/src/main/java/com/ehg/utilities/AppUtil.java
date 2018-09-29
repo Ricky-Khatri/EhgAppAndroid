@@ -20,7 +20,6 @@
 package com.ehg.utilities;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -50,11 +49,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ehg.R;
@@ -69,7 +68,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * This class contains common utility methods required for the app.
@@ -128,9 +126,12 @@ public class AppUtil {
       dialogLoadingIndicator.setContentView(R.layout.view_loadingindicator);
       dialogLoadingIndicator.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-      AVLoadingIndicatorView avLoadingIndicatorView = dialogLoadingIndicator
-          .findViewById(R.id.avloadingindicator);
-      avLoadingIndicatorView.show();
+      ProgressBar progressBar = dialogLoadingIndicator
+          .findViewById(R.id.progressbar_loadingindicator);
+      progressBar.getIndeterminateDrawable().setColorFilter(
+          appCompatActivity.getResources().getColor(R.color.white),
+          android.graphics.PorterDuff.Mode.MULTIPLY);
+
       dialogLoadingIndicator.show();
 
     } catch (NullPointerException n) {
@@ -285,6 +286,7 @@ public class AppUtil {
    */
   public static void finishActivityWithAnimation(AppCompatActivity appCompatActivity) {
     if (appCompatActivity != null) {
+
       appCompatActivity.finish();
 
       //Check if current language is arabic then change RTL animation
