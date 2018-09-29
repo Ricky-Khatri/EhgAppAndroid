@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 28/9/18 1:08 PM
+ *  Created by Emaar Hospitality Group on 13/8/18 11:12 AM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 28/9/18 1:08 PM
+ *  Last modified 13/8/18 11:12 AM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,28 +19,30 @@
 
 package com.ehg.signinsignup.pojo;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
 /**
- * Data class of UserProfile Pojo class.
+ * Data class for UserProfilePojo.
  */
 public class Data {
 
-  public ArrayList<Object> detail = new ArrayList<Object>();
+  @SerializedName("detail")
+  private List<Detail> detail;
 
   /**
    * Getter method.
    *
    * @return Gets the value of detail and returns detail.
    */
-  public ArrayList<Object> getDetail() {
+  public List<Detail> getDetail() {
     return detail;
   }
 
   /**
    * Sets the detail. You can use getDetail() to get the value of detail.
    */
-  public void setDetail(ArrayList<Object> detail) {
+  public void setDetail(List<Detail> detail) {
     this.detail = detail;
   }
 }
