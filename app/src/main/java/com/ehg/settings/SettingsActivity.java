@@ -276,7 +276,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
 
           //TODO: Uncomment signout() method
           //signOut();
-          clearDataAndSwitchActivity();
+          clearDataAndSwitchToSigninSignup();
         }
       });
 
@@ -294,7 +294,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
   /**
    * Clear preference and redirect to Sign-in/Sign-up activity.
    */
-  private void clearDataAndSwitchActivity() {
+  private void clearDataAndSwitchToSigninSignup() {
     SharedPreferenceUtils.getInstance(this)
         .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "");
     Intent intent = new Intent(this, SignInSignupActivity.class);
@@ -369,7 +369,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
 
         if (jsonObject.getBoolean("status")) {
 
-          clearDataAndSwitchActivity();
+          clearDataAndSwitchToSigninSignup();
 
         }
       }

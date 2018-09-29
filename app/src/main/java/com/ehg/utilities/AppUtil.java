@@ -58,6 +58,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.webview.WebviewActivity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -260,8 +261,16 @@ public class AppUtil {
     if (appCompatActivity != null && intent != null) {
 
       appCompatActivity.startActivity(intent);
-      appCompatActivity.overridePendingTransition(R.anim.slide_in_left_animation,
-          R.anim.slide_out_right_animation);
+
+      //Check if current language is arabic then change RTL animation
+      if (SharedPreferenceUtils.getInstance(appCompatActivity).getStringValue(
+          SharedPreferenceUtils.APP_LANGUAGE, "").equalsIgnoreCase("ar")) {
+        appCompatActivity.overridePendingTransition(R.anim.slide_in_right_animation,
+            R.anim.slide_out_left_animation);
+      } else {
+        appCompatActivity.overridePendingTransition(R.anim.slide_in_left_animation,
+            R.anim.slide_out_right_animation);
+      }
 
       if (finishCurrentActivity) {
         appCompatActivity.finish();
@@ -277,7 +286,15 @@ public class AppUtil {
   public static void finishActivityWithAnimation(AppCompatActivity appCompatActivity) {
     if (appCompatActivity != null) {
       appCompatActivity.finish();
-      appCompatActivity.overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+
+      //Check if current language is arabic then change RTL animation
+      if (SharedPreferenceUtils.getInstance(appCompatActivity).getStringValue(
+          SharedPreferenceUtils.APP_LANGUAGE, "").equalsIgnoreCase("ar")) {
+        appCompatActivity.overridePendingTransition(R.anim.slide_in_left_animation,
+            R.anim.slide_out_right_animation);
+      } else {
+        appCompatActivity.overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
+      }
     }
   }
 
