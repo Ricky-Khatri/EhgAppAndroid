@@ -42,6 +42,9 @@ public class WebServiceUtil {
   //Login method
   public static final String METHOD_LOGIN = "signUp/login/v1";
 
+  //Logout method
+  public static final String METHOD_LOGOUT = "signUp/logout/v1";
+
   //UpdateToken method
   public static final String METHOD_UPDATE_TOKEN = "updateToken";
 
