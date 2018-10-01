@@ -29,6 +29,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.downloadmanager.FileDownloadManager;
+import com.ehg.downloadmanager.FileDownloadManager.FileDownloadManagerResponse;
+import com.ehg.downloadmanager.FileDownloadUtil;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.BaseActivity.BroadCastMessageInterface;
 import com.ehg.home.HomeActivity;
@@ -39,6 +42,7 @@ import com.ehg.signinsignup.SignInSignupActivity;
 import com.ehg.splash.adapter.SplashPagerAdapter;
 import com.ehg.utilities.AppPermissionCheckerUtil;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import org.json.JSONArray;
@@ -50,7 +54,7 @@ import org.json.JSONObject;
  * of delay.
  */
 public class SplashActivity extends BaseActivity implements BroadCastMessageInterface,
-    ApiResponseListener {
+    ApiResponseListener, FileDownloadManagerResponse {
 
   public static final int SPLASH_TIME_OUT = 3000;
   private static final String UPDATE_TOKEN_METHOD = "updateToken";
@@ -62,6 +66,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
   /**
    * Called when activity created.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
@@ -75,6 +80,10 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
 
       setBroadCastMessageInterface(this);
 
+      //Register file download manager and init file download process
+      FileDownloadManager.setFileDownloadResponseListener(this);
+      downloadLanguageJsonFile();
+
       /*
        *Checking permission for app.
        */
@@ -85,6 +94,34 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
       n.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called to initiate file download process.
+   */
+  private void downloadLanguageJsonFile() {
+    new FileDownloadManager(this).new DownloadFile().execute(
+        FileDownloadUtil.LANGUAGE_FOLDER_NAME,
+        FileDownloadUtil.FILE_DOWNLOAD_BASE_URL + FileDownloadUtil.LANGUAGE_FILE_NAME,
+        FileDownloadUtil.LANGUAGE_FILE_NAME);
+  }
+
+  /**
+   * Callback method called by fileDownloadResponseListener.
+   *
+   * @param isFileDownloaded boolean
+   * @param fileName downloaded filename
+   */
+  @Override
+  public void isFileDownloaded(boolean isFileDownloaded, String fileName) {
+    if (isFileDownloaded) {
+      String languageJson = new FileDownloadManager(this)
+          .getJsonString(FileDownloadUtil.getRootFolderPath() + "/"
+              + FileDownloadUtil.LANGUAGE_FOLDER_NAME + "/"
+              + FileDownloadUtil.LANGUAGE_FILE_NAME);
+
+      JsonParserUtil.getInstance(this).setStringValue(JsonParserUtil.LANGUAGE_JSON, languageJson);
     }
   }
 

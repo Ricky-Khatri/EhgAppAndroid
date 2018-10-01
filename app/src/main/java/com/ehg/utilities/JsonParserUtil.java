@@ -38,6 +38,7 @@ public class JsonParserUtil {
 
   //Constants
   private static final String USER_PROFILE_POJO = "UserProfilePojo";
+  public static final String LANGUAGE_JSON = "LanguageJson";
 
   /**
    * Parameterized constructor of this class.
@@ -97,4 +98,26 @@ public class JsonParserUtil {
     return userProfilePojo;
   }
   //****************************************************************************
+
+  /**
+   * Stores String value in preference.
+   *
+   * @param key key of preference
+   * @param value value for that key
+   */
+  public void setStringValue(String key, String value) {
+    sharedPreferencesEditor.putString(key, value);
+    sharedPreferencesEditor.commit();
+  }
+
+  /**
+   * Retrieves String value from preference.
+   *
+   * @param key key of preference
+   * @param defaultValue default value if no key found
+   */
+  public String getStringValue(String key, String defaultValue) {
+    return sharedPreferences.getString(key, defaultValue);
+  }
+
 }
