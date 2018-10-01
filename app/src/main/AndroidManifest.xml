@@ -150,7 +150,9 @@
     <activity
       android:name=".booking.hotel.HotelDetailActivity"
       android:screenOrientation="portrait"/>
-    <activity android:name=".search.SearchActivity"/>
+    <activity
+      android:name=".search.SearchActivity"
+      android:screenOrientation="portrait"/>
   </application>
 
 </manifest>

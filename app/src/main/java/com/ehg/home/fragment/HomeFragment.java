@@ -19,12 +19,16 @@
 
 package com.ehg.home.fragment;
 
+import static com.ehg.R.id.appcompatimageview_headersearch_appicon;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -41,6 +45,7 @@ import com.ehg.home.HomeActivity;
 import com.ehg.home.adapter.HomeFragmentAdapter;
 import com.ehg.home.adapter.HomeRoomControlAdapter;
 import com.ehg.offers.adapter.OfferListAdapter;
+import com.ehg.search.SearchActivity;
 import com.ehg.utilities.AppUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
 import com.glide.slider.library.SliderLayout;
@@ -57,7 +62,7 @@ import java.util.Objects;
  */
 
 public class HomeFragment extends BaseFragment implements OnSliderClickListener,
-    OnPageChangeListener {
+    OnPageChangeListener, View.OnClickListener {
 
   private SliderLayout sliderLayoutHomeOffers;
 
@@ -80,6 +85,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
       "TELEVISION",
       "PRIVACY & \nCLEANING",
   };
+  private LinearLayout linearLayoutSearch;
 
   /**
    * Called when fragment created.
@@ -166,6 +172,10 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     textViewGuestInformation = view.findViewById(R.id.textview_homefragment_guest_information);
     textViewRoomInformation = view.findViewById(R.id.textview_homefragment_roomcontrol_roomdetail);
     recyclerViewHotelList = view.findViewById(R.id.recyclerview_home_fragment);
+    linearLayoutSearch = view.findViewById(R.id.linearlayout_headersearch_layout);
+
+    linearLayoutSearch.setOnClickListener(this);
+
     //recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
 
     LinearLayoutManager manager = new LinearLayoutManager(getActivity(),
@@ -316,5 +326,22 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
   @Override
   public void onPageScrollStateChanged(int index) {
 
+  }
+
+  @Override
+  public void onClick(View v) {
+
+    switch (v.getId()) {
+
+      case R.id.linearlayout_headersearch_layout:
+
+        Intent intent = new Intent(context, SearchActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+
+        break;
+
+      default:
+        break;
+    }
   }
 }
