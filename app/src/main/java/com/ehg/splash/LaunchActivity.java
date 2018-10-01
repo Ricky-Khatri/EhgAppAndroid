@@ -19,11 +19,10 @@
 
 package com.ehg.splash;
 
+import android.Manifest.permission;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.view.ViewPager;
-import android.widget.Button;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
@@ -31,7 +30,7 @@ import com.ehg.home.BaseActivity.BroadCastMessageInterface;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
-import com.ehg.splash.adapter.SplashPagerAdapter;
+import com.ehg.utilities.AppPermissionCheckerUtil;
 import com.ehg.utilities.AppUtil;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
@@ -48,24 +47,30 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
   public static final int SPLASH_TIME_OUT = 3000;
   private static final String UPDATE_TOKEN_METHOD = "updateToken";
   private static final String FEATURE_SIGNUP = "signUp";
-  public ViewPager cardViewPager;
-  private Button buttonSignIn;
-  public static int FIRST_PAGE = 1;
-  private SplashPagerAdapter adapter;
 
   /**
    * Called when activity created.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_splash);
+    setContentView(R.layout.activity_launch);
 
     try {
 
-      switchActivity();
+      setBroadCastMessageInterface(this);
 
+      /*
+       *Checking permission for app.
+       */
+      if (AppPermissionCheckerUtil.checkAppPermission(this,
+          new String[]{permission.WRITE_EXTERNAL_STORAGE})) {
+
+        switchActivity();
+
+      }
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception e) {
@@ -107,6 +112,7 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
     if (!flag) {
       AppUtil.showToast(this, getResources().getString(R.string.all_permissionalert));
     }
+    switchActivity();
   }
 
   //****************************** API CALLING STUFF ******************************************

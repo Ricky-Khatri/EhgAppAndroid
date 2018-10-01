@@ -60,6 +60,10 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
   public static int FIRST_PAGE = 1;
   private SplashPagerAdapter adapter;
 
+  /**
+   * Called when activity created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -75,7 +79,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
        *Checking permission for app.
        */
       AppPermissionCheckerUtil.checkAppPermission(SplashActivity.this,
-          new String[]{permission.WRITE_EXTERNAL_STORAGE, permission.ACCESS_FINE_LOCATION});
+          new String[]{permission.WRITE_EXTERNAL_STORAGE/*, permission.ACCESS_FINE_LOCATION*/});
 
     } catch (NullPointerException n) {
       n.printStackTrace();

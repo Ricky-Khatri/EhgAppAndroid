@@ -441,7 +441,7 @@ public class AppUtil {
             if (isRedirect) {
 
               if (intent != null) {
-                startActivityWithAnimation(appCompatActivity, intent, true);
+                startActivityWithAnimation(appCompatActivity, intent, isRedirect);
               } else {
                 finishActivityWithAnimation(appCompatActivity);
               }

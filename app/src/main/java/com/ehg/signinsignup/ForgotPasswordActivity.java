@@ -34,7 +34,6 @@ import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
-import com.ehg.ubyemaar.UserPreferencesActivity;
 import com.ehg.utilities.AppUtil;
 import com.loopj.android.http.RequestParams;
 import com.rilixtech.CountryCodePicker;
@@ -174,7 +173,9 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
           textViewMobileNumber.setError(getString(R.string.all_invalidmobile));
           textViewMobileNumber.requestFocus();
         } else {
-          forgotPassword(mobileNumber);
+          String accountId = "00"
+              + countryCodePicker.getSelectedCountryCode() + mobileNumber;
+          forgotPassword(accountId);
         }
       } else if (!TextUtils.isEmpty(email)) {
         if (!AppUtil.isall_emailValid(email)) {
@@ -220,8 +221,16 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
           AppUtil.showAlertDialog(this,
               jsonObject.getString("message"),
               true, getResources().getString(R.string.dialog_alerttitle), false, null);
+        } else {
+          AppUtil.showAlertDialog(this,
+              jsonObject.getString("message"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
         }
       } catch (JSONException e) {
+        e.printStackTrace();
+      } catch (NullPointerException e) {
+        e.printStackTrace();
+      } catch (Exception e) {
         e.printStackTrace();
       }
     }

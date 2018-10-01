@@ -275,8 +275,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
           dialog.dismiss();
 
           //TODO: Uncomment signout() method
-          //signOut();
-          clearDataAndSwitchToSigninSignup();
+          signOut();
+          //clearDataAndSwitchToSigninSignup();
         }
       });
 
@@ -371,6 +371,9 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
 
           clearDataAndSwitchToSigninSignup();
 
+        } else {
+          AppUtil.showAlertDialog(this, jsonObject.getString("message"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
         }
       }
     } catch (JSONException e) {
