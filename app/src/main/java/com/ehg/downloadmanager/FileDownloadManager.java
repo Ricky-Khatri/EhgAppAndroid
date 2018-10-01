@@ -45,6 +45,8 @@ import java.nio.charset.Charset;
  */
 public class FileDownloadManager {
 
+  private static final String TAG = FileDownloadManager.class.getName();
+
   private static FileDownloadManagerResponse fileDownloadManagerResponse;
   private static DownloadProgressUpdate progressUpdater;
   private Context context;
@@ -135,6 +137,7 @@ public class FileDownloadManager {
 
     /**
      * Called to downlodd file.
+     *
      * @param fileUrl file url
      * @param directory directory
      * @return boolean value
@@ -247,22 +250,15 @@ public class FileDownloadManager {
         file = new File(subRoot, filePath);
 
         if (success) {
-
-          Log.d("chk", "chk");
-          //       // Do something on success
-          //           Log.i("success", "success " + success);
+          Log.i(TAG, "success " + success);
         } else {
-          // Do something else on failure
-          //     Log.i("success", "success " + success);
+          Log.i(TAG, "fail " + success);
         }
 
       } else {
         file = new File(context.getFilesDir(), filePath);
       }
-
     }
-    //  Log.i("file----","file "+file.getAbsolutePath());
-
     return file;
   }
 
@@ -382,6 +378,7 @@ public class FileDownloadManager {
 
   /**
    * Called to set fileDownloadManagerResponseListener.
+   *
    * @param downloadManagerResponse object
    */
   public static void setFileDownloadResponseListener(FileDownloadManagerResponse

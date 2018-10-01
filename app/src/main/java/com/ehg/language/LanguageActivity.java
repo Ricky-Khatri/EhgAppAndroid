@@ -24,6 +24,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,8 +38,12 @@ import com.ehg.language.pojo.LanguagePojo;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
 import com.ehg.utilities.LanguageUtil;
 import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class shows list of languages supported by app and allows user to choose any one as app
@@ -55,6 +60,7 @@ public class LanguageActivity extends BaseActivity implements
 
   /**
    * Called when activity created.
+   *
    * @param savedInstanceState bundle
    */
   @Override
@@ -114,7 +120,31 @@ public class LanguageActivity extends BaseActivity implements
   private void setLanguageListAdapter() {
     //Initialize language list
     languageList = new ArrayList<>();
-    LanguagePojo languagePojo = new LanguagePojo();
+
+    //Read available languages from Language Json file
+    String languageJson = JsonParserUtil.getInstance(this).
+        getStringValue(JsonParserUtil.LANGUAGE_JSON, "");
+
+    if (!TextUtils.isEmpty(languageJson)) {
+      try {
+        JSONObject jsonObject = new JSONObject(languageJson);
+        JSONArray jsonArray = jsonObject.optJSONArray("enabledlanguages");
+
+        if (jsonArray != null && jsonArray.length() > 0) {
+          for (int index = 0; index < jsonArray.length(); index++) {
+            JSONObject langObject = jsonArray.optJSONObject(index);
+            LanguagePojo languagePojo = new LanguagePojo();
+            languagePojo.setLanguageName(langObject.getString("display_name"));
+            languagePojo.setLanguageCode(langObject.getString("language_code"));
+            languageList.add(languagePojo);
+          }
+        }
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+    }
+
+    /*LanguagePojo languagePojo = new LanguagePojo();
     languagePojo.setLanguageCode("en");
     languagePojo.setLanguageName("English");
     languageList.add(languagePojo);
@@ -129,7 +159,7 @@ public class LanguageActivity extends BaseActivity implements
     languagePojo = new LanguagePojo();
     languagePojo.setLanguageCode("es");
     languagePojo.setLanguageName("Español");
-    languageList.add(languagePojo);
+    languageList.add(languagePojo);*/
 
     //Set list to adapter
     LanguageListAdapter languageListAdapter =
@@ -139,6 +169,7 @@ public class LanguageActivity extends BaseActivity implements
 
   /**
    * OnItemClick callback method.
+   *
    * @param position position of clicked row
    */
   @Override
@@ -154,6 +185,7 @@ public class LanguageActivity extends BaseActivity implements
 
   /**
    * Called when any view clicked.
+   *
    * @param view view
    */
   @Override
@@ -206,6 +238,7 @@ public class LanguageActivity extends BaseActivity implements
 
   /**
    * Called when response received from api call.
+   *
    * @param responseVal response
    * @param requestMethod request method name
    */
@@ -218,16 +251,18 @@ public class LanguageActivity extends BaseActivity implements
 
   /**
    * Called on failure api response.
+   *
    * @param errorMessage error string
    */
   @Override
   public void onFailureResponse(String errorMessage) {
-    AppUtil.showAlertDialog(this,errorMessage,false,
-        getResources().getString(R.string.dialog_errortitle),true,null);
+    AppUtil.showAlertDialog(this, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 
   /**
    * OnKeyDown callback will be called when phone back key pressed.
+   *
    * @param keyCode keycode
    * @param event event
    * @return return boolean value
