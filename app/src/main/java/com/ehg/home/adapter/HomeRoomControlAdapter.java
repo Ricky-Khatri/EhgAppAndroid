@@ -82,8 +82,8 @@ public class HomeRoomControlAdapter extends
   @Override
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-    Glide.with(context).load(imageUrl[position % imageUrls.length])
-        .into(viewHolder.roundedImageView);
+    /*Glide.with(context).load(imageUrl[position % imageUrls.length])
+        .into(viewHolder.roundedImageView);*/
 
     viewHolder.textViewControlName.setText(imageUrls[position]);
 

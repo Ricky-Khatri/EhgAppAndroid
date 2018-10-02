@@ -76,7 +76,8 @@ public class LanguageActivity extends BaseActivity implements
   private void initView() {
 
     TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
-    textViewHeaderTitle.setText(R.string.selectlanguage_title);
+    textViewHeaderTitle.setText(LanguageUtil.getLanguageTitleFromKey(this
+        ,getResources().getString(R.string.selectlanguage_title)));
 
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
 
@@ -121,8 +122,8 @@ public class LanguageActivity extends BaseActivity implements
     languageList = new ArrayList<>();
 
     //Read available languages from Language Json file
-    String languageJson = JsonParserUtil.getInstance(this).
-        getStringValue(JsonParserUtil.LANGUAGE_JSON, "");
+    String languageJson = JsonParserUtil.getInstance(this)
+        .getStringValue(JsonParserUtil.LANGUAGE_JSON, "");
 
     if (!TextUtils.isEmpty(languageJson)) {
       try {
@@ -133,7 +134,8 @@ public class LanguageActivity extends BaseActivity implements
           for (int index = 0; index < jsonArray.length(); index++) {
             JSONObject langObject = jsonArray.optJSONObject(index);
             LanguagePojo languagePojo = new LanguagePojo();
-            languagePojo.setLanguageName(langObject.getString("display_name"));
+            languagePojo.setLanguageName(LanguageUtil.getLanguageTitleFromKey(this,
+                langObject.getString("display_name")));
             languagePojo.setLanguageCode(langObject.getString("language_code"));
             languageList.add(languagePojo);
           }

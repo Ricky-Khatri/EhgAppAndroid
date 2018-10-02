@@ -81,6 +81,27 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     viewHolder.recycleViewFeatureHotel.setAdapter(
         new HomeFragmentHorizontalItemAdapter(context, imageUrls));
 
+    switch (position) {
+      case 0:
+            viewHolder.textViewFeatureTitle.setText("HOTELS AND RESORTS");
+        break;
+
+      case 1:
+        viewHolder.textViewFeatureTitle.setText("EMAAR LEISURE GROUP");
+        break;
+
+      case 2:
+        viewHolder.textViewFeatureTitle.setText("RESTAURANTS");
+        break;
+
+      case 3:
+        viewHolder.textViewFeatureTitle.setText("SPA");
+        break;
+
+      case 4:
+        viewHolder.textViewFeatureTitle.setText("GOLF CLUB");
+        break;
+    }
   }
 
   /**
