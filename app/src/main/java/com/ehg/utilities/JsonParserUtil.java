@@ -21,14 +21,10 @@ package com.ehg.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import org.json.JSONObject;
 
 /**
  * This class allows to locally store response pojo objects in preferences.
@@ -122,41 +118,5 @@ public class JsonParserUtil {
    */
   public String getStringValue(String key, String defaultValue) {
     return sharedPreferences.getString(key, defaultValue);
-  }
-
-  /**
-   * Called to get multilingual value of passed key from language json file.
-   * @param context activity context
-   * @param key passed key
-   * @return value of key based on current app language
-   */
-  public static String getLanguageTitleFromKey(AppCompatActivity context, String key) {
-
-    String value = key;
-
-    try {
-
-      String languageJson = JsonParserUtil.getInstance(context)
-          .getStringValue(JsonParserUtil.LANGUAGE_JSON,"");
-
-      if(!TextUtils.isEmpty(languageJson)){
-
-        JSONObject jsonObject =new JSONObject(languageJson);
-
-        JSONObject languageValuesObject = jsonObject.getJSONObject("languageValues");
-
-        JSONObject keyObject = languageValuesObject.getJSONObject(key);
-
-        String appLangCode = SharedPreferenceUtils.getInstance(context).getStringValue(
-            SharedPreferenceUtils.APP_LANGUAGE,"");
-
-        value = keyObject.getString(appLangCode);
-      }
-    } catch (NullPointerException n) {
-      n.printStackTrace();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return value;
   }
 }

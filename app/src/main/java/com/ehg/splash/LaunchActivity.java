@@ -23,10 +23,12 @@ import android.Manifest.permission;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.BaseActivity.BroadCastMessageInterface;
+import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
@@ -35,7 +37,6 @@ import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.LanguageUtil;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
-import java.util.Locale;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,7 +66,7 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
       setBroadCastMessageInterface(this);
 
       //Get phone default language and configure in app
-      LanguageUtil.setLocale(this, Locale.getDefault().getLanguage());
+      LanguageUtil.setDeviceLanguage(this);
 
       /*
        *Checking permission for app.
@@ -92,15 +93,15 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
       @Override
       public void run() {
         Intent intent;
-        /*if (SharedPreferenceUtils.getInstance(LaunchActivity.this)
-        .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
-        .equalsIgnoreCase("")) {
-      intent = new Intent(LaunchActivity.this, SplashActivity.class);
-    } else {
-      intent = new Intent(LaunchActivity.this, HomeActivity.class);
-    }*/
-        intent = new Intent(LaunchActivity.this, SplashActivity.class);
+
+        if (TextUtils.isEmpty(SharedPreferenceUtils.getInstance(LaunchActivity.this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+          intent = new Intent(LaunchActivity.this, SplashActivity.class);
+        } else {
+          intent = new Intent(LaunchActivity.this, HomeActivity.class);
+        }
         AppUtil.startActivityWithAnimation(LaunchActivity.this, intent, true);
+
       }
     }, SPLASH_TIME_OUT);
   }

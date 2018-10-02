@@ -24,6 +24,7 @@ import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
 import android.Manifest.permission;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -43,7 +44,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -65,14 +65,13 @@ import com.ehg.ubyemaar.fragment.UbyEmaarFragment;
 import com.ehg.utilities.AppPermissionCheckerUtil;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.FragmentHistoryUtil;
-import com.ehg.utilities.JsonParserUtil;
+import com.ehg.utilities.LanguageUtil;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * This class contains contextual dynamic data and shows tabs at bottom.
  */
-
 public class HomeActivity extends BaseActivity implements BaseFragment.FragmentNavigation,
     FragmentNavigationController.TransactionListener,
     FragmentNavigationController.RootFragmentListener,
@@ -110,11 +109,12 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
   private AppCompatImageView headerBackButton;
 
   private TextView headerTextView;
-  private ImageView imageViewSettings;
+  private AppCompatImageView imageViewSettings;
 
   private Context context;
 
   private PopupWindow popupWindow;
+  private Tab mainCurrentTab;
 
   /**
    * Called when activity created.
@@ -244,7 +244,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
         AppUtil.setDrawableSelector(HomeActivity.this,
             mtabIconsSelected[position], mtabIconsSelected[position]));
     TextView textView = view.findViewById(R.id.textview_bottomtab_tabtitle);
-    textView.setText(JsonParserUtil.getLanguageTitleFromKey(this, arrayListTabTitles.get(position)));
+    textView.setText(LanguageUtil.getLanguageTitleFromKey(this, arrayListTabTitles.get(position)));
     return view;
   }
 
@@ -481,6 +481,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   private void switchTab(int position) {
     mnavController.switchTab(position);
+    showMoreIconSelector(false);
     /* updateToolbarTitle(position); */
   }
 
@@ -587,9 +588,8 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   @Override
   public void onTabSelected(Tab tab) {
-
+    mainCurrentTab = tab;
     fragmentHistory.push(tab.getPosition());
-
     switchTab(tab.getPosition());
   }
 
@@ -600,6 +600,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   @Override
   public void onTabUnselected(Tab tab) {
+
   }
 
   /**
@@ -609,9 +610,8 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   @Override
   public void onTabReselected(Tab tab) {
-
+    mainCurrentTab = tab;
     mnavController.clearStack();
-
     switchTab(tab.getPosition());
   }
 
@@ -632,6 +632,25 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
   }*/
 
   /**
+   * Called to set showMoreImage selected unselected state.
+   *
+   * @param isSelected boolean
+   */
+  private void showMoreIconSelector(boolean isSelected) {
+    if (imageViewSettings != null) {
+      int color = getResources().getColor(R.color.colorTabUnselected);
+
+      if (isSelected) {
+        imageViewSettings.setColorFilter(getResources().getColor(R.color.colorBlack),
+            PorterDuff.Mode.SRC_ATOP);
+      } else {
+        imageViewSettings.setColorFilter(getResources().getColor(R.color.colorTabUnselected),
+            PorterDuff.Mode.SRC_ATOP);
+      }
+    }
+  }
+
+  /**
    * Called when click event initiated.
    *
    * @param view clicked view reference
@@ -647,6 +666,10 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
       case R.id.imageview_home_showmore:
         //showMorePopUpWindow();
+        if (mainCurrentTab != null) {
+          mainCurrentTab.getCustomView().setSelected(false);
+        }
+        showMoreIconSelector(true);
         Intent intent = new Intent(context, SettingsActivity.class);
         AppUtil.startActivityWithAnimation(this, intent, false);
         break;

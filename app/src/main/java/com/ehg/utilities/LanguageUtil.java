@@ -23,9 +23,12 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import java.util.Locale;
+import org.json.JSONObject;
 
 /**
  * This class allows to set language locale in app.
@@ -63,5 +66,72 @@ public class LanguageUtil {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Called to detect device or phone current language and set to app locale.
+   *
+   * @param context activity context
+   */
+  public static void setDeviceLanguage(Context context) {
+    try {
+      //Get phone default language and configure in app
+      if (TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
+          SharedPreferenceUtils.APP_LANGUAGE, ""))) {
+        setLocale(context, Resources.getSystem().getConfiguration().locale.getLanguage());
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (RuntimeException rte) {
+      rte.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called to get multilingual value of passed key from language json file.
+   *
+   * @param context activity context
+   * @param key passed key
+   * @return value of key based on current app language
+   */
+  public static String getLanguageTitleFromKey(AppCompatActivity context, String key) {
+
+    String value = key;
+
+    try {
+
+      String languageJson = JsonParserUtil.getInstance(context)
+          .getStringValue(JsonParserUtil.LANGUAGE_JSON, "");
+
+      if (!TextUtils.isEmpty(languageJson)) {
+
+        JSONObject jsonObject = new JSONObject(languageJson);
+
+        JSONObject languageValuesObject = jsonObject.getJSONObject("languageValues");
+
+        JSONObject keyObject = languageValuesObject.getJSONObject(key);
+
+        /*if (languageValuesObject.has(key)) {
+
+          keyObject = languageValuesObject.getJSONObject(key);
+
+        } else if (languageValuesObject.has(key.toUpperCase())) {
+
+          keyObject = languageValuesObject.getJSONObject(key.toUpperCase());
+        }*/
+
+        String appLangCode = SharedPreferenceUtils.getInstance(context).getStringValue(
+            SharedPreferenceUtils.APP_LANGUAGE, "");
+
+        value = keyObject.getString(appLangCode);
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return value;
   }
 }
