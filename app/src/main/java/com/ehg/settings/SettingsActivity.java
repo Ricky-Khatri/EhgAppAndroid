@@ -39,6 +39,7 @@ import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.signinsignup.SignInSignupActivity;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.LanguageUtil;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import org.json.JSONArray;
@@ -53,6 +54,12 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
   private static final String OPERATION_LOGOUT = "logout";
 
   private TextView textViewUserState;
+  private TextView textViewPreference;
+  private TextView textViewSupport;
+  private TextView textViewTermsAndCondition;
+  private TextView textViewLanguage;
+  private TextView textViewPrivacyPolicy;
+  private TextView textViewTitle;
 
   private AppCompatImageView imageViewPreference;
   private AppCompatImageView imageViewSupport;
@@ -79,10 +86,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
    * Init's view components of this screen.
    */
   private void initView() {
-
-    TextView textViewTitle = findViewById(R.id.textview_header_title);
-    textViewTitle.setText(getResources().getString(R.string.settings_title));
-
     //Set OnClickListener
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
     findViewById(R.id.linearlayout_setting_preferences).setOnClickListener(this);
@@ -92,18 +95,13 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
     findViewById(R.id.linearlayout_settings_language).setOnClickListener(this);
     findViewById(R.id.linearlayout_settings_userstate).setOnClickListener(this);
 
+    textViewPreference = findViewById(R.id.textview_settings_preferences);
+    textViewSupport = findViewById(R.id.textview_settings_support);
+    textViewPrivacyPolicy = findViewById(R.id.textview_settings_privacypolicy);
+    textViewTermsAndCondition = findViewById(R.id.textview_settings_termandconditions);
+    textViewLanguage = findViewById(R.id.textview_settings_language);
     textViewUserState = findViewById(R.id.textview_settings_userstate);
-
-    if (SharedPreferenceUtils.getInstance(this)
-        .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
-        .equalsIgnoreCase("")) {
-
-      textViewUserState.setText(getResources().getString(R.string.settings_sign_in_sign_up));
-
-    } else {
-
-      textViewUserState.setText(getResources().getString(R.string.settings_signuot));
-    }
+    textViewTitle = findViewById(R.id.textview_header_title);
 
     imageViewPreference = findViewById(R.id.imageview_setting_preference);
     imageViewSupport = findViewById(R.id.imageview_setting_support);
@@ -148,6 +146,33 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
         imageViewLanguage.setImageResource(R.drawable.all_arrowpointtoright);
         imageViewUserState.setImageResource(R.drawable.all_arrowpointtoright);
       }
+
+      //Update screen labels based on selected language
+      textViewTitle.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_title)));
+      if (SharedPreferenceUtils.getInstance(this)
+          .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
+          .equalsIgnoreCase("")) {
+
+        textViewUserState.setText(LanguageUtil.getLanguageTitleFromKey(this
+            ,getResources().getString(R.string.settings_sign_in_sign_up)));
+
+      } else {
+
+        textViewUserState.setText(LanguageUtil.getLanguageTitleFromKey(this
+            ,getResources().getString(R.string.settings_signuot)));
+      }
+      textViewPreference.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.setting_preferences)));
+      textViewSupport.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_support)));
+      textViewPrivacyPolicy.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_privacy_policy)));
+      textViewTermsAndCondition.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_termsandconditions)));
+      textViewLanguage.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_language)));
+
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception e) {
