@@ -29,5 +29,7 @@
   <dimen name="margin_all_large">35dp</dimen>
   <dimen name="textsize_ubyemaar_points">24sp</dimen>
   <dimen name="textsize_all_small">9sp</dimen>
+  <dimen name="textsize_tabitembottom_tabtitle">9sp</dimen>
+  <dimen name="imagesize_tabitembottom_tabicon">20dp</dimen>
 
 </resources>

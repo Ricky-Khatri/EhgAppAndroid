@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_margin="@dimen/elevation_all_header"
+  android:gravity="center"
+  android:orientation="vertical">
+
+  <android.support.v7.widget.AppCompatImageView
+    android:id="@+id/imageview_bottomtab_tabicon"
+    android:layout_width="@dimen/imagesize_tabitembottom_tabicon"
+    android:layout_height="@dimen/imagesize_tabitembottom_tabicon"/>
+
+  <TextView
+    android:id="@+id/textview_bottomtab_tabtitle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:padding="16dp">
-
-    <ImageView
-        android:id="@+id/tab_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    android:layout_marginTop="@dimen/elevation_all_header"
+    android:layout_gravity="center"
+    android:textColor="@drawable/textselector_tabitembottom_tabtitle"
+    android:textSize="@dimen/textsize_tabitembottom_tabtitle"/>
 
 </LinearLayout>

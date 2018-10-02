@@ -144,23 +144,6 @@ public class LanguageActivity extends BaseActivity implements
       }
     }
 
-    /*LanguagePojo languagePojo = new LanguagePojo();
-    languagePojo.setLanguageCode("en");
-    languagePojo.setLanguageName("English");
-    languageList.add(languagePojo);
-    languagePojo = new LanguagePojo();
-    languagePojo.setLanguageCode("ar");
-    languagePojo.setLanguageName("عربى");
-    languageList.add(languagePojo);
-    languagePojo = new LanguagePojo();
-    languagePojo.setLanguageCode("zh");
-    languagePojo.setLanguageName("中文");
-    languageList.add(languagePojo);
-    languagePojo = new LanguagePojo();
-    languagePojo.setLanguageCode("es");
-    languagePojo.setLanguageName("Español");
-    languageList.add(languagePojo);*/
-
     //Set list to adapter
     LanguageListAdapter languageListAdapter =
         new LanguageListAdapter(this, languageList, this);

@@ -101,10 +101,12 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
    * Called to initiate file download process.
    */
   private void downloadLanguageJsonFile() {
-    new FileDownloadManager(this).new DownloadFile().execute(
-        FileDownloadUtil.LANGUAGE_FOLDER_NAME,
-        FileDownloadUtil.FILE_DOWNLOAD_BASE_URL + FileDownloadUtil.LANGUAGE_FILE_NAME,
-        FileDownloadUtil.LANGUAGE_FILE_NAME);
+    if (AppUtil.isNetworkAvailable(this)) {
+      new FileDownloadManager(this).new DownloadFile().execute(
+          FileDownloadUtil.LANGUAGE_FOLDER_NAME,
+          FileDownloadUtil.FILE_DOWNLOAD_BASE_URL + FileDownloadUtil.LANGUAGE_FILE_NAME,
+          FileDownloadUtil.LANGUAGE_FILE_NAME);
+    }
   }
 
   /**

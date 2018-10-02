@@ -32,8 +32,10 @@ import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppPermissionCheckerUtil;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.LanguageUtil;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,6 +63,9 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
     try {
 
       setBroadCastMessageInterface(this);
+
+      //Get phone default language and configure in app
+      LanguageUtil.setLocale(this, Locale.getDefault().getLanguage());
 
       /*
        *Checking permission for app.
