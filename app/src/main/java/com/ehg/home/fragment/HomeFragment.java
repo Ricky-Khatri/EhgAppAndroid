@@ -78,7 +78,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
       "LIGHTS",
       "AC CONTROL",
       "TELEVISION",
-      "PRIVACY & CLEANING",
+      "PRIVACY & \nCLEANING",
   };
 
   /**
