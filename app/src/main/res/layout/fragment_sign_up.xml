@@ -67,10 +67,10 @@
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_all_vertical"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:layout_marginTop="@dimen/margin_all_vertical"
             android:gravity="center"
             />
 
@@ -79,10 +79,10 @@
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/padding_all_headerbutton"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:padding="@dimen/padding_all_headerbutton"
             android:gravity="center"
             android:text="@string/signupfragment_what_is_u_by_emaar"
             />
@@ -102,13 +102,15 @@
 
             <EditText
               android:id="@+id/edittext_signup_firstname"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:layout_gravity="start"
               android:background="@null"
               android:imeOptions="actionNext"
               android:inputType="textPersonName"
               android:maxLines="1"
-              android:singleLine="true"/>
+              android:singleLine="true"
+              android:textAlignment="viewStart"/>
 
             <View
               android:layout_width="match_parent"
@@ -131,13 +133,15 @@
 
             <EditText
               android:id="@+id/edittext_signup_lastname"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:layout_gravity="start"
               android:background="@null"
               android:imeOptions="actionNext"
               android:inputType="textPersonName"
               android:maxLines="1"
-              android:singleLine="true"/>
+              android:singleLine="true"
+              android:textAlignment="viewStart"/>
 
             <View
               android:layout_width="match_parent"
@@ -161,13 +165,15 @@
 
             <EditText
               android:id="@+id/edittext_signup_email"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:layout_gravity="start"
               android:background="@null"
               android:imeOptions="actionNext"
               android:inputType="textEmailAddress"
               android:maxLines="1"
-              android:singleLine="true"/>
+              android:singleLine="true"
+              android:textAlignment="viewStart"/>
 
             <View
               android:layout_width="match_parent"
@@ -196,9 +202,9 @@
 
               <com.rilixtech.CountryCodePicker
                 android:id="@+id/countrycodepicker_signup_countrycode"
-                app:ccp_textSize="@dimen/textsize_all_labels"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:ccp_textSize="@dimen/textsize_all_labels"/>
 
               <View
                 android:layout_width="1dp"
@@ -208,14 +214,16 @@
 
               <EditText
                 android:id="@+id/edittext_signup_mobile"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:background="@null"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
-                android:maxLines="1"
                 android:maxLength="10"
-                android:singleLine="true"/>
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textAlignment="viewStart"/>
             </LinearLayout>
 
             <View
@@ -239,13 +247,15 @@
 
             <EditText
               android:id="@+id/edittext_signup_password"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:layout_gravity="start"
               android:background="@null"
               android:imeOptions="actionDone"
               android:inputType="textPassword"
               android:maxLines="1"
-              android:singleLine="true"/>
+              android:singleLine="true"
+              android:textAlignment="viewStart"/>
 
             <View
               android:layout_width="match_parent"
@@ -256,23 +266,23 @@
 
           <TextView
             android:id="@+id/textview_signup_termsandconditions"
-            android:layout_marginTop="@dimen/margin_all_vertical"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/textsize_signup_termsandcondition"
-            android:text="@string/signup_termsandcondition"/>
+            android:layout_marginTop="@dimen/margin_all_vertical"
+            android:text="@string/signup_termsandcondition"
+            android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
           <Button
             android:id="@+id/button_sign_up"
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/all_rounded_button"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/all_rounded_button"
             android:text="@string/signupfragment_signup"
             android:textColor="@color/white"/>
 
@@ -281,11 +291,11 @@
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_all_continueasguest"
+            android:padding="@dimen/padding_all_headerbutton"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:layout_marginTop="@dimen/margin_all_continueasguest"
-            android:padding="@dimen/padding_all_headerbutton"
             android:gravity="center"
             android:text="@string/all_continue_as_guest"/>
         </LinearLayout>

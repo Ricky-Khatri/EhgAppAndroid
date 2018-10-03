@@ -35,7 +35,7 @@
       android:layout_width="@dimen/imagesize_all_roundedimage"
       android:layout_height="@dimen/imagesize_all_roundedimage"
       android:scaleType="centerCrop"
-      android:src="@drawable/emaar_logo"
+      android:src="@drawable/placeholder"
       app:riv_corner_radius="4dp"/>
 
     <TextView

@@ -24,6 +24,7 @@ import static android.graphics.drawable.ClipDrawable.HORIZONTAL;
 import android.Manifest.permission;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
@@ -43,7 +44,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -65,13 +65,13 @@ import com.ehg.ubyemaar.fragment.UbyEmaarFragment;
 import com.ehg.utilities.AppPermissionCheckerUtil;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.FragmentHistoryUtil;
+import com.ehg.utilities.LanguageUtil;
 import java.util.ArrayList;
 import java.util.Objects;
 
 /**
  * This class contains contextual dynamic data and shows tabs at bottom.
  */
-
 public class HomeActivity extends BaseActivity implements BaseFragment.FragmentNavigation,
     FragmentNavigationController.TransactionListener,
     FragmentNavigationController.RootFragmentListener,
@@ -79,17 +79,27 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     OnShowMoreListItemClickListener, BroadCastMessageInterface {
 
 
-  private int[] mtabIconsSelected = {
+  /*private int[] mtabIconsSelected = {
       R.drawable.tab_home,
       R.drawable.tab_search,
       R.drawable.tab_share,
       R.drawable.tab_news,
       R.drawable.tab_profile,
+  };*/
+
+  private int[] mtabIconsSelected = {
+      R.drawable.dummyhome,
+      R.drawable.dummybooking,
+      R.drawable.dummyreservation,
+      R.drawable.dummyoffers,
+      R.drawable.dummyubyemaar,
   };
 
   private TabLayout bottomTabLayout;
 
-  private String[] tabs = {"Home", "Book", "Reservations", "Offers", "U By Emaar"};
+  //private String[] tabs = {"Home", "Book", "Reservations", "Offers", "U By Emaar"};
+
+  private ArrayList<String> arrayListTabTitles;
 
   private Toolbar toolbar;
 
@@ -99,14 +109,16 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
   private AppCompatImageView headerBackButton;
 
   private TextView headerTextView;
-  private ImageView imageViewSettings;
+  private AppCompatImageView imageViewSettings;
 
   private Context context;
 
   private PopupWindow popupWindow;
+  private Tab mainCurrentTab;
 
   /**
    * Called when activity created.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
@@ -121,6 +133,9 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
       //Register broadcast message interface for HomeActivity
       setBroadCastMessageInterface(this);
+
+      //Init tab titles
+      initTabTitles();
 
       initView();
 
@@ -141,21 +156,33 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
           .newBuilder(savedInstanceState, getSupportFragmentManager(),
               R.id.framelayout_home_fragment_container)
           .transactionListener(this)
-          .rootFragmentListener(this, tabs.length)
+          .rootFragmentListener(this, arrayListTabTitles.size())
           .build();
 
       switchTab(0);
 
       //Check for app location permissions
-      if (AppPermissionCheckerUtil.checkAppPermission(this,
+      /*if (AppPermissionCheckerUtil.checkAppPermission(this,
           new String[]{permission.ACCESS_FINE_LOCATION})) {
         //TODO: Need to implement
-      }
+      }*/
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception n) {
       n.printStackTrace();
     }
+  }
+
+  /**
+   * Called to initialize tab title list.
+   */
+  private void initTabTitles() {
+    arrayListTabTitles = new ArrayList<>();
+    arrayListTabTitles.add(getResources().getString(R.string.home_title));
+    arrayListTabTitles.add(getResources().getString(R.string.book_title));
+    arrayListTabTitles.add(getResources().getString(R.string.reservations_title));
+    arrayListTabTitles.add(getResources().getString(R.string.offers_title));
+    arrayListTabTitles.add(getResources().getString(R.string.u_by_emaar_title));
   }
 
   /**
@@ -193,7 +220,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   private void initTab() {
     if (bottomTabLayout != null) {
-      for (int i = 0; i < tabs.length; i++) {
+      for (int i = 0; i < arrayListTabTitles.size(); i++) {
         bottomTabLayout.addTab(bottomTabLayout.newTab());
         Tab tab = bottomTabLayout.getTabAt(i);
         if (tab != null) {
@@ -212,10 +239,12 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
   private View getTabView(int position) {
     View view = LayoutInflater.from(HomeActivity.this)
         .inflate(R.layout.tab_item_bottom, null);
-    ImageView icon = view.findViewById(R.id.tab_icon);
+    AppCompatImageView icon = view.findViewById(R.id.imageview_bottomtab_tabicon);
     icon.setImageDrawable(
         AppUtil.setDrawableSelector(HomeActivity.this,
             mtabIconsSelected[position], mtabIconsSelected[position]));
+    TextView textView = view.findViewById(R.id.textview_bottomtab_tabtitle);
+    textView.setText(LanguageUtil.getLanguageTitleFromKey(this, arrayListTabTitles.get(position)));
     return view;
   }
 
@@ -362,6 +391,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   /**
    * Called when tab transaction initiated.
+   *
    * @param fragment fragment object
    * @param index index
    */
@@ -412,6 +442,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   /**
    * Called when back stack pressed on fragment.
+   *
    * @param fragment object
    * @param transactionType transaction type
    */
@@ -445,10 +476,12 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
   /**
    * Called when tab switched.
+   *
    * @param position integer position
    */
   private void switchTab(int position) {
     mnavController.switchTab(position);
+    showMoreIconSelector(false);
     /* updateToolbarTitle(position); */
   }
 
@@ -515,7 +548,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   private void updateTabSelection(int currentTab) {
 
-    for (int i = 0; i < tabs.length; i++) {
+    for (int i = 0; i < arrayListTabTitles.size(); i++) {
       Tab selectedTab = bottomTabLayout.getTabAt(i);
       if (currentTab != i) {
         if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
@@ -555,9 +588,8 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   @Override
   public void onTabSelected(Tab tab) {
-
+    mainCurrentTab = tab;
     fragmentHistory.push(tab.getPosition());
-
     switchTab(tab.getPosition());
   }
 
@@ -568,6 +600,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   @Override
   public void onTabUnselected(Tab tab) {
+
   }
 
   /**
@@ -577,9 +610,8 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   @Override
   public void onTabReselected(Tab tab) {
-
+    mainCurrentTab = tab;
     mnavController.clearStack();
-
     switchTab(tab.getPosition());
   }
 
@@ -600,6 +632,25 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
   }*/
 
   /**
+   * Called to set showMoreImage selected unselected state.
+   *
+   * @param isSelected boolean
+   */
+  private void showMoreIconSelector(boolean isSelected) {
+    if (imageViewSettings != null) {
+      int color = getResources().getColor(R.color.colorTabUnselected);
+
+      if (isSelected) {
+        imageViewSettings.setColorFilter(getResources().getColor(R.color.colorBlack),
+            PorterDuff.Mode.SRC_ATOP);
+      } else {
+        imageViewSettings.setColorFilter(getResources().getColor(R.color.colorTabUnselected),
+            PorterDuff.Mode.SRC_ATOP);
+      }
+    }
+  }
+
+  /**
    * Called when click event initiated.
    *
    * @param view clicked view reference
@@ -615,6 +666,10 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
       case R.id.imageview_home_showmore:
         //showMorePopUpWindow();
+        if (mainCurrentTab != null) {
+          mainCurrentTab.getCustomView().setSelected(false);
+        }
+        showMoreIconSelector(true);
         Intent intent = new Intent(context, SettingsActivity.class);
         AppUtil.startActivityWithAnimation(this, intent, false);
         break;

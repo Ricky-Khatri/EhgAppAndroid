@@ -26,7 +26,7 @@ package com.ehg.networkrequest;
 public class WebServiceUtil {
 
   //API base url
-  public static final String BASE_URL = "http://192.168.3.28:8080/ehg-cloud-gateway/";
+  public static final String BASE_URL = "http://192.168.3.28:8080/digivalet-ehg-gateway/";
 
   //public static final String BASE_URL = "https://his-dev.digivalet.com/dv_app_ehggateway/";
 
@@ -41,6 +41,9 @@ public class WebServiceUtil {
 
   //Login method
   public static final String METHOD_LOGIN = "signUp/login/v1";
+
+  //Logout method
+  public static final String METHOD_LOGOUT = "signUp/logout/v1";
 
   //UpdateToken method
   public static final String METHOD_UPDATE_TOKEN = "updateToken";

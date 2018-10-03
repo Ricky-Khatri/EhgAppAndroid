@@ -34,15 +34,32 @@ import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
 import com.ehg.language.LanguageActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.signinsignup.SignInSignupActivity;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.LanguageUtil;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import java.io.UnsupportedEncodingException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class allows users to do local app settings.
  */
-public class SettingsActivity extends BaseActivity implements OnClickListener {
+public class SettingsActivity extends BaseActivity implements OnClickListener, ApiResponseListener {
+
+  private static final String OPERATION_LOGOUT = "logout";
 
   private TextView textViewUserState;
+  private TextView textViewPreference;
+  private TextView textViewSupport;
+  private TextView textViewTermsAndCondition;
+  private TextView textViewLanguage;
+  private TextView textViewPrivacyPolicy;
+  private TextView textViewTitle;
 
   private AppCompatImageView imageViewPreference;
   private AppCompatImageView imageViewSupport;
@@ -69,10 +86,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
    * Init's view components of this screen.
    */
   private void initView() {
-
-    TextView textViewTitle = findViewById(R.id.textview_header_title);
-    textViewTitle.setText(getResources().getString(R.string.settings_title));
-
     //Set OnClickListener
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
     findViewById(R.id.linearlayout_setting_preferences).setOnClickListener(this);
@@ -82,18 +95,13 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
     findViewById(R.id.linearlayout_settings_language).setOnClickListener(this);
     findViewById(R.id.linearlayout_settings_userstate).setOnClickListener(this);
 
+    textViewPreference = findViewById(R.id.textview_settings_preferences);
+    textViewSupport = findViewById(R.id.textview_settings_support);
+    textViewPrivacyPolicy = findViewById(R.id.textview_settings_privacypolicy);
+    textViewTermsAndCondition = findViewById(R.id.textview_settings_termandconditions);
+    textViewLanguage = findViewById(R.id.textview_settings_language);
     textViewUserState = findViewById(R.id.textview_settings_userstate);
-
-    if (SharedPreferenceUtils.getInstance(this)
-        .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
-        .equalsIgnoreCase("")) {
-
-      textViewUserState.setText(getResources().getString(R.string.settings_sign_in_sign_up));
-
-    } else {
-
-      textViewUserState.setText(getResources().getString(R.string.settings_signuot));
-    }
+    textViewTitle = findViewById(R.id.textview_header_title);
 
     imageViewPreference = findViewById(R.id.imageview_setting_preference);
     imageViewSupport = findViewById(R.id.imageview_setting_support);
@@ -138,6 +146,33 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
         imageViewLanguage.setImageResource(R.drawable.all_arrowpointtoright);
         imageViewUserState.setImageResource(R.drawable.all_arrowpointtoright);
       }
+
+      //Update screen labels based on selected language
+      textViewTitle.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_title)));
+      if (SharedPreferenceUtils.getInstance(this)
+          .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
+          .equalsIgnoreCase("")) {
+
+        textViewUserState.setText(LanguageUtil.getLanguageTitleFromKey(this
+            ,getResources().getString(R.string.settings_sign_in_sign_up)));
+
+      } else {
+
+        textViewUserState.setText(LanguageUtil.getLanguageTitleFromKey(this
+            ,getResources().getString(R.string.settings_signuot)));
+      }
+      textViewPreference.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.setting_preferences)));
+      textViewSupport.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_support)));
+      textViewPrivacyPolicy.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_privacy_policy)));
+      textViewTermsAndCondition.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_termsandconditions)));
+      textViewLanguage.setText(LanguageUtil.getLanguageTitleFromKey(this
+          ,getResources().getString(R.string.settings_language)));
+
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception e) {
@@ -257,18 +292,16 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
       Button buttonOk = dialog.findViewById(R.id.button_alertdialog_ok);
       buttonOk.setText(getResources().getString(R.string.all_yes));
+
       buttonOk.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(View view) {
 
           dialog.dismiss();
 
-          //Clear preference and redirect to Sign-in/Sign-up activity
-          SharedPreferenceUtils.getInstance(appCompatActivity)
-              .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "");
-          Intent intent = new Intent(appCompatActivity, SignInSignupActivity.class);
-          intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-          AppUtil.startActivityWithAnimation(appCompatActivity, intent, true);
+          //TODO: Uncomment signout() method
+          signOut();
+          //clearDataAndSwitchToSigninSignup();
         }
       });
 
@@ -281,5 +314,110 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Clear preference and redirect to Sign-in/Sign-up activity.
+   */
+  private void clearDataAndSwitchToSigninSignup() {
+    SharedPreferenceUtils.getInstance(this)
+        .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "");
+    Intent intent = new Intent(this, SignInSignupActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    AppUtil.startActivityWithAnimation(this, intent, true);
+  }
+
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Method allows to Sign-out user from app.
+   */
+  private void signOut() {
+    if (AppUtil.isNetworkAvailable(this)) {
+      new HttpClientRequest().setApiResponseListner(this);
+      JSONObject jsonObject = new JSONObject();
+      JSONArray detailesArray = new JSONArray();
+      JSONObject detailObject = new JSONObject();
+
+      try {
+
+        detailObject.put("loyaltyMemberId", SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""));
+
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(this));
+        deviceDetailObject.put("fcmToken",
+            SharedPreferenceUtils.getInstance(this)
+                .getStringValue(SharedPreferenceUtils.FCM_TOKEN, ""));
+
+        detailObject.put("deviceDetails", deviceDetailObject);
+
+        detailesArray.put(detailObject);
+
+        jsonObject.put("details", detailesArray);
+        jsonObject.put("operation", OPERATION_LOGOUT);
+        jsonObject.put("feature", WebServiceUtil.FEATURE_SIGN_UP);
+
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+
+      StringEntity entity = null;
+      try {
+        entity = new StringEntity(jsonObject.toString());
+      } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+      }
+
+      new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_LOGOUT),
+          entity, WebServiceUtil.CONTENT_TYPE,
+          OPERATION_LOGOUT, true).httpPostRequest();
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(OPERATION_LOGOUT)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<")) {
+
+        JSONObject jsonObject = new JSONObject(responseVal);
+
+        if (jsonObject.getBoolean("status")) {
+
+          clearDataAndSwitchToSigninSignup();
+
+        } else {
+          AppUtil.showAlertDialog(this, jsonObject.getString("message"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
+        }
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog(this, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }

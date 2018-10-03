@@ -27,12 +27,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.customview.TextSliderView;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
@@ -69,6 +71,8 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
   private TextView textViewGuestInformation;
   private TextView textViewRoomInformation;
   private HomeFragmentAdapter homeFragmentAdapter;
+
+  private LinearLayout linearLayoutGuestDetails;
 
   private String[] imageUrl = new String[]{
       "LIGHTS",
@@ -155,6 +159,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
    */
   private void initView(View view) {
 
+    linearLayoutGuestDetails = view.findViewById(R.id.linearlayout_homefragment_guest_detail);
     linearLayoutRoomControls = view.findViewById(R.id.linearlayout_homefragment_roomcontrols);
     recyclerViewRoomControls = view.findViewById(R.id.recyclerview_homefragment_roomcontrol);
     textViewClientTitle = view.findViewById(R.id.textview_homefragment_clientname_title);
@@ -185,6 +190,16 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     offerListAdapter = new OfferListAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context));
     recyclerViewOfferList.setAdapter(offerListAdapter);*/
+
+    //Show room controls recycler view if user is Sign-in
+    if(!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
+        SharedPreferenceUtils.LOYALTY_MEMBER_ID,""))) {
+      linearLayoutRoomControls.setVisibility(View.VISIBLE);
+      linearLayoutGuestDetails.setVisibility(View.VISIBLE);
+    } else {
+      linearLayoutRoomControls.setVisibility(View.GONE);
+      linearLayoutGuestDetails.setVisibility(View.GONE);
+    }
   }
 
   /**
@@ -227,7 +242,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
 
       // initialize SliderLayout
       sliderView
-          .empty(R.drawable.emaar_logo)
+          .empty(R.drawable.placeholder)
           .image(listUrl.get(index))
           .description(listName.get(index))
           .setOnSliderClickListener(this);

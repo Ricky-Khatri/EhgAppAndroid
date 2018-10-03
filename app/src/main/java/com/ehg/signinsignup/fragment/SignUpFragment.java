@@ -45,7 +45,11 @@ import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.rilixtech.CountryCodePicker;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
@@ -211,20 +215,19 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       case R.id.textview_signup_whatisubyemaar:
         AppUtil.loadWebView((AppCompatActivity) context,
-            textViewWhatIsUbyEmaar.getText().toString(), "",false);
+            textViewWhatIsUbyEmaar.getText().toString(), "", false);
         break;
 
       case R.id.textview_signup_termsandconditions:
         AppUtil.loadWebView((AppCompatActivity) context,
             getResources().getString(R.string.settings_termsandconditions),
-            AppUtil.TERMS_AND_CONDITIONS_URL,false);
+            AppUtil.TERMS_AND_CONDITIONS_URL, false);
         break;
 
       default:
         break;
     }
   }
-
 
 
   /**
@@ -331,11 +334,8 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       try {
         detailObject.put("emailId", emailId);
-
-        //TODO: Need to un comment countryCode filed
-        //detailObject.put("mobileNumber", countryCodePicker.getSelectedCountryCode() + mobileNumber);
-
-        detailObject.put("mobileNumber", mobileNumber);
+        detailObject.put("mobileNumber",
+            "00" + countryCodePicker.getSelectedCountryCode() + mobileNumber);
         detailObject.put("lastName", lastName);
         detailObject.put("firstName", firstName);
         detailObject.put("password", password);
@@ -380,45 +380,65 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    */
   @Override
   public void onSuccessResponse(String responseVal, String requestMethod) {
-    if (requestMethod.equalsIgnoreCase(USER_SIGNUP_METHOD)) {
+    try {
+      if (requestMethod.equalsIgnoreCase(USER_SIGNUP_METHOD)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
 
-      try {
-
-        /*UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
+        UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
             new TypeToken<UserProfilePojo>() {
             }.getType());
 
-        if (userProfilePojo != null && userProfilePojo.isStatus()) {
+        if (userProfilePojo != null && userProfilePojo.getStatus()) {
 
           JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
+          //Save loyaltyMEmberId
+          SharedPreferenceUtils.getInstance(context)
+              .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
+                  userProfilePojo.getData().getDetail().get(0).getLoyaltyMemberId() + "");
+          //Save mobile number as accoundId
+          SharedPreferenceUtils.getInstance(context)
+              .setValue(SharedPreferenceUtils.ACCOUNT_ID,
+                  userProfilePojo.getData().getDetail().get(0).getMobileNumber() + "");
 
           Intent intent = new Intent(context, HomeActivity.class);
-          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
-        }*/
+          AppUtil.showAlertDialog((AppCompatActivity) context,
+              userProfilePojo.getMessage(), true,
+              getResources().getString(R.string.dialog_alerttitle), false, intent);
+        }
 
-        JSONObject jsonObject = new JSONObject(responseVal);
+        /*JSONObject jsonObject = new JSONObject(responseVal);
+
         if (jsonObject.getBoolean("status")) {
-
           JSONObject dataObject = jsonObject.getJSONObject("data");
           JSONArray detailArray = dataObject.optJSONArray("detail");
           if (detailArray != null && detailArray.length() > 0) {
+            //Save loyaltyMEmberId
             SharedPreferenceUtils.getInstance(context)
                 .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
                     detailArray.getJSONObject(0).getString("loyaltyMemberId"));
+            //Save mobile number as accoundId
+            SharedPreferenceUtils.getInstance(context)
+                .setValue(SharedPreferenceUtils.ACCOUNT_ID,
+                    autoCompleteTextViewMobileNumber.getText().toString().trim());
 
             Intent intent = new Intent(context, HomeActivity.class);
-            AppUtil.showAlertDialog((AppCompatActivity) context,
-                jsonObject.getString("message"),
-                true, getResources().getString(R.string.dialog_alerttitle), false, intent);
+            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
           }
-        }
-      } catch (JSONException e) {
-        e.printStackTrace();
-      } catch (NullPointerException n) {
-        n.printStackTrace();
-      } catch (Exception e) {
-        e.printStackTrace();
+        }*/
+      } else {
+        AppUtil.showAlertDialog((AppCompatActivity) context,
+            new JSONObject(responseVal).getString("message"), false,
+            getResources().getString(R.string.dialog_errortitle), true, null);
       }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

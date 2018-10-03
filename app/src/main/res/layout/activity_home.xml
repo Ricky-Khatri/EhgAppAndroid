@@ -89,7 +89,7 @@
       android:background="@color/white"
       android:scaleType="centerCrop"
       android:visibility="visible"
-      android:tint="@color/colorGray"
+      android:tint="@color/colorTabUnselected"
       android:clickable="true"
       android:focusable="true"
       android:foreground="?attr/selectableItemBackground"

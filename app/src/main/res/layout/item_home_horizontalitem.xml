@@ -33,7 +33,7 @@
       android:id="@+id/roundedimageview_itemhome_horizontalitem_brandimage"
       android:layout_width="@dimen/imagesize_all_reservationimage"
       android:layout_height="@dimen/imagesize_all_reservationimage"
-      android:src="@drawable/emaar_logo"
+      android:src="@drawable/placeholder"
       android:scaleType="centerCrop"
       app:riv_corner_radius="4dp"/>
 

@@ -297,10 +297,8 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
       try {
 
-        //TODO: Need to uncomment countryCode field
-        //detailObject.put("accountId", countryCodePicker.getSelectedCountryCode() + mobileNumber);
-
-        detailObject.put("accountId", mobileNumber);
+        detailObject.put("accountId", "00"
+            + countryCodePicker.getSelectedCountryCode() + mobileNumber);
         detailObject.put("password", password);
 
         JSONObject deviceDetailObject = new JSONObject();
@@ -347,7 +345,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     try {
       if (requestMethod.equalsIgnoreCase(USER_LOGIN_METHOD)
           && responseVal != null && !responseVal.equalsIgnoreCase("")
-          && !responseVal.startsWith("<")) {
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
 
         UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
             new TypeToken<UserProfilePojo>() {
@@ -359,11 +357,11 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
           //Save loyaltyMEmberId
           SharedPreferenceUtils.getInstance(context)
               .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
-                  userProfilePojo.getData().getDetail().get(0).getLoyaltyMemberId());
+                  userProfilePojo.getData().getDetail().get(0).getLoyaltyMemberId() + "");
           //Save mobile number as accoundId
           SharedPreferenceUtils.getInstance(context)
               .setValue(SharedPreferenceUtils.ACCOUNT_ID,
-                  userProfilePojo.getData().getDetail().get(0).getMobileNumber());
+                  userProfilePojo.getData().getDetail().get(0).getMobileNumber() + "");
 
           Intent intent = new Intent(context, HomeActivity.class);
           AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
@@ -388,10 +386,14 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
             AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
           }
         }*/
+      } else {
+        AppUtil.showAlertDialog((AppCompatActivity) context,
+            new JSONObject(responseVal).getString("message"), false,
+            getResources().getString(R.string.dialog_errortitle), true, null);
       }
-    } /*catch (JSONException e) {
+    } catch (JSONException e) {
       e.printStackTrace();
-    }*/ catch (IndexOutOfBoundsException e) {
+    } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     } catch (NullPointerException e) {
       e.printStackTrace();

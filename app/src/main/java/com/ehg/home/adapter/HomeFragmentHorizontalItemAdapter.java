@@ -76,8 +76,8 @@ public class HomeFragmentHorizontalItemAdapter extends
   @Override
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-    Glide.with(context).load(imageUrls[position % imageUrls.length])
-        .into(viewHolder.roundedImageView);
+    /*Glide.with(context).load(imageUrls[position % imageUrls.length])
+        .into(viewHolder.roundedImageView);*/
 
   }
 

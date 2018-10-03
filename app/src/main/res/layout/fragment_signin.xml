@@ -89,9 +89,9 @@
 
               <com.rilixtech.CountryCodePicker
                 android:id="@+id/countrycodepicker_signinfragment_countrycode"
-                app:ccp_textSize="@dimen/textsize_all_labels"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:ccp_textSize="@dimen/textsize_all_labels"/>
 
               <View
                 android:layout_width="1dp"
@@ -102,14 +102,16 @@
               <AutoCompleteTextView
                 android:id="@+id/textview_signinfragment_mobile"
                 style="@style/AppLabelsTextAppearance"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:background="@null"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
-                android:maxLines="1"
                 android:maxLength="10"
-                android:singleLine="true"/>
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textAlignment="viewStart"/>
             </LinearLayout>
 
             <View
@@ -133,14 +135,16 @@
             <EditText
               android:id="@+id/edittext_signinfragment_password"
               style="@style/AppLabelsTextAppearance"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:layout_gravity="start"
               android:background="@null"
               android:imeActionId="6"
               android:imeOptions="actionDone"
               android:inputType="textPassword"
               android:maxLines="1"
-              android:singleLine="true"/>
+              android:singleLine="true"
+              android:textAlignment="viewStart"/>
 
             <View
               android:layout_width="match_parent"
@@ -154,23 +158,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_all_vertical"
+            android:background="@drawable/all_rounded_button"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:background="@drawable/all_rounded_button"
             android:text="@string/all_signin"
             android:textColor="@color/white"/>
 
           <TextView
             android:id="@+id/text_view_forgot_password"
             style="@style/AppLabelsTextAppearance"
-            android:layout_gravity="end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_all_vertical"
+            android:layout_gravity="end"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:layout_marginTop="@dimen/margin_all_vertical"
             android:gravity="right"
             android:text="@string/all_forgotpassword"/>
 
@@ -179,11 +183,11 @@
             style="@style/AppLabelsTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_all_continueasguest"
+            android:padding="@dimen/padding_all_headerbutton"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:layout_marginTop="@dimen/margin_all_continueasguest"
-            android:padding="@dimen/padding_all_headerbutton"
             android:gravity="center"
             android:text="@string/all_continue_as_guest"/>
 

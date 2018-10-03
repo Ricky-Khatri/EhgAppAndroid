@@ -38,4 +38,7 @@
   <dimen name="textsize_ubyemaar_points">24sp</dimen>
   <dimen name="size_alertdialogbutton">35dp</dimen>
   <dimen name="height_loadingindicatordialog_indicator">40dp</dimen>
+  <dimen name="textsize_tabitembottom_tabtitle">8sp</dimen>
+  <dimen name="imagesize_tabitembottom_tabicon">18dp</dimen>
+  <dimen name="width_all_minedittextwidth">550dp</dimen>
 </resources>
