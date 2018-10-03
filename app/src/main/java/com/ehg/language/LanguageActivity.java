@@ -134,8 +134,9 @@ public class LanguageActivity extends BaseActivity implements
           for (int index = 0; index < jsonArray.length(); index++) {
             JSONObject langObject = jsonArray.optJSONObject(index);
             LanguagePojo languagePojo = new LanguagePojo();
-            languagePojo.setLanguageName(LanguageUtil.getLanguageTitleFromKey(this,
-                langObject.getString("display_name")));
+           /* languagePojo.setLanguageName(LanguageUtil.getLanguageTitleFromKey(this,
+                langObject.getString("display_name")));*/
+            languagePojo.setLanguageName(langObject.getString("display_name"));
             languagePojo.setLanguageCode(langObject.getString("language_code"));
             languageList.add(languagePojo);
           }
