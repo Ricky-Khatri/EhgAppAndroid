@@ -88,7 +88,7 @@ public class HomeFragmentHorizontalItemAdapter extends
    */
   @Override
   public int getItemCount() {
-    return imageUrls.length;
+    return imageUrls != null && imageUrls.length > 0 ?imageUrls.length : 0;
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {

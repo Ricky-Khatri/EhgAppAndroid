@@ -214,7 +214,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     sliderLayoutHomeOffers.setPresetTransformer(Transformer.Default);
 
     sliderLayoutHomeOffers.getLayoutParams().height = AppUtil
-        .getDeviceHeight((BaseActivity) context) / 3;
+        .getDeviceHeight((BaseActivity) context) / 3 - 50;
 
     ArrayList<String> listUrl = new ArrayList<>();
     ArrayList<String> listName = new ArrayList<>();

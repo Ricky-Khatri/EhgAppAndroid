@@ -38,9 +38,9 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
   private String[] imageUrls = new String[] {
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_1.jpg",
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_2.jpg",
-      "http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png",
-      "http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg",
-      "http://yayandroid.com/data/github_library/parallax_listview/test_image_5.png",
+      "http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png"
+      /*"http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg",
+      "http://yayandroid.com/data/github_library/parallax_listview/test_image_5.png",*/
   };
 
   /**
@@ -94,13 +94,6 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         viewHolder.textViewFeatureTitle.setText("RESTAURANTS");
         break;
 
-      case 3:
-        viewHolder.textViewFeatureTitle.setText("SPA");
-        break;
-
-      case 4:
-        viewHolder.textViewFeatureTitle.setText("GOLF CLUB");
-        break;
     }
   }
 

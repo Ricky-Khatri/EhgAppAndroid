@@ -23,10 +23,12 @@ import android.Manifest.permission;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.downloadmanager.FileDownloadManager;
@@ -40,6 +42,7 @@ import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.signinsignup.SignInSignupActivity;
 import com.ehg.splash.adapter.SplashPagerAdapter;
+import com.ehg.splash.adapter.SplashPagerAdapter.SetOnPageChangeListener;
 import com.ehg.utilities.AppPermissionCheckerUtil;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.JsonParserUtil;
@@ -54,15 +57,22 @@ import org.json.JSONObject;
  * of delay.
  */
 public class SplashActivity extends BaseActivity implements BroadCastMessageInterface,
-    ApiResponseListener, FileDownloadManagerResponse {
+    ApiResponseListener, FileDownloadManagerResponse, SetOnPageChangeListener {
 
-  public static final int SPLASH_TIME_OUT = 3000;
   private static final String UPDATE_TOKEN_METHOD = "updateToken";
   private static final String FEATURE_SIGNUP = "signUp";
+
   public ViewPager cardViewPager;
   private Button buttonSignIn;
+
   public static int FIRST_PAGE = 1;
+
   private SplashPagerAdapter adapter;
+
+  private TextView textViewBrandTitle;
+
+  private String[] brandTitles = {"Book a Hotel", "Book a Restaurant",
+      "Book a Spa", "Book a round of Golf", "Book an Experience"};
 
   /**
    * Called when activity created.
@@ -133,6 +143,7 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
   private void initView() {
 
     buttonSignIn = findViewById(R.id.button_splash_signin);
+    textViewBrandTitle = findViewById(R.id.textview_splash_brandtitle);
 
     if (SharedPreferenceUtils.getInstance(this)
         .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")
@@ -169,6 +180,18 @@ public class SplashActivity extends BaseActivity implements BroadCastMessageInte
     // directions left and right
     cardViewPager.setCurrentItem(FIRST_PAGE);
     cardViewPager.setOffscreenPageLimit(3);
+    textViewBrandTitle.setText(brandTitles[FIRST_PAGE]);
+  }
+
+  /**
+   * Called when viewpager page changed or scrolled.
+   * @param position current position of page
+   */
+  @Override
+  public void onPageChange(int position) {
+    if (brandTitles.length > 0 && position < brandTitles.length) {
+      textViewBrandTitle.setText(brandTitles[position % brandTitles.length]);
+    }
   }
 
   /**

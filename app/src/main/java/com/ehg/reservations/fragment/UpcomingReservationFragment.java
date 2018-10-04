@@ -177,8 +177,8 @@ public class UpcomingReservationFragment  extends BaseFragment {
     ReservationPojo reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("Address Downtown");
     reservationPojo.setAddress("Downtown, Dubai");
-    reservationPojo.setCheckinDate("Check-in : 17, Oct 2018");
-    reservationPojo.setCheckoutDate("Check-out : 17, Oct 2018");
+    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
+    reservationPojo.setCheckoutDate("12:15 PM");
     reservationPojo.setAdults("Adults : 2");
     reservationPojo.setChilds("Children : 2");
     reservationPojo.setTimeAvailable(false);

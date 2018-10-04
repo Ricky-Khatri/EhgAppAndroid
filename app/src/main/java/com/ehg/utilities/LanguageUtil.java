@@ -111,21 +111,23 @@ public class LanguageUtil {
 
         JSONObject languageValuesObject = jsonObject.getJSONObject("languageValues");
 
-        JSONObject keyObject = languageValuesObject.getJSONObject(key);
+        JSONObject keyObject = null;//languageValuesObject.getJSONObject(key);
+        String appLangCode = "";
 
-        /*if (languageValuesObject.has(key)) {
+        if (languageValuesObject.has(key)) {
 
           keyObject = languageValuesObject.getJSONObject(key);
+          appLangCode = SharedPreferenceUtils.getInstance(context).getStringValue(
+              SharedPreferenceUtils.APP_LANGUAGE, "");
 
-        } else if (languageValuesObject.has(key.toUpperCase())) {
+        } /*else if (languageValuesObject.has(key.toUpperCase())) {
 
           keyObject = languageValuesObject.getJSONObject(key.toUpperCase());
         }*/
 
-        String appLangCode = SharedPreferenceUtils.getInstance(context).getStringValue(
-            SharedPreferenceUtils.APP_LANGUAGE, "");
-
-        value = keyObject.getString(appLangCode);
+        if (keyObject != null && !TextUtils.isEmpty(appLangCode)) {
+          value = keyObject.getString(appLangCode);
+        }
       }
     } catch (NullPointerException n) {
       n.printStackTrace();
