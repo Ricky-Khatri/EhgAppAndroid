@@ -46,12 +46,13 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
   public BookingAdapter(Context context, int itemHeight, ArrayList<BookingPojo> bookList) {
     this.context = context;
     this.inflater = LayoutInflater.from(context);
-    this.itemHeight = itemHeight / 4;
+    this.itemHeight = itemHeight / 4 - 20;
     this.bookList = bookList;
   }
 
   /**
    * Called to inflate layout item and returns ViewHolder object.
+   *
    * @param viewGroup viewGroup object
    * @param position integer position
    * @return returns ViewHolder object
@@ -64,6 +65,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
 
   /**
    * Called to bind data values with viewHolder items.
+   *
    * @param viewHolder viewHolder object
    * @param position integer position
    */
@@ -78,6 +80,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
 
   /**
    * Returns total number of items in adapter.
+   *
    * @return itemCount
    */
   @Override

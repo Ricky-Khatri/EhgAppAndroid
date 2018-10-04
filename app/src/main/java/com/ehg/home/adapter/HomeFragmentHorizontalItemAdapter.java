@@ -42,15 +42,25 @@ public class HomeFragmentHorizontalItemAdapter extends
   private final LayoutInflater inflater;
   private final String[] imageUrls;
 
+  private String title;
+
+  private int heightWidthFactor;
+
   /**
    * Parameterized constructor for HomeFragmentHorizontalItemAdapter.
    */
-  public HomeFragmentHorizontalItemAdapter(Context context, String[] ary) {
+  public HomeFragmentHorizontalItemAdapter(Context context, String[] ary, String title) {
 
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     imageUrls = ary;
+    this.title = title;
 
+    if (title.equalsIgnoreCase("HOTELS AND RESORTS")) {
+      heightWidthFactor = AppUtil.getDeviceHeight((AppCompatActivity) context) / 4 - 20;
+    } else {
+      heightWidthFactor = AppUtil.getDeviceHeight((AppCompatActivity) context) / 4 - 70;
+    }
   }
 
   /**
@@ -88,7 +98,7 @@ public class HomeFragmentHorizontalItemAdapter extends
    */
   @Override
   public int getItemCount() {
-    return imageUrls != null && imageUrls.length > 0 ?imageUrls.length : 0;
+    return imageUrls != null && imageUrls.length > 0 ? imageUrls.length : 0;
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
@@ -107,6 +117,9 @@ public class HomeFragmentHorizontalItemAdapter extends
       roundedImageView = itemView
           .findViewById(R.id.roundedimageview_itemhome_horizontalitem_brandimage);
       textViewBrandName = itemView.findViewById(R.id.textview_itemhome_horizontalitem_brandname);
+
+      roundedImageView.getLayoutParams().height = heightWidthFactor;
+      roundedImageView.getLayoutParams().width = heightWidthFactor;
     }
   }
 }

@@ -112,7 +112,7 @@
   <string name="ubyemaar_amountlabel">270</string>
   <string name="ubyemaar_profilelabels">PROFILE</string>
   <string name="ubyemaar_upointlabel">UPOINT ACTIVITY</string>
-  <string name="ubyemaar_aedlabel">AED</string>
+  <string name="ubyemaar_aedcurrency">AED</string>
   <string name="ubyemaar_preferenceslabel">PREFERENCES</string>
   <string name="ubyemaar_benefitslabel">BENEFITS</string>
   <string name="upoint_title">Last 5 Transactions</string>

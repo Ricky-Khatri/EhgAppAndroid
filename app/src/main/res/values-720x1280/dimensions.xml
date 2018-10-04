@@ -33,4 +33,5 @@
   <dimen name="textsize_all_small">11sp</dimen>
   <dimen name="textsize_tabitembottom_tabtitle">10sp</dimen>
   <dimen name="imagesize_tabitembottom_tabicon">25dp</dimen>
+  <dimen name="textsize_roomcontrolitems_title">11sp</dimen>
 </resources>

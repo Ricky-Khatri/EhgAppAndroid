@@ -38,6 +38,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 public class HomeRoomControlAdapter extends
     RecyclerView.Adapter<HomeRoomControlAdapter.ViewHolder> {
 
+  private int heightWidthFactor;
+
   private final Context context;
   private final String[] imageUrls;
   private final LayoutInflater inflater;
@@ -57,6 +59,7 @@ public class HomeRoomControlAdapter extends
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     imageUrls = ary;
+    heightWidthFactor = AppUtil.getDeviceHeight((AppCompatActivity) context) / 4 - 80;
   }
 
   /**
@@ -115,6 +118,9 @@ public class HomeRoomControlAdapter extends
       roundedImageView = itemView.findViewById(
           R.id.roundedimageview_item_roomcontrol_roomcontrolimage);
       textViewControlName = itemView.findViewById(R.id.textview_item_roomcontrol_roomcontrolname);
+
+      itemView.getLayoutParams().height = heightWidthFactor;
+      itemView.getLayoutParams().width = heightWidthFactor;
     }
   }
 }

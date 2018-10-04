@@ -482,7 +482,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   private void switchTab(int position) {
 
-    if (position == 0) {
+    if (position == 0 || position == 1) {
       findViewById(R.id.layout_home_header).setVisibility(View.GONE);
     } else {
       headerBackButton.setVisibility(View.INVISIBLE);
@@ -585,7 +585,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
     if (!TextUtils.isEmpty(title)) {
 
-      headerTextView.setText(title);
+      headerTextView.setText(LanguageUtil.getLanguageTitleFromKey(this,title));
     }
 
     /*if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
