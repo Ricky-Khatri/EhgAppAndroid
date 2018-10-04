@@ -20,6 +20,7 @@ package com.ehg.home.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.utilities.LanguageUtil;
 
 /**
  * This class initiates Home fragment list for Home Fragment class.
@@ -35,12 +37,12 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
 
   private final Context context;
   private final LayoutInflater inflater;
-  private String[] imageUrls = new String[] {
+  private String[] imageUrls = new String[]{
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_1.jpg",
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_2.jpg",
-      "http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png",
-      "http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg",
-      "http://yayandroid.com/data/github_library/parallax_listview/test_image_5.png",
+      "http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png"
+      /*"http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg",
+      "http://yayandroid.com/data/github_library/parallax_listview/test_image_5.png",*/
   };
 
   /**
@@ -78,30 +80,31 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     viewHolder.recycleViewFeatureHotel
         .setLayoutManager(new LinearLayoutManager(this.context,
             LinearLayoutManager.HORIZONTAL, false));
-    viewHolder.recycleViewFeatureHotel.setAdapter(
-        new HomeFragmentHorizontalItemAdapter(context, imageUrls));
 
+    String title = "";
     switch (position) {
       case 0:
-            viewHolder.textViewFeatureTitle.setText("HOTELS AND RESORTS");
+        title = "HOTELS AND RESORTS";
         break;
 
       case 1:
-        viewHolder.textViewFeatureTitle.setText("EMAAR LEISURE GROUP");
+        title = "EMAAR LEISURE GROUP";
         break;
 
       case 2:
-        viewHolder.textViewFeatureTitle.setText("RESTAURANTS");
+        title = "RESTAURANTS";
         break;
 
-      case 3:
-        viewHolder.textViewFeatureTitle.setText("SPA");
-        break;
-
-      case 4:
-        viewHolder.textViewFeatureTitle.setText("GOLF CLUB");
+      default:
         break;
     }
+
+    viewHolder.textViewFeatureTitle.setText(LanguageUtil.getLanguageTitleFromKey(
+        (AppCompatActivity) context, title));
+
+    //Set horizontal recycler view adapter
+    viewHolder.recycleViewFeatureHotel.setAdapter(
+        new HomeFragmentHorizontalItemAdapter(context, imageUrls, title));
   }
 
   /**

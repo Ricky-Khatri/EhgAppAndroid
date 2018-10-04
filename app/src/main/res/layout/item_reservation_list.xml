@@ -86,6 +86,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/elevation_all_header"
+          android:textSize="@dimen/textsize_signup_termsandcondition"
           android:layout_marginEnd="@dimen/elevation_all_header"/>
 
         <TextView
@@ -93,6 +94,7 @@
           style="@style/AppLabelsTextAppearance"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:textSize="@dimen/textsize_signup_termsandcondition"
           android:layout_marginStart="@dimen/elevation_all_header"
           android:layout_marginEnd="@dimen/elevation_all_header"/>
 
@@ -109,6 +111,7 @@
           style="@style/AppLabelsTextAppearance"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:textSize="@dimen/textsize_signup_termsandcondition"
           android:layout_marginStart="@dimen/elevation_all_header"
           android:layout_marginEnd="@dimen/elevation_all_header"/>
 
@@ -117,6 +120,7 @@
           style="@style/AppLabelsTextAppearance"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:textSize="@dimen/textsize_signup_termsandcondition"
           android:layout_marginStart="@dimen/elevation_all_header"
           android:layout_marginEnd="@dimen/elevation_all_header"/>
 
@@ -140,6 +144,7 @@
           style="@style/AppLabelsTextAppearance"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:textSize="@dimen/textsize_signup_termsandcondition"
           android:layout_marginStart="@dimen/elevation_all_header"
           android:layout_marginEnd="@dimen/elevation_all_header"/>
 

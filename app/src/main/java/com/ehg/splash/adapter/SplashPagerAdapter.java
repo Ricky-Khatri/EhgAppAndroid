@@ -35,6 +35,8 @@ import java.util.Objects;
 public class SplashPagerAdapter extends FragmentPagerAdapter implements
     ViewPager.OnPageChangeListener {
 
+  private SetOnPageChangeListener setOnPageChangeListener;
+
   public static final float BIG_SCALE = 1.0f;
   private static final float SMALL_SCALE = 0.7f;
   private static final float DIFF_SCALE = BIG_SCALE - SMALL_SCALE;
@@ -51,6 +53,7 @@ public class SplashPagerAdapter extends FragmentPagerAdapter implements
 
     this.fragmentManager = fragmentManager;
     this.context = context;
+    setOnPageChangeListener = context;
   }
 
   /**
@@ -116,6 +119,9 @@ public class SplashPagerAdapter extends FragmentPagerAdapter implements
    */
   @Override
   public void onPageSelected(int position) {
+    if (setOnPageChangeListener != null) {
+      setOnPageChangeListener.onPageChange(position);
+    }
   }
 
   /**
@@ -144,5 +150,12 @@ public class SplashPagerAdapter extends FragmentPagerAdapter implements
    */
   private String getFragmentTag(int position) {
     return "android:switcher:" + context.cardViewPager.getId() + ":" + position;
+  }
+
+  /**
+   * SetOnPageChangeListener interface.
+   */
+  public interface SetOnPageChangeListener {
+    void onPageChange (int position);
   }
 }

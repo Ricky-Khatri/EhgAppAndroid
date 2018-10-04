@@ -419,7 +419,8 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
       headerBackButton.setVisibility(View.INVISIBLE);
     }*/
-    headerBackButton.setVisibility(View.VISIBLE);
+    //TODO: Need to uncomment this to show back navigation arrow.
+    //headerBackButton.setVisibility(View.VISIBLE);
   }
 
   /**
@@ -480,6 +481,13 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    * @param position integer position
    */
   private void switchTab(int position) {
+
+    if (position == 0 || position == 1) {
+      findViewById(R.id.layout_home_header).setVisibility(View.GONE);
+    } else {
+      headerBackButton.setVisibility(View.INVISIBLE);
+      findViewById(R.id.layout_home_header).setVisibility(View.VISIBLE);
+    }
     mnavController.switchTab(position);
     showMoreIconSelector(false);
     /* updateToolbarTitle(position); */
@@ -491,6 +499,10 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
   @Override
   protected void onResume() {
     super.onResume();
+    if (mainCurrentTab != null) {
+      mainCurrentTab.getCustomView().setSelected(true);
+    }
+    showMoreIconSelector(false);
     setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
   }
 
@@ -573,7 +585,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
     if (!TextUtils.isEmpty(title)) {
 
-      headerTextView.setText(title);
+      headerTextView.setText(LanguageUtil.getLanguageTitleFromKey(this,title));
     }
 
     /*if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
@@ -638,8 +650,6 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    */
   private void showMoreIconSelector(boolean isSelected) {
     if (imageViewSettings != null) {
-      int color = getResources().getColor(R.color.colorTabUnselected);
-
       if (isSelected) {
         imageViewSettings.setColorFilter(getResources().getColor(R.color.colorBlack),
             PorterDuff.Mode.SRC_ATOP);

@@ -31,5 +31,6 @@
   <dimen name="textsize_all_small">9sp</dimen>
   <dimen name="textsize_tabitembottom_tabtitle">9sp</dimen>
   <dimen name="imagesize_tabitembottom_tabicon">20dp</dimen>
+  <dimen name="textsize_roomcontrolitems_title">10sp</dimen>
 
 </resources>

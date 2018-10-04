@@ -31,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import butterknife.ButterKnife;
 import com.ehg.R;
 import com.ehg.home.HomeActivity;
@@ -38,9 +39,15 @@ import com.ehg.home.fragment.BaseFragment;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.signinsignup.pojo.Detail;
+import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.ubyemaar.UpointActivity;
 import com.ehg.ubyemaar.UserPreferencesActivity;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
+import com.ehg.utilities.LanguageUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
 import java.util.Objects;
 
@@ -48,6 +55,19 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
 
   private static final String GET_MEMBER_DETAIL_METHOD = "getMemberDetailMethod";
   private Context context;
+
+  private TextView textViewProfile;
+  private TextView textViewUPoint;
+  private TextView textViewPreference;
+  private TextView textViewbenifits;
+  private TextView textViewMemberShipType;
+  private TextView textViewMemberShip;
+  private TextView textViewTotalPoints;
+  private TextView textViewTotalPointsLabel;
+  private TextView textViewAmount;
+  private TextView textViewAmountLabel;
+  private TextView textViewCurrency;
+  private TextView textViewUserName;
 
   /**
    * Called when fragment created.
@@ -122,10 +142,52 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
    * Called to init view components of this fragment.
    */
   private void initView(View view) {
+    textViewProfile = view.findViewById(R.id.textview_ubyemaar_profile);
+    textViewUPoint = view.findViewById(R.id.textview_ubyemaar_upointactivity);
+    textViewPreference = view.findViewById(R.id.textview_ubyemaar_preferences);
+    textViewbenifits = view.findViewById(R.id.textview_ubyemaar_benefits);
+
+    textViewMemberShipType = view.findViewById(R.id.textview_ubyemaar_membershiptype);
+    textViewMemberShip = view.findViewById(R.id.textview_ubyemaar_membership);
+    textViewTotalPoints = view.findViewById(R.id.textview_ubyemaar_totaluppointcount);
+    textViewTotalPointsLabel = view.findViewById(R.id.textview_ubyemaar_totaluppointlabel);
+    textViewAmount = view.findViewById(R.id.textview_ubyemaar_amount);
+    textViewAmountLabel = view.findViewById(R.id.textview_ubyemaar_amountlabel);
+    textViewCurrency = view.findViewById(R.id.textview_ubyemaar_currency);
+    textViewUserName = view.findViewById(R.id.textview_ubyemaar_username);
+
     view.findViewById(R.id.linearlayout_ubyemaar_profile).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_upointactivity).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_preferences).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  public void onResume() {
+    super.onResume();
+    if (context != null) {
+      textViewProfile.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
+          context.getResources().getString(R.string.ubyemaar_profilelabels)));
+      textViewUPoint.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
+          context.getResources().getString(R.string.ubyemaar_upointlabel)));
+      textViewPreference.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
+          context.getResources().getString(R.string.ubyemaar_preferenceslabel)));
+      textViewbenifits.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
+          context.getResources().getString(R.string.ubyemaar_benefitslabel)));
+
+      textViewTotalPointsLabel.setText(LanguageUtil
+          .getLanguageTitleFromKey((AppCompatActivity) context,
+          context.getResources().getString(R.string.ubyemaar_totalupointslabel)));
+      textViewAmountLabel.setText(LanguageUtil
+          .getLanguageTitleFromKey((AppCompatActivity) context,
+          context.getResources().getString(R.string.ubyemaar_availabletoredeemlabel)));
+      textViewCurrency.setText(LanguageUtil
+          .getLanguageTitleFromKey((AppCompatActivity) context,
+          context.getResources().getString(R.string.ubyemaar_aedcurrency)));
+    }
   }
 
   /**
@@ -187,17 +249,21 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
   public void onSuccessResponse(String responseVal, String requestMethod) {
     if (GET_MEMBER_DETAIL_METHOD.equalsIgnoreCase(requestMethod)) {
 
-      /*UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
-            new TypeToken<UserProfilePojo>() {
-            }.getType());
+      UserProfilePojo userProfilePojo = new Gson().fromJson(responseVal,
+          new TypeToken<UserProfilePojo>() {
+          }.getType());
 
-        if (userProfilePojo != null && userProfilePojo.isStatus()) {
+      if (userProfilePojo != null && userProfilePojo.getStatus()) {
 
-          JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
+        JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
 
-          Intent intent = new Intent(context, HomeActivity.class);
-          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
-        }*/
+        Detail detail = userProfilePojo.getData().getDetail().get(0);
+        textViewUserName.setText(detail.getSuffix() + " "
+            + detail.getFirstName() + " " + detail.getLastName());
+        textViewMemberShipType.setText(detail.getTierLevel());
+        textViewTotalPoints.setText(detail.getCurrentPoints() + "");
+        textViewAmount.setText(detail.getCurrentBalance() + "");
+      }
     }
   }
 

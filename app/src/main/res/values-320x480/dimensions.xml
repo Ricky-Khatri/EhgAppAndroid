@@ -52,4 +52,5 @@
   <dimen name="textsize_all_small">5sp</dimen>
   <dimen name="textsize_tabitembottom_tabtitle">8sp</dimen>
   <dimen name="imagesize_tabitembottom_tabicon">18dp</dimen>
+  <dimen name="textsize_roomcontrolitems_title">9sp</dimen>
 </resources>

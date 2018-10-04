@@ -130,12 +130,12 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-      ((HomeActivity) Objects.requireNonNull(getActivity()))
-          .updateToolbarTitle(context.getResources().getString(R.string.home_title));
-    }
-
     try {
+
+      if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+        ((HomeActivity) Objects.requireNonNull(getActivity()))
+            .updateToolbarTitle(context.getResources().getString(R.string.home_title));
+      }
 
       context = getActivity();
 
@@ -214,7 +214,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     sliderLayoutHomeOffers.setPresetTransformer(Transformer.Default);
 
     sliderLayoutHomeOffers.getLayoutParams().height = AppUtil
-        .getDeviceHeight((BaseActivity) context) / 3;
+        .getDeviceHeight((BaseActivity) context) / 3 - 50;
 
     ArrayList<String> listUrl = new ArrayList<>();
     ArrayList<String> listName = new ArrayList<>();

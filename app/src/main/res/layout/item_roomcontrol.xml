@@ -21,7 +21,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:padding="5dp"
+  android:padding="@dimen/elevation_all_header"
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <FrameLayout
@@ -32,8 +32,8 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
       android:id="@+id/roundedimageview_item_roomcontrol_roomcontrolimage"
-      android:layout_width="@dimen/imagesize_all_roundedimage"
-      android:layout_height="@dimen/imagesize_all_roundedimage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:scaleType="centerCrop"
       android:src="@drawable/placeholder"
       app:riv_corner_radius="4dp"/>
@@ -43,10 +43,11 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:padding="@dimen/elevation_all_header"
+      android:gravity="center"
       android:layout_gravity="center|bottom"
       android:textStyle="bold"
       android:textColor="@color/colorWhite"
-      android:textSize="@dimen/textsize_all_guestdetail"/>
+      android:textSize="@dimen/textsize_roomcontrolitems_title"/>
 
   </FrameLayout>
 </LinearLayout>

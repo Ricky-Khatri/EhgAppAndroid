@@ -39,7 +39,7 @@
       android:layout_height="@dimen/height_all_verticaldivider"
       android:scaleType="centerCrop"
       android:visibility="invisible"
-      app:srcCompat="@drawable/all_location"
+      app:srcCompat="@drawable/ic_launcher_background"
       />
 
     <TextView

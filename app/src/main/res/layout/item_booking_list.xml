@@ -49,7 +49,11 @@
     android:id="@+id/textview_itembookinglist_title"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    style="@style/HeaderTextAppearance" />
+    android:layout_alignParentBottom="true"
+    android:gravity="left"
+    android:padding="@dimen/elevation_all_header"
+    android:textColor="@color/white"
+    android:textStyle="bold"
+    style="@style/AppLabelsTextAppearance" />
 
 </RelativeLayout>

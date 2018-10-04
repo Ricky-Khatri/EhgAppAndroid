@@ -41,4 +41,5 @@
   <dimen name="textsize_tabitembottom_tabtitle">8sp</dimen>
   <dimen name="imagesize_tabitembottom_tabicon">18dp</dimen>
   <dimen name="width_all_minedittextwidth">550dp</dimen>
+  <dimen name="textsize_roomcontrolitems_title">9sp</dimen>
 </resources>

@@ -22,11 +22,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-  <include layout="@layout/layout_header_search"
-    android:visibility="gone"/>
+  <include layout="@layout/layout_header_search"/>
 
   <android.support.v7.widget.RecyclerView
-    android:visibility="gone"
     android:id="@+id/recyclerview_booking_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
