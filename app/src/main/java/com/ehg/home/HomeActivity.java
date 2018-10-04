@@ -480,6 +480,12 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    * @param position integer position
    */
   private void switchTab(int position) {
+
+    if(position == 0) {
+      findViewById(R.id.layout_home_header).setVisibility(View.GONE);
+    } else {
+      findViewById(R.id.layout_home_header).setVisibility(View.VISIBLE);
+    }
     mnavController.switchTab(position);
     showMoreIconSelector(false);
     /* updateToolbarTitle(position); */

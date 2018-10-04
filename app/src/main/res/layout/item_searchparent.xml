@@ -28,7 +28,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/padding_all_imageview"
-
     android:paddingBottom="@dimen/padding_all_imageview"
     android:paddingStart="@dimen/imagesize_all_locationimage"
     android:paddingEnd="@dimen/imagesize_all_locationimage"
@@ -40,7 +39,7 @@
       android:layout_width="@dimen/height_all_verticaldivider"
       android:layout_height="@dimen/height_all_verticaldivider"
       android:scaleType="centerCrop"
-      app:srcCompat="@drawable/all_location"
+      app:srcCompat="@drawable/ic_launcher_background"
       />
     <TextView
       android:id="@+id/textview_itemsearchparent_title"
