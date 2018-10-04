@@ -24,9 +24,6 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
-  <include
-    layout="@layout/layout_header_search"/>
-
   <LinearLayout
     android:id="@+id/linearlayout_homefragment_guest_detail"
     android:layout_width="match_parent"
