@@ -1,0 +1,31 @@
+<!--
+  ~  Created by Emaar Hospitality Group on 4/10/18 5:02 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 4/10/18 5:02 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <path
+      android:pathData="M8.5,23C8.5,23 16,13.1277 16,8.8128C16,4.4979 13.5188,1 8.5,1C3.4812,1 1,4.4979 1,8.8128C1,13.1277 8.5,23 8.5,23L8.5,23ZM8.5,11.5C10.7091,11.5 12.5,9.7091 12.5,7.5C12.5,5.2909 10.7091,3.5 8.5,3.5C6.2909,3.5 4.5,5.2909 4.5,7.5C4.5,9.7091 6.2909,11.5 8.5,11.5L8.5,11.5Z"
+      android:strokeWidth="1"
+      android:fillColor="#000000"
+      android:fillType="evenOdd"
+      android:strokeColor="#00000000"/>
+</vector>
