@@ -188,10 +188,49 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    */
   @Override
   public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
+
+    boolean isToReturn = false;
+
     if (index == EditorInfo.IME_ACTION_DONE) {
+
       validateSigninFormField();
+
+    } else {
+
+      switch (textView.getId()) {
+        case R.id.textview_signinfragment_mobile:
+          // Store values at the time of the login attempt.
+          String mobileNumber = autoCompleteTextViewMobileNumber.getText().toString().trim();
+          // Check for a valid mobile number
+          if (TextUtils.isEmpty(mobileNumber)) {
+            autoCompleteTextViewMobileNumber.setError(getString(R.string.all_fieldrequired));
+            isToReturn = true;
+          } else if (!AppUtil.isValidMobile(mobileNumber)) {
+            autoCompleteTextViewMobileNumber.setError(getString(R.string.all_invalidmobile));
+            isToReturn = true;
+          } else {
+            isToReturn = false;
+          }
+          break;
+
+        case R.id.edittext_signinfragment_password:
+          String password = editTextPassword.getText().toString().trim();
+          if (TextUtils.isEmpty(password)) {
+            editTextPassword.setError(getString(R.string.all_fieldrequired));
+            isToReturn = true;
+          } else if (!isPasswordValid(password)) {
+            editTextPassword.setError(getString(R.string.all_passwordlength));
+            isToReturn = true;
+          } else {
+            isToReturn = false;
+          }
+          break;
+
+        default:
+          break;
+      }
     }
-    return false;
+    return isToReturn;
   }
 
   /**
@@ -224,15 +263,38 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   }
 
   /**
+   * Called when parent activity resumed.
+   */
+  @Override
+  public void onResume() {
+    super.onResume();
+    resetErrors();
+  }
+
+  /**
+   * Called to reset errors on form field.
+   */
+  private void resetErrors() {
+    try {
+      // Reset errors.
+      autoCompleteTextViewMobileNumber.setError(null);
+      editTextPassword.setError(null);
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+
+  /**
    * Attempts to sign in or register the account specified by the login form. If there are form
    * errors (invalid all_email, missing fields, etc.), the errors are presented and no actual login
    * attempt is made.
    */
   private void validateSigninFormField() {
 
-    // Reset errors.
-    autoCompleteTextViewMobileNumber.setError(null);
-    editTextPassword.setError(null);
+    resetErrors();
 
     // Store values at the time of the login attempt.
     String mobileNumber = autoCompleteTextViewMobileNumber.getText().toString().trim();

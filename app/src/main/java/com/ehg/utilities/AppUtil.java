@@ -40,6 +40,7 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.PhoneNumberUtils;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -99,13 +100,30 @@ public class AppUtil {
     }
   }
 
-  public static void animateRecyclerView(Context context, RecyclerView recyclerView, int resourceId){
-    try{
-      LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context, resourceId);
+  /**
+   * Called to animate recycler view items.
+   * @param context activity context
+   * @param recyclerView recyclerview object
+   * @param resourceId animation resource id
+   */
+  public static void animateRecyclerView(Context context, RecyclerView recyclerView,
+      int resourceId) {
+    try {
+      LayoutAnimationController animation = null;
+      //Check if current language is arabic then change RTL animation
+      if (SharedPreferenceUtils.getInstance(context).getStringValue(
+          SharedPreferenceUtils.APP_LANGUAGE, "").equalsIgnoreCase("ar")) {
+        if (resourceId == R.anim.layout_animation_from_right) {
+          resourceId = R.anim.layout_animation_from_left;
+        }
+        animation = AnimationUtils.loadLayoutAnimation(context, resourceId);
+      } else {
+        animation = AnimationUtils.loadLayoutAnimation(context, resourceId);
+      }
       recyclerView.setLayoutAnimation(animation);
-    }catch (NullPointerException n){
+    } catch (NullPointerException n) {
       n.printStackTrace();
-    }catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
@@ -116,7 +134,6 @@ public class AppUtil {
    * @param html html string
    * @return returns spanned content
    */
-  @SuppressWarnings("deprecation")
   public static Spanned fromHtml(String html) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
@@ -227,7 +244,7 @@ public class AppUtil {
   /**
    * Checks if passed email string is valid or not.
    */
-  public static boolean isall_emailValid(String email) {
+  public static boolean isValidEmail(String email) {
     return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
   }
 
@@ -236,7 +253,8 @@ public class AppUtil {
    */
   public static boolean isValidMobile(String phone) {
     return /*android.util.Patterns.PHONE.matcher(phone).matches()*/
-        phone.length() > 0 && phone.length() == 10;
+        /*phone.length() > 0 && phone.length() == 10*/
+        PhoneNumberUtils.isGlobalPhoneNumber(phone) && phone.length() >= 5;
   }
 
   /**
@@ -416,7 +434,7 @@ public class AppUtil {
    * @param appCompatActivity calling class object
    * @param alertMessage message which will show as an alert
    * @param isRedirect if it is true than we will navigate to other activity, or if false than we
-   *        will stay on same activity and perform required action.
+   * will stay on same activity and perform required action.
    * @param alertTitle message will show on a dialog title
    * @param isCancelable Whether the dialog should be isCancelable when touched outside the window
    */
