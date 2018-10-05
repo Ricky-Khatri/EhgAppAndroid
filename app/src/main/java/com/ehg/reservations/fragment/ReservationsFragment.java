@@ -69,7 +69,6 @@ public class ReservationsFragment extends BaseFragment {
       ((HomeActivity) Objects.requireNonNull(getActivity()))
           .updateToolbarTitle(getResources().getString(R.string.reservations_title));
     }
-
     return view;
   }
 
@@ -119,7 +118,7 @@ public class ReservationsFragment extends BaseFragment {
     tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
     //Set viewpager fragment adapter
-    FragmentAdapter fragmentAdapter = new FragmentAdapter(getFragmentManager());
+    FragmentAdapter fragmentAdapter = new FragmentAdapter(getChildFragmentManager());
     viewPager.setAdapter(fragmentAdapter);
 
     viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

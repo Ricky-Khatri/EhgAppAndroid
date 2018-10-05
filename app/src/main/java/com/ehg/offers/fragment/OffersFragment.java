@@ -126,7 +126,7 @@ public class OffersFragment extends BaseFragment {
     tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
     //Set viewpager fragment adapter
-    FragmentAdapter fragmentAdapter = new FragmentAdapter(getFragmentManager());
+    FragmentAdapter fragmentAdapter = new FragmentAdapter(getChildFragmentManager());
     viewPager.setAdapter(fragmentAdapter);
 
     viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));

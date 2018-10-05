@@ -31,8 +31,25 @@ public class ReservationPojo {
   private String checkoutDate;
   private String adults;
   private String childs;
+  private String type;
 
   private boolean isTimeAvailable;
+
+  /**
+   * Getter method.
+   *
+   * @return Gets the value of type and returns type.
+   */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * Sets the type. You can use getType() to get the value of type.
+   */
+  public void setType(String type) {
+    this.type = type;
+  }
 
   /**
    * Getter method.

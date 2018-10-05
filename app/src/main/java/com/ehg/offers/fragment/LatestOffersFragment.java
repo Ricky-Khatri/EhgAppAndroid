@@ -192,6 +192,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationPojo.setCheckoutDate("12:15 PM");
     reservationPojo.setAdults("Adults : 2");
     reservationPojo.setChilds("Children : 2");
+    reservationPojo.setType("Hotel");
     reservationPojo.setTimeAvailable(false);
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
@@ -202,6 +203,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationPojo.setAdults("Guests : 4");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Restaurant");
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("The Spa");
@@ -211,6 +213,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationPojo.setAdults("Guests : 2");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Spa");
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("Golf");
@@ -220,15 +223,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationPojo.setAdults("Guests : 2");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
-    reservationList.add(reservationPojo);
-    reservationPojo = new ReservationPojo();
-    reservationPojo.setTitle("Lounge");
-    reservationPojo.setAddress("Address downtown");
-    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
-    reservationPojo.setAdults("Guests : 4");
-    reservationPojo.setChilds("");
-    reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Golf");
     reservationList.add(reservationPojo);
 
     //Set adapter

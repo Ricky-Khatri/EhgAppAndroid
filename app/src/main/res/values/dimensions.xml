@@ -4,7 +4,7 @@
   <dimen name="margin_all_horizontal">16dp</dimen>
   <dimen name="margin_all_vertical">16dp</dimen>
 
-  <dimen name="textsize_all_headertitle">17sp</dimen>
+  <dimen name="textsize_all_headertitle">16sp</dimen>
   <dimen name="textsize_all_labels">13sp</dimen>
   <dimen name="elevation_all_header">5dp</dimen>
   <dimen name="padding_all_headerbutton">8dp</dimen>
@@ -32,8 +32,8 @@
   <dimen name="textsize_all_guestdetail">11sp</dimen>
   <dimen name="imagesize_all_roundedimage">100dp</dimen>
 
-  <dimen name="imagesize_all_reservationimage">100dp</dimen>
-  <dimen name="imagesize_all_locationimage">15dp</dimen>
+  <dimen name="imagesize_all_reservationimage">80dp</dimen>
+  <dimen name="imagesize_all_locationimage">10dp</dimen>
   <dimen name="margin_all_large">30dp</dimen>
   <dimen name="textsize_ubyemaar_points">24sp</dimen>
   <dimen name="size_alertdialogbutton">35dp</dimen>
@@ -42,4 +42,5 @@
   <dimen name="imagesize_tabitembottom_tabicon">18dp</dimen>
   <dimen name="width_all_minedittextwidth">550dp</dimen>
   <dimen name="textsize_roomcontrolitems_title">9sp</dimen>
+  <dimen name="textsize_itemreservation_itemtext">9sp</dimen>
 </resources>

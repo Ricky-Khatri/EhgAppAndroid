@@ -130,27 +130,47 @@ public class UpcomingReservationFragment  extends BaseFragment {
     recyclerViewReservationCategory.setHasFixedSize(true);
 
     //Prepare data
-    reservationCategoryList = new ArrayList<>();
-    ReservationCategoryPojo reservationCategoryPojo = new ReservationCategoryPojo();
-    reservationCategoryPojo.setSelected(true);
-    reservationCategoryPojo.setTitle("All");
-    reservationCategoryList.add(reservationCategoryPojo);
-    reservationCategoryPojo = new ReservationCategoryPojo();
-    reservationCategoryPojo.setSelected(false);
-    reservationCategoryPojo.setTitle("Hotel");
-    reservationCategoryList.add(reservationCategoryPojo);
-    reservationCategoryPojo = new ReservationCategoryPojo();
-    reservationCategoryPojo.setSelected(false);
-    reservationCategoryPojo.setTitle("Restaurant");
-    reservationCategoryList.add(reservationCategoryPojo);
-    reservationCategoryPojo = new ReservationCategoryPojo();
-    reservationCategoryPojo.setSelected(false);
-    reservationCategoryPojo.setTitle("Spa");
-    reservationCategoryList.add(reservationCategoryPojo);
-    reservationCategoryPojo = new ReservationCategoryPojo();
-    reservationCategoryPojo.setSelected(false);
-    reservationCategoryPojo.setTitle("Golf");
-    reservationCategoryList.add(reservationCategoryPojo);
+    reservationList = new ArrayList<>();
+    ReservationPojo reservationPojo = new ReservationPojo();
+    reservationPojo.setTitle("Address Downtown");
+    reservationPojo.setAddress("Downtown, Dubai");
+    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
+    reservationPojo.setCheckoutDate("12:15 PM");
+    reservationPojo.setAdults("Adults : 2");
+    reservationPojo.setChilds("Children : 2");
+    reservationPojo.setType("Hotel");
+    reservationPojo.setTimeAvailable(false);
+    reservationList.add(reservationPojo);
+    reservationPojo = new ReservationPojo();
+    reservationPojo.setTitle("Lounge");
+    reservationPojo.setAddress("Address downtown");
+    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
+    reservationPojo.setCheckoutDate("12:15 PM");
+    reservationPojo.setAdults("Guests : 4");
+    reservationPojo.setChilds("");
+    reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Restaurant");
+    reservationList.add(reservationPojo);
+    reservationPojo = new ReservationPojo();
+    reservationPojo.setTitle("The Spa");
+    reservationPojo.setAddress("Address downtown");
+    reservationPojo.setCheckinDate("Date : 1, Oct 2018");
+    reservationPojo.setCheckoutDate("12:15 PM");
+    reservationPojo.setAdults("Guests : 2");
+    reservationPojo.setChilds("");
+    reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Spa");
+    reservationList.add(reservationPojo);
+    reservationPojo = new ReservationPojo();
+    reservationPojo.setTitle("Golf");
+    reservationPojo.setAddress("Dubai");
+    reservationPojo.setCheckinDate("Date : 23, Oct 2018");
+    reservationPojo.setCheckoutDate("12:15 PM");
+    reservationPojo.setAdults("Guests : 2");
+    reservationPojo.setChilds("");
+    reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Golf");
+    reservationList.add(reservationPojo);
 
     //Set adapter
     DisplayMetrics displaymetrics = new DisplayMetrics();
@@ -177,10 +197,11 @@ public class UpcomingReservationFragment  extends BaseFragment {
     ReservationPojo reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("Address Downtown");
     reservationPojo.setAddress("Downtown, Dubai");
-    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
+    reservationPojo.setCheckinDate("Check-in Date : 17, Oct 2018");
+    reservationPojo.setCheckoutDate("Check-out Date : 17, Oct 2018");
     reservationPojo.setAdults("Adults : 2");
     reservationPojo.setChilds("Children : 2");
+    reservationPojo.setType("Hotel");
     reservationPojo.setTimeAvailable(false);
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
@@ -191,6 +212,7 @@ public class UpcomingReservationFragment  extends BaseFragment {
     reservationPojo.setAdults("Guests : 4");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Restaurant");
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("The Spa");
@@ -200,6 +222,7 @@ public class UpcomingReservationFragment  extends BaseFragment {
     reservationPojo.setAdults("Guests : 2");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Spa");
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("Golf");
@@ -209,15 +232,7 @@ public class UpcomingReservationFragment  extends BaseFragment {
     reservationPojo.setAdults("Guests : 2");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
-    reservationList.add(reservationPojo);
-    reservationPojo = new ReservationPojo();
-    reservationPojo.setTitle("Lounge");
-    reservationPojo.setAddress("Address downtown");
-    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
-    reservationPojo.setAdults("Guests : 4");
-    reservationPojo.setChilds("");
-    reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Golf");
     reservationList.add(reservationPojo);
 
     //Set adapter

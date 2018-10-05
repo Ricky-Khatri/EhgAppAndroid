@@ -91,7 +91,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="@dimen/padding_all_headerbutton">
+    android:layout_margin="@dimen/elevation_all_header">
   </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

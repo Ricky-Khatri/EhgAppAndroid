@@ -78,7 +78,6 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     TabLayout.OnTabSelectedListener, View.OnClickListener,
     OnShowMoreListItemClickListener, BroadCastMessageInterface {
 
-
   /*private int[] mtabIconsSelected = {
       R.drawable.tab_home,
       R.drawable.tab_search,
@@ -585,7 +584,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
     if (!TextUtils.isEmpty(title)) {
 
-      headerTextView.setText(LanguageUtil.getLanguageTitleFromKey(this,title));
+      headerTextView.setText(LanguageUtil.getLanguageTitleFromKey(this, title));
     }
 
     /*if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {

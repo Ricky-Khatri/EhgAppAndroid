@@ -51,7 +51,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
       ArrayList<ReservationPojo> reservationList) {
     this.context = context;
     this.inflater = LayoutInflater.from(context);
-    this.itemHeight = itemHeight / 4;
+    this.itemHeight = itemHeight / 4 - 50;
     this.reservationList = reservationList;
   }
 
@@ -98,6 +98,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     viewHolder.textViewCheckinDate.setText(reservationPojo.getCheckinDate());
     viewHolder.textViewAdults.setText(reservationPojo.getAdults());
     viewHolder.textViewChilds.setText(reservationPojo.getChilds());
+    viewHolder.textViewReservationType.setText(reservationPojo.getType());
   }
 
   /**
@@ -122,6 +123,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     private final TextView textViewAdults;
     private final TextView textViewChilds;
     private final TextView textViewTime;
+    private final TextView textViewReservationType;
 
     private final AppCompatImageView appCompatImageViewThumb;
 
@@ -143,6 +145,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
       textViewAdults = view.findViewById(R.id.textview_itemreservationlist_adults);
       textViewChilds = view.findViewById(R.id.textview_itemreservationlist_childs);
       textViewTime = view.findViewById(R.id.textview_itemreservationlist_time);
+      textViewReservationType = view.findViewById(R.id.textview_itemreservationlist_reservationtype);
       appCompatImageViewThumb = view.findViewById(R.id.imageview_itembookinglist_image);
       linearLayoutCheckoutDate = view
           .findViewById(R.id.linearlayout_itemreservationlist_checkoutdate);
