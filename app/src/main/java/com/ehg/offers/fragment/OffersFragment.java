@@ -149,7 +149,7 @@ public class OffersFragment extends BaseFragment {
       }
     });
 
-    ParallaxRecyclerView recyclerViewOfferList = view
+    /*ParallaxRecyclerView recyclerViewOfferList = view
         .findViewById(R.id.parallax_recyclerView_offer_fragment_list);
     recyclerViewOfferList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewOfferList.setHasFixedSize(true);
@@ -158,7 +158,7 @@ public class OffersFragment extends BaseFragment {
     ((BaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
     offerListAdapter = new OfferListAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context));
-    recyclerViewOfferList.setAdapter(offerListAdapter);
+    recyclerViewOfferList.setAdapter(offerListAdapter);*/
   }
 
   /**

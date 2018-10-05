@@ -128,47 +128,27 @@ public class PastReservationFragment  extends BaseFragment {
     recyclerViewUpcomingReservationHorizontalList.setHasFixedSize(true);
 
     //Prepare data
-    reservationList = new ArrayList<>();
-    ReservationPojo reservationPojo = new ReservationPojo();
-    reservationPojo.setTitle("Address Downtown");
-    reservationPojo.setAddress("Downtown, Dubai");
-    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
-    reservationPojo.setAdults("Adults : 2");
-    reservationPojo.setChilds("Children : 2");
-    reservationPojo.setType("Hotel");
-    reservationPojo.setTimeAvailable(false);
-    reservationList.add(reservationPojo);
-    reservationPojo = new ReservationPojo();
-    reservationPojo.setTitle("Lounge");
-    reservationPojo.setAddress("Address downtown");
-    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
-    reservationPojo.setAdults("Guests : 4");
-    reservationPojo.setChilds("");
-    reservationPojo.setTimeAvailable(true);
-    reservationPojo.setType("Restaurant");
-    reservationList.add(reservationPojo);
-    reservationPojo = new ReservationPojo();
-    reservationPojo.setTitle("The Spa");
-    reservationPojo.setAddress("Address downtown");
-    reservationPojo.setCheckinDate("Date : 1, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
-    reservationPojo.setAdults("Guests : 2");
-    reservationPojo.setChilds("");
-    reservationPojo.setTimeAvailable(true);
-    reservationPojo.setType("Spa");
-    reservationList.add(reservationPojo);
-    reservationPojo = new ReservationPojo();
-    reservationPojo.setTitle("Golf");
-    reservationPojo.setAddress("Dubai");
-    reservationPojo.setCheckinDate("Date : 23, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
-    reservationPojo.setAdults("Guests : 2");
-    reservationPojo.setChilds("");
-    reservationPojo.setTimeAvailable(true);
-    reservationPojo.setType("Golf");
-    reservationList.add(reservationPojo);
+    reservationCategoryList = new ArrayList<>();
+    ReservationCategoryPojo reservationCategoryPojo = new ReservationCategoryPojo();
+    reservationCategoryPojo.setSelected(true);
+    reservationCategoryPojo.setTitle("All");
+    reservationCategoryList.add(reservationCategoryPojo);
+    reservationCategoryPojo = new ReservationCategoryPojo();
+    reservationCategoryPojo.setSelected(false);
+    reservationCategoryPojo.setTitle("Hotel");
+    reservationCategoryList.add(reservationCategoryPojo);
+    reservationCategoryPojo = new ReservationCategoryPojo();
+    reservationCategoryPojo.setSelected(false);
+    reservationCategoryPojo.setTitle("Restaurant");
+    reservationCategoryList.add(reservationCategoryPojo);
+    reservationCategoryPojo = new ReservationCategoryPojo();
+    reservationCategoryPojo.setSelected(false);
+    reservationCategoryPojo.setTitle("Spa");
+    reservationCategoryList.add(reservationCategoryPojo);
+    reservationCategoryPojo = new ReservationCategoryPojo();
+    reservationCategoryPojo.setSelected(false);
+    reservationCategoryPojo.setTitle("Golf");
+    reservationCategoryList.add(reservationCategoryPojo);
 
     //Set adapter
     DisplayMetrics displaymetrics = new DisplayMetrics();
@@ -176,6 +156,8 @@ public class PastReservationFragment  extends BaseFragment {
     ReservationCategoryAdapter reservationCategoryAdapter = new ReservationCategoryAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context),reservationCategoryList);
     recyclerViewUpcomingReservationHorizontalList.setAdapter(reservationCategoryAdapter);
+    AppUtil.animateRecyclerView(context,recyclerViewUpcomingReservationHorizontalList,
+        R.anim.layout_animation_from_right);
   }
 
   /**
@@ -184,11 +166,11 @@ public class PastReservationFragment  extends BaseFragment {
    */
   private void initReservationList(View view) {
     //Init vertical reservation recycler view
-    RecyclerView recyclerViewReservation = view
+    RecyclerView recyclerViewPastReservationList = view
         .findViewById(R.id.recyclerview_pastreservation_reservation);
-    recyclerViewReservation.setLayoutManager(
+    recyclerViewPastReservationList.setLayoutManager(
         new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-    recyclerViewReservation.setHasFixedSize(true);
+    recyclerViewPastReservationList.setHasFixedSize(true);
 
     //Prepare data
     reservationList = new ArrayList<>();
@@ -238,7 +220,9 @@ public class PastReservationFragment  extends BaseFragment {
     ((BaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
     ReservationAdapter reservationAdapter = new ReservationAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context),reservationList);
-    recyclerViewReservation.setAdapter(reservationAdapter);
+    recyclerViewPastReservationList.setAdapter(reservationAdapter);
+    AppUtil.animateRecyclerView(context,recyclerViewPastReservationList,
+        R.anim.layout_animation_from_bottom);
   }
 }
 

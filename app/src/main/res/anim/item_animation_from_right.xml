@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~  Created by Emaar Hospitality Group on 9/8/18 11:07 AM
+  ~  Created by Emaar Hospitality Group on 5/10/18 3:58 PM
   ~  Copyright (C) 2018  All rights reserved.
-  ~  Last modified 9/8/18 11:07 AM
+  ~  Last modified 5/10/18 3:58 PM
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
   ~  you may not use this file except in compliance with the License.
@@ -18,20 +18,19 @@
   ~
   -->
 
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+  android:duration="500">
 
-  <include layout="@layout/view_all_tab_layout"/>
+  <translate
+    android:fromXDelta="100%p"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:toXDelta="0"
+    />
 
-  <!--<com.yayandroid.parallaxrecyclerview.ParallaxRecyclerView
-    android:scrollbars="vertical"
-    android:layout_gravity="center"
-    android:id="@+id/parallax_recyclerView_offer_fragment_list"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    />-->
+  <alpha
+    android:fromAlpha="0"
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:toAlpha="1"
+    />
 
-</LinearLayout>
+</set>

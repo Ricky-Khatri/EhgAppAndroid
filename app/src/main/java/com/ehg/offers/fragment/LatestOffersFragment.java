@@ -162,7 +162,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
         break;
 
       case R.id.linearlayout_latestoffers_filter:
-        showSortDialog();
+        //showSortDialog();
         break;
 
       default:
@@ -232,6 +232,8 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationAdapter = new ReservationAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context), reservationList);
     recyclerViewLatetsOffers.setAdapter(reservationAdapter);
+    AppUtil.animateRecyclerView(context,recyclerViewLatetsOffers,
+        R.anim.layout_animation_from_bottom);
   }
 
   /**
@@ -304,9 +306,11 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
 
           } else if (!radioButtonSortAtoZ.isChecked() && !radioButtonSortZtoA.isChecked()) {
 
+            radioButtonSortAtoZ.setChecked(false);
+            radioButtonSortZtoA.setChecked(false);
             AppUtil.showToast(context,
                 context.getResources().getString(R.string.sortoffersdialog_pleasechooseoneoption));
-
+            dialog.dismiss();
           }
         }
       });

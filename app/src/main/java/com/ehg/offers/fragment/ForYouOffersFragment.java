@@ -160,7 +160,7 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
         break;
 
       case R.id.linearlayout_foryouoffers_filter:
-        showSortDialog();
+        //showSortDialog();
         break;
 
       default:
@@ -230,6 +230,8 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
     reservationAdapter = new ReservationAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context), reservationList);
     recyclerViewForYouOffers.setAdapter(reservationAdapter);
+    AppUtil.animateRecyclerView(context,recyclerViewForYouOffers,
+        R.anim.layout_animation_from_bottom);
   }
 
   /**

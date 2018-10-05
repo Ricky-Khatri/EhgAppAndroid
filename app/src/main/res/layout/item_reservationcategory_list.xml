@@ -33,6 +33,7 @@
     android:layout_marginStart="@dimen/elevation_all_header"
     android:layout_marginEnd="@dimen/elevation_all_header"
     style="@style/AppLabelsTextAppearance"
+    android:textSize="@dimen/textsize_signup_termsandcondition"
     android:paddingTop="@dimen/elevation_all_header"
     android:paddingBottom="@dimen/elevation_all_header"
     android:paddingStart="@dimen/padding_all_headerbutton"

@@ -174,11 +174,15 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     recyclerViewHotelList.setHasFixedSize(true);
     homeFragmentAdapter = new HomeFragmentAdapter(context);
     recyclerViewHotelList.setAdapter(homeFragmentAdapter);
+    AppUtil.animateRecyclerView(context,recyclerViewHotelList,
+        R.anim.layout_animation_from_right);
 
     //Room controls Recyclerview
     recyclerViewRoomControls.setLayoutManager(new LinearLayoutManager(this.context,
         LinearLayoutManager.HORIZONTAL, false));
     recyclerViewRoomControls.setAdapter(new HomeRoomControlAdapter(context, imageUrl));
+    AppUtil.animateRecyclerView(context,recyclerViewRoomControls,
+        R.anim.layout_animation_from_right);
 
     /* ParallaxRecyclerView recyclerViewOfferList = view
         .findViewById(R.id.parallax_recyclerView_home_fragment_list);
