@@ -35,7 +35,6 @@ public class FragmentHistoryUtil {
             return;
         }
         stackArr.add(entry);
-
     }
 
     private boolean isAlreadyExists(int entry) {

@@ -162,7 +162,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
         break;
 
       case R.id.linearlayout_latestoffers_filter:
-        showSortDialog();
+        //showSortDialog();
         break;
 
       default:
@@ -192,6 +192,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationPojo.setCheckoutDate("12:15 PM");
     reservationPojo.setAdults("Adults : 2");
     reservationPojo.setChilds("Children : 2");
+    reservationPojo.setType("Hotel");
     reservationPojo.setTimeAvailable(false);
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
@@ -202,6 +203,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationPojo.setAdults("Guests : 4");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Restaurant");
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("The Spa");
@@ -211,6 +213,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationPojo.setAdults("Guests : 2");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Spa");
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("Golf");
@@ -220,15 +223,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationPojo.setAdults("Guests : 2");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
-    reservationList.add(reservationPojo);
-    reservationPojo = new ReservationPojo();
-    reservationPojo.setTitle("Lounge");
-    reservationPojo.setAddress("Address downtown");
-    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
-    reservationPojo.setAdults("Guests : 4");
-    reservationPojo.setChilds("");
-    reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Golf");
     reservationList.add(reservationPojo);
 
     //Set adapter
@@ -237,6 +232,8 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationAdapter = new ReservationAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context), reservationList);
     recyclerViewLatetsOffers.setAdapter(reservationAdapter);
+    AppUtil.animateRecyclerView(context,recyclerViewLatetsOffers,
+        R.anim.layout_animation_from_bottom);
   }
 
   /**
@@ -309,9 +306,11 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
 
           } else if (!radioButtonSortAtoZ.isChecked() && !radioButtonSortZtoA.isChecked()) {
 
+            radioButtonSortAtoZ.setChecked(false);
+            radioButtonSortZtoA.setChecked(false);
             AppUtil.showToast(context,
                 context.getResources().getString(R.string.sortoffersdialog_pleasechooseoneoption));
-
+            dialog.dismiss();
           }
         }
       });

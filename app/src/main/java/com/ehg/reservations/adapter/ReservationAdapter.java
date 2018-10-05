@@ -20,6 +20,7 @@
 package com.ehg.reservations.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
       ArrayList<ReservationPojo> reservationList) {
     this.context = context;
     this.inflater = LayoutInflater.from(context);
-    this.itemHeight = itemHeight / 4;
+    this.itemHeight = itemHeight / 4 - 50;
     this.reservationList = reservationList;
   }
 
@@ -61,6 +62,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
    * @param position integer position
    * @return returns ViewHolder object
    */
+  @NonNull
   @Override
   public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
     return new ViewHolder(inflater.inflate(R.layout.item_reservation_list,
@@ -74,7 +76,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
    * @param position integer position
    */
   @Override
-  public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+  public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
 
     /*Glide.with(context).load(bookList.get(position).getImageUrl())
         .into(viewHolder.appCompatImageViewThumb);*/
@@ -88,14 +90,15 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     } else {
       viewHolder.linearLayoutTime.setVisibility(View.GONE);
       viewHolder.linearLayoutCheckoutDate.setVisibility(View.VISIBLE);
-      viewHolder.textViewcheckoutDate.setText(reservationPojo.getCheckoutDate());
+      viewHolder.textViewCheckoutDate.setText(reservationPojo.getCheckoutDate());
     }
 
     viewHolder.textViewTitle.setText(reservationPojo.getTitle());
-    viewHolder.textViewaddress.setText(reservationPojo.getAddress());
-    viewHolder.textViewcheckinDate.setText(reservationPojo.getCheckinDate());
+    viewHolder.textViewAddress.setText(reservationPojo.getAddress());
+    viewHolder.textViewCheckinDate.setText(reservationPojo.getCheckinDate());
     viewHolder.textViewAdults.setText(reservationPojo.getAdults());
     viewHolder.textViewChilds.setText(reservationPojo.getChilds());
+    viewHolder.textViewReservationType.setText(reservationPojo.getType());
   }
 
   /**
@@ -114,12 +117,13 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
   public class ViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView textViewTitle;
-    private final TextView textViewaddress;
-    private final TextView textViewcheckinDate;
-    private final TextView textViewcheckoutDate;
+    private final TextView textViewAddress;
+    private final TextView textViewCheckinDate;
+    private final TextView textViewCheckoutDate;
     private final TextView textViewAdults;
     private final TextView textViewChilds;
     private final TextView textViewTime;
+    private final TextView textViewReservationType;
 
     private final AppCompatImageView appCompatImageViewThumb;
 
@@ -135,12 +139,13 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
       super(view);
 
       textViewTitle = view.findViewById(R.id.textview_itemreservationlist_title);
-      textViewaddress = view.findViewById(R.id.textview_itemreservationlist_address);
-      textViewcheckinDate = view.findViewById(R.id.textview_itemreservationlist_checkindate);
-      textViewcheckoutDate = view.findViewById(R.id.textview_itemreservationlist_checkoutdate);
+      textViewAddress = view.findViewById(R.id.textview_itemreservationlist_address);
+      textViewCheckinDate = view.findViewById(R.id.textview_itemreservationlist_checkindate);
+      textViewCheckoutDate = view.findViewById(R.id.textview_itemreservationlist_checkoutdate);
       textViewAdults = view.findViewById(R.id.textview_itemreservationlist_adults);
       textViewChilds = view.findViewById(R.id.textview_itemreservationlist_childs);
       textViewTime = view.findViewById(R.id.textview_itemreservationlist_time);
+      textViewReservationType = view.findViewById(R.id.textview_itemreservationlist_reservationtype);
       appCompatImageViewThumb = view.findViewById(R.id.imageview_itembookinglist_image);
       linearLayoutCheckoutDate = view
           .findViewById(R.id.linearlayout_itemreservationlist_checkoutdate);

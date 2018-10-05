@@ -158,6 +158,8 @@ public class UpcomingReservationFragment  extends BaseFragment {
     ReservationCategoryAdapter reservationCategoryAdapter = new ReservationCategoryAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context),reservationCategoryList);
     recyclerViewReservationCategory.setAdapter(reservationCategoryAdapter);
+    AppUtil.animateRecyclerView(context,recyclerViewReservationCategory,
+        R.anim.layout_animation_from_right);
   }
 
   /**
@@ -166,21 +168,22 @@ public class UpcomingReservationFragment  extends BaseFragment {
    */
   private void initReservationList(View view) {
     //Init vertical reservation recycler view
-    RecyclerView recyclerViewReservation = view
+    RecyclerView recyclerViewUpcomingReservationList = view
         .findViewById(R.id.recyclerview_upcomingreservation_reservation);
-    recyclerViewReservation.setLayoutManager(
+    recyclerViewUpcomingReservationList.setLayoutManager(
         new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-    recyclerViewReservation.setHasFixedSize(true);
+    recyclerViewUpcomingReservationList.setHasFixedSize(true);
 
     //Prepare data
     reservationList = new ArrayList<>();
     ReservationPojo reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("Address Downtown");
     reservationPojo.setAddress("Downtown, Dubai");
-    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
+    reservationPojo.setCheckinDate("Check-in Date : 17, Oct 2018");
+    reservationPojo.setCheckoutDate("Check-out Date : 17, Oct 2018");
     reservationPojo.setAdults("Adults : 2");
     reservationPojo.setChilds("Children : 2");
+    reservationPojo.setType("Hotel");
     reservationPojo.setTimeAvailable(false);
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
@@ -191,6 +194,7 @@ public class UpcomingReservationFragment  extends BaseFragment {
     reservationPojo.setAdults("Guests : 4");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Restaurant");
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("The Spa");
@@ -200,6 +204,7 @@ public class UpcomingReservationFragment  extends BaseFragment {
     reservationPojo.setAdults("Guests : 2");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Spa");
     reservationList.add(reservationPojo);
     reservationPojo = new ReservationPojo();
     reservationPojo.setTitle("Golf");
@@ -209,15 +214,7 @@ public class UpcomingReservationFragment  extends BaseFragment {
     reservationPojo.setAdults("Guests : 2");
     reservationPojo.setChilds("");
     reservationPojo.setTimeAvailable(true);
-    reservationList.add(reservationPojo);
-    reservationPojo = new ReservationPojo();
-    reservationPojo.setTitle("Lounge");
-    reservationPojo.setAddress("Address downtown");
-    reservationPojo.setCheckinDate("Date : 21, Oct 2018");
-    reservationPojo.setCheckoutDate("12:15 PM");
-    reservationPojo.setAdults("Guests : 4");
-    reservationPojo.setChilds("");
-    reservationPojo.setTimeAvailable(true);
+    reservationPojo.setType("Golf");
     reservationList.add(reservationPojo);
 
     //Set adapter
@@ -225,7 +222,9 @@ public class UpcomingReservationFragment  extends BaseFragment {
     ((BaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
     ReservationAdapter reservationAdapter = new ReservationAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context),reservationList);
-    recyclerViewReservation.setAdapter(reservationAdapter);
+    recyclerViewUpcomingReservationList.setAdapter(reservationAdapter);
+    AppUtil.animateRecyclerView(context,recyclerViewUpcomingReservationList,
+        R.anim.layout_animation_from_bottom);
   }
 }
 

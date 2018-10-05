@@ -142,5 +142,7 @@ public class BookingFragment extends BaseFragment {
     BookingAdapter bookingAdapter = new BookingAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context),bookList);
     recyclerViewBookList.setAdapter(bookingAdapter);
+    AppUtil.animateRecyclerView(context,recyclerViewBookList,
+        R.anim.layout_animation_from_bottom);
   }
 }

@@ -35,7 +35,7 @@
     android:foreground="?attr/selectableItemBackground"
     android:layout_width="@dimen/size_all_backicon"
     android:layout_height="@dimen/size_all_backicon"
-    android:padding="@dimen/padding_all_headerbutton"
+    android:padding="@dimen/elevation_all_header"
     android:tint="@color/white"
     app:srcCompat="@drawable/ic_back_arrow"/>
 

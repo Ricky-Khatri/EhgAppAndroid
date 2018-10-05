@@ -53,6 +53,8 @@
         style="@style/AppLabelsTextAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="@dimen/textsize_signup_termsandcondition"
         android:text="@string/setting_preferences"/>
 
       <LinearLayout
@@ -92,6 +94,8 @@
         style="@style/AppLabelsTextAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="@dimen/textsize_signup_termsandcondition"
         android:text="@string/settings_support"/>
 
       <LinearLayout
@@ -131,6 +135,8 @@
         style="@style/AppLabelsTextAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="@dimen/textsize_signup_termsandcondition"
         android:text="@string/settings_privacy_policy"/>
 
       <LinearLayout
@@ -171,6 +177,8 @@
         style="@style/AppLabelsTextAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="@dimen/textsize_signup_termsandcondition"
         android:text="@string/settings_termsandconditions"/>
 
       <LinearLayout
@@ -211,6 +219,8 @@
         style="@style/AppLabelsTextAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="@dimen/textsize_signup_termsandcondition"
         android:text="@string/settings_language"/>
 
       <LinearLayout
@@ -250,6 +260,8 @@
         style="@style/AppLabelsTextAppearance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/colorDarkerGray"
+        android:textSize="@dimen/textsize_signup_termsandcondition"
         android:text="@string/settings_sign_in_sign_up"/>
 
       <LinearLayout

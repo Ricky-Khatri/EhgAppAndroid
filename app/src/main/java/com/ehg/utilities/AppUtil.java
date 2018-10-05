@@ -39,6 +39,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -51,6 +52,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -94,6 +96,17 @@ public class AppUtil {
       return displaymetrics.widthPixels;
     } else {
       return 0;
+    }
+  }
+
+  public static void animateRecyclerView(Context context, RecyclerView recyclerView, int resourceId){
+    try{
+      LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context, resourceId);
+      recyclerView.setLayoutAnimation(animation);
+    }catch (NullPointerException n){
+      n.printStackTrace();
+    }catch (Exception e){
+      e.printStackTrace();
     }
   }
 
