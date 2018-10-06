@@ -31,10 +31,11 @@
     android:layout_height="wrap_content"
     android:layout_alignParentStart="true"
     android:layout_centerVertical="true"
+    android:textSize="@dimen/textsize_signup_termsandcondition"
     android:textColor="@color/colorGray"/>
 
-  <ToggleButton
-    android:id="@+id/togglebutton_userpreferences"
+  <Switch
+    android:id="@+id/switch_userpreferences"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"

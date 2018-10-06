@@ -92,6 +92,8 @@ public class UserPreferencesActivity extends BaseActivity
     UserPreferencesAdapter userPreferencesAdapter =
         new UserPreferencesAdapter(this, userPreferencesList);
     recyclerViewUserPreferencesList.setAdapter(userPreferencesAdapter);
+    AppUtil.animateRecyclerView(this,
+        recyclerViewUserPreferencesList,R.anim.layout_animation_from_bottom);
 
     //Set OnClickListener
     AppCompatImageView appCompatImageViewBackArrow = findViewById(R.id.imageview_header_back);
