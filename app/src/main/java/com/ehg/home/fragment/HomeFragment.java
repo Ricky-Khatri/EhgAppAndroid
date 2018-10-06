@@ -174,14 +174,14 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     recyclerViewHotelList.setHasFixedSize(true);
     homeFragmentAdapter = new HomeFragmentAdapter(context);
     recyclerViewHotelList.setAdapter(homeFragmentAdapter);
-    AppUtil.animateRecyclerView(context,recyclerViewHotelList,
+    AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_right);
 
     //Room controls Recyclerview
     recyclerViewRoomControls.setLayoutManager(new LinearLayoutManager(this.context,
         LinearLayoutManager.HORIZONTAL, false));
     recyclerViewRoomControls.setAdapter(new HomeRoomControlAdapter(context, imageUrl));
-    AppUtil.animateRecyclerView(context,recyclerViewRoomControls,
+    AppUtil.animateRecyclerView(context, recyclerViewRoomControls,
         R.anim.layout_animation_from_right);
 
     /* ParallaxRecyclerView recyclerViewOfferList = view
@@ -196,8 +196,8 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     recyclerViewOfferList.setAdapter(offerListAdapter);*/
 
     //Show room controls recycler view if user is Sign-in
-    if(!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
-        SharedPreferenceUtils.LOYALTY_MEMBER_ID,""))) {
+    if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
+        SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
       linearLayoutRoomControls.setVisibility(View.VISIBLE);
       linearLayoutGuestDetails.setVisibility(View.VISIBLE);
     } else {
@@ -229,8 +229,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_2.jpg");
     listName.add("Address Boulevard");
 
-    listUrl.add(
-        "http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg");
+    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg");
     listName.add("Rov");
 
     listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png");

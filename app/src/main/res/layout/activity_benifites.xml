@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~  Created by Emaar Hospitality Group on 25/9/18 11:31 AM
+  ~  Created by Emaar Hospitality Group on 6/10/18 2:24 PM
   ~  Copyright (C) 2018  All rights reserved.
-  ~  Last modified 25/9/18 11:31 AM
+  ~  Last modified 6/10/18 2:24 PM
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
   ~  you may not use this file except in compliance with the License.
@@ -24,31 +24,34 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical"
-  tools:context=".ubyemaar.UserPreferencesActivity">
+  tools:context=".ubyemaar.BenefitsActivity">
 
   <include layout="@layout/layout_header_with_navigation"/>
 
   <TextView
-    android:layout_margin="@dimen/margin_all_vertical"
-    android:id="@+id/textview_userpreferences_title"
+    android:id="@+id/textview_benefits_tier"
+    style="@style/AppLabelsTextAppearance"
+    android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    style="@style/AppLabelsTextAppearance"
-    android:textColor="@color/colorGray"
-    android:text="@string/userpreferences_experiencesyoulike"/>
+    android:layout_margin="@dimen/margin_all_horizontal"
+    android:layout_gravity="start"
+    android:text="@string/benefits_yourtierbenefits"/>
 
   <View
-    android:layout_marginStart="@dimen/margin_all_vertical"
-    android:layout_marginEnd="@dimen/margin_all_vertical"
     android:layout_width="match_parent"
-    android:background="@color/colorGray"
-    android:layout_height="0.5dp"/>
+    android:layout_height="0.5dp"
+    android:layout_marginEnd="@dimen/margin_all_horizontal"
+    android:layout_marginStart="@dimen/margin_all_horizontal"
+    android:background="@color/colorDarkerGray"/>
 
   <android.support.v7.widget.RecyclerView
-    android:layout_margin="@dimen/margin_all_vertical"
-    android:id="@+id/recyclerview_userpreferences_list"
+    android:id="@+id/recyclerview_benefits_benefitslist"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-  </android.support.v7.widget.RecyclerView>
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/margin_all_horizontal"
+    android:layout_marginEnd="@dimen/margin_all_horizontal"
+    android:layout_marginBottom="@dimen/margin_all_horizontal">
 
+  </android.support.v7.widget.RecyclerView>
 </LinearLayout>

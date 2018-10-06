@@ -70,17 +70,17 @@
           <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/margin_all_vertical"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
             <LinearLayout
               android:id="@+id/linearlayout_ubyemaar_membership"
-              android:layout_centerVertical="true"
-              android:layout_marginStart="@dimen/margin_all_horizontal"
-              android:layout_alignParentStart="true"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/margin_all_horizontal"
+              android:layout_alignParentStart="true"
+              android:layout_centerVertical="true"
               android:orientation="vertical">
 
               <TextView
@@ -106,13 +106,13 @@
             </LinearLayout>
 
             <LinearLayout
-              android:layout_centerVertical="true"
-              android:layout_marginStart="@dimen/margin_all_horizontal"
               android:id="@+id/linearlayout_ubyemaar_totalpoints"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:gravity="left"
+              android:layout_marginStart="@dimen/margin_all_horizontal"
+              android:layout_centerVertical="true"
               android:layout_toEndOf="@+id/linearlayout_ubyemaar_membership"
+              android:gravity="left"
               android:orientation="vertical">
 
               <TextView
@@ -136,53 +136,53 @@
                 android:textSize="@dimen/textsize_all_guesttitle"/>
             </LinearLayout>
 
-          <LinearLayout
-            android:id="@+id/linearlayout_ubyemaar_aed"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/margin_all_horizontal"
-            android:layout_marginEnd="@dimen/elevation_all_header"
-            android:layout_toEndOf="@+id/linearlayout_ubyemaar_totalpoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:orientation="vertical">
-
             <LinearLayout
-              android:orientation="horizontal"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
-
-              <TextView
-                android:id="@+id/textview_ubyemaar_amount"
-                style="@style/HeaderTextAppearance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:text="@string/ubyemaar_amountlabel"
-                android:textColor="@color/colorHeaderView"/>
-
-              <TextView
-                android:id="@+id/textview_ubyemaar_currency"
-                android:layout_marginStart="@dimen/elevation_all_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:text="@string/ubyemaar_aedcurrency"
-                android:textColor="@color/colorHeaderView"
-                android:textSize="@dimen/textsize_all_guestdetail"/>
-
-            </LinearLayout>
-
-            <TextView
-              android:id="@+id/textview_ubyemaar_amountlabel"
+              android:id="@+id/linearlayout_ubyemaar_aed"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:layout_marginStart="@dimen/margin_all_horizontal"
+              android:layout_marginEnd="@dimen/elevation_all_header"
+              android:layout_centerVertical="true"
+              android:layout_toEndOf="@+id/linearlayout_ubyemaar_totalpoints"
               android:gravity="start"
-              android:text="@string/ubyemaar_availabletoredeemlabel"
-              android:textColor="@color/colorHeaderView"
-              android:textSize="@dimen/textsize_all_guesttitle"/>
+              android:orientation="vertical">
 
-          </LinearLayout>
+              <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                  android:id="@+id/textview_ubyemaar_amount"
+                  style="@style/HeaderTextAppearance"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="start"
+                  android:text="@string/ubyemaar_amountlabel"
+                  android:textColor="@color/colorHeaderView"/>
+
+                <TextView
+                  android:id="@+id/textview_ubyemaar_currency"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginStart="@dimen/elevation_all_header"
+                  android:gravity="start"
+                  android:text="@string/ubyemaar_aedcurrency"
+                  android:textColor="@color/colorHeaderView"
+                  android:textSize="@dimen/textsize_all_guestdetail"/>
+
+              </LinearLayout>
+
+              <TextView
+                android:id="@+id/textview_ubyemaar_amountlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@string/ubyemaar_availabletoredeemlabel"
+                android:textColor="@color/colorHeaderView"
+                android:textSize="@dimen/textsize_all_guesttitle"/>
+
+            </LinearLayout>
           </RelativeLayout>
 
         </RelativeLayout>
@@ -196,6 +196,9 @@
           android:paddingBottom="@dimen/textsize_all_labels"
           android:paddingStart="@dimen/textsize_all_guestdetail"
           android:paddingEnd="@dimen/margin_all_continueasguest"
+          android:clickable="true"
+          android:focusable="true"
+          android:foreground="?attr/selectableItemBackground"
           android:gravity="center"
           android:orientation="horizontal">
 
@@ -204,7 +207,8 @@
             style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ubyemaar_profilelabels"/>
+            android:text="@string/ubyemaar_profilelabels"
+            android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
           <LinearLayout
             android:layout_width="0dp"
@@ -216,6 +220,7 @@
             <android.support.v7.widget.AppCompatImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:tint="@color/colorDarkerGray"
               app:srcCompat="@drawable/all_arrowpointtoright"/>
 
           </LinearLayout>
@@ -224,7 +229,7 @@
 
         <View
           android:layout_width="match_parent"
-          android:layout_height="1dp"
+          android:layout_height="@dimen/height_all_viewline"
           android:layout_marginStart="@dimen/padding_all_imageview"
           android:layout_marginEnd="@dimen/padding_all_imageview"
           android:background="@color/colorHeaderView"/>
@@ -237,6 +242,9 @@
           android:paddingBottom="@dimen/textsize_all_labels"
           android:paddingStart="@dimen/textsize_all_guestdetail"
           android:paddingEnd="@dimen/margin_all_continueasguest"
+          android:clickable="true"
+          android:focusable="true"
+          android:foreground="?attr/selectableItemBackground"
           android:gravity="center"
           android:orientation="horizontal">
 
@@ -245,7 +253,8 @@
             style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ubyemaar_upointlabel"/>
+            android:text="@string/ubyemaar_upointlabel"
+            android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
           <LinearLayout
             android:layout_width="0dp"
@@ -257,6 +266,7 @@
             <android.support.v7.widget.AppCompatImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:tint="@color/colorDarkerGray"
               app:srcCompat="@drawable/all_arrowpointtoright"/>
 
           </LinearLayout>
@@ -265,7 +275,7 @@
 
         <View
           android:layout_width="match_parent"
-          android:layout_height="1dp"
+          android:layout_height="@dimen/height_all_viewline"
           android:layout_marginStart="@dimen/padding_all_imageview"
           android:layout_marginEnd="@dimen/padding_all_imageview"
           android:background="@color/colorHeaderView"/>
@@ -278,6 +288,9 @@
           android:paddingBottom="@dimen/textsize_all_labels"
           android:paddingStart="@dimen/textsize_all_guestdetail"
           android:paddingEnd="@dimen/margin_all_continueasguest"
+          android:clickable="true"
+          android:focusable="true"
+          android:foreground="?attr/selectableItemBackground"
           android:gravity="center"
           android:orientation="horizontal">
 
@@ -286,7 +299,8 @@
             style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ubyemaar_preferenceslabel"/>
+            android:text="@string/ubyemaar_preferenceslabel"
+            android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
           <LinearLayout
             android:layout_width="0dp"
@@ -298,6 +312,7 @@
             <android.support.v7.widget.AppCompatImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:tint="@color/colorDarkerGray"
               app:srcCompat="@drawable/all_arrowpointtoright"/>
 
           </LinearLayout>
@@ -306,7 +321,7 @@
 
         <View
           android:layout_width="match_parent"
-          android:layout_height="1dp"
+          android:layout_height="@dimen/height_all_viewline"
           android:layout_marginStart="@dimen/padding_all_imageview"
           android:layout_marginEnd="@dimen/padding_all_imageview"
           android:background="@color/colorHeaderView"/>
@@ -319,6 +334,9 @@
           android:paddingBottom="@dimen/textsize_all_labels"
           android:paddingStart="@dimen/textsize_all_guestdetail"
           android:paddingEnd="@dimen/margin_all_continueasguest"
+          android:clickable="true"
+          android:focusable="true"
+          android:foreground="?attr/selectableItemBackground"
           android:gravity="center"
           android:orientation="horizontal">
 
@@ -327,7 +345,8 @@
             style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ubyemaar_benefitslabel"/>
+            android:text="@string/ubyemaar_benefitslabel"
+            android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
           <LinearLayout
             android:layout_width="0dp"
@@ -339,6 +358,7 @@
             <android.support.v7.widget.AppCompatImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:tint="@color/colorDarkerGray"
               app:srcCompat="@drawable/all_arrowpointtoright"/>
           </LinearLayout>
 
@@ -346,7 +366,7 @@
 
         <View
           android:layout_width="match_parent"
-          android:layout_height="1dp"
+          android:layout_height="@dimen/height_all_viewline"
           android:layout_marginStart="@dimen/padding_all_imageview"
           android:layout_marginEnd="@dimen/padding_all_imageview"
           android:background="@color/colorHeaderView"/>
