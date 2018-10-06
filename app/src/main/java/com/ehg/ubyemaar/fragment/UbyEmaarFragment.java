@@ -101,7 +101,6 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
       ((HomeActivity) Objects.requireNonNull(getActivity()))
           .updateToolbarTitle(getResources().getString(R.string.u_by_emaar_title));
     }
-
     return view;
   }
 
@@ -204,6 +203,8 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     switch (view.getId()) {
 
       case R.id.linearlayout_ubyemaar_profile:
+        AppUtil.showAlertDialog((AppCompatActivity) context,"Function not implemented.",
+            false,"",true,null);
         break;
 
       case R.id.linearlayout_ubyemaar_upointactivity:

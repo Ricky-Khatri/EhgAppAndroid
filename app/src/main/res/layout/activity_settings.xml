@@ -68,6 +68,7 @@
           android:id="@+id/imageview_setting_preference"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:tint="@color/colorDarkerGray"
           app:srcCompat="@drawable/all_arrowpointtoright"/>
 
       </LinearLayout>
@@ -75,7 +76,7 @@
 
     <View
       android:layout_width="match_parent"
-      android:layout_height="1dp"
+      android:layout_height="@dimen/height_all_viewline"
       android:background="@color/colorHeaderView"/>
 
     <LinearLayout
@@ -109,6 +110,7 @@
           android:id="@+id/imageview_setting_support"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:tint="@color/colorDarkerGray"
           app:srcCompat="@drawable/all_arrowpointtoright"/>
 
       </LinearLayout>
@@ -116,7 +118,7 @@
 
     <View
       android:layout_width="match_parent"
-      android:layout_height="1dp"
+      android:layout_height="@dimen/height_all_viewline"
       android:background="@color/colorHeaderView"/>
 
     <LinearLayout
@@ -150,6 +152,7 @@
           android:id="@+id/imageview_setting_privacypolicy"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:tint="@color/colorDarkerGray"
           app:srcCompat="@drawable/all_arrowpointtoright"/>
 
       </LinearLayout>
@@ -158,7 +161,7 @@
 
     <View
       android:layout_width="match_parent"
-      android:layout_height="1dp"
+      android:layout_height="@dimen/height_all_viewline"
       android:background="@color/colorHeaderView"/>
 
     <LinearLayout
@@ -192,6 +195,7 @@
           android:id="@+id/imageview_setting_termsandcondition"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:tint="@color/colorDarkerGray"
           app:srcCompat="@drawable/all_arrowpointtoright"/>
 
       </LinearLayout>
@@ -200,7 +204,7 @@
 
     <View
       android:layout_width="match_parent"
-      android:layout_height="1dp"
+      android:layout_height="@dimen/height_all_viewline"
       android:background="@color/colorHeaderView"/>
 
     <LinearLayout
@@ -234,6 +238,7 @@
           android:id="@+id/imageview_setting_language"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:tint="@color/colorDarkerGray"
           app:srcCompat="@drawable/all_arrowpointtoright"/>
 
       </LinearLayout>
@@ -241,7 +246,7 @@
 
     <View
       android:layout_width="match_parent"
-      android:layout_height="1dp"
+      android:layout_height="@dimen/height_all_viewline"
       android:background="@color/colorHeaderView"/>
 
     <LinearLayout
@@ -275,6 +280,7 @@
           android:id="@+id/imageview_setting_userstate"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:tint="@color/colorDarkerGray"
           app:srcCompat="@drawable/all_arrowpointtoright"/>
 
       </LinearLayout>

@@ -101,6 +101,9 @@ public class HomeFragmentHorizontalItemAdapter extends
     return imageUrls != null && imageUrls.length > 0 ? imageUrls.length : 0;
   }
 
+  /**
+   * ViewHolder class.
+   */
   public class ViewHolder extends RecyclerView.ViewHolder {
 
     private final RoundedImageView roundedImageView;
@@ -120,6 +123,7 @@ public class HomeFragmentHorizontalItemAdapter extends
 
       roundedImageView.getLayoutParams().height = heightWidthFactor;
       roundedImageView.getLayoutParams().width = heightWidthFactor;
+      textViewBrandName.getLayoutParams().width = heightWidthFactor;
     }
   }
 }
