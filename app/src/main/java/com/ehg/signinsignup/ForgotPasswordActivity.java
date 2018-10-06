@@ -178,7 +178,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
           forgotPassword(accountId);
         }
       } else if (!TextUtils.isEmpty(email)) {
-        if (!AppUtil.isall_emailValid(email)) {
+        if (!AppUtil.isValidEmail(email)) {
           textViewEmail.setError(getString(R.string.all_invalidemail));
           textViewEmail.requestFocus();
         } else {

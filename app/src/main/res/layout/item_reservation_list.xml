@@ -127,7 +127,7 @@
         android:id="@+id/linearlayout_itemreservationlist_checkoutdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/elevation_all_header"
+        android:layout_marginStart="@dimen/margin_all_horizontal"
         android:orientation="vertical">
 
         <TextView

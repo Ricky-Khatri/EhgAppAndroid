@@ -19,68 +19,77 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:orientation="vertical">
 
   <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/elevation_all_header">
 
     <LinearLayout
-      android:layout_alignParentStart="true"
-      android:layout_margin="@dimen/elevation_all_header"
       android:id="@+id/linearlayout_latestoffers_sort"
-      android:orientation="horizontal"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_margin="@dimen/elevation_all_header"
+      android:layout_alignParentStart="true"
+      android:paddingStart="@dimen/margin_all_horizontal"
+      android:paddingEnd="@dimen/margin_all_horizontal"
+      android:background="@drawable/all_rounded_border"
+      android:clickable="true"
+      android:focusable="true"
+      android:foreground="?attr/selectableItemBackground"
       android:gravity="center"
-      android:background="@drawable/all_rounded_button">
+      android:orientation="horizontal">
 
       <TextView
         style="@style/AppLabelsTextAppearance"
-        android:layout_margin="@dimen/elevation_all_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/elevation_all_header"
         android:text="@string/all_sort"
-        android:textColor="@color/white"
         />
 
       <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imageview_latestoffers_sort"
-        android:layout_margin="@dimen/elevation_all_header"
         android:layout_width="@dimen/imagesize_all_locationimage"
         android:layout_height="@dimen/imagesize_all_locationimage"
-        app:srcCompat="@mipmap/ic_launcher"/>
+        android:layout_margin="@dimen/elevation_all_header"
+        app:srcCompat="@drawable/all_sorticon"/>
 
     </LinearLayout>
 
     <LinearLayout
-      android:layout_alignParentEnd="true"
-      android:layout_margin="@dimen/elevation_all_header"
       android:id="@+id/linearlayout_latestoffers_filter"
-      android:orientation="horizontal"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_margin="@dimen/elevation_all_header"
+      android:layout_alignParentEnd="true"
+      android:paddingStart="@dimen/margin_all_horizontal"
+      android:paddingEnd="@dimen/margin_all_horizontal"
+      android:background="@drawable/all_rounded_border"
+      android:clickable="true"
+      android:focusable="true"
+      android:foreground="?attr/selectableItemBackground"
       android:gravity="center"
-      android:background="@drawable/all_rounded_button">
+      android:orientation="horizontal">
 
       <TextView
         style="@style/AppLabelsTextAppearance"
-        android:layout_margin="@dimen/elevation_all_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/elevation_all_header"
         android:text="@string/all_filter"
-        android:textColor="@color/white"
         />
 
       <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imageview_latestoffers_filter"
-        android:layout_margin="@dimen/elevation_all_header"
         android:layout_width="@dimen/imagesize_all_locationimage"
         android:layout_height="@dimen/imagesize_all_locationimage"
-        app:srcCompat="@mipmap/ic_launcher"/>
+        android:layout_margin="@dimen/elevation_all_header"
+        app:srcCompat="@drawable/all_filtericon"/>
 
     </LinearLayout>
 
@@ -90,8 +99,8 @@
     android:id="@+id/recyclerview_latestoffers_latestofferlist"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="@dimen/elevation_all_header">
+    android:layout_margin="@dimen/elevation_all_header"
+    android:orientation="vertical">
   </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

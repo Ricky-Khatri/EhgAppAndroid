@@ -188,10 +188,80 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    */
   @Override
   public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
+
+    boolean cancel = false;
+
     if (index == EditorInfo.IME_ACTION_DONE) {
+
       validateSignUpFormFields();
+
+    } else {
+
+      switch (textView.getId()) {
+        case R.id.edittext_signup_firstname:
+          String firstName = edittextFirstName.getText().toString().trim();
+          if (TextUtils.isEmpty(firstName)) {
+            edittextFirstName.setError(getResources().getString(R.string.all_fieldrequired));
+            cancel = true;
+
+          } else {
+            cancel = false;
+          }
+          break;
+
+        case R.id.edittext_signup_lastname:
+          String lastName = edittextLastName.getText().toString().trim();
+          if (TextUtils.isEmpty(lastName)) {
+            edittextLastName.setError(getResources().getString(R.string.all_fieldrequired));
+            cancel = true;
+          } else {
+            cancel = false;
+          }
+          break;
+
+        case R.id.edittext_signup_email:
+          String email = edittextEmail.getText().toString().trim();
+          if (TextUtils.isEmpty(email)) {
+            edittextEmail.setError(getResources().getString(R.string.all_fieldrequired));
+            cancel = true;
+          } else if (!AppUtil.isValidEmail(email)) {
+            edittextEmail.setError(getResources().getString(R.string.all_invalidemail));
+            cancel = true;
+          } else {
+            cancel = false;
+          }
+          break;
+
+        case R.id.edittext_signup_mobile:
+          String mobile = edittextMobile.getText().toString().trim();
+          if (TextUtils.isEmpty(mobile)) {
+            edittextMobile.setError(getResources().getString(R.string.all_fieldrequired));
+            cancel = true;
+          } else if (!AppUtil.isValidMobile(mobile)) {
+            edittextMobile.setError(getResources().getString(R.string.all_invalidmobile));
+            cancel = true;
+          } else {
+            cancel = false;
+          }
+          break;
+        case R.id.edittext_signup_password:
+          String password = edittextPassword.getText().toString().trim();
+          if (TextUtils.isEmpty(password)) {
+            edittextPassword.setError(getResources().getString(R.string.all_fieldrequired));
+            cancel = true;
+          } else if (!isPasswordValid(password)) {
+            edittextPassword.setError(getResources().getString(R.string.all_passwordlength));
+            cancel = true;
+          } else {
+            cancel = false;
+          }
+          break;
+
+        default:
+          break;
+      }
     }
-    return false;
+    return cancel;
   }
 
   /**
@@ -229,16 +299,39 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
     }
   }
 
+  /**
+   * Called when parent activity resumed.
+   */
+  @Override
+  public void onResume() {
+    super.onResume();
+    resetErrors();
+  }
+
+  /**
+   * Called to reset errors on form field.
+   */
+  private void resetErrors() {
+    try {
+      //Reset errors
+      edittextFirstName.setError(null);
+      edittextLastName.setError(null);
+      edittextEmail.setError(null);
+      edittextMobile.setError(null);
+      edittextPassword.setError(null);
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
   /**
    * Method validates sign up form fields.
    */
   private void validateSignUpFormFields() {
-    edittextFirstName.setError(null);
-    edittextLastName.setError(null);
-    edittextEmail.setError(null);
-    edittextMobile.setError(null);
-    edittextPassword.setError(null);
+
+    resetErrors();
 
     boolean cancel = false;
     View focusView = null;
@@ -267,7 +360,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
       focusView = edittextEmail;
       cancel = true;
 
-    } else if (!AppUtil.isall_emailValid(email)) {
+    } else if (!AppUtil.isValidEmail(email)) {
 
       edittextEmail.setError(getResources().getString(R.string.all_invalidemail));
       focusView = edittextEmail;
