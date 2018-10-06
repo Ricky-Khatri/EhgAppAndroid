@@ -41,6 +41,7 @@ import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.signinsignup.pojo.Detail;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
+import com.ehg.ubyemaar.BenefitsActivity;
 import com.ehg.ubyemaar.UpointActivity;
 import com.ehg.ubyemaar.UserPreferencesActivity;
 import com.ehg.utilities.AppUtil;
@@ -156,10 +157,10 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     textViewCurrency = view.findViewById(R.id.textview_ubyemaar_currency);
     textViewUserName = view.findViewById(R.id.textview_ubyemaar_username);
 
-    /*view.findViewById(R.id.linearlayout_ubyemaar_profile).setOnClickListener(this);
+    view.findViewById(R.id.linearlayout_ubyemaar_profile).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_upointactivity).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_preferences).setOnClickListener(this);
-    view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);*/
+    view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);
   }
 
   /**
@@ -216,6 +217,8 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
         break;
 
       case R.id.linearlayout_ubyemaar_benefits:
+        intent = new Intent(context, BenefitsActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
         break;
 
       default:
