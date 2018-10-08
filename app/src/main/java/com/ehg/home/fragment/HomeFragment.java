@@ -195,7 +195,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
         AppUtil.getDeviceHeight((BaseActivity) context));
     recyclerViewOfferList.setAdapter(offerListAdapter);*/
 
-    //Show room controls recycler view if user is Sign-in
+    //Show room controls and guest details if user is Signed-in
     if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
         SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
       linearLayoutRoomControls.setVisibility(View.VISIBLE);
