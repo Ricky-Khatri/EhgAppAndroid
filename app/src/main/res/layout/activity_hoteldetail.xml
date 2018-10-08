@@ -25,6 +25,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".booking.hotel.HotelActivity">
+
   <include
     android:id="@+id/layout_hoteldetail_header"
     layout="@layout/layout_header_with_navigation"/>
@@ -196,8 +197,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.2"
-        android:layout_marginTop="@dimen/marginstart_header_search"
-        />
+        android:layout_marginTop="@dimen/marginstart_header_search"/>
+      
       <Button
         android:id="@+id/button_hoteldetail_callus"
         android:layout_width="0dp"

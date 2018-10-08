@@ -1,22 +1,23 @@
 /*
- * Created by Emaar Hospitality Group on 9/8/18 11:25AM
- * Copyright(C)2018All rights reserved.
- * Last modified 9/8/18 11:25AM
+ *  Created by Emaar Hospitality Group on 8/10/18 6:58 PM
+ *  Copyright (C) 2018  All rights reserved.
+ *  Last modified 8/10/18 6:58 PM
  *
- * Licensed under the Apache License,Version2.0(the"License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *  http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing,software
- * distributed under the License is distributed on an"AS IS"BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
  */
 
-package com.ehg.home.adapter;
+package com.ehg.booking.hotel.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -28,33 +29,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ehg.R;
-import com.ehg.home.fragment.HomeFragment;
+import com.ehg.home.adapter.HomeFragmentHorizontalItemAdapter;
+import com.ehg.home.adapter.HomeFragmentHorizontalItemAdapter.HorizontalItemClickListener;
 import com.ehg.utilities.LanguageUtil;
 
-/**
- * This class initiates Home fragment list for Home Fragment class.
- */
-public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapter.ViewHolder> {
+public class BrandDetailAdapter extends RecyclerView.Adapter<BrandDetailAdapter.ViewHolder> {
 
-  private HomeFragment homeFragment;
+  private HorizontalItemClickListener horizontalItemClickListener;
 
   private final Context context;
   private final LayoutInflater inflater;
   private String[] imageUrls = new String[]{
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_1.jpg",
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_2.jpg",
-      "http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png"
-      /*"http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg",
-      "http://yayandroid.com/data/github_library/parallax_listview/test_image_5.png",*/
+      "http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png",
+      "http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg"
+      /*"http://yayandroid.com/data/github_library/parallax_listview/test_image_5.png",*/
   };
 
   /**
    * Parameterized constructor for HomeFragmentAdapter.
    */
-  public HomeFragmentAdapter(Context context, HomeFragment homeFragment) {
+  public BrandDetailAdapter(Context context, HorizontalItemClickListener horizontalItemClickListener) {
     this.context = context;
     this.inflater = LayoutInflater.from(context);
-    this.homeFragment = homeFragment;
+    this.horizontalItemClickListener = horizontalItemClickListener;
   }
 
   /**
@@ -66,8 +65,8 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
    */
   @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-    return new ViewHolder(inflater.inflate(R.layout.item_home,
+  public BrandDetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
+    return new BrandDetailAdapter.ViewHolder(inflater.inflate(R.layout.item_home,
         viewGroup, false));
   }
 
@@ -78,7 +77,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
    * @param position integer position
    */
   @Override
-  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+  public void onBindViewHolder(@NonNull BrandDetailAdapter.ViewHolder viewHolder, int position) {
 
     viewHolder.recycleViewFeatureHotel.setHasFixedSize(true);
     viewHolder.recycleViewFeatureHotel
@@ -88,15 +87,19 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     String title = "";
     switch (position) {
       case 0:
-        title = "HOTELS AND RESORTS";
+        title = "HOTELS";
         break;
 
       case 1:
-        title = "EMAAR LEISURE GROUP";
+        title = "RESTAURANTS";
         break;
 
       case 2:
-        title = "RESTAURANTS";
+        title = "SPA";
+        break;
+
+      case 3:
+        title = "MEET";
         break;
 
       default:
@@ -108,7 +111,7 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
 
     //Set horizontal recycler view adapter
     viewHolder.recycleViewFeatureHotel.setAdapter(
-        new HomeFragmentHorizontalItemAdapter(context, imageUrls, title, homeFragment));
+        new HomeFragmentHorizontalItemAdapter(context, imageUrls, title,horizontalItemClickListener));
   }
 
   /**
@@ -141,3 +144,4 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
     }
   }
 }
+
