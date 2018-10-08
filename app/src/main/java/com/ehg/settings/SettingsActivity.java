@@ -300,8 +300,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
           dialog.dismiss();
 
           //TODO: Uncomment signout() method
-          signOut();
-          //clearDataAndSwitchToSigninSignup();
+          //signOut();
+          clearDataAndSwitchToSigninSignup();
         }
       });
 

@@ -160,7 +160,9 @@ public class ForYouOffersFragment extends BaseFragment implements OnClickListene
         break;
 
       case R.id.linearlayout_foryouoffers_filter:
-        //showSortDialog();
+        //TODO: Need to implement filter screen.
+        AppUtil.showAlertDialog((AppCompatActivity) context, "Function not implemented.",
+            false, "", true, null);
         break;
 
       default:
