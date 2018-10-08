@@ -19,15 +19,19 @@
 package com.ehg.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.hotel.HotelResortsListActivity;
+import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.LanguageUtil;
 
 /**
@@ -99,6 +103,18 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         break;
     }
 
+    final String finalTitle = title;
+    viewHolder.textViewShowAll.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        Intent intent = new Intent(context, HotelResortsListActivity.class);
+        intent.putExtra("title", finalTitle);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+
+
+      }
+    });
     viewHolder.textViewFeatureTitle.setText(LanguageUtil.getLanguageTitleFromKey(
         (AppCompatActivity) context, title));
 

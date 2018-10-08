@@ -43,4 +43,5 @@
   <dimen name="width_all_minedittextwidth">550dp</dimen>
   <dimen name="textsize_roomcontrolitems_title">9sp</dimen>
   <dimen name="textsize_itemreservation_itemtext">9sp</dimen>
+  <dimen name="textsize_all_large">21sp</dimen>
 </resources>

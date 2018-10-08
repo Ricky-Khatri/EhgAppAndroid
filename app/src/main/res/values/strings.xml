@@ -154,5 +154,6 @@
   <string name="hoteldetai_gallerylabel">Gallery</string>
   <string name="hoteldetail_callus">Call us</string>
   <string name="hoteldetail_booknow">Book Now</string>
+  <string name="search_searchhint">Search for Hotels, Restaurants &amp; More</string>
 
 </resources>
