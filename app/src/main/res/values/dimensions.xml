@@ -18,7 +18,7 @@
   <dimen name="height_all_alertdialog">150dp</dimen>
   <dimen name="textsize_signup_termsandcondition">12sp</dimen>
 
-  <dimen name="size_socialmedia_mediaicon">45dp</dimen>
+  <dimen name="size_socialmedia_mediaicon">40dp</dimen>
 
   <dimen name="margin_all_continueasguest">15dp</dimen>
 

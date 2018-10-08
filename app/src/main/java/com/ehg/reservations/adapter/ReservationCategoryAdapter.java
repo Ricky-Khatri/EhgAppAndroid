@@ -104,7 +104,7 @@ public class ReservationCategoryAdapter extends
       @Override
       public void onClick(View view) {
         if (onReservationCategoryClickListener != null) {
-          onReservationCategoryClickListener.onCategoryClicked();
+          onReservationCategoryClickListener.onCategoryClicked(position);
         }
         updateTabSelection(reservationCategoryList.get(position));
       }
@@ -149,7 +149,7 @@ public class ReservationCategoryAdapter extends
    */
   public interface OnReservationCategoryClickListener {
 
-    void onCategoryClicked();
+    void onCategoryClicked(int position);
   }
 
   /**
