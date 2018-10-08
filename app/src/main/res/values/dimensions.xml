@@ -18,7 +18,7 @@
   <dimen name="height_all_alertdialog">150dp</dimen>
   <dimen name="textsize_signup_termsandcondition">12sp</dimen>
 
-  <dimen name="size_socialmedia_mediaicon">50dp</dimen>
+  <dimen name="size_socialmedia_mediaicon">40dp</dimen>
 
   <dimen name="margin_all_continueasguest">15dp</dimen>
 
@@ -44,4 +44,5 @@
   <dimen name="textsize_roomcontrolitems_title">9sp</dimen>
   <dimen name="textsize_itemreservation_itemtext">9sp</dimen>
   <dimen name="height_all_viewline">0.5dp</dimen>
+  <dimen name="height_tablayout_tab">45dp</dimen>
 </resources>

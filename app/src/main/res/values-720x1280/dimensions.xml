@@ -15,7 +15,7 @@
   <dimen name="textsize_signup_termsandcondition">13sp</dimen>
 
   <!--Share screen dimensions-->
-  <dimen name="size_socialmedia_mediaicon">60dp</dimen>
+  <dimen name="size_socialmedia_mediaicon">50dp</dimen>
 
   <dimen name="margin_all_continueasguest">25dp</dimen>
 

@@ -125,8 +125,33 @@ public class SplashImageFragment extends Fragment {
 
     try {
 
-      Glide.with(getActivity()).load(imageUrls[position % imageUrls.length])
-          .into(imageView);
+      switch (position) {
+
+        case 0:
+          Glide.with(getActivity()).load(R.drawable.one)
+              .into(imageView);
+          break;
+
+        case 1:
+          Glide.with(getActivity()).load(R.drawable.two)
+              .into(imageView);
+          break;
+
+        case 2:
+          Glide.with(getActivity()).load(R.drawable.three)
+              .into(imageView);
+          break;
+
+        case 3:
+          Glide.with(getActivity()).load(R.drawable.four)
+              .into(imageView);
+          break;
+
+        case 4:
+          Glide.with(getActivity()).load(R.drawable.five)
+              .into(imageView);
+          break;
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }

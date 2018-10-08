@@ -33,7 +33,7 @@
   <dimen name="size_all_bannerimage">100dp</dimen>
   <dimen name="textsize_signup_termsandcondition">11sp</dimen>
   <!--Share screen dimensions-->
-  <dimen name="size_socialmedia_mediaicon">50dp</dimen>
+  <dimen name="size_socialmedia_mediaicon">40dp</dimen>
 
   <dimen name="margin_all_continueasguest">15dp</dimen>
 

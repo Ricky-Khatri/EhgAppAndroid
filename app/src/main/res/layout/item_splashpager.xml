@@ -33,7 +33,6 @@
     android:layout_height="match_parent"
     android:contentDescription="@string/app_name"
     android:scaleType="fitXY"
-    app:riv_corner_radius="14dp"
-    />
+    app:riv_corner_radius="14dp"/>
 
 </com.ehg.customview.CarouselLayout>
