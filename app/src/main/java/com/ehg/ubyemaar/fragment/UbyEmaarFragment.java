@@ -156,10 +156,10 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     textViewCurrency = view.findViewById(R.id.textview_ubyemaar_currency);
     textViewUserName = view.findViewById(R.id.textview_ubyemaar_username);
 
-    view.findViewById(R.id.linearlayout_ubyemaar_profile).setOnClickListener(this);
+    /*view.findViewById(R.id.linearlayout_ubyemaar_profile).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_upointactivity).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_preferences).setOnClickListener(this);
-    view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);
+    view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);*/
   }
 
   /**
