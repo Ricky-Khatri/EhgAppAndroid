@@ -162,7 +162,9 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
         break;
 
       case R.id.linearlayout_latestoffers_filter:
-        //showSortDialog();
+        //TODO: Need to implement filter screen.
+        AppUtil.showAlertDialog((AppCompatActivity) context, "Function not implemented.",
+            false, "", true, null);
         break;
 
       default:
@@ -232,7 +234,7 @@ public class LatestOffersFragment extends BaseFragment implements OnClickListene
     reservationAdapter = new ReservationAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context), reservationList);
     recyclerViewLatetsOffers.setAdapter(reservationAdapter);
-    AppUtil.animateRecyclerView(context,recyclerViewLatetsOffers,
+    AppUtil.animateRecyclerView(context, recyclerViewLatetsOffers,
         R.anim.layout_animation_from_bottom);
   }
 

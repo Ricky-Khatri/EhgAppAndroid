@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import com.ehg.R;
@@ -83,9 +84,9 @@ public class UserPreferencesAdapter extends
     UserPreferencesPojo userPreferencesPojo = userPreferenceList.get(position);
 
     if (userPreferencesPojo.isSelected()) {
-      viewHolder.toggleButton.setChecked(true);
+      viewHolder.switchButton.setChecked(true);
     } else {
-      viewHolder.toggleButton.setChecked(false);
+      viewHolder.switchButton.setChecked(false);
     }
 
     viewHolder.textViewDescription.setText(userPreferencesPojo.getPreferenceName());
@@ -105,7 +106,7 @@ public class UserPreferencesAdapter extends
   public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
     private final TextView textViewDescription;
-    private final ToggleButton toggleButton;
+    private final Switch switchButton;
 
 
     /**
@@ -118,7 +119,7 @@ public class UserPreferencesAdapter extends
 
       textViewDescription = itemView
           .findViewById(R.id.textview_userpreferences_preferencename);
-      toggleButton = itemView.findViewById(R.id.togglebutton_userpreferences);
+      switchButton = itemView.findViewById(R.id.switch_userpreferences);
     }
 
     /**

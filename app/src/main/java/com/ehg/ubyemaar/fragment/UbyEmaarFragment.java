@@ -41,6 +41,7 @@ import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.signinsignup.pojo.Detail;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
+import com.ehg.ubyemaar.BenefitsActivity;
 import com.ehg.ubyemaar.UpointActivity;
 import com.ehg.ubyemaar.UserPreferencesActivity;
 import com.ehg.utilities.AppUtil;
@@ -100,7 +101,6 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
       ((HomeActivity) Objects.requireNonNull(getActivity()))
           .updateToolbarTitle(getResources().getString(R.string.u_by_emaar_title));
     }
-
     return view;
   }
 
@@ -203,6 +203,8 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     switch (view.getId()) {
 
       case R.id.linearlayout_ubyemaar_profile:
+        AppUtil.showAlertDialog((AppCompatActivity) context,"Function not implemented.",
+            false,"",true,null);
         break;
 
       case R.id.linearlayout_ubyemaar_upointactivity:
@@ -216,6 +218,8 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
         break;
 
       case R.id.linearlayout_ubyemaar_benefits:
+        intent = new Intent(context, BenefitsActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
         break;
 
       default:

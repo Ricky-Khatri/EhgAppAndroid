@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.hotel.adapter.HotelResortsAdapter;
 import com.ehg.booking.hotel.adapter.HotelResortAdapter;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
@@ -86,9 +87,9 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
     recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewHotelList.setHasFixedSize(true);
 
-    HotelResortAdapter hotelResortAdapter = new HotelResortAdapter(context);
+    HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context);
 
-    recyclerViewHotelList.setAdapter(hotelResortAdapter);
+    recyclerViewHotelList.setAdapter(hotelResortsAdapter);
 
     AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_bottom);

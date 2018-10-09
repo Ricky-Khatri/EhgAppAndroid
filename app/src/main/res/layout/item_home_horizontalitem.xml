@@ -40,10 +40,11 @@
     <TextView
       android:id="@+id/textview_itemhome_horizontalitem_brandname"
       android:layout_width="@dimen/imagesize_all_roundedimage"
-      android:textSize="@dimen/textsize_all_guestdetail"
+      android:textSize="@dimen/textsize_roomcontrolitems_title"
       android:text="@string/item_home_horizonalitem"
       android:gravity="start|center"
       android:layout_marginTop="@dimen/textsize_all_guestdetail"
+      android:textColor="@color/colorGray"
       android:layout_height="wrap_content"/>
 
   </LinearLayout>

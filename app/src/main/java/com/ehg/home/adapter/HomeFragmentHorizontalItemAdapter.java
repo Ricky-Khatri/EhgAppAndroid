@@ -25,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -46,15 +47,19 @@ public class HomeFragmentHorizontalItemAdapter extends
 
   private int heightWidthFactor;
 
+  private HorizontalItemClickListener horizontalItemClickListener;
+
   /**
    * Parameterized constructor for HomeFragmentHorizontalItemAdapter.
    */
-  public HomeFragmentHorizontalItemAdapter(Context context, String[] ary, String title) {
+  public HomeFragmentHorizontalItemAdapter(Context context, String[] ary, String title,
+      HorizontalItemClickListener horizontalItemClickListener) {
 
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     imageUrls = ary;
     this.title = title;
+    this.horizontalItemClickListener = horizontalItemClickListener;
 
     if (title.equalsIgnoreCase("HOTELS AND RESORTS")) {
       heightWidthFactor = AppUtil.getDeviceHeight((AppCompatActivity) context) / 4 - 20;
@@ -101,7 +106,10 @@ public class HomeFragmentHorizontalItemAdapter extends
     return imageUrls != null && imageUrls.length > 0 ? imageUrls.length : 0;
   }
 
-  public class ViewHolder extends RecyclerView.ViewHolder {
+  /**
+   * ViewHolder class.
+   */
+  public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener{
 
     private final RoundedImageView roundedImageView;
     private final TextView textViewBrandName;
@@ -120,6 +128,27 @@ public class HomeFragmentHorizontalItemAdapter extends
 
       roundedImageView.getLayoutParams().height = heightWidthFactor;
       roundedImageView.getLayoutParams().width = heightWidthFactor;
+      textViewBrandName.getLayoutParams().width = heightWidthFactor;
+
+      itemView.setOnClickListener(this);
     }
+
+    /**
+     * Called when horizontal item clicked.
+     * @param view clicked view
+     */
+    @Override
+    public void onClick(View view) {
+      if(horizontalItemClickListener != null) {
+        horizontalItemClickListener.onHorizontalItemClicked(title);
+      }
+    }
+  }
+
+  /**
+   * Horizontal item click listener.
+   */
+  public interface HorizontalItemClickListener {
+    void onHorizontalItemClicked(String title);
   }
 }

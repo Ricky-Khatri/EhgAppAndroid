@@ -75,6 +75,8 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
     recycleViewUpoint.setLayoutManager(manager);
     recycleViewUpoint.setHasFixedSize(true);
     recycleViewUpoint.setAdapter(new UpointAdapter(context));
+    AppUtil.animateRecyclerView(this, recycleViewUpoint,
+        R.anim.layout_animation_from_bottom);
 
     setBackArrowRtl(imageviewBack);
   }

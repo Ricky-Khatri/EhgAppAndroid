@@ -47,7 +47,7 @@ public class SplashImageFragment extends Fragment {
   private static final String DRAWABLE_RESOURE = "resource";
   private int screenWidth;
   private int screenHeight;
-  public String[] imageUrls = new String[] {
+  public String[] imageUrls = new String[]{
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_1.jpg",
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_2.jpg",
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png",
@@ -57,26 +57,29 @@ public class SplashImageFragment extends Fragment {
 
   private SplashActivity context;
 
-
+  /**
+   * Constructor.
+   */
   public SplashImageFragment() {
 
   }
 
   /**
    * This is a fragment constructor which is using to initiate a Fragment class.
+   *
    * @param context -reference of SplashActivity
-   * @param pos     -position of image
-   * @param scale   -size of image
+   * @param pos -position of image
+   * @param scale -size of image
    * @return - it will return fragment class object
    */
   public Fragment newInstance(SplashActivity context, int pos, float scale) {
-    Bundle b = new Bundle();
-    b.putInt(POSITON, pos);
-    b.putFloat(SCALE, scale);
+    Bundle bundle = new Bundle();
+    bundle.putInt(POSITON, pos);
+    bundle.putFloat(SCALE, scale);
 
     this.context = context;
 
-    return Fragment.instantiate(context, SplashImageFragment.class.getName(), b);
+    return Fragment.instantiate(context, SplashImageFragment.class.getName(), bundle);
   }
 
 
@@ -93,11 +96,11 @@ public class SplashImageFragment extends Fragment {
 
   /**
    * Called to inflate fragment layout.
+   *
    * @param inflater layout inflater
    * @param container view group
    * @param savedInstanceState bundle
    * @return returns view object
-   *
    */
   @SuppressLint("SetTextI18n")
   @Override
@@ -125,8 +128,33 @@ public class SplashImageFragment extends Fragment {
 
     try {
 
-      Glide.with(getActivity()).load(imageUrls[position % imageUrls.length])
-          .into(imageView);
+      switch (position) {
+
+        case 0:
+          Glide.with(getActivity()).load(R.drawable.one)
+              .into(imageView);
+          break;
+
+        case 1:
+          Glide.with(getActivity()).load(R.drawable.two)
+              .into(imageView);
+          break;
+
+        case 2:
+          Glide.with(getActivity()).load(R.drawable.three)
+              .into(imageView);
+          break;
+
+        case 3:
+          Glide.with(getActivity()).load(R.drawable.four)
+              .into(imageView);
+          break;
+
+        case 4:
+          Glide.with(getActivity()).load(R.drawable.five)
+              .into(imageView);
+          break;
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -158,5 +186,4 @@ public class SplashImageFragment extends Fragment {
     screenHeight = displaymetrics.heightPixels;
     screenWidth = displaymetrics.widthPixels;
   }
-
 }

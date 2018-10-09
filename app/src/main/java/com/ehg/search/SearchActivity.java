@@ -147,6 +147,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         break;
 
       default:
+        break;
 
     }
   }

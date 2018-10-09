@@ -27,7 +27,7 @@
   <android.support.design.widget.TabLayout
     android:id="@+id/tab_layout_all"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/height_tablayout_tab"
     android:layout_marginStart="@dimen/elevation_all_header"
     android:layout_marginEnd="@dimen/elevation_all_header"
     android:background="@color/transparent"

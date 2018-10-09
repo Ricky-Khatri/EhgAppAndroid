@@ -34,6 +34,7 @@ import com.ehg.home.BaseActivity;
 import com.ehg.home.fragment.BaseFragment;
 import com.ehg.reservations.adapter.ReservationAdapter;
 import com.ehg.reservations.adapter.ReservationCategoryAdapter;
+import com.ehg.reservations.adapter.ReservationCategoryAdapter.OnReservationCategoryClickListener;
 import com.ehg.reservations.pojo.ReservationCategoryPojo;
 import com.ehg.reservations.pojo.ReservationPojo;
 import com.ehg.utilities.AppUtil;
@@ -42,15 +43,18 @@ import java.util.ArrayList;
 /**
  * This class shows upcoming reservations list.
  */
-public class UpcomingReservationFragment  extends BaseFragment {
+public class UpcomingReservationFragment extends BaseFragment implements
+    OnReservationCategoryClickListener {
 
   private Context context;
 
   private ArrayList<ReservationCategoryPojo> reservationCategoryList;
   private ArrayList<ReservationPojo> reservationList;
+  private RecyclerView recyclerViewReservationCategory;
 
   /**
    * Called when fragment created.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
@@ -60,6 +64,7 @@ public class UpcomingReservationFragment  extends BaseFragment {
 
   /**
    * Called to inflate fragment view.
+   *
    * @param inflater LayoutInflater
    * @param container ViewGroup
    * @param savedInstanceState Bundle
@@ -77,6 +82,7 @@ public class UpcomingReservationFragment  extends BaseFragment {
 
   /**
    * Called to instantiate view components of fragment.
+   *
    * @param view View
    * @param savedInstanceState Bundle
    */
@@ -90,6 +96,7 @@ public class UpcomingReservationFragment  extends BaseFragment {
 
   /**
    * Called to attach activity context to fragment.
+   *
    * @param context activity context
    */
   @Override
@@ -118,12 +125,23 @@ public class UpcomingReservationFragment  extends BaseFragment {
   }
 
   /**
+   * Called when reservation category clicked.
+   *
+   * @param position category position
+   */
+  @Override
+  public void onCategoryClicked(int position) {
+
+  }
+
+  /**
    * Called to init reservation category list.
+   *
    * @param view view
    */
   private void initReservationCategoryList(View view) {
     //Init horizontal reservation category recycler view
-    RecyclerView recyclerViewReservationCategory = view
+    recyclerViewReservationCategory = view
         .findViewById(R.id.recyclerview_upcomingreservation_reservationcategory);
     recyclerViewReservationCategory.setLayoutManager(
         new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
@@ -156,14 +174,15 @@ public class UpcomingReservationFragment  extends BaseFragment {
     DisplayMetrics displaymetrics = new DisplayMetrics();
     ((BaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
     ReservationCategoryAdapter reservationCategoryAdapter = new ReservationCategoryAdapter(context,
-        AppUtil.getDeviceHeight((BaseActivity) context),reservationCategoryList);
+        AppUtil.getDeviceHeight((BaseActivity) context), reservationCategoryList);
     recyclerViewReservationCategory.setAdapter(reservationCategoryAdapter);
-    AppUtil.animateRecyclerView(context,recyclerViewReservationCategory,
+    AppUtil.animateRecyclerView(context, recyclerViewReservationCategory,
         R.anim.layout_animation_from_right);
   }
 
   /**
    * Called to init reservation list.
+   *
    * @param view view
    */
   private void initReservationList(View view) {
@@ -221,9 +240,9 @@ public class UpcomingReservationFragment  extends BaseFragment {
     DisplayMetrics displaymetrics = new DisplayMetrics();
     ((BaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
     ReservationAdapter reservationAdapter = new ReservationAdapter(context,
-        AppUtil.getDeviceHeight((BaseActivity) context),reservationList);
+        AppUtil.getDeviceHeight((BaseActivity) context), reservationList);
     recyclerViewUpcomingReservationList.setAdapter(reservationAdapter);
-    AppUtil.animateRecyclerView(context,recyclerViewUpcomingReservationList,
+    AppUtil.animateRecyclerView(context, recyclerViewUpcomingReservationList,
         R.anim.layout_animation_from_bottom);
   }
 }

@@ -10,7 +10,7 @@
   <dimen name="padding_all_headerbutton">8dp</dimen>
   <dimen name="marginleft_all_header">5dp</dimen>
   <dimen name="marginright_all_header">5dp</dimen>
-  <dimen name="size_all_backicon">50dp</dimen>
+  <dimen name="size_all_backicon">45dp</dimen>
 
   <dimen name="margin_all_bannerimage">10dp</dimen>
   <dimen name="size_all_bannerimage">100dp</dimen>
@@ -18,7 +18,7 @@
   <dimen name="height_all_alertdialog">150dp</dimen>
   <dimen name="textsize_signup_termsandcondition">12sp</dimen>
 
-  <dimen name="size_socialmedia_mediaicon">50dp</dimen>
+  <dimen name="size_socialmedia_mediaicon">40dp</dimen>
 
   <dimen name="margin_all_continueasguest">15dp</dimen>
 
@@ -44,4 +44,6 @@
   <dimen name="textsize_roomcontrolitems_title">9sp</dimen>
   <dimen name="textsize_itemreservation_itemtext">9sp</dimen>
   <dimen name="textsize_all_large">21sp</dimen>
-</resources>
+  <dimen name="height_all_viewline">0.5dp</dimen>
+  <dimen name="height_tablayout_tab">45dp</dimen>
+ </resources>

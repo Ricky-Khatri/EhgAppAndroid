@@ -30,29 +30,26 @@
 
     <TextView
       android:id="@+id/textview_upointadapter_description"
-      android:textStyle="bold"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
-      android:textSize="@dimen/textsize_all_guesttitle"/>
+      android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
     <TextView
       android:id="@+id/textview_upointadapter_upoint"
-      android:textStyle="bold"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:gravity="center"
-      android:textSize="@dimen/textsize_all_guesttitle"/>
+      android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
     <TextView
       android:id="@+id/textview_upointadapter_value"
-      android:textStyle="bold"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:gravity="end"
-      android:textSize="@dimen/textsize_all_guesttitle"/>
+      android:textSize="@dimen/textsize_signup_termsandcondition"/>
   </LinearLayout>
 
 </RelativeLayout>

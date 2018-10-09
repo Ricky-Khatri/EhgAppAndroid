@@ -29,7 +29,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/item_home_fetauretext"
-    android:textColor="@color/colorBlack"
+    android:textColor="@color/colorGray"
     android:textSize="@dimen/textsize_all_guesttitle"/>
 
   <TextView
@@ -38,6 +38,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
     android:text="@string/item_home_showall"
+    android:textColor="@color/colorGray"
     android:textSize="@dimen/textsize_all_guestdetail"/>
 
 

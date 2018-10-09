@@ -76,8 +76,9 @@ public class LanguageActivity extends BaseActivity implements
   private void initView() {
 
     TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
-    textViewHeaderTitle.setText(LanguageUtil.getLanguageTitleFromKey(this
-        ,getResources().getString(R.string.selectlanguage_title)));
+    /*textViewHeaderTitle.setText(LanguageUtil.getLanguageTitleFromKey(this
+        ,getResources().getString(R.string.selectlanguage_title)));*/
+    textViewHeaderTitle.setText(getResources().getString(R.string.selectlanguage_title));
 
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
 

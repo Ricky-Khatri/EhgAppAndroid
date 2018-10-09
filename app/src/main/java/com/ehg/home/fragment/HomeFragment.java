@@ -39,10 +39,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.hotel.BrandDetailActivity;
 import com.ehg.customview.TextSliderView;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
 import com.ehg.home.adapter.HomeFragmentAdapter;
+import com.ehg.home.adapter.HomeFragmentHorizontalItemAdapter.HorizontalItemClickListener;
 import com.ehg.home.adapter.HomeRoomControlAdapter;
 import com.ehg.offers.adapter.OfferListAdapter;
 import com.ehg.search.SearchActivity;
@@ -62,7 +64,7 @@ import java.util.Objects;
  */
 
 public class HomeFragment extends BaseFragment implements OnSliderClickListener,
-    OnPageChangeListener, View.OnClickListener {
+    OnPageChangeListener, HorizontalItemClickListener {
 
   private SliderLayout sliderLayoutHomeOffers;
 
@@ -85,7 +87,6 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
       "TELEVISION",
       "PRIVACY & \nCLEANING",
   };
-  private LinearLayout linearLayoutSearch;
 
   /**
    * Called when fragment created.
@@ -172,26 +173,22 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     textViewGuestInformation = view.findViewById(R.id.textview_homefragment_guest_information);
     textViewRoomInformation = view.findViewById(R.id.textview_homefragment_roomcontrol_roomdetail);
     recyclerViewHotelList = view.findViewById(R.id.recyclerview_home_fragment);
-    linearLayoutSearch = view.findViewById(R.id.linearlayout_headersearch_layout);
-
-    linearLayoutSearch.setOnClickListener(this);
-
     //recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
 
     LinearLayoutManager manager = new LinearLayoutManager(getActivity(),
         LinearLayoutManager.VERTICAL, false);
     recyclerViewHotelList.setLayoutManager(manager);
     recyclerViewHotelList.setHasFixedSize(true);
-    homeFragmentAdapter = new HomeFragmentAdapter(context);
+    homeFragmentAdapter = new HomeFragmentAdapter(context,this);
     recyclerViewHotelList.setAdapter(homeFragmentAdapter);
-    AppUtil.animateRecyclerView(context,recyclerViewHotelList,
+    AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_right);
 
     //Room controls Recyclerview
     recyclerViewRoomControls.setLayoutManager(new LinearLayoutManager(this.context,
         LinearLayoutManager.HORIZONTAL, false));
     recyclerViewRoomControls.setAdapter(new HomeRoomControlAdapter(context, imageUrl));
-    AppUtil.animateRecyclerView(context,recyclerViewRoomControls,
+    AppUtil.animateRecyclerView(context, recyclerViewRoomControls,
         R.anim.layout_animation_from_right);
 
     /* ParallaxRecyclerView recyclerViewOfferList = view
@@ -205,9 +202,9 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
         AppUtil.getDeviceHeight((BaseActivity) context));
     recyclerViewOfferList.setAdapter(offerListAdapter);*/
 
-    //Show room controls recycler view if user is Sign-in
-    if(!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
-        SharedPreferenceUtils.LOYALTY_MEMBER_ID,""))) {
+    //Show room controls and guest details if user is Signed-in
+    if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
+        SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
       linearLayoutRoomControls.setVisibility(View.VISIBLE);
       linearLayoutGuestDetails.setVisibility(View.VISIBLE);
     } else {
@@ -239,8 +236,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_2.jpg");
     listName.add("Address Boulevard");
 
-    listUrl.add(
-        "http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg");
+    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg");
     listName.add("Rov");
 
     listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png");
@@ -328,20 +324,14 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
 
   }
 
+  /**
+   * Called when horizontal recycler view item clicked.
+   * @param title title
+   */
   @Override
-  public void onClick(View v) {
-
-    switch (v.getId()) {
-
-      case R.id.linearlayout_headersearch_layout:
-
-        Intent intent = new Intent(context, SearchActivity.class);
-        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
-
-        break;
-
-      default:
-        break;
-    }
+  public void onHorizontalItemClicked(String title) {
+    Intent intent = new Intent(context, BrandDetailActivity.class);
+    intent.putExtra("title",title);
+    AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
   }
 }

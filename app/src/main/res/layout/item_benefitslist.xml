@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~  Created by Emaar Hospitality Group on 25/9/18 11:42 AM
+  ~  Created by Emaar Hospitality Group on 6/10/18 2:50 PM
   ~  Copyright (C) 2018  All rights reserved.
-  ~  Last modified 25/9/18 11:42 AM
+  ~  Last modified 6/10/18 2:50 PM
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
   ~  you may not use this file except in compliance with the License.
@@ -18,27 +18,26 @@
   ~
   -->
 
-<RelativeLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
+  android:layout_width="wrap_content"
   android:layout_height="wrap_content"
-  android:layout_margin="@dimen/elevation_all_header">
+  android:layout_marginTop="@dimen/margin_all_vertical"
+  android:orientation="vertical">
 
   <TextView
-    android:id="@+id/textview_userpreferences_preferencename"
-    style="@style/AppLabelsTextAppearance"
-    android:layout_width="wrap_content "
-    android:layout_height="wrap_content"
-    android:layout_alignParentStart="true"
-    android:layout_centerVertical="true"
-    android:textSize="@dimen/textsize_signup_termsandcondition"
-    android:textColor="@color/colorGray"/>
-
-  <Switch
-    android:id="@+id/switch_userpreferences"
+    android:id="@+id/textview_benefitstitle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"
-    android:layout_centerVertical="true"/>
+    android:textColor="@color/colorGray"
+    android:textSize="@dimen/textsize_roomcontrolitems_title"/>
 
-</RelativeLayout>
+
+  <TextView
+    android:id="@+id/textview_benefitsdescription"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/colorGray"
+    android:textSize="@dimen/textsize_roomcontrolitems_title"/>
+
+</LinearLayout>

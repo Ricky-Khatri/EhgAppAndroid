@@ -49,9 +49,8 @@
       android:layout_height="wrap_content"
       android:text="@string/homefragment_guest_information"
       android:textSize="@dimen/textsize_all_guestdetail"/>
-
-
   </LinearLayout>
+
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -61,56 +60,57 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical">
-
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/padding_headersearch_linearlayoutparent"
-      android:layout_marginEnd="@dimen/padding_headersearch_linearlayoutparent"
-      android:id="@+id/linearlayout_homefragment_roomcontrols"
-      android:padding="10dp"
-      android:background="@drawable/all_rounded_border"
       android:orientation="vertical">
 
       <LinearLayout
+        android:id="@+id/linearlayout_homefragment_roomcontrols"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+        android:layout_marginStart="@dimen/padding_headersearch_linearlayoutparent"
+        android:layout_marginEnd="@dimen/padding_headersearch_linearlayoutparent"
+        android:padding="10dp"
+        android:background="@drawable/all_rounded_border"
+        android:orientation="vertical">
 
-        <TextView
-          android:id="@+id/textview_homefragment_roomcontrol_title"
-          android:textStyle="bold"
-          android:layout_width="wrap_content"
+        <LinearLayout
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/homefragment_roomcontrol"
-          android:textColor="@color/colorBlack"
-          android:textSize="@dimen/textsize_all_guesttitle"/>
-        <TextView
-          android:id="@+id/textview_homefragment_roomcontrol_roomdetail"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:gravity="end"
-          android:padding="@dimen/elevation_all_header"
-          android:layout_marginLeft="@dimen/elevation_all_header"
-          android:maxLines="2"
-          android:text="Room 601, Address Downtown"
-          android:textSize="@dimen/textsize_all_guestdetail"/>
+          android:padding="2dp"
+          android:gravity="center"
+          android:orientation="horizontal">
+
+          <TextView
+            android:id="@+id/textview_homefragment_roomcontrol_title"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/homefragment_roomcontrol"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/textsize_all_guesttitle"/>
+          <TextView
+            android:id="@+id/textview_homefragment_roomcontrol_roomdetail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/elevation_all_header"
+            android:padding="@dimen/elevation_all_header"
+            android:gravity="end"
+            android:maxLines="2"
+            android:text="Room 601, Address Downtown"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/recyclerview_homefragment_roomcontrol"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
 
       </LinearLayout>
-      <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview_homefragment_roomcontrol"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-       />
-    </LinearLayout>
       <com.glide.slider.library.SliderLayout
         android:id="@+id/sliderlayout_home_fragment"
         android:layout_width="match_parent"
