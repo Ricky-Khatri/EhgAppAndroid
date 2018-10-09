@@ -59,15 +59,7 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
     setContentView(R.layout.activity_hotelresorts);
     context = this;
 
-    Bundle bundle = getIntent().getExtras();
-
-    if (bundle != null) {
-
-      headerTitle = bundle.getString("title");
-    }
-
     initView();
-
   }
 
   /**
@@ -75,6 +67,11 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
    */
   private void initView() {
 
+    Bundle bundle = getIntent().getExtras();
+    if (bundle != null) {
+
+      headerTitle = bundle.getString("title");
+    }
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     recyclerViewHotelList = findViewById(R.id.recyclerview_hotelresorts_list);
     textViewHotelCount = findViewById(R.id.textview_hotelresorts_count);
@@ -98,7 +95,6 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
 
       textViewHeaderTitle.setText(headerTitle);
     }
-
   }
 
   /**
@@ -116,6 +112,7 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
         AppUtil.finishActivityWithAnimation(this);
         break;
       default:
+        break;
     }
   }
 }

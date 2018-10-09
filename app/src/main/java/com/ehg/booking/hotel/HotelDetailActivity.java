@@ -28,6 +28,10 @@ import com.ehg.home.BaseActivity;
  */
 public class HotelDetailActivity extends BaseActivity {
 
+  /**
+   * Called when activity created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
