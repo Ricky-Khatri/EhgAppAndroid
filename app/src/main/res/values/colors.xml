@@ -18,4 +18,5 @@
     <color name="colorAboutHotel">#7BA4E7</color>
     <color name="colorTabUnselected">#ff9a9a9a</color>
     <color name="colorDarkerGray">#aaa</color>
+    <color name="colorTermsAndCondition">#719FE5</color>
 </resources>

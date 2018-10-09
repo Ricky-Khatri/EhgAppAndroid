@@ -19,7 +19,226 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
+
+  <include
+    android:id="@+id/layout_header_offersdetail"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/linearlayout_offersdetail_buttons"
+    android:layout_below="@+id/layout_header_offersdetail">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/marginstart_header_search"
+      android:layout_marginStart="@dimen/marginstart_header_search"
+      android:layout_marginEnd="@dimen/marginstart_header_search"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/textview_offersdetail_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/marginstart_header_search"
+        android:text="Celebrate Diwali with Address Hotels+Resorts"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_large"/>
+
+      <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginTop="@dimen/margin_all_bannerimage"
+        app:cardCornerRadius="@dimen/margin_all_continueasguest">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+          <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imageview_offersdetail_hotellocation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.8"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/placeholder"/>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:paddingTop="@dimen/margin_all_vertical"
+            android:paddingStart="@dimen/size_socialmedia_mediaicon"
+            android:paddingEnd="@dimen/size_socialmedia_mediaicon"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/textview_offersdetail_hotelname"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Address Downtown"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <TextView
+              android:id="@+id/textview_offersdetail_hoteladdress"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/marginstart_header_search"
+              android:gravity="center"
+              android:text="Sheikh Mohammed bin Rashid Blvd-Dubai-United Arab Emirates"/>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+      </android.support.v7.widget.CardView>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:layout_marginStart="@dimen/margin_all_vertical"
+        android:layout_marginEnd="@dimen/margin_all_vertical"
+        android:orientation="vertical">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/offersdetail_bookbetweenlabel"
+          android:textColor="@color/colorBlack"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:id="@+id/textview_offersdetail_bookbetween"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Book Between"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_all_vertical"
+          android:text="@string/offersdetail_staybetweenlabel"
+          android:textColor="@color/colorBlack"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:id="@+id/textview_offersdetail_staybetween"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Book Between"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_all_vertical"
+          android:text="@string/offersdetail_pricelabel"
+          android:textColor="@color/colorBlack"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:id="@+id/textview_offersdetail_price"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Book Between"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_all_vertical"
+          android:text="@string/offersdetail_complimentrylabel"
+          android:textColor="@color/colorBlack"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:id="@+id/textview_offersdetail_complimentry"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Book Between"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:id="@+id/textview_offersdetail_discription"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_all_vertical"
+          android:text="Book Between"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:id="@+id/textview_offersdetail_joinhere"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/offersdetail_joinherelabel"
+          android:textColor="@color/colorAboutHotel"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:id="@+id/textview_offersdetail_termsandcondition"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/imagesize_all_locationimage"
+          android:layout_marginBottom="@dimen/size_socialmedia_mediaicon"
+          android:layout_gravity="center"
+          android:text="@string/offersdetail_termsandconditions"
+          android:textColor="@color/colorTermsAndCondition"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+      </LinearLayout>
+    </LinearLayout>
+
+  </ScrollView>
+
+  <LinearLayout
+    android:id="@+id/linearlayout_offersdetail_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mdtp_month_list_item_header_height"
+    android:layout_alignParentBottom="true"
+    android:paddingTop="@dimen/padding_all_imageview"
+    android:paddingStart="@dimen/height_loadingindicatordialog_indicator"
+    android:paddingEnd="@dimen/height_loadingindicatordialog_indicator"
+    android:elevation="@dimen/elevation_all_header"
+    android:orientation="horizontal">
+
+    <Button
+      android:id="@+id/button_offersdetail_booknow"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginBottom="@dimen/padding_all_imageview"
+      android:background="@color/colorGray"
+      android:text="@string/hoteldetail_booknow"
+      android:textAllCaps="true"
+      android:textColor="@color/white"/>
+
+    <View
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.2"
+      android:layout_marginTop="@dimen/marginstart_header_search"/>
+
+    <Button
+      android:id="@+id/button_offersdetail_callus"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginBottom="@dimen/padding_all_imageview"
+      android:background="@drawable/all_rounded_border"
+      android:text="@string/hoteldetail_callus"
+      android:textAllCaps="true"/>
+  </LinearLayout>
 
 </RelativeLayout>

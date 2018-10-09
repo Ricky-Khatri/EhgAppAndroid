@@ -157,5 +157,11 @@
   <string name="search_searchhint">Search for Hotels, Restaurants &amp; More</string>
   <string name="benefits_yourtierbenefits">Your Tier Benefits</string>
   <string name="dummy_description">Address Hotels + Resorts is the first brand launched by  Emaar Hospitality Group. The premium luxury hotel group has positioned itself as choice perfect for business, leisure and group travellers.</string>
+  <string name="offersdetail_bookbetweenlabel">Book Between</string>
+  <string name="offersdetail_staybetweenlabel">Stay Between</string>
+  <string name="offersdetail_pricelabel">Price</string>
+  <string name="offersdetail_complimentrylabel">Complimentry</string>
+  <string name="offersdetail_joinherelabel">Join here.</string>
+  <string name="offersdetail_termsandconditions">Terms and Conditions</string>
 
 </resources>

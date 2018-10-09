@@ -168,7 +168,9 @@
       android:name=".ubyemaar.BenefitsActivity"
       android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".booking.hotel.BrandDetailActivity">
+    <activity
+      android:name=".booking.hotel.BrandDetailActivity"
+      android:screenOrientation="portrait">
     </activity>
    </application>
 
