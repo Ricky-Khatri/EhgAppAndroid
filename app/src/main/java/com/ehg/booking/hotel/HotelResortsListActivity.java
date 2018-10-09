@@ -29,7 +29,6 @@ import android.view.View;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.hotel.adapter.HotelResortsAdapter;
-import com.ehg.booking.hotel.adapter.HotelResortAdapter;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
@@ -95,6 +94,24 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
 
       textViewHeaderTitle.setText(headerTitle);
     }
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl(headerBackButton);
+  }
+
+  /**
+   * Called to set RTL back arrow.
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
   }
 
   /**
