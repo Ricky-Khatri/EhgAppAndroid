@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 6/10/18 3:03 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 6/10/18 3:03 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <include
+    android:id="@+id/layout_header_hotelresorts"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <LinearLayout
+    android:id="@+id/linearlayout_hotelresort"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_all_backicon"
+    android:layout_below="@+id/layout_header_hotelresorts"
+    android:orientation="horizontal">
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:gravity="center_vertical">
+
+      <TextView
+        android:id="@+id/textview_hotelresorts_count"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_all_bannerimage"
+        android:text="23 Hotels"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_large"/>
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.41"
+      android:gravity="center_vertical">
+
+      <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/appcompactimageview_hotelresorts_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/hotel_filtoricon"/>
+
+      <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/appcompactimageview_hotelresorts_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_alertdialogbutton"
+        app:srcCompat="@drawable/all_sorticon"
+        />
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <View
+    android:id="@+id/view_hotelresorts"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_below="@+id/linearlayout_hotelresort"
+    android:background="@color/colorGray"/>
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/recyclerview_hotelresorts_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/view_hotelresorts"/>
+
+</RelativeLayout>

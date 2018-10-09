@@ -35,4 +35,5 @@
   <dimen name="imagesize_tabitembottom_tabicon">25dp</dimen>
   <dimen name="textsize_roomcontrolitems_title">11sp</dimen>
   <dimen name="textsize_itemreservation_itemtext">11sp</dimen>
+  <dimen name="textsize_all_large">19sp</dimen>
 </resources>

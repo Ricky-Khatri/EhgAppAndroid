@@ -33,5 +33,5 @@
   <dimen name="imagesize_tabitembottom_tabicon">20dp</dimen>
   <dimen name="textsize_roomcontrolitems_title">10sp</dimen>
   <dimen name="textsize_itemreservation_itemtext">10sp</dimen>
-
+  <dimen name="textsize_all_large">17sp</dimen>
 </resources>

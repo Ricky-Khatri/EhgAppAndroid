@@ -131,10 +131,15 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     return groupList;
   }
 
+  /**
+   * This method Called when a view has been clicked.
+   *
+   * @param view - clicked view object
+   */
   @Override
-  public void onClick(View v) {
+  public void onClick(View view) {
 
-    switch (v.getId()) {
+    switch (view.getId()) {
 
       case R.id.appcompatimageview_search_close:
 
@@ -142,6 +147,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
         break;
 
       default:
+        break;
 
     }
   }

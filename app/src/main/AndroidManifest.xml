@@ -159,6 +159,11 @@
     </activity>
     <activity android:name=".booking.hotel.BrandDetailActivity">
     </activity>
+    <activity
+      android:name=".search.SearchActivity"
+      android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".booking.hotel.HotelResortsListActivity"/>
   </application>
 
 </manifest>
