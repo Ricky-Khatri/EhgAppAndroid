@@ -158,7 +158,12 @@
       android:name=".search.SearchActivity"
       android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".booking.hotel.HotelResortsListActivity"/>
+    <activity
+      android:name=".booking.hotel.HotelResortsListActivity"
+      android:screenOrientation="portrait"/>
+    <activity
+      android:name=".offers.OffersDetailActivity"
+      android:screenOrientation="portrait"/>
   </application>
 
 </manifest>
