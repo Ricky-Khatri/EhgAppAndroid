@@ -20,11 +20,13 @@
 package com.ehg.home.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -35,10 +37,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.hotel.BrandDetailActivity;
 import com.ehg.customview.TextSliderView;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
 import com.ehg.home.adapter.HomeFragmentAdapter;
+import com.ehg.home.adapter.HomeFragmentHorizontalItemAdapter.HorizontalItemClickListener;
 import com.ehg.home.adapter.HomeRoomControlAdapter;
 import com.ehg.offers.adapter.OfferListAdapter;
 import com.ehg.utilities.AppUtil;
@@ -57,7 +61,7 @@ import java.util.Objects;
  */
 
 public class HomeFragment extends BaseFragment implements OnSliderClickListener,
-    OnPageChangeListener {
+    OnPageChangeListener, HorizontalItemClickListener {
 
   private SliderLayout sliderLayoutHomeOffers;
 
@@ -172,7 +176,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
         LinearLayoutManager.VERTICAL, false);
     recyclerViewHotelList.setLayoutManager(manager);
     recyclerViewHotelList.setHasFixedSize(true);
-    homeFragmentAdapter = new HomeFragmentAdapter(context);
+    homeFragmentAdapter = new HomeFragmentAdapter(context,this);
     recyclerViewHotelList.setAdapter(homeFragmentAdapter);
     AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_right);
@@ -315,5 +319,16 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
   @Override
   public void onPageScrollStateChanged(int index) {
 
+  }
+
+  /**
+   * Called when horizontal recycler view item clicked.
+   * @param title title
+   */
+  @Override
+  public void onHorizontalItemClicked(String title) {
+    Intent intent = new Intent(context, BrandDetailActivity.class);
+    intent.putExtra("title",title);
+    AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
   }
 }

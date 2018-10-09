@@ -47,7 +47,7 @@ public class BaseActivity extends AppCompatActivity {
   public interface BroadCastMessageInterface {
 
     /**
-     * Overriden method for child activity.
+     * Override method for child activity.
      */
     void onMessageReceived(String message, boolean flag);
   }
@@ -139,6 +139,9 @@ public class BaseActivity extends AppCompatActivity {
     });
   }
 
+  /**
+   * Called when activity resumed.
+   */
   @Override
   protected void onResume() {
     super.onResume();

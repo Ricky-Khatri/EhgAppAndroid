@@ -153,8 +153,11 @@
       android:name=".splash.SplashActivity"
       android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".ubyemaar.BenefitsActivity"
+    <activity
+      android:name=".ubyemaar.BenefitsActivity"
       android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".booking.hotel.BrandDetailActivity">
     </activity>
   </application>
 
