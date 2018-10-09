@@ -61,7 +61,7 @@
         android:id="@+id/appcompactimageview_hotelresorts_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/hotel_filtoricon"/>
+        app:srcCompat="@drawable/hotel_filtericon"/>
 
       <android.support.v7.widget.AppCompatImageView
         android:id="@+id/appcompactimageview_hotelresorts_sort"
