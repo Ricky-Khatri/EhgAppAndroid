@@ -197,8 +197,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
         break;
 
       case R.id.linearlayout_setting_preferences:
-        AppUtil.showAlertDialog(this, "Function not implemented.",
-            false, "", true, null);
+        intent = new Intent(this, PreferencesActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
 
       case R.id.linearlayout_settings_privacypolicy:

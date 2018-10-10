@@ -172,6 +172,6 @@
       android:name=".booking.hotel.BrandDetailActivity"
       android:screenOrientation="portrait">
     </activity>
-   </application>
+  </application>
 
 </manifest>
