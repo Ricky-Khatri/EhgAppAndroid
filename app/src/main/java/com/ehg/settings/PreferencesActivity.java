@@ -59,7 +59,7 @@ public class PreferencesActivity extends BaseActivity {
    */
   private void initView() {
 
-    notificationSwitch = findViewById(R.id.switch_settingprefernces_notification);
+    notificationSwitch = findViewById(R.id.switch_preferences);
     TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
     textViewHeaderTitle.setText(getResources().getString(R.string.setting_preferences));
 

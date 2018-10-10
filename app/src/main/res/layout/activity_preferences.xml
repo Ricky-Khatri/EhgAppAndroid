@@ -27,30 +27,29 @@
     android:id="@+id/layout_settingpreferences_header"
     layout="@layout/layout_header_with_navigation"/>
 
-  <LinearLayout
+  <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/layout_settingpreferences_header"
-    android:padding="@dimen/textsize_all_labels"
-    android:gravity="center"
-    android:weightSum="1.2">
+    android:layout_margin="@dimen/margin_all_horizontal"
+    android:layout_below="@+id/layout_settingpreferences_header">
+
     <TextView
+      android:id="@+id/textview_preferences_title"
       style="@style/AppLabelsTextAppearance"
+      android:layout_width="wrap_content "
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_centerVertical="true"
+      android:text="@string/settingpreferences_notifications"
+      android:textColor="@color/colorGray"
+      android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+    <Switch
+      android:id="@+id/switch_preferences"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/settingpreferences_notifications"/>
-    <LinearLayout
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:padding="4dp"
-      android:gravity="center|end">
+      android:layout_alignParentEnd="true"
+      android:layout_centerVertical="true"/>
 
-      <Switch
-        android:id="@+id/switch_settingprefernces_notification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/textsize_all_labels"/>
-    </LinearLayout>
-  </LinearLayout>
+  </RelativeLayout>
 </RelativeLayout>
