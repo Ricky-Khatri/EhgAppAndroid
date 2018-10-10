@@ -19,7 +19,9 @@
 
 package com.ehg.reservations.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,8 +68,9 @@ public class ReservationCategoryAdapter extends
    * @param position integer position
    * @return returns ViewHolder object
    */
+  @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
     return new ViewHolder(inflater.inflate(R.layout.item_reservationcategory_list,
         viewGroup, false));
   }
@@ -79,7 +82,7 @@ public class ReservationCategoryAdapter extends
    * @param position integer position
    */
   @Override
-  public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+  public void onBindViewHolder(@NonNull final ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
 
     ReservationCategoryPojo reservationCategoryPojo = reservationCategoryList.get(position);
 

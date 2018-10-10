@@ -47,7 +47,7 @@
       android:padding="1dp"
       android:background="@android:color/darker_gray"
       android:textColor="@color/colorBlack"
-      android:textSize="6sp"/>
+      android:textSize="@dimen/textsize_itemreservation_reservationtype"/>
 
   </FrameLayout>
 

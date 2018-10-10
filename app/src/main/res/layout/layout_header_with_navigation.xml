@@ -64,6 +64,6 @@
     android:padding="@dimen/padding_all_headerbutton"
     android:visibility="invisible"
     android:background="@drawable/ic_launcher_background"
-    android:contentDescription="TODO"/>
+    android:contentDescription="@string/all_filter"/>
 
 </RelativeLayout>

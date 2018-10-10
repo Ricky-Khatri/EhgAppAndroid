@@ -46,4 +46,5 @@
   <dimen name="textsize_all_large">21sp</dimen>
   <dimen name="height_all_viewline">0.5dp</dimen>
   <dimen name="height_tablayout_tab">45dp</dimen>
- </resources>
+  <dimen name="textsize_itemreservation_reservationtype">6sp</dimen>
+</resources>

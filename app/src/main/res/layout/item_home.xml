@@ -19,6 +19,7 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_margin="10dp">
@@ -39,7 +40,8 @@
     android:layout_alignParentEnd="true"
     android:text="@string/item_home_showall"
     android:textColor="@color/colorGray"
-    android:textSize="@dimen/textsize_all_guestdetail"/>
+    android:textSize="@dimen/textsize_all_guestdetail"
+    tools:ignore="RelativeOverlap"/>
 
 
   <android.support.v7.widget.RecyclerView

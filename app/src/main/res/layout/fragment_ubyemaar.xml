@@ -18,6 +18,7 @@
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
@@ -28,7 +29,8 @@
     android:paddingTop="@dimen/textsize_all_labels"
     android:paddingStart="@dimen/textsize_all_labels"
     android:paddingEnd="@dimen/textsize_all_labels"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="UselessParent">
     <ScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -87,8 +89,6 @@
                 style="@style/HeaderTextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/imageview_ubyemaar_profile"
                 android:text="@string/ubyemaar_blacktext"
                 android:textColor="@color/colorHeaderView"/>
 
@@ -96,8 +96,6 @@
                 android:id="@+id/textview_ubyemaar_membership"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/imageview_ubyemaar_profile"
-                android:layout_below="@+id/textview_ubyemaar_membershiptype"
                 android:text="@string/ubyemaar_membershiplable"
                 android:textColor="@color/colorHeaderView"
                 android:textSize="@dimen/textsize_all_guesttitle"/>
@@ -111,15 +109,14 @@
               android:layout_marginStart="@dimen/margin_all_horizontal"
               android:layout_centerVertical="true"
               android:layout_toEndOf="@+id/linearlayout_ubyemaar_membership"
-              android:gravity="left"
+              android:gravity="start"
               android:orientation="vertical">
 
               <TextView
                 android:id="@+id/textview_ubyemaar_totaluppointcount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/textview_ubyemaar_membershiptype"
-                android:gravity="left"
+                android:gravity="start"
                 android:text="@string/ubyemaar_totalupoints"
                 android:textColor="@color/colorHeaderView"
                 android:textSize="@dimen/textsize_ubyemaar_points"/>
@@ -128,8 +125,7 @@
                 android:id="@+id/textview_ubyemaar_totaluppointlabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textview_ubyemaar_totaluppointcount"
-                android:gravity="left"
+                android:gravity="start"
                 android:text="@string/ubyemaar_totalupointslabel"
                 android:textColor="@color/colorHeaderView"
                 android:textSize="@dimen/textsize_all_guesttitle"/>

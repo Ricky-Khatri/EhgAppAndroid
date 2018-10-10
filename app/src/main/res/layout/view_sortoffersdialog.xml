@@ -19,6 +19,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/linearlayout_sortoffersdialog"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -59,7 +60,6 @@
     android:layout_marginTop="@dimen/margin_all_vertical"
     android:layout_marginStart="@dimen/elevation_all_header"
     android:layout_marginEnd="@dimen/elevation_all_header"
-    android:layout_centerInParent="true"
     android:layout_gravity="top"
     android:gravity="center"
     android:orientation="vertical">
@@ -74,7 +74,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="@string/sortoffersdialog_alphabetical_atoz"/>
+        android:text="@string/sortoffersdialog_alphabetical_atoz"
+        tools:ignore="RelativeOverlap"/>
 
       <RadioButton
         android:id="@+id/radiobutton_sortoffersdialog_atoz"

@@ -65,7 +65,7 @@ public class ReservationsFragment extends BaseFragment {
 
     View view = inflater.inflate(R.layout.fragment_reservations, container, false);
 
-    if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+    if (VERSION_CODES.KITKAT <= VERSION.SDK_INT) {
       ((HomeActivity) Objects.requireNonNull(getActivity()))
           .updateToolbarTitle(getResources().getString(R.string.reservations_title));
     }

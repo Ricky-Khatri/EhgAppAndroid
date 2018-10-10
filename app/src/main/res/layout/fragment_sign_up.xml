@@ -30,7 +30,8 @@
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="UselessParent">
 
 
     <ScrollView
@@ -110,7 +111,8 @@
               android:inputType="textPersonName"
               android:maxLines="1"
               android:singleLine="true"
-              android:textAlignment="viewStart"/>
+              android:textAlignment="viewStart"
+              tools:ignore="LabelFor"/>
 
             <View
               android:layout_width="match_parent"

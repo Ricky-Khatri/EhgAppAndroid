@@ -44,7 +44,8 @@
       android:layout_height="@dimen/size_socialmedia_mediaicon"
       android:layout_margin="@dimen/marginleft_all_header"
       android:background="@drawable/ic_facebook"
-      android:text="@string/facebook"/>
+      android:text="@string/facebook"
+      android:contentDescription="@string/facebook"/>
 
     <ImageView
       android:id="@+id/imageview_social_media_twitter"
@@ -52,7 +53,8 @@
       android:layout_margin="@dimen/marginleft_all_header"
       android:layout_height="@dimen/size_socialmedia_mediaicon"
       android:background="@drawable/ic_twitter"
-      android:text="@string/twitter"/>
+      android:text="@string/twitter"
+      android:contentDescription="@string/twitter"/>
 
     <ImageView
       android:id="@+id/imageview_social_media_instagram"
@@ -60,6 +62,7 @@
       android:layout_margin="@dimen/marginleft_all_header"
       android:layout_height="@dimen/size_socialmedia_mediaicon"
       android:background="@drawable/ic_instagram"
-      android:text="@string/instagram"/>
+      android:text="@string/instagram"
+      android:contentDescription="@string/instagram"/>
   </LinearLayout>
 </LinearLayout>
