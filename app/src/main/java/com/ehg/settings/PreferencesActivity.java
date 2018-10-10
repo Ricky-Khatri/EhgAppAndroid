@@ -22,9 +22,14 @@ package com.ehg.settings;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Switch;
+import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
+import com.ehg.utilities.AppUtil;
 
 /**
  * This class allows users to do save preferences of the app.
@@ -55,8 +60,16 @@ public class PreferencesActivity extends BaseActivity {
   private void initView() {
 
     notificationSwitch = findViewById(R.id.switch_settingprefernces_notification);
+    TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    textViewHeaderTitle.setText(getResources().getString(R.string.setting_preferences));
 
-    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+    //Set OnClickListener
+    findViewById(R.id.imageview_header_back).setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        AppUtil.finishActivityWithAnimation(PreferencesActivity.this);
+      }
+    });
   }
 
   /**
@@ -76,5 +89,20 @@ public class PreferencesActivity extends BaseActivity {
   @Override
   public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
     super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
   }
 }
