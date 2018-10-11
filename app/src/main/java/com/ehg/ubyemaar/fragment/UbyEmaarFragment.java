@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.HomeActivity;
 import com.ehg.home.fragment.BaseFragment;
 import com.ehg.networkrequest.HttpClientRequest;
@@ -180,13 +181,22 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
 
       textViewTotalPointsLabel.setText(LanguageUtil
           .getLanguageTitleFromKey((AppCompatActivity) context,
-          context.getResources().getString(R.string.ubyemaar_totalupointslabel)));
+              context.getResources().getString(R.string.ubyemaar_totalupointslabel)));
       textViewAmountLabel.setText(LanguageUtil
           .getLanguageTitleFromKey((AppCompatActivity) context,
-          context.getResources().getString(R.string.ubyemaar_availabletoredeemlabel)));
+              context.getResources().getString(R.string.ubyemaar_availabletoredeemlabel)));
       textViewCurrency.setText(LanguageUtil
           .getLanguageTitleFromKey((AppCompatActivity) context,
-          context.getResources().getString(R.string.ubyemaar_aedcurrency)));
+              context.getResources().getString(R.string.ubyemaar_aedcurrency)));
+
+      UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(context).getUserProfilePojo();
+      if (userProfilePojo != null && userProfilePojo.getData().getDetail().size() > 0) {
+        Detail detail = userProfilePojo.getData().getDetail().get(0);
+        textViewUserName.setText("Hello Mr. " + detail.getFirstName() + " " + detail.getLastName());
+        textViewMemberShipType.setText(detail.getTierLevel());
+        textViewTotalPoints.setText(detail.getCurrentPoints() + "");
+        textViewAmount.setText(detail.getCurrentBalance() + "");
+      }
     }
   }
 
@@ -203,8 +213,8 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     switch (view.getId()) {
 
       case R.id.linearlayout_ubyemaar_profile:
-        AppUtil.showAlertDialog((AppCompatActivity) context,"Function not implemented.",
-            false,"",true,null);
+        AppUtil.showAlertDialog((AppCompatActivity) context, "Function not implemented.",
+            false, "", true, null);
         break;
 
       case R.id.linearlayout_ubyemaar_upointactivity:

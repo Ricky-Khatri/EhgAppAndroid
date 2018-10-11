@@ -48,7 +48,10 @@ import com.ehg.home.adapter.HomeFragmentHorizontalItemAdapter.HorizontalItemClic
 import com.ehg.home.adapter.HomeRoomControlAdapter;
 import com.ehg.offers.adapter.OfferListAdapter;
 import com.ehg.search.SearchActivity;
+import com.ehg.signinsignup.pojo.Detail;
+import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
 import com.glide.slider.library.SliderLayout;
 import com.glide.slider.library.SliderLayout.Transformer;
@@ -179,7 +182,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
         LinearLayoutManager.VERTICAL, false);
     recyclerViewHotelList.setLayoutManager(manager);
     recyclerViewHotelList.setHasFixedSize(true);
-    homeFragmentAdapter = new HomeFragmentAdapter(context,this);
+    homeFragmentAdapter = new HomeFragmentAdapter(context, this);
     recyclerViewHotelList.setAdapter(homeFragmentAdapter);
     AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_right);
@@ -207,6 +210,11 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
         SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
       linearLayoutRoomControls.setVisibility(View.VISIBLE);
       linearLayoutGuestDetails.setVisibility(View.VISIBLE);
+      UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(context).getUserProfilePojo();
+      if (userProfilePojo != null && userProfilePojo.getData().getDetail().size() > 0) {
+        Detail detail = userProfilePojo.getData().getDetail().get(0);
+        textViewClientTitle.setText("Hello Mr. " + detail.getFirstName() + " " + detail.getLastName());
+      }
     } else {
       linearLayoutRoomControls.setVisibility(View.GONE);
       linearLayoutGuestDetails.setVisibility(View.GONE);
@@ -326,12 +334,15 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
 
   /**
    * Called when horizontal recycler view item clicked.
+   *
    * @param title title
    */
   @Override
   public void onHorizontalItemClicked(String title) {
-    Intent intent = new Intent(context, BrandDetailActivity.class);
-    intent.putExtra("title",title);
-    AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+    /*if (title.contains("HOTELS AND RESORTS")) {
+      Intent intent = new Intent(context, BrandDetailActivity.class);
+      intent.putExtra("title", title);
+      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+    }*/
   }
 }

@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 27/9/18 11:37 AM
+ *  Created by Emaar Hospitality Group on 11/10/18 11:33 AM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 27/9/18 11:37 AM
+ *  Last modified 11/10/18 11:33 AM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,24 +19,26 @@
 
 package com.ehg.booking.restaurant;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
-import com.ehg.settings.PreferencesActivity;
 import com.ehg.utilities.AppUtil;
 
-public class RestaurantActivity extends BaseActivity {
+/**
+ * This class shows detail of a restaurant.
+ */
+public class RestaurantDetailActivity extends BaseActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_restaurant);
+    setContentView(R.layout.activity_restaurant_detail);
+
+    initView();
   }
 
   /**
@@ -48,7 +50,7 @@ public class RestaurantActivity extends BaseActivity {
     findViewById(R.id.imageview_header_back).setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View view) {
-        AppUtil.finishActivityWithAnimation(RestaurantActivity.this);
+        AppUtil.finishActivityWithAnimation(RestaurantDetailActivity.this);
       }
     });
   }

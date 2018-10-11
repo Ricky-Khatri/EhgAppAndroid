@@ -342,7 +342,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    * Checks if password is valid or not.
    */
   private boolean isPasswordValid(String password) {
-    return password.length() >= 4;
+    return password.length() > 4;
   }
 
   //****************************** API CALLING STUFF ******************************************

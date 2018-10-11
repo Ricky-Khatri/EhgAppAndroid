@@ -153,7 +153,6 @@
       android:name=".splash.SplashActivity"
       android:screenOrientation="portrait">
     </activity>
-
     <activity
       android:name=".search.SearchActivity"
       android:screenOrientation="portrait">
@@ -170,6 +169,9 @@
     </activity>
     <activity
       android:name=".booking.hotel.BrandDetailActivity"
+      android:screenOrientation="portrait">
+    </activity>
+    <activity android:name=".booking.restaurant.RestaurantDetailActivity"
       android:screenOrientation="portrait">
     </activity>
   </application>
