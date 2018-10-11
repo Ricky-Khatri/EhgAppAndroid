@@ -272,8 +272,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
         JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
 
         Detail detail = userProfilePojo.getData().getDetail().get(0);
-        textViewUserName.setText(detail.getSuffix() + " "
-            + detail.getFirstName() + " " + detail.getLastName());
+        textViewUserName.setText("Hello Mr. " + detail.getFirstName() + " " + detail.getLastName());
         textViewMemberShipType.setText(detail.getTierLevel());
         textViewTotalPoints.setText(detail.getCurrentPoints() + "");
         textViewAmount.setText(detail.getCurrentBalance() + "");

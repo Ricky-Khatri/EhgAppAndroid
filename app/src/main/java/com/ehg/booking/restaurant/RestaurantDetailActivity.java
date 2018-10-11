@@ -21,22 +21,38 @@ package com.ehg.booking.restaurant;
 
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import com.ehg.R;
+import com.ehg.booking.restaurant.adapter.RestaurantDetailGalleryAdapter;
+import com.ehg.booking.restaurant.adapter.RestaurantDetailGalleryAdapter.OnItemClickListener;
+import com.ehg.customview.TextSliderView;
 import com.ehg.home.BaseActivity;
+import com.ehg.home.adapter.HomeFragmentAdapter;
 import com.ehg.utilities.AppUtil;
+import com.glide.slider.library.Animations.DescriptionAnimation;
+import com.glide.slider.library.SliderLayout;
+import com.glide.slider.library.SliderLayout.Transformer;
+import com.glide.slider.library.SliderTypes.BaseSliderView;
+import com.glide.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
+import java.util.ArrayList;
 
 /**
  * This class shows detail of a restaurant.
  */
-public class RestaurantDetailActivity extends BaseActivity {
+public class RestaurantDetailActivity extends BaseActivity implements OnItemClickListener,
+    OnSliderClickListener {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_restaurant_detail);
+
+    initAutoScrollViewPager();
 
     initView();
   }
@@ -46,6 +62,16 @@ public class RestaurantDetailActivity extends BaseActivity {
    */
   private void initView() {
 
+    RecyclerView recyclerViewRestaurantGallery = findViewById(R.id.recyclerview_restaurantdetail_gallery);
+    GridLayoutManager manager = new GridLayoutManager(this, 3);
+    recyclerViewRestaurantGallery.setLayoutManager(manager);
+    recyclerViewRestaurantGallery.setHasFixedSize(true);
+    RestaurantDetailGalleryAdapter restaurantDetailGalleryAdapter =
+        new RestaurantDetailGalleryAdapter(this,this);
+    recyclerViewRestaurantGallery.setAdapter(restaurantDetailGalleryAdapter);
+    AppUtil.animateRecyclerView(this, recyclerViewRestaurantGallery,
+        R.anim.layout_animation_from_right);
+
     //Set OnClickListener
     findViewById(R.id.imageview_header_back).setOnClickListener(new OnClickListener() {
       @Override
@@ -53,6 +79,60 @@ public class RestaurantDetailActivity extends BaseActivity {
         AppUtil.finishActivityWithAnimation(RestaurantDetailActivity.this);
       }
     });
+  }
+
+  /**
+   * Method init's auto scroll view pager component of this activity.
+   */
+  private void initAutoScrollViewPager() {
+
+    SliderLayout sliderLayoutRestaurantDetail = findViewById(R.id.sliderlayout_restaurantdetail_slider);
+
+    sliderLayoutRestaurantDetail.setPresetTransformer(Transformer.Default);
+
+    sliderLayoutRestaurantDetail.getLayoutParams().height = AppUtil
+        .getDeviceHeight( this) / 3 - 50;
+
+    ArrayList<String> listUrl = new ArrayList<>();
+    ArrayList<String> listName = new ArrayList<>();
+
+    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_1.jpg");
+    listName.add("Address Downtown");
+
+    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_2.jpg");
+    listName.add("Address Boulevard");
+
+    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg");
+    listName.add("Rov");
+
+    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png");
+    listName.add("Vida");
+
+    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_5.png");
+    listName.add("Address");
+
+    //Add image abd text data to sliderLayout
+    for (int index = 0; index < listUrl.size(); index++) {
+      TextSliderView sliderView = new TextSliderView(this);
+      // if you want show image only / without description text use DefaultSliderView instead
+
+      // initialize SliderLayout
+      sliderView
+          .empty(R.drawable.placeholder)
+          .image(listUrl.get(index))
+          .description(listName.get(index))
+          .setOnSliderClickListener(this);
+
+      //add your extra information
+      sliderView.bundle(new Bundle());
+      sliderView.getBundle().putString("extra", listName.get(index));
+      sliderLayoutRestaurantDetail.addSlider(sliderView);
+    }
+
+    sliderLayoutRestaurantDetail.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+    sliderLayoutRestaurantDetail.setCustomAnimation(new DescriptionAnimation());
+    sliderLayoutRestaurantDetail.setDuration(3000);
+    //sliderLayoutRestaurantDetail.addOnPageChangeListener(this);
   }
 
   /**
@@ -87,5 +167,23 @@ public class RestaurantDetailActivity extends BaseActivity {
       AppUtil.finishActivityWithAnimation(this);
     }
     return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * Called when gallery item clicked.
+   * @param position position of cliked item
+   */
+  @Override
+  public void onItemClick(int position) {
+
+  }
+
+  /**
+   * Called when slider item clicked.
+   * @param baseSliderView clicked view
+   */
+  @Override
+  public void onSliderClick(BaseSliderView baseSliderView) {
+
   }
 }

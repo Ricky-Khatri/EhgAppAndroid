@@ -171,7 +171,8 @@
       android:name=".booking.hotel.BrandDetailActivity"
       android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".booking.restaurant.RestaurantDetailActivity"
+    <activity
+      android:name=".booking.restaurant.RestaurantDetailActivity"
       android:screenOrientation="portrait">
     </activity>
   </application>

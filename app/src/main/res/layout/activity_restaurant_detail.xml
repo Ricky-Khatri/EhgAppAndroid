@@ -20,7 +20,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
@@ -65,166 +64,166 @@
           android:id="@+id/imageview_restaurantdetail_map"
           android:layout_width="@dimen/imagesize_all_reservationimage"
           android:layout_height="@dimen/imagesize_all_reservationimage"
-          app:srcCompat="@drawable/placeholder"
           android:layout_margin="@dimen/elevation_all_header"
-          android:scaleType="fitXY"/>
+          android:scaleType="fitXY"
+          app:srcCompat="@drawable/placeholder"/>
 
         <LinearLayout
-          android:layout_margin="@dimen/elevation_all_header"
-          android:layout_toEndOf="@+id/imageview_restaurantdetail_map"
-          android:orientation="vertical"
-          android:layout_centerVertical="true"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/elevation_all_header"
+          android:layout_centerVertical="true"
+          android:layout_toEndOf="@+id/imageview_restaurantdetail_map"
+          android:orientation="vertical">
 
           <TextView
             android:id="@+id/textview_restaurantdetail_address"
+            style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/AppLabelsTextAppearance"
-            android:textSize="@dimen/textsize_signup_termsandcondition"
-            android:text="@string/restaurantdetail_address"/>
+            android:text="@string/restaurantdetail_address"
+            android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
           <TextView
             android:id="@+id/textview_restaurantdetail_getdirection"
-            android:layout_marginTop="@dimen/elevation_all_header"
+            style="@style/AppLabelsTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/AppLabelsTextAppearance"
-            android:textSize="@dimen/textsize_signup_termsandcondition"
-            android:text="@string/restaurantdetail_getdirections"/>
+            android:layout_marginTop="@dimen/elevation_all_header"
+            android:text="@string/restaurantdetail_getdirections"
+            android:textSize="@dimen/textsize_signup_termsandcondition"/>
         </LinearLayout>
 
       </RelativeLayout>
 
       <LinearLayout
         android:id="@+id/linearlayout_restaurantdetail_timingmain"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/margin_all_horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_horizontal"
+        android:orientation="vertical">
 
         <View
-          android:background="@color/colorDarkerGray"
           android:layout_width="match_parent"
-          android:layout_height="@dimen/height_all_viewline"/>
+          android:layout_height="@dimen/height_all_viewline"
+          android:background="@color/colorDarkerGray"/>
 
         <LinearLayout
-          android:layout_margin="@dimen/elevation_all_header"
-          android:orientation="horizontal"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_margin="@dimen/elevation_all_header"
           android:layout_gravity="center"
           android:gravity="center"
+          android:orientation="horizontal"
           android:weightSum="3">
 
           <LinearLayout
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1.5"
             android:layout_marginEnd="@dimen/margin_all_horizontal"
-            android:layout_weight="1.5">
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
               android:id="@+id/textview_restaurantdetail_cuisinelabel"
+              style="@style/AppLabelsTextAppearance"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="start"
-              style="@style/AppLabelsTextAppearance"
-              android:textSize="@dimen/textsize_signup_termsandcondition"
-              android:text="@string/restaurantdetail_cuisine"/>
+              android:text="@string/restaurantdetail_cuisine"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
             <TextView
               android:id="@+id/textview_restaurantdetail_cuisine"
-              android:layout_marginTop="@dimen/elevation_all_header"
+              style="@style/AppLabelsTextAppearance"
+              android:textStyle="bold"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              style="@style/AppLabelsTextAppearance"
+              android:layout_marginTop="@dimen/elevation_all_header"
               android:layout_gravity="start"
-              android:textStyle="bold"
-              android:textSize="@dimen/textsize_signup_termsandcondition"
-              android:text="@string/restaurantdetail_cuisinetype_middle_eastern"/>
+              android:text="@string/restaurantdetail_cuisinetype_middle_eastern"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
           </LinearLayout>
 
           <View
+            android:layout_width="@dimen/height_all_viewline"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/elevation_all_header"
             android:layout_marginEnd="@dimen/elevation_all_header"
-            android:background="@color/colorDarkerGray"
-            android:layout_width="@dimen/height_all_viewline"
-            android:layout_height="match_parent"/>
+            android:background="@color/colorDarkerGray"/>
 
           <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5">
+            android:layout_weight="0.5"
+            android:orientation="vertical">
 
             <TextView
               android:id="@+id/textview_restaurantdetail_dresscodelabel"
+              style="@style/AppLabelsTextAppearance"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              style="@style/AppLabelsTextAppearance"
               android:layout_gravity="start"
-              android:textSize="@dimen/textsize_signup_termsandcondition"
-              android:text="@string/restaurantdetail_dresscode"/>
+              android:text="@string/restaurantdetail_dresscode"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
             <TextView
               android:id="@+id/textview_restaurantdetail_dresscode"
-              android:layout_marginTop="@dimen/elevation_all_header"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
               style="@style/AppLabelsTextAppearance"
               android:textStyle="bold"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/elevation_all_header"
               android:layout_gravity="start"
-              android:textSize="@dimen/textsize_signup_termsandcondition"
-              android:text="Casual"/>
+              android:text="Casual"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
           </LinearLayout>
 
           <View
+            android:layout_width="@dimen/height_all_viewline"
+            android:layout_height="match_parent"
             android:layout_marginStart="@dimen/elevation_all_header"
             android:layout_marginEnd="@dimen/elevation_all_header"
-            android:background="@color/colorDarkerGray"
-            android:layout_width="@dimen/height_all_viewline"
-            android:layout_height="match_parent"/>
+            android:background="@color/colorDarkerGray"/>
 
           <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
               android:id="@+id/textview_restaurantdetail_timinglabel"
+              style="@style/AppLabelsTextAppearance"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              style="@style/AppLabelsTextAppearance"
               android:layout_gravity="start"
-              android:textSize="@dimen/textsize_signup_termsandcondition"
-              android:text="Timings"/>
+              android:text="Timings"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
             <TextView
               android:id="@+id/textview_restaurantdetail_timing"
-              android:layout_marginTop="@dimen/elevation_all_header"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
               style="@style/AppLabelsTextAppearance"
               android:textStyle="bold"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/elevation_all_header"
               android:layout_gravity="start"
-              android:textSize="@dimen/textsize_signup_termsandcondition"
-              android:text="12 PM - 4 PM"/>
+              android:text="12 PM - 4 PM"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
           </LinearLayout>
 
         </LinearLayout>
 
         <View
-          android:background="@color/colorDarkerGray"
           android:layout_width="match_parent"
-          android:layout_height="@dimen/height_all_viewline"/>
+          android:layout_height="@dimen/height_all_viewline"
+          android:background="@color/colorDarkerGray"/>
       </LinearLayout>
 
       <LinearLayout
@@ -260,16 +259,27 @@
       </LinearLayout>
 
       <View
-        android:background="@color/colorDarkerGray"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_all_viewline"/>
+        android:layout_height="@dimen/height_all_viewline"
+        android:background="@color/colorDarkerGray"/>
+
+      <TextView
+        android:id="@+id/textview_restaurantdetail_gallery"
+        style="@style/HeaderTextAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/restaurantdetail_gallery"
+        android:textColor="@color/colorGray"/>
 
       <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_restaurantdetail_gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/margin_all_vertical"/>
+        android:layout_marginTop="@dimen/elevation_all_header"
+        android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 
