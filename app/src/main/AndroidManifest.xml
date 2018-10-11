@@ -36,6 +36,8 @@
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
+
+        <action android:name="android.intent.action.VIEW"/>
       </intent-filter>
     </activity>
 
@@ -172,6 +174,9 @@
       android:name=".booking.hotel.BrandDetailActivity"
       android:screenOrientation="portrait">
     </activity>
+    <activity
+      android:name=".booking.restaurant.RestaurantBookingSlotActivity"
+      android:screenOrientation="portrait"/>
   </application>
 
 </manifest>

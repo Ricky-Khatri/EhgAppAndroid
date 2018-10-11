@@ -36,8 +36,6 @@ public class SharedPreferenceUtils {
   public static final String APP_LANGUAGE = "AppLanguage";
   public static final String FCM_TOKEN = "FcmToken";
   public static final String LOYALTY_MEMBER_ID = "LoyaltyMemberId";
-  public static final String USERNAME = "UserName";
-  public static final String PASSWORD = "Password";
   public static final String ACCOUNT_ID = "AccountId";
 
   /**
@@ -48,6 +46,7 @@ public class SharedPreferenceUtils {
     this.context = context;
     sharedPreferences = context.getSharedPreferences("EhgPreferences", Context.MODE_PRIVATE);
     sharedPreferencesEditor = sharedPreferences.edit();
+
   }
 
   /**

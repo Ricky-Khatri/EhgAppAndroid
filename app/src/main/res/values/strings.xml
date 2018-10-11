@@ -163,5 +163,13 @@
   <string name="offersdetail_complimentrylabel">Complimentry</string>
   <string name="offersdetail_joinherelabel">Join here.</string>
   <string name="offersdetail_termsandconditions">Terms and Conditions</string>
+  <string name="restaurentbookingslot_dateselection">Select the Date</string>
+  <string name="restaurentbookingslot_textviewlabel">people</string>
+  <string name="restaurentbookingslot_selecttimelabel">Select Time</string>
+  <string name="restaurentbookingslot_numberofpeople">Select Number of People</string>
+  <string name="restaurentbookingslots_pm">PM</string>
+  <string name="restaurentbookingslot_date">Date</string>
+  <string name="restaurentbookingslots_time">Time</string>
+  <string name="restaurentbookingslots_numberofpeople">Number of People</string>
 
 </resources>
