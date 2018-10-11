@@ -78,6 +78,8 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   private CountryCodePicker countryCodePicker;
   private TextView textViewWhatIsUbyEmaar;
 
+  private String signinId;
+
   /**
    * Called when fragment created.
    *
@@ -406,7 +408,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
    * Checks if password is valid or not.
    */
   private boolean isPasswordValid(String password) {
-    return password.length() >= 4;
+    return password.length() > 4;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -427,8 +429,8 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       try {
         detailObject.put("emailId", emailId);
-        detailObject.put("mobileNumber",
-            "00" + countryCodePicker.getSelectedCountryCode() + mobileNumber);
+        signinId = "00" + countryCodePicker.getSelectedCountryCode() + mobileNumber;
+        detailObject.put("mobileNumber",signinId);
         detailObject.put("lastName", lastName);
         detailObject.put("firstName", firstName);
         detailObject.put("password", password);
@@ -491,8 +493,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
                   userProfilePojo.getData().getDetail().get(0).getLoyaltyMemberId() + "");
           //Save mobile number as accoundId
           SharedPreferenceUtils.getInstance(context)
-              .setValue(SharedPreferenceUtils.ACCOUNT_ID,
-                  userProfilePojo.getData().getDetail().get(0).getMobileNumber() + "");
+              .setValue(SharedPreferenceUtils.ACCOUNT_ID, signinId + "");
 
           Intent intent = new Intent(context, HomeActivity.class);
           AppUtil.showAlertDialog((AppCompatActivity) context,

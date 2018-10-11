@@ -175,6 +175,10 @@
       android:screenOrientation="portrait">
     </activity>
     <activity
+      android:name=".booking.restaurant.RestaurantDetailActivity"
+      android:screenOrientation="portrait">
+    </activity>
+    <activity
       android:name=".booking.restaurant.RestaurantBookingSlotActivity"
       android:screenOrientation="portrait"/>
   </application>

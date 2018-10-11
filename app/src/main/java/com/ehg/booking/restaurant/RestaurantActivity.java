@@ -21,8 +21,15 @@ package com.ehg.booking.restaurant;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
+import com.ehg.settings.PreferencesActivity;
+import com.ehg.utilities.AppUtil;
 
 public class RestaurantActivity extends BaseActivity {
 
@@ -30,5 +37,53 @@ public class RestaurantActivity extends BaseActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_restaurant);
+  }
+
+  /**
+   * Init's view components of this screen.
+   */
+  private void initView() {
+
+    //Set OnClickListener
+    findViewById(R.id.imageview_header_back).setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        AppUtil.finishActivityWithAnimation(RestaurantActivity.this);
+      }
+    });
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
   }
 }

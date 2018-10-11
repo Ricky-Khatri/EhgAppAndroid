@@ -171,5 +171,11 @@
   <string name="restaurentbookingslot_date">Date</string>
   <string name="restaurentbookingslots_time">Time</string>
   <string name="restaurentbookingslots_numberofpeople">Number of People</string>
+  <string name="restaurantdetail_address">Address dubai Mall, Sheikh Mohammed Bin Rashed Bulevard - Dubai</string>
+  <string name="restaurantdetail_getdirections"><u>Get Directions</u></string>
+  <string name="restaurantdetail_cuisine">Cuisine</string>
+  <string name="restaurantdetail_cuisinetype_middle_eastern">Middle Eastern</string>
+  <string name="restaurantdetail_dresscode">Dress Code</string>
+  <string name="restaurantdetail_gallery">Gallery</string>
 
 </resources>

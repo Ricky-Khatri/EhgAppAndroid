@@ -78,6 +78,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   private Context context;
 
   private CountryCodePicker countryCodePicker;
+  private String signinId;
 
   /**
    * Called when fragment created.
@@ -342,7 +343,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
    * Checks if password is valid or not.
    */
   private boolean isPasswordValid(String password) {
-    return password.length() >= 4;
+    return password.length() > 4;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -358,9 +359,8 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       JSONObject detailObject = new JSONObject();
 
       try {
-
-        detailObject.put("accountId", "00"
-            + countryCodePicker.getSelectedCountryCode() + mobileNumber);
+        signinId = "00" + countryCodePicker.getSelectedCountryCode() + mobileNumber;
+        detailObject.put("accountId", signinId);
         detailObject.put("password", password);
 
         JSONObject deviceDetailObject = new JSONObject();
@@ -422,8 +422,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
                   userProfilePojo.getData().getDetail().get(0).getLoyaltyMemberId() + "");
           //Save mobile number as accoundId
           SharedPreferenceUtils.getInstance(context)
-              .setValue(SharedPreferenceUtils.ACCOUNT_ID,
-                  userProfilePojo.getData().getDetail().get(0).getMobileNumber() + "");
+              .setValue(SharedPreferenceUtils.ACCOUNT_ID, signinId);
 
           Intent intent = new Intent(context, HomeActivity.class);
           AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
