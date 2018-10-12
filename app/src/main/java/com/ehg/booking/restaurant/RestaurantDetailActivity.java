@@ -19,20 +19,21 @@
 
 package com.ehg.booking.restaurant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import com.ehg.R;
 import com.ehg.booking.restaurant.adapter.RestaurantDetailGalleryAdapter;
 import com.ehg.booking.restaurant.adapter.RestaurantDetailGalleryAdapter.OnItemClickListener;
 import com.ehg.customview.TextSliderView;
 import com.ehg.home.BaseActivity;
-import com.ehg.home.adapter.HomeFragmentAdapter;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.utilities.AppUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
 import com.glide.slider.library.SliderLayout;
@@ -45,7 +46,7 @@ import java.util.ArrayList;
  * This class shows detail of a restaurant.
  */
 public class RestaurantDetailActivity extends BaseActivity implements OnItemClickListener,
-    OnSliderClickListener {
+    OnSliderClickListener, OnClickListener {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -62,23 +63,24 @@ public class RestaurantDetailActivity extends BaseActivity implements OnItemClic
    */
   private void initView() {
 
-    RecyclerView recyclerViewRestaurantGallery = findViewById(R.id.recyclerview_restaurantdetail_gallery);
+    RecyclerView recyclerViewRestaurantGallery = findViewById(
+        R.id.recyclerview_restaurantdetail_gallery);
     GridLayoutManager manager = new GridLayoutManager(this, 3);
     recyclerViewRestaurantGallery.setLayoutManager(manager);
     recyclerViewRestaurantGallery.setHasFixedSize(true);
     RestaurantDetailGalleryAdapter restaurantDetailGalleryAdapter =
-        new RestaurantDetailGalleryAdapter(this,this);
+        new RestaurantDetailGalleryAdapter(this, this);
     recyclerViewRestaurantGallery.setAdapter(restaurantDetailGalleryAdapter);
     AppUtil.animateRecyclerView(this, recyclerViewRestaurantGallery,
         R.anim.layout_animation_from_right);
 
+    Button buttonBookNow = findViewById(R.id.button_restaurantdetail_booknow);
+    Button buttonCallUs = findViewById(R.id.button_restaurantdetail_callus);
+
     //Set OnClickListener
-    findViewById(R.id.imageview_header_back).setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        AppUtil.finishActivityWithAnimation(RestaurantDetailActivity.this);
-      }
-    });
+    findViewById(R.id.imageview_header_back).setOnClickListener(this);
+    buttonBookNow.setOnClickListener(this);
+    buttonCallUs.setOnClickListener(this);
   }
 
   /**
@@ -86,12 +88,13 @@ public class RestaurantDetailActivity extends BaseActivity implements OnItemClic
    */
   private void initAutoScrollViewPager() {
 
-    SliderLayout sliderLayoutRestaurantDetail = findViewById(R.id.sliderlayout_restaurantdetail_slider);
+    SliderLayout sliderLayoutRestaurantDetail = findViewById(
+        R.id.sliderlayout_restaurantdetail_slider);
 
     sliderLayoutRestaurantDetail.setPresetTransformer(Transformer.Default);
 
     sliderLayoutRestaurantDetail.getLayoutParams().height = AppUtil
-        .getDeviceHeight( this) / 3 - 50;
+        .getDeviceHeight(this) / 3 - 50;
 
     ArrayList<String> listUrl = new ArrayList<>();
     ArrayList<String> listName = new ArrayList<>();
@@ -171,6 +174,7 @@ public class RestaurantDetailActivity extends BaseActivity implements OnItemClic
 
   /**
    * Called when gallery item clicked.
+   *
    * @param position position of cliked item
    */
   @Override
@@ -180,10 +184,40 @@ public class RestaurantDetailActivity extends BaseActivity implements OnItemClic
 
   /**
    * Called when slider item clicked.
+   *
    * @param baseSliderView clicked view
    */
   @Override
   public void onSliderClick(BaseSliderView baseSliderView) {
 
+  }
+
+  /**
+   * Called when
+   */
+  @Override
+  public void onClick(View view) {
+
+    Intent intent = null;
+
+    switch (view.getId()) {
+
+      case R.id.imageview_header_back:
+        AppUtil.finishActivityWithAnimation(RestaurantDetailActivity.this);
+        break;
+
+      case R.id.button_restaurantdetail_booknow:
+        intent = new Intent(this, RestaurantBookingSlotActivity.class);
+        break;
+
+      case R.id.button_restaurantdetail_callus:
+
+        break;
+
+      default:
+
+        break;
+    }
+    AppUtil.startActivityWithAnimation(this, intent, false);
   }
 }

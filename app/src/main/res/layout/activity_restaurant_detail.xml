@@ -299,7 +299,7 @@
     android:orientation="horizontal">
 
     <Button
-      android:id="@+id/button_hoteldetail_booknow"
+      android:id="@+id/button_restaurantdetail_booknow"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"
@@ -315,7 +315,7 @@
       android:layout_marginTop="@dimen/marginstart_header_search"/>
 
     <Button
-      android:id="@+id/button_hoteldetail_callus"
+      android:id="@+id/button_restaurantdetail_callus"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_weight="1"

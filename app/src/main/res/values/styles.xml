@@ -30,6 +30,18 @@
     <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
   </style>
 
+  <!--Material theme for chips activity-->
+  <style name="ChipTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <item name="android:screenOrientation">portrait</item>
+    <item name="windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorDarkerGray</item>
+    <item name="colorAccent">@color/colorBlackTransparent</item>
+    <item name="actionMenuTextColor">@color/colorBlack</item>
+    <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
+  </style>
+
   <!--Header text appearance-->
   <style name="HeaderTextAppearance" parent="@android:style/TextAppearance.Medium">
     <item name="android:textSize">@dimen/textsize_all_headertitle</item>

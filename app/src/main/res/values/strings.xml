@@ -181,5 +181,6 @@
   <string name="restaurantbookingguestdetail_specialrequest">Special Request (Optional)</string>
   <string name="restaurantbookingguestdetail_phonenumber">Phone Number</string>
   <string name="restaurantbookingguestdetail_bookrestaurent">BOOK A RESTAURENT</string>
+  <string name="fetchavailability_notimeslotsavailable">No item slots available.</string>
 
 </resources>

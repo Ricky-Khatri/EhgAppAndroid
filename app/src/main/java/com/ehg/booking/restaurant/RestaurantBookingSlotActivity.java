@@ -23,21 +23,41 @@ import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import com.andexert.calendarlistview.library.DatePickerController;
 import com.andexert.calendarlistview.library.DayPickerView;
 import com.andexert.calendarlistview.library.SimpleMonthAdapter.CalendarDay;
 import com.andexert.calendarlistview.library.SimpleMonthAdapter.SelectedDays;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.utilities.AppUtil;
+import com.loopj.android.http.RequestParams;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+/**
+ * This class allows to select date, time and number of people for fetching available time slots.
+ */
 public class RestaurantBookingSlotActivity extends BaseActivity implements
-    com.andexert.calendarlistview.library.DatePickerController, View.OnClickListener {
+    DatePickerController, OnClickListener, ApiResponseListener {
+
+  private static final String FETCH_AVAILABILITY = "fetchAvailability";
 
   private DayPickerView dayPickerView;
   private Context context;
@@ -50,6 +70,11 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
   private int minute;
   private TextView textViewAmPm;
 
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -61,6 +86,9 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
     initView();
   }
 
+  /**
+   * Called to init ui components of this screen.
+   */
   private void initView() {
 
     dayPickerView = findViewById(R.id.daypickerview_restaurantbookingslot_calandar);
@@ -71,25 +99,49 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
     textViewNext = findViewById(R.id.textview_restaurentbookingslot_next);
     textViewAmPm = findViewById(R.id.textview_restaurentbookingslot_ampm);
 
+    //Set OnLClickListener
+    textViewNext.setOnClickListener(this);
     linearLayoutTime.setOnClickListener(this);
     dayPickerView.setController(this);
   }
 
+  /**
+   * Called to get max years.
+   *
+   * @return integer
+   */
   @Override
   public int getMaxYear() {
     return 2050;
   }
 
+  /**
+   * Called to get day of month.
+   *
+   * @param year year
+   * @param month month
+   * @param day day
+   */
   @Override
   public void onDayOfMonthSelected(int year, int month, int day) {
 
   }
 
+  /**
+   * Called to get date range selected.
+   *
+   * @param selectedDays selected days
+   */
   @Override
   public void onDateRangeSelected(SelectedDays<CalendarDay> selectedDays) {
 
   }
 
+  /**
+   * Called when click event initialized on view component.
+   *
+   * @param view clicked view
+   */
   @Override
   public void onClick(View view) {
 
@@ -108,20 +160,21 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
           public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
 
             String amPm = "";
-           /* hour   = hourOfDay;
+               /* hour   = hourOfDay;
             minute = minutes;*/
 
-            Calendar datetime = Calendar.getInstance();
+            /*Calendar datetime = Calendar.getInstance();
             datetime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             datetime.set(Calendar.MINUTE, minute);
 
             if (datetime.get(Calendar.AM_PM) == Calendar.AM) {
-              amPm = "AM";
+              am_pm = "AM";
             } else if (datetime.get(Calendar.AM_PM) == Calendar.PM) {
-              amPm = "PM";
+              am_pm = "PM";
             }
 
-            String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
+            String strHrsToShow =
+                (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
             if (Integer.parseInt(strHrsToShow) < 10) {
               strHrsToShow = "0" + strHrsToShow;
@@ -135,9 +188,12 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
               textViewTime.setText(strHrsToShow + ":" + minutes);
             }
 
-            textViewAmPm.setText(amPm);
+            textViewAmPm.setText(am_pm);*/
+
+            textViewTime.setText(hourOfDay + ":" + minutes);
+
           }
-        }, hour, minute, false);
+        }, hour, minute, true);
 
         timePickerDialog.show();
 
@@ -149,7 +205,126 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
 
         break;
 
+      case R.id.textview_restaurentbookingslot_next:
+        //TODO: Need to implement single date selection
+        int date = Calendar.getInstance().get(Calendar.DATE);
+        int month = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+
+        fetchAvailability(date + "/" + month + "/" + year,
+            textViewTime.getText().toString(), "2");
+
+        /*Intent intent = new Intent(this, FetchAvailabilityActivity.class);
+        intent.putExtra("availableSlotes", "");
+        AppUtil.startActivityWithAnimation(this, intent, false);*/
+
+        break;
+
       default:
+        break;
     }
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Called to fetch restaurant slots availability.
+   *
+   * @param date date
+   * @param time time
+   * @param numberOfPeople number of people
+   */
+  private void fetchAvailability(String date, String time, String numberOfPeople) {
+    if (AppUtil.isNetworkAvailable(this)) {
+      new HttpClientRequest().setApiResponseListner(this);
+
+      String url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_GET_RESTAURANT_AVAILABILITY) + "1"
+          + "?loyaltyMemberId="
+          + "1212" + "&tentativeDate=" + "2018-10-23" + "&tentativeTime=" + "20:12" + "&partySize="
+          + "2";
+
+      new HttpClientRequest(this, url,
+          new RequestParams(), WebServiceUtil.CONTENT_TYPE,
+          FETCH_AVAILABILITY, true).httpGetRequest();
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(FETCH_AVAILABILITY)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
+
+        Intent intent = new Intent(this, FetchAvailabilityActivity.class);
+        intent.putExtra("availableSlotes", responseVal);
+        AppUtil.startActivityWithAnimation(this, intent, false);
+
+      } else {
+        AppUtil.showAlertDialog(this,
+            new JSONObject(responseVal).getString("message"), false,
+            getResources().getString(R.string.dialog_errortitle), true, null);
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog(this, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }

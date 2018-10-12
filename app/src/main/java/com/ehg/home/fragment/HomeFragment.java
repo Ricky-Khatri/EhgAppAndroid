@@ -40,6 +40,7 @@ import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.BrandDetailActivity;
+import com.ehg.booking.restaurant.RestaurantDetailActivity;
 import com.ehg.customview.TextSliderView;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
@@ -213,7 +214,8 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
       UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(context).getUserProfilePojo();
       if (userProfilePojo != null && userProfilePojo.getData().getDetail().size() > 0) {
         Detail detail = userProfilePojo.getData().getDetail().get(0);
-        textViewClientTitle.setText("Hello Mr. " + detail.getFirstName() + " " + detail.getLastName());
+        textViewClientTitle
+            .setText("Hello Mr. " + detail.getFirstName() + " " + detail.getLastName());
       }
     } else {
       linearLayoutRoomControls.setVisibility(View.GONE);
@@ -339,10 +341,25 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
    */
   @Override
   public void onHorizontalItemClicked(String title) {
-    /*if (title.contains("HOTELS AND RESORTS")) {
-      Intent intent = new Intent(context, BrandDetailActivity.class);
-      intent.putExtra("title", title);
-      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
-    }*/
+
+    Intent intent = null;
+
+    switch (title) {
+
+      case "HOTELS AND RESORTS":
+        intent = new Intent(context, BrandDetailActivity.class);
+        intent.putExtra("title", title);
+        break;
+
+      case "RESTAURANTS":
+        intent = new Intent(context, RestaurantDetailActivity.class);
+        intent.putExtra("title", title);
+        break;
+
+      default:
+        break;
+    }
+
+    AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
   }
 }

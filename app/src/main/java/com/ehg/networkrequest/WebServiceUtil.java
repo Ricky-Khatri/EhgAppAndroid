@@ -30,7 +30,10 @@ public class WebServiceUtil {
 
   //Dev environment
   //public static final String BASE_URL = "https://his-dev.digivalet.com/dv_app_ehggateway/";
-  public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway/";
+  //public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway/";
+
+  //Local ip for reservations
+  public static final String BASE_URL = "http://192.168.3.66:8080/digivalet-ehg-gateway";
 
   public static final String DEVICE_TYPE = "Android";
 
@@ -55,6 +58,9 @@ public class WebServiceUtil {
 
   //GetMemberDetails method
   public static final String METHOD_GET_MEMBER_DETAIL = "signUp/memberDetails/v1/";
+
+  //GetMemberDetails method
+  public static final String METHOD_GET_RESTAURANT_AVAILABILITY = "/restaurantReservation/fetchAvailability/v1/";
 
 
   /**

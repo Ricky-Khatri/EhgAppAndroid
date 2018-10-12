@@ -169,34 +169,42 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
   @Override
   public void onResume() {
     super.onResume();
-    if (context != null) {
-      textViewProfile.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
-          context.getResources().getString(R.string.ubyemaar_profilelabels)));
-      textViewUPoint.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
-          context.getResources().getString(R.string.ubyemaar_upointlabel)));
-      textViewPreference.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
-          context.getResources().getString(R.string.ubyemaar_preferenceslabel)));
-      textViewbenifits.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
-          context.getResources().getString(R.string.ubyemaar_benefitslabel)));
 
-      textViewTotalPointsLabel.setText(LanguageUtil
-          .getLanguageTitleFromKey((AppCompatActivity) context,
-              context.getResources().getString(R.string.ubyemaar_totalupointslabel)));
-      textViewAmountLabel.setText(LanguageUtil
-          .getLanguageTitleFromKey((AppCompatActivity) context,
-              context.getResources().getString(R.string.ubyemaar_availabletoredeemlabel)));
-      textViewCurrency.setText(LanguageUtil
-          .getLanguageTitleFromKey((AppCompatActivity) context,
-              context.getResources().getString(R.string.ubyemaar_aedcurrency)));
+    try {
+      if (context != null) {
+        textViewProfile.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
+            context.getResources().getString(R.string.ubyemaar_profilelabels)));
+        textViewUPoint.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
+            context.getResources().getString(R.string.ubyemaar_upointlabel)));
+        textViewPreference.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
+            context.getResources().getString(R.string.ubyemaar_preferenceslabel)));
+        textViewbenifits.setText(LanguageUtil.getLanguageTitleFromKey((AppCompatActivity) context,
+            context.getResources().getString(R.string.ubyemaar_benefitslabel)));
 
-      UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(context).getUserProfilePojo();
-      if (userProfilePojo != null && userProfilePojo.getData().getDetail().size() > 0) {
-        Detail detail = userProfilePojo.getData().getDetail().get(0);
-        textViewUserName.setText("Hello Mr. " + detail.getFirstName() + " " + detail.getLastName());
-        textViewMemberShipType.setText(detail.getTierLevel());
-        textViewTotalPoints.setText(detail.getCurrentPoints() + "");
-        textViewAmount.setText(detail.getCurrentBalance() + "");
+        textViewTotalPointsLabel.setText(LanguageUtil
+            .getLanguageTitleFromKey((AppCompatActivity) context,
+                context.getResources().getString(R.string.ubyemaar_totalupointslabel)));
+        textViewAmountLabel.setText(LanguageUtil
+            .getLanguageTitleFromKey((AppCompatActivity) context,
+                context.getResources().getString(R.string.ubyemaar_availabletoredeemlabel)));
+        textViewCurrency.setText(LanguageUtil
+            .getLanguageTitleFromKey((AppCompatActivity) context,
+                context.getResources().getString(R.string.ubyemaar_aedcurrency)));
+
+        UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(context).getUserProfilePojo();
+        if (userProfilePojo != null && userProfilePojo.getData().getDetail().size() > 0) {
+          Detail detail = userProfilePojo.getData().getDetail().get(0);
+          textViewUserName
+              .setText("Hello Mr. " + detail.getFirstName() + " " + detail.getLastName());
+          textViewMemberShipType.setText(detail.getTierLevel());
+          textViewTotalPoints.setText(detail.getCurrentPoints() + "");
+          textViewAmount.setText(detail.getCurrentBalance() + "");
+        }
       }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

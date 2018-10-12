@@ -155,7 +155,6 @@
       android:name=".splash.SplashActivity"
       android:screenOrientation="portrait">
     </activity>
-
     <activity
       android:name=".search.SearchActivity"
       android:screenOrientation="portrait">
@@ -176,6 +175,14 @@
     </activity>
     <activity
       android:name=".booking.restaurant.RestaurantDetailActivity"
+      android:screenOrientation="portrait">
+    </activity>
+    <activity
+      android:name=".booking.restaurant.RestaurantBookingSlotActivity"
+      android:screenOrientation="portrait"/>
+    <activity
+      android:theme="@style/ChipTheme"
+      android:name=".booking.restaurant.FetchAvailabilityActivity"
       android:screenOrientation="portrait">
     </activity>
     <activity

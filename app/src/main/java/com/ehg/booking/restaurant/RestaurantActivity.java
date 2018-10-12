@@ -19,16 +19,13 @@
 
 package com.ehg.booking.restaurant;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
-import com.ehg.settings.PreferencesActivity;
 import com.ehg.utilities.AppUtil;
 
 public class RestaurantActivity extends BaseActivity {

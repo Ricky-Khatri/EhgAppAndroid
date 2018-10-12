@@ -79,7 +79,12 @@ dependencies {
     //Group Expanldaple list view.
     //noinspection GradleDynamicVersion
     implementation 'com.diegocarloslima:fgelv:0.1.+@aar'
+
+    //Calender lib
     implementation project(':Calenderlib')
+
+    //Material chips
+    implementation 'com.android.support:design:28.0.0'
 }
 
 //Fire base crashlytics plugin
