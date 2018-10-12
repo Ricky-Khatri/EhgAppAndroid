@@ -107,7 +107,7 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
           @Override
           public void onTimeSet(TimePicker view, int hourOfDay, int minutes) {
 
-            String am_pm = "";
+            String amPm = "";
            /* hour   = hourOfDay;
             minute = minutes;*/
 
@@ -116,9 +116,9 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
             datetime.set(Calendar.MINUTE, minute);
 
             if (datetime.get(Calendar.AM_PM) == Calendar.AM) {
-              am_pm = "AM";
+              amPm = "AM";
             } else if (datetime.get(Calendar.AM_PM) == Calendar.PM) {
-              am_pm = "PM";
+              amPm = "PM";
             }
 
             String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
@@ -135,7 +135,7 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
               textViewTime.setText(strHrsToShow + ":" + minutes);
             }
 
-            textViewAmPm.setText(am_pm);
+            textViewAmPm.setText(amPm);
           }
         }, hour, minute, false);
 

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 12/10/18 2:17 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 12/10/18 2:17 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <include
+    android:id="@+id/layout_restaurentbookingguestdetail_header"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_all_horizontal"
+    android:layout_above="@+id/textview_restaurantbookingguestdetail_booking"
+    android:layout_below="@+id/layout_restaurentbookingguestdetail_header">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <!--<android.support.design.chip.ChipGroup
+        android:id="@+id/chipgroup_restaurentbookingguestdetail"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/google_1x"
+        app:chipSpacingVertical="5dp"
+        app:chipSpacingHorizontal="5dp"
+        android:layout_height="wrap_content"
+        app:singleLine="true"/>-->
+      <LinearLayout
+        android:id="@+id/linearlayout_restaurantbookingguestdetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_all_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+          android:id="@+id/textview_restaurantbookingguestdetail_date"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/elevation_all_header"
+          android:padding="@dimen/elevation_all_header"
+          android:background="@drawable/all_rounded_border"
+          android:text="Oct 2"
+          android:textColor="@color/colorGray"
+          android:textSize="@dimen/textsize_all_labels"/>
+        <TextView
+          android:id="@+id/textview_restaurantbookingguestdetail_time"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/elevation_all_header"
+          android:padding="@dimen/elevation_all_header"
+          android:background="@drawable/all_rounded_border"
+          android:text="1:00 AM"
+          android:textColor="@color/colorGray"
+          android:textSize="@dimen/textsize_all_labels"/>
+        <TextView
+          android:id="@+id/textview_restaurantbookingguestdetail_numberofguest"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/elevation_all_header"
+          android:padding="@dimen/elevation_all_header"
+          android:background="@drawable/all_rounded_border"
+          android:text="5 Guest"
+          android:textColor="@color/colorGray"
+          android:textSize="@dimen/textsize_all_labels"/>
+
+      </LinearLayout>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGray"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/height_all_verticaldivider"
+        android:text="@string/restaurentbookingguestdetail_guestinformation"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_headertitle"/>
+
+
+      <TextView
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:hint="@string/all_firstname"/>
+
+      <EditText
+        android:id="@+id/edittext_restaurantbookingguestdetail_firstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:layout_gravity="start"
+        android:background="@null"
+        android:imeOptions="actionNext"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        tools:ignore="LabelFor"/>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:background="@color/colorBlackTransparent"/>
+
+      <TextView
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/height_all_verticaldivider"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:hint="@string/all_lastname"/>
+
+      <EditText
+        android:id="@+id/edittext_restaurantbookingguestdetail_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:layout_gravity="start"
+        android:background="@null"
+        android:imeOptions="actionNext"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAlignment="viewStart"/>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:background="@color/colorBlackTransparent"/>
+
+      <TextView
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/height_all_verticaldivider"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:hint="@string/all_email"/>
+
+      <EditText
+        android:id="@+id/edittext_restaurantbookingguestdetail_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:layout_gravity="start"
+        android:background="@null"
+        android:imeOptions="actionNext"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAlignment="viewStart"/>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:background="@color/colorBlackTransparent"/>
+
+      <TextView
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/height_all_verticaldivider"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:hint="@string/restaurantbookingguestdetail_phonenumber"/>
+
+      <EditText
+        android:id="@+id/edittext_restaurantbookingguestdetail_phonenumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:layout_gravity="start"
+        android:background="@null"
+        android:imeOptions="actionNext"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        />
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:background="@color/colorBlackTransparent"/>
+
+      <TextView
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/height_all_verticaldivider"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:hint="@string/restaurantbookingguestdetail_specialrequest"/>
+
+      <EditText
+        android:id="@+id/edittext_restaurantbookingguestdetail_specialinstruction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:layout_gravity="start"
+        android:background="@null"
+        android:imeOptions="actionNext"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:maxLines="1"
+
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        />
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/height_all_verticaldivider"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:background="@color/colorBlackTransparent"/>
+
+    </LinearLayout>
+
+  </ScrollView>
+  <TextView
+    android:id="@+id/textview_restaurantbookingguestdetail_booking"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_socialmedia_mediaicon"
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorGray"
+    android:gravity="center"
+    android:text="@string/restaurantbookingguestdetail_bookrestaurent"
+    android:textColor="@color/colorWhite"/>
+</RelativeLayout>

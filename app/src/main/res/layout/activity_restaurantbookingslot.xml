@@ -25,14 +25,14 @@
   android:layout_height="match_parent">
 
   <include
-    android:id="@+id/layoutheader_restaurantbookingslot"
+    android:id="@+id/layout_restaurantbookingslot_header"
     layout="@layout/layout_header_with_navigation"/>
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_above="@+id/textview_restaurentbookingslot_next"
-    android:layout_below="@+id/layoutheader_restaurantbookingslot"
+    android:layout_below="@+id/layout_restaurantbookingslot_header"
     android:orientation="vertical">
 
     <LinearLayout

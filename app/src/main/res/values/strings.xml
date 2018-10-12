@@ -177,5 +177,9 @@
   <string name="restaurantdetail_cuisinetype_middle_eastern">Middle Eastern</string>
   <string name="restaurantdetail_dresscode">Dress Code</string>
   <string name="restaurantdetail_gallery">Gallery</string>
+  <string name="restaurentbookingguestdetail_guestinformation">We need some information about you to getus going.</string>
+  <string name="restaurantbookingguestdetail_specialrequest">Special Request (Optional)</string>
+  <string name="restaurantbookingguestdetail_phonenumber">Phone Number</string>
+  <string name="restaurantbookingguestdetail_bookrestaurent">BOOK A RESTAURENT</string>
 
 </resources>
