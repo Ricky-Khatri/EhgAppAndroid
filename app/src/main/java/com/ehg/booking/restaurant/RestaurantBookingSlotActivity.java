@@ -26,6 +26,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import com.andexert.calendarlistview.library.DayPickerView;
@@ -109,6 +110,7 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
             String am_pm = "";
            /* hour   = hourOfDay;
             minute = minutes;*/
+
             Calendar datetime = Calendar.getInstance();
             datetime.set(Calendar.HOUR_OF_DAY, hourOfDay);
             datetime.set(Calendar.MINUTE, minute);
@@ -121,7 +123,18 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
 
             String strHrsToShow = (datetime.get(Calendar.HOUR) == 0) ? "12" : datetime.get(Calendar.HOUR) + "";
 
-            textViewTime.setText(strHrsToShow + ":" + datetime.get(Calendar.MINUTE));
+            if (Integer.parseInt(strHrsToShow) < 10) {
+              strHrsToShow = "0" + strHrsToShow;
+            }
+
+            if (minutes < 10) {
+
+              textViewTime.setText(strHrsToShow + ": 0" + minutes);
+            } else {
+
+              textViewTime.setText(strHrsToShow + ":" + minutes);
+            }
+
             textViewAmPm.setText(am_pm);
           }
         }, hour, minute, false);
@@ -131,6 +144,8 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
         break;
 
       case R.id.linearlayout_restaurentbookingslots_guestcount:
+
+        //TODO : Number picker for guest count need to be implement after discussion.
 
         break;
 

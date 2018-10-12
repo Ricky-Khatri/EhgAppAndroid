@@ -30,7 +30,7 @@
 
     <!-- SplashActivity -->
     <activity
-      android:name=".splash.LaunchActivity"
+      android:name=".booking.restaurant.RestaurantBookingSlotActivity"
       android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -178,9 +178,9 @@
       android:name=".booking.restaurant.RestaurantDetailActivity"
       android:screenOrientation="portrait">
     </activity>
-    <activity
-      android:name=".booking.restaurant.RestaurantBookingSlotActivity"
-      android:screenOrientation="portrait"/>
+    <!-- <activity
+       android:name=".booking.restaurant.RestaurantBookingSlotActivity"
+       android:screenOrientation="portrait"/>-->
   </application>
 
 </manifest>
