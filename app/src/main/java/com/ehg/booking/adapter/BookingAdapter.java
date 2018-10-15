@@ -20,15 +20,20 @@
 package com.ehg.booking.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.pojo.BookingPojo;
+import com.ehg.booking.spa.SpaActivity;
+import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHolder> {
@@ -70,12 +75,45 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
    * @param position integer position
    */
   @Override
-  public void onBindViewHolder(final BookingAdapter.ViewHolder viewHolder, int position) {
+  public void onBindViewHolder(final BookingAdapter.ViewHolder viewHolder, final int position) {
 
     /*Glide.with(context).load(bookList.get(position).getImageUrl())
         .into(viewHolder.appCompatImageView);*/
 
     viewHolder.textViewTitle.setText(bookList.get(position).getTitle());
+
+    viewHolder.relativeLayout.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        switch (position) {
+
+          case 0:
+
+            break;
+          case 1:
+
+            break;
+
+          case 2:
+
+            Intent intent = new Intent(context, SpaActivity.class);
+            intent.putExtra("spaTreatment", bookList.get(position).getTitle());
+            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+
+            break;
+
+          case 3:
+
+            break;
+
+          case 4:
+
+            break;
+        }
+      }
+    });
+
   }
 
   /**

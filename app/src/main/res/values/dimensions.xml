@@ -47,4 +47,9 @@
   <dimen name="height_all_viewline">0.5dp</dimen>
   <dimen name="height_tablayout_tab">45dp</dimen>
   <dimen name="textsize_itemreservation_reservationtype">6sp</dimen>
+
+  <dimen name="dimension_itemhomehorizontallist_linearlayout_size">170dp</dimen>
+
+
+  <dimen name="textsize_all_small">12sp</dimen>
 </resources>

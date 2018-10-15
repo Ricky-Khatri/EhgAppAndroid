@@ -18,11 +18,43 @@
   ~
   -->
 
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   tools:context=".booking.spa.SpaActivity">
 
-</android.support.constraint.ConstraintLayout>
+  <include
+    android:id="@+id/layout_spa_header"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/layout_spa_header">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/appcompactimageview_spa"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimension_itemhomehorizontallist_linearlayout_size"
+        android:layout_marginTop="@dimen/margin_all_horizontal"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/placeholder"/>
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_spa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/marginstart_header_search">
+
+      </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+  </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

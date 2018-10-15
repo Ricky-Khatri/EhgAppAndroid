@@ -19,15 +19,75 @@
 
 package com.ehg.booking.spa;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.spa.adapter.SpaListAdapter;
 import com.ehg.home.BaseActivity;
+import com.ehg.utilities.AppUtil;
 
-public class SpaActivity extends BaseActivity {
+public class SpaActivity extends BaseActivity implements View.OnClickListener {
+
+  private AppCompatImageView imageViewHeaderBack;
+  private RecyclerView recyclerViewSpa;
+  private Context context;
+  private String headerName;
+  private TextView textViewHeader;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_spa);
+
+    context = this;
+
+    Bundle bundle = getIntent().getExtras();
+
+    if (bundle != null) {
+
+      headerName = bundle.getString("spaTreatment");
+    }
+
+    initView();
+
+  }
+
+  private void initView() {
+
+    recyclerViewSpa = (RecyclerView) findViewById(R.id.recyclerview_spa);
+    imageViewHeaderBack = (AppCompatImageView) findViewById(R.id.imageview_header_back);
+    textViewHeader = (TextView) findViewById(R.id.textview_header_title);
+
+    textViewHeader.setText(headerName);
+    recyclerViewSpa.setLayoutManager(new LinearLayoutManager(context));
+    recyclerViewSpa.setHasFixedSize(true);
+
+    imageViewHeaderBack.setOnClickListener(this);
+
+    SpaListAdapter spaListAdapter = new SpaListAdapter(context);
+    recyclerViewSpa.setAdapter(spaListAdapter);
+
+    AppUtil.animateRecyclerView(context, recyclerViewSpa,
+        R.anim.layout_animation_from_bottom);
+  }
+
+  @Override
+  public void onClick(View v) {
+
+    switch (v.getId()) {
+
+      case R.id.imageview_header_back:
+
+        AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      default:
+        break;
+    }
   }
 }

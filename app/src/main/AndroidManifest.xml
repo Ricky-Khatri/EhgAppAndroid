@@ -191,7 +191,9 @@
     <!--<activity
       android:name=".booking.restaurant.RestaurantBookingSlotActivity"
       android:screenOrientation="portrait"/>-->
-    <activity android:name=".booking.restaurant.RestaurantBookingSummaryActivity">
+    <activity
+      android:name=".booking.restaurant.RestaurantBookingSummaryActivity"
+      android:screenOrientation="portrait">
     </activity>
   </application>
 
