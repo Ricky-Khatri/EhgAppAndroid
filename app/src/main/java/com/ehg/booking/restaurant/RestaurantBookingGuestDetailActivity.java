@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.chip.ChipGroup;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -37,9 +38,11 @@ import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.reservations.BookingSummaryActivity;
 import com.ehg.utilities.AppUtil;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,10 +120,12 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
 
       String[] dateArray = dateStr.split("-");
       if (dateArray != null && dateArray.length > 0) {
-        textViewDate.setText(dateArray[1] + " " + dateArray[2]);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, Integer.parseInt(dateArray[1]));
+        textViewDate.setText(calendar.getTime().toString().split(" ")[1] + " " + dateArray[2]);
       }
       textViewTime.setText(timeStr);
-      textViewGuestCount.setText(numberOfPeople);
+      textViewGuestCount.setText(numberOfPeople + " Guests");
 
       textViewBookingRestaurent.setOnClickListener(this);
 
@@ -130,6 +135,7 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
       editTextEmailAddress.setOnEditorActionListener(this);
       editTextPhoneNumber.setOnEditorActionListener(this);
       editTextSpecialRequest.setOnEditorActionListener(this);
+      findViewById(R.id.imageview_header_back).setOnClickListener(this);
 
     } catch (NullPointerException n) {
       n.printStackTrace();
@@ -152,6 +158,10 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
 
       case R.id.textview_restaurantbookingguestdetail_booking:
         validateSignUpFormFields();
+        break;
+
+      case R.id.imageview_header_back:
+        AppUtil.finishActivityWithAnimation(this);
         break;
 
       default:
@@ -310,9 +320,35 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
    * Called when activity resumed.
    */
   @Override
-  public void onResume() {
+  protected void onResume() {
     super.onResume();
     resetErrors();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
   }
 
   /**
@@ -339,11 +375,11 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
 
   /**
    * Called to make reservation.
-   * @param firstName
-   * @param lastName
-   * @param email
-   * @param mobile
-   * @param specialRequest
+   * @param firstName first name
+   * @param lastName last name
+   * @param email email
+   * @param mobile mobile
+   * @param specialRequest special request
    */
   private void makeReservation(String firstName, String lastName, String email,
       String mobile, String specialRequest) {
@@ -359,7 +395,7 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
         deviceDetailObject.put("lastName", lastName);
         deviceDetailObject.put("emailAddress", email);
         deviceDetailObject.put("phoneNumber", mobile);
-        deviceDetailObject.put("phoneCountryCode", "971");//TODO : Need to make dynamic
+        deviceDetailObject.put("phoneCountryCode", "AU");//TODO : Need to make dynamic
         deviceDetailObject.put("specialRequest", specialRequest);
         deviceDetailObject.put("offerId", "0");// TODO : Make it dynamic
         deviceDetailObject.put("offerName", "Offer");
@@ -367,21 +403,21 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
         deviceDetailObject.put("reservationDate", dateStr);
         deviceDetailObject.put("reservationTime", timeStr
             .replace("AM", "").replace("PM", ""));
-        deviceDetailObject.put("restaurantId", restaurantId);
+        deviceDetailObject.put("restaurantId", Integer.parseInt(restaurantId));
         deviceDetailObject.put("reservationToken", reservationToken);
 
         if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
             .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
 
           deviceDetailObject.put("loyaltyMemberId",
-              SharedPreferenceUtils.getInstance(this)
-                  .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""));
+              Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+                  .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
         }
         deviceDetailObject.put("deviceId", AppUtil.getDeviceId(this));
 
-        detailObject.put("deviceDetails", deviceDetailObject);
+        //detailObject.put("deviceDetails", deviceDetailObject);
 
-        detailsArray.put(detailObject);
+        detailsArray.put(deviceDetailObject);
 
         jsonObject.put("details", detailsArray);
         jsonObject.put("operation", OPERATION);
@@ -398,7 +434,7 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
         e.printStackTrace();
       }
 
-      new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_LOCK_RESERVATION),
+      new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_MAKE_RESERVATION),
           entity, WebServiceUtil.CONTENT_TYPE,
           OPERATION, true).httpPostRequest();
     }
@@ -418,25 +454,25 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
 
-        Intent intent = new Intent(this, RestaurantBookingGuestDetailActivity.class);
-        intent.putExtra("restaurantId", restaurantId);
-        intent.putExtra("date", dateStr);
-        //intent.putExtra("time", selectedTimeSlot);
-        intent.putExtra("numberOfPeople", numberOfPeople);
+        Intent intent = new Intent(this, BookingSummaryActivity.class);
+        intent.putExtra("response", responseVal);
         AppUtil.startActivityWithAnimation(this, intent, false);
 
       } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
 
         JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
-        JSONArray detailArray = dataObject.optJSONArray("detail");
-        if (detailArray != null && detailArray.length() > 0) {
-          JSONObject validationError = detailArray.optJSONObject(0)
-              .optJSONArray("validationErrors").optJSONObject(0);
 
-          AppUtil.showAlertDialog(this,
-              validationError.getString("ErrorMessage"), false,
-              getResources().getString(R.string.dialog_errortitle), true, null);
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog(this,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
         } else {
           AppUtil.showAlertDialog(this,
               new JSONObject(responseVal).getString("message"), false,

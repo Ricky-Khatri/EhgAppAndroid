@@ -44,10 +44,7 @@ import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
-import com.google.gson.JsonObject;
 import com.loopj.android.http.RequestParams;
-import cz.msebera.android.httpclient.entity.StringEntity;
-import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -197,8 +194,17 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
 
             textViewAmPm.setText(am_pm);*/
 
-            textViewTime.setText(hourOfDay + ":" + minutes);
+            String hourStr = hourOfDay+"";
+            String minuteStr = minutes+"";
+            if (hourOfDay < 10) {
+              hourStr = "0" + hourOfDay;
+            }
 
+            if (minutes < 10) {
+              minuteStr = "0" + minutes;
+            }
+
+            textViewTime.setText(hourStr + ":" + minuteStr);
           }
         }, hour, minute, true);
 
@@ -332,14 +338,17 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
           && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
 
         JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
-        JSONArray detailArray = dataObject.optJSONArray("detail");
-        if (detailArray != null && detailArray.length() > 0) {
-          JSONObject validationError = detailArray.optJSONObject(0)
-              .optJSONArray("validationErrors").optJSONObject(0);
 
-          AppUtil.showAlertDialog(this,
-              validationError.getString("ErrorMessage"), false,
-              getResources().getString(R.string.dialog_errortitle), true, null);
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog(this,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
         } else {
           AppUtil.showAlertDialog(this,
               new JSONObject(responseVal).getString("message"), false,

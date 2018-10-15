@@ -182,5 +182,6 @@
   <string name="restaurantbookingguestdetail_phonenumber">Phone Number</string>
   <string name="restaurantbookingguestdetail_bookrestaurent">BOOK A RESTAURENT</string>
   <string name="fetchavailability_notimeslotsavailable">No item slots available.</string>
+  <string name="restaurantbookingsummary_guests">Guests:</string>
 
 </resources>

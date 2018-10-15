@@ -46,6 +46,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -99,10 +100,12 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
 
       String[] dateArray = dateStr.split("-");
       if (dateArray != null && dateArray.length > 0) {
-        textViewDate.setText(dateArray[1] + " " + dateArray[2]);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, Integer.parseInt(dateArray[1]));
+        textViewDate.setText(calendar.getTime().toString().split(" ")[1] + " " + dateArray[2]);
       }
       textViewTime.setText(timeStr);
-      textViewNumberOfPeople.setText(numberOfPeople);
+      textViewNumberOfPeople.setText(numberOfPeople + " Guests");
 
       ChipGroup chipGroup = findViewById(R.id.chipgroup_fetchavailability_timeslots);
 
@@ -154,6 +157,10 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
           }
         }
       }
+
+      //Set OnClickListener
+      findViewById(R.id.imageview_header_back).setOnClickListener(this);
+
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (IndexOutOfBoundsException e) {
@@ -241,20 +248,20 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
         deviceDetailObject.put("reservationDate", dateStr);
         deviceDetailObject.put("reservationTime", selectedTimeSlot
             .replace("AM", "").replace("PM", ""));
-        deviceDetailObject.put("restaurantId", restaurantId);
+        deviceDetailObject.put("restaurantId", Integer.parseInt(restaurantId));
 
         if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
             .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
 
           deviceDetailObject.put("loyaltyMemberId",
-              SharedPreferenceUtils.getInstance(this)
-                  .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""));
+              Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+                  .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
         }
         deviceDetailObject.put("deviceId", AppUtil.getDeviceId(this));
 
-        detailObject.put("deviceDetails", deviceDetailObject);
+        //detailObject.put("deviceDetails", deviceDetailObject);
 
-        detailesArray.put(detailObject);
+        detailesArray.put(deviceDetailObject);
 
         jsonObject.put("details", detailesArray);
         jsonObject.put("operation", OPERATION);
@@ -317,14 +324,17 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
           && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
 
         JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
-        JSONArray detailArray = dataObject.optJSONArray("detail");
-        if (detailArray != null && detailArray.length() > 0) {
-          JSONObject validationError = detailArray.optJSONObject(0)
-              .optJSONArray("validationErrors").optJSONObject(0);
 
-          AppUtil.showAlertDialog(this,
-              validationError.getString("ErrorMessage"), false,
-              getResources().getString(R.string.dialog_errortitle), true, null);
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog(this,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
         } else {
           AppUtil.showAlertDialog(this,
               new JSONObject(responseVal).getString("message"), false,
