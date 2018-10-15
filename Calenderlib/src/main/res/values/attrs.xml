@@ -17,6 +17,7 @@
     <attr format="boolean" name="enablePreviousDay"/>
     <attr format="boolean" name="currentDaySelected"/>
     <attr format="boolean" name="drawRoundRect"/>
+    <attr format="boolean" name="singleDaySelection"/>
     <attr format="enum" name="firstMonth">
       <enum name="january" value="0"/>
       <enum name="february" value="1"/>
