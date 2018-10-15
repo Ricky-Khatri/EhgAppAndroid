@@ -352,8 +352,8 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
         break;
 
       case "RESTAURANTS":
-        /*intent = new Intent(context, RestaurantDetailActivity.class);
-        intent.putExtra("title", title);*/
+        intent = new Intent(context, RestaurantDetailActivity.class);
+        intent.putExtra("title", title);
         break;
 
       default:
