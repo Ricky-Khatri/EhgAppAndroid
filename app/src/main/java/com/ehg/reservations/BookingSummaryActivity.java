@@ -22,8 +22,12 @@ package com.ehg.reservations;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.KeyEvent;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
+import com.ehg.utilities.AppUtil;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * This class will show booking summary of rooms, restaurants, spa, golf etc.
@@ -51,7 +55,24 @@ public class BookingSummaryActivity extends BaseActivity {
    * Called to init view components of this activity.
    */
   private void initView() {
-    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+    try {
+      String response = getIntent().getStringExtra("response");
+      JSONObject jsonObject =new JSONObject(response);
+      JSONObject dataObject = jsonObject.getJSONObject("data");
+
+      if( dataObject != null) {
+        JSONArray detail = dataObject.optJSONArray("detail");
+
+        for (int index = 0; index < detail.length(); index++) {
+          JSONObject detailObject = detail.optJSONObject(index);
+
+        }
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -71,5 +92,20 @@ public class BookingSummaryActivity extends BaseActivity {
   @Override
   public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
     super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
   }
 }

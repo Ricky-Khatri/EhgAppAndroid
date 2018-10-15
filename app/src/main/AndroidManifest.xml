@@ -181,16 +181,18 @@
       android:name=".booking.restaurant.RestaurantBookingSlotActivity"
       android:screenOrientation="portrait"/>
     <activity
-      android:theme="@style/ChipTheme"
       android:name=".booking.restaurant.FetchAvailabilityActivity"
-      android:screenOrientation="portrait">
+      android:screenOrientation="portrait"
+      android:theme="@style/ChipTheme">
     </activity>
     <activity
       android:name=".booking.restaurant.RestaurantBookingGuestDetailActivity"
       android:screenOrientation="portrait"/>
     <!--<activity
-       android:name=".booking.restaurant.RestaurantBookingSlotActivity"
+      android:name=".booking.restaurant.RestaurantBookingSlotActivity"
       android:screenOrientation="portrait"/>-->
+    <activity android:name=".booking.restaurant.RestaurantBookingSummaryActivity">
+    </activity>
   </application>
 
 </manifest>
