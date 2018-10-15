@@ -20,28 +20,41 @@
 package com.ehg.booking.restaurant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.chip.ChipGroup;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import java.io.UnsupportedEncodingException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
  * This class allows user to booking restaurant.
  */
 public class RestaurantBookingGuestDetailActivity extends BaseActivity implements
-    View.OnClickListener,
-    OnEditorActionListener {
+    OnClickListener,
+    OnEditorActionListener, ApiResponseListener {
 
-  Context context;
+  private static final String OPERATION = "MakeReservation";
+
+  private Context context;
   private ChipGroup chipGroup;
   private EditText editTextFirstName;
   private EditText editTextLastName;
@@ -54,6 +67,13 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
   private TextView textViewDate;
   private TextView textViewTime;
   private TextView textViewGuestCount;
+
+  private String restaurantId;
+  private String dateStr;
+  private String timeStr;
+  private String numberOfPeople;
+  private String expiresAt;
+  private String reservationToken;
 
 
   /**
@@ -76,27 +96,48 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
    * Method init's view components of this screen.
    */
   private void initView() {
+    try {
+      editTextFirstName = findViewById(R.id.edittext_restaurantbookingguestdetail_firstname);
+      editTextLastName = findViewById(R.id.edittext_restaurantbookingguestdetail_lastname);
+      editTextEmailAddress = findViewById(R.id.edittext_restaurantbookingguestdetail_email);
+      editTextPhoneNumber = findViewById(R.id.edittext_restaurantbookingguestdetail_phonenumber);
+      editTextSpecialRequest = findViewById(R.id
+          .edittext_restaurantbookingguestdetail_specialinstruction);
+      textViewBookingRestaurent = findViewById(R.id.textview_restaurantbookingguestdetail_booking);
+      textViewDate = findViewById(R.id.textview_restaurantbookingguestdetail_date);
+      textViewTime = findViewById(R.id.textview_restaurantbookingguestdetail_time);
+      textViewGuestCount = findViewById(R.id.textview_restaurantbookingguestdetail_numberofguest);
 
-    editTextFirstName = findViewById(R.id.edittext_restaurantbookingguestdetail_firstname);
-    editTextLastName = findViewById(R.id.edittext_restaurantbookingguestdetail_lastname);
-    editTextEmailAddress = findViewById(R.id.edittext_restaurantbookingguestdetail_email);
-    editTextPhoneNumber = findViewById(R.id.edittext_restaurantbookingguestdetail_phonenumber);
-    editTextSpecialRequest = findViewById(R.id
-        .edittext_restaurantbookingguestdetail_specialinstruction);
-    textViewBookingRestaurent = findViewById(R.id.textview_restaurantbookingguestdetail_booking);
-    textViewDate = findViewById(R.id.textview_restaurantbookingguestdetail_date);
-    textViewTime = findViewById(R.id.textview_restaurantbookingguestdetail_time);
-    textViewGuestCount = findViewById(R.id.textview_restaurantbookingguestdetail_numberofguest);
+      restaurantId = getIntent().getStringExtra("restaurantId");
+      dateStr = getIntent().getStringExtra("date");
+      timeStr = getIntent().getStringExtra("time");
+      numberOfPeople = getIntent().getStringExtra("numberOfPeople");
+      expiresAt = getIntent().getStringExtra("expiresAt");
+      reservationToken = getIntent().getStringExtra("reservationToken");
 
-    textViewBookingRestaurent.setOnClickListener(this);
+      String[] dateArray = dateStr.split("-");
+      if (dateArray != null && dateArray.length > 0) {
+        textViewDate.setText(dateArray[1] + " " + dateArray[2]);
+      }
+      textViewTime.setText(timeStr);
+      textViewGuestCount.setText(numberOfPeople);
 
-    //Set EditorCLickListener
-    editTextFirstName.setOnEditorActionListener(this);
-    editTextLastName.setOnEditorActionListener(this);
-    editTextEmailAddress.setOnEditorActionListener(this);
-    editTextPhoneNumber.setOnEditorActionListener(this);
-    editTextSpecialRequest.setOnEditorActionListener(this);
+      textViewBookingRestaurent.setOnClickListener(this);
 
+      //Set EditorCLickListener
+      editTextFirstName.setOnEditorActionListener(this);
+      editTextLastName.setOnEditorActionListener(this);
+      editTextEmailAddress.setOnEditorActionListener(this);
+      editTextPhoneNumber.setOnEditorActionListener(this);
+      editTextSpecialRequest.setOnEditorActionListener(this);
+
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -116,7 +157,6 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
       default:
         break;
     }
-
   }
 
   /**
@@ -216,7 +256,7 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
     String lastName = editTextLastName.getText().toString();
     String email = editTextEmailAddress.getText().toString();
     String mobile = editTextPhoneNumber.getText().toString();
-    String password = editTextSpecialRequest.getText().toString();
+    String specialRequest = editTextSpecialRequest.getText().toString();
 
     if (TextUtils.isEmpty(firstName)) {
 
@@ -254,13 +294,7 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
       focusView = editTextPhoneNumber;
       cancel = true;
 
-    } /*else if (TextUtils.isEmpty(password)) {
-
-      editTextSpecialRequest.setError(getResources().getString(R.string.all_fieldrequired));
-      focusView = editTextSpecialRequest;
-      cancel = true;
-
-    }*/
+    }
 
     if (cancel) {
 
@@ -268,7 +302,7 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
 
     } else {
 
-      //userSignup(email, mobile, firstName, lastName, password);
+      makeReservation(firstName, lastName, email, mobile, specialRequest);
     }
   }
 
@@ -299,5 +333,135 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Called to make reservation.
+   * @param firstName
+   * @param lastName
+   * @param email
+   * @param mobile
+   * @param specialRequest
+   */
+  private void makeReservation(String firstName, String lastName, String email,
+      String mobile, String specialRequest) {
+    if (AppUtil.isNetworkAvailable(this)) {
+      new HttpClientRequest().setApiResponseListner(this);
+      JSONObject jsonObject = new JSONObject();
+      JSONArray detailsArray = new JSONArray();
+      JSONObject detailObject = new JSONObject();
+
+      try {
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("firstName", firstName);
+        deviceDetailObject.put("lastName", lastName);
+        deviceDetailObject.put("emailAddress", email);
+        deviceDetailObject.put("phoneNumber", mobile);
+        deviceDetailObject.put("phoneCountryCode", "971");//TODO : Need to make dynamic
+        deviceDetailObject.put("specialRequest", specialRequest);
+        deviceDetailObject.put("offerId", "0");// TODO : Make it dynamic
+        deviceDetailObject.put("offerName", "Offer");
+        deviceDetailObject.put("partySize", numberOfPeople);
+        deviceDetailObject.put("reservationDate", dateStr);
+        deviceDetailObject.put("reservationTime", timeStr
+            .replace("AM", "").replace("PM", ""));
+        deviceDetailObject.put("restaurantId", restaurantId);
+        deviceDetailObject.put("reservationToken", reservationToken);
+
+        if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+
+          deviceDetailObject.put("loyaltyMemberId",
+              SharedPreferenceUtils.getInstance(this)
+                  .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""));
+        }
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(this));
+
+        detailObject.put("deviceDetails", deviceDetailObject);
+
+        detailsArray.put(detailObject);
+
+        jsonObject.put("details", detailsArray);
+        jsonObject.put("operation", OPERATION);
+        jsonObject.put("feature", WebServiceUtil.FEATURE_DINNING);
+
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+
+      StringEntity entity = null;
+      try {
+        entity = new StringEntity(jsonObject.toString());
+      } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+      }
+
+      new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_LOCK_RESERVATION),
+          entity, WebServiceUtil.CONTENT_TYPE,
+          OPERATION, true).httpPostRequest();
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(OPERATION)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
+
+        Intent intent = new Intent(this, RestaurantBookingGuestDetailActivity.class);
+        intent.putExtra("restaurantId", restaurantId);
+        intent.putExtra("date", dateStr);
+        //intent.putExtra("time", selectedTimeSlot);
+        intent.putExtra("numberOfPeople", numberOfPeople);
+        AppUtil.startActivityWithAnimation(this, intent, false);
+
+      } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
+        JSONArray detailArray = dataObject.optJSONArray("detail");
+        if (detailArray != null && detailArray.length() > 0) {
+          JSONObject validationError = detailArray.optJSONObject(0)
+              .optJSONArray("validationErrors").optJSONObject(0);
+
+          AppUtil.showAlertDialog(this,
+              validationError.getString("ErrorMessage"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
+        } else {
+          AppUtil.showAlertDialog(this,
+              new JSONObject(responseVal).getString("message"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
+        }
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog(this, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }

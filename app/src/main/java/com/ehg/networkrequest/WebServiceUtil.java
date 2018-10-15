@@ -42,7 +42,6 @@ public class WebServiceUtil {
 
   //Signup method
   public static final String METHOD_SIGN_UP = "signUp/quickEnrollment/v1";
-  public static final String FEATURE_SIGN_UP = "signUp";
 
   //Login method
   public static final String METHOD_LOGIN = "signUp/login/v1";
@@ -59,9 +58,20 @@ public class WebServiceUtil {
   //GetMemberDetails method
   public static final String METHOD_GET_MEMBER_DETAIL = "signUp/memberDetails/v1/";
 
-  //GetMemberDetails method
+  //FetchAvailability api for restaurant reservations method
   public static final String METHOD_GET_RESTAURANT_AVAILABILITY = "/restaurantReservation/fetchAvailability/v1/";
 
+  //LockReservation method
+  public static final String METHOD_LOCK_RESERVATION = "/restaurantReservation/lockReservation/v1";
+
+  //LockReservation method
+  public static final String METHOD_MAKE_RESERVATION = "/restaurantReservation/makeReservation/v1";
+
+
+
+  //Api feature constants
+  public static final String FEATURE_SIGN_UP = "signUp";
+  public static final String FEATURE_DINNING = "Dining";
 
   /**
    * Returns complete api url.

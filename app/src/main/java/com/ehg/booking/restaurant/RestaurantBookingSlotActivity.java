@@ -44,10 +44,12 @@ import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
+import com.google.gson.JsonObject;
 import com.loopj.android.http.RequestParams;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -69,6 +71,11 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
   private int hour;
   private int minute;
   private TextView textViewAmPm;
+
+  private String dateStr;
+  private String timeStr;
+  private String numberOfPeopleStr;
+  private String restaurantId;
 
   /**
    * Called when activity created.
@@ -208,16 +215,16 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
       case R.id.textview_restaurentbookingslot_next:
         //TODO: Need to implement single date selection
         int date = Calendar.getInstance().get(Calendar.DATE);
-        int month = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        month++;
         int year = Calendar.getInstance().get(Calendar.YEAR);
 
-        fetchAvailability(date + "/" + month + "/" + year,
-            textViewTime.getText().toString(), "2");
-
-        /*Intent intent = new Intent(this, FetchAvailabilityActivity.class);
-        intent.putExtra("availableSlotes", "");
-        AppUtil.startActivityWithAnimation(this, intent, false);*/
-
+        dateStr = year + "-" + month + "-" + date;
+        timeStr = textViewTime.getText().toString();
+        numberOfPeopleStr = "2";
+        restaurantId = "1";
+        fetchAvailability(dateStr, timeStr,
+            numberOfPeopleStr, restaurantId);
         break;
 
       default:
@@ -268,14 +275,30 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
    * @param time time
    * @param numberOfPeople number of people
    */
-  private void fetchAvailability(String date, String time, String numberOfPeople) {
+  private void fetchAvailability(String date, String time,
+      String numberOfPeople, String restaurantId) {
     if (AppUtil.isNetworkAvailable(this)) {
       new HttpClientRequest().setApiResponseListner(this);
 
-      String url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_GET_RESTAURANT_AVAILABILITY) + "1"
-          + "?loyaltyMemberId="
-          + "1212" + "&tentativeDate=" + "2018-10-23" + "&tentativeTime=" + "20:12" + "&partySize="
-          + "2";
+      String url = "";
+
+      String loyaltyMemberId = SharedPreferenceUtils.getInstance(this).getStringValue(
+          SharedPreferenceUtils.LOYALTY_MEMBER_ID, "");
+      if (!TextUtils.isEmpty(loyaltyMemberId)) {
+
+        url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_GET_RESTAURANT_AVAILABILITY)
+            + restaurantId
+            + "?loyaltyMemberId="
+            + loyaltyMemberId + "&tentativeDate=" + date + "&tentativeTime=" + time + "&partySize="
+            + numberOfPeople;
+
+      } else {
+
+        url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_GET_RESTAURANT_AVAILABILITY)
+            + restaurantId
+            + "&tentativeDate=" + date + "&tentativeTime=" + time + "&partySize="
+            + numberOfPeople;
+      }
 
       new HttpClientRequest(this, url,
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
@@ -299,12 +322,29 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
 
         Intent intent = new Intent(this, FetchAvailabilityActivity.class);
         intent.putExtra("availableSlotes", responseVal);
+        intent.putExtra("restaurantId", restaurantId);
+        intent.putExtra("date", dateStr);
+        intent.putExtra("time", timeStr);
+        intent.putExtra("numberOfPeople", numberOfPeopleStr);
         AppUtil.startActivityWithAnimation(this, intent, false);
 
-      } else {
-        AppUtil.showAlertDialog(this,
-            new JSONObject(responseVal).getString("message"), false,
-            getResources().getString(R.string.dialog_errortitle), true, null);
+      } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
+        JSONArray detailArray = dataObject.optJSONArray("detail");
+        if (detailArray != null && detailArray.length() > 0) {
+          JSONObject validationError = detailArray.optJSONObject(0)
+              .optJSONArray("validationErrors").optJSONObject(0);
+
+          AppUtil.showAlertDialog(this,
+              validationError.getString("ErrorMessage"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
+        } else {
+          AppUtil.showAlertDialog(this,
+              new JSONObject(responseVal).getString("message"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
+        }
       }
     } catch (JSONException e) {
       e.printStackTrace();
