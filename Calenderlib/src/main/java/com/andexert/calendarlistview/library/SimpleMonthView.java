@@ -389,9 +389,13 @@ class SimpleMonthView extends View {
     mMonthTitleBGPaint.setStyle(Style.FILL);
 
     mMonthTitleBGPaintStroke = new Paint();
+    mMonthTitleBGPaintStroke.setFakeBoldText(true);
+    mMonthTitleBGPaintStroke.setAntiAlias(true);
     mMonthTitleBGPaintStroke.setColor(Color.BLACK);
-    mMonthTitleBGPaintStroke.setStrokeWidth(3);
+    mMonthTitleBGPaintStroke.setTextAlign(Align.CENTER);
+    mMonthTitleBGPaintStroke.setStrokeWidth(4);
     mMonthTitleBGPaintStroke.setStyle(Paint.Style.STROKE);
+    mMonthTitleBGPaintStroke.setAlpha(SELECTED_CIRCLE_ALPHA);
 
     mSelectedCirclePaint = new Paint();
     mSelectedCirclePaint.setFakeBoldText(true);

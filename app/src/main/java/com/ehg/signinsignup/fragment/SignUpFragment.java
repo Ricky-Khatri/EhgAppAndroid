@@ -430,7 +430,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
       try {
         detailObject.put("emailId", emailId);
         signinId = "00" + countryCodePicker.getSelectedCountryCode() + mobileNumber;
-        detailObject.put("mobileNumber",signinId);
+        detailObject.put("mobileNumber", signinId);
         detailObject.put("lastName", lastName);
         detailObject.put("firstName", firstName);
         detailObject.put("password", password);
