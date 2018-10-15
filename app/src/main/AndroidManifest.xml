@@ -188,9 +188,9 @@
     <activity
       android:name=".booking.restaurant.RestaurantBookingGuestDetailActivity"
       android:screenOrientation="portrait"/>
-    <activity
+    <!--<activity
       android:name=".booking.restaurant.RestaurantBookingSlotActivity"
-      android:screenOrientation="portrait"/>
+      android:screenOrientation="portrait"/>-->
     <activity android:name=".booking.restaurant.RestaurantBookingSummaryActivity">
     </activity>
   </application>
