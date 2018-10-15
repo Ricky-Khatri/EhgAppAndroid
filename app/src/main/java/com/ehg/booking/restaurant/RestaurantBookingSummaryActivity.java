@@ -19,23 +19,39 @@
 
 package com.ehg.booking.restaurant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
+import com.ehg.home.HomeActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import java.io.UnsupportedEncodingException;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * This class shows Restaurant booking summary.
  */
-public class RestaurantBookingSummaryActivity extends BaseActivity implements OnClickListener {
+public class RestaurantBookingSummaryActivity extends BaseActivity implements OnClickListener,
+    ApiResponseListener {
+
+  private static final String CANCEL_BOOKING = "cancelBooking";
+
+  private String confirmationNumber;
+  private String restaurantId;
 
   /**
    * Called when activity created.
@@ -57,6 +73,7 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
   private void initView() {
     try {
       String response = getIntent().getStringExtra("response");
+      restaurantId = getIntent().getStringExtra("restaurantId");
       JSONObject jsonObject = new JSONObject(response);
       JSONObject dataObject = jsonObject.getJSONObject("data");
 
@@ -76,7 +93,8 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
               R.id.textview_restaurantbookingsummary_bookingconfirmationlabel);
           TextView textViewBookingConfirmationNumber = findViewById(
               R.id.textview_restaurantbookingsummary_bookingconfirmation);
-          textViewBookingConfirmationNumber.setText(detailObject.getString("confirmationNumber"));
+          confirmationNumber = detailObject.getString("confirmationNumber");
+          textViewBookingConfirmationNumber.setText(confirmationNumber);
           TextView textViewRestaurantLable = findViewById(
               R.id.textview_restaurantbookingsummary_restaurantlabel);
           TextView textViewRestaurantName = findViewById(
@@ -122,8 +140,10 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
               R.id.textview_restaurantbookingsummary_disclaimer);
           Button buttonModifyBooking = findViewById(
               R.id.button_restaurantbookingsummary_modifybooking);
+          buttonModifyBooking.setOnClickListener(this);
           TextView textViewCancelBooking = findViewById(
               R.id.textview_restaurantbookingsummary_cancelbooking);
+          textViewCancelBooking.setOnClickListener(this);
         }
       }
 
@@ -164,7 +184,10 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK) {
-      AppUtil.finishActivityWithAnimation(this);
+      Intent intent = new Intent(this, HomeActivity.class);
+      intent.putExtra("tab", "2");
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      AppUtil.startActivityWithAnimation(this, intent, true);
     }
     return super.onKeyDown(keyCode, event);
   }
@@ -176,11 +199,24 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
    */
   @Override
   public void onClick(View view) {
-
+    Intent intent = null;
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-        AppUtil.finishActivityWithAnimation(this);
+        intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("tab", "2");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        AppUtil.startActivityWithAnimation(this, intent, true);
+        break;
+
+      case R.id.button_restaurantbookingsummary_modifybooking:
+        intent = new Intent(this, RestaurantBookingSlotActivity.class);
+        intent.putExtra("restaurantId", restaurantId);
+        AppUtil.startActivityWithAnimation(this, intent, true);
+        break;
+
+      case R.id.textview_restaurantbookingsummary_cancelbooking:
+        cancelBooking();
         break;
 
       default:
@@ -188,4 +224,112 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
     }
   }
 
+  /**
+   * Called to cancel restaurant booking.
+   */
+  private void cancelBooking() {
+    if (AppUtil.isNetworkAvailable(this)) {
+      new HttpClientRequest().setApiResponseListner(this);
+
+      String url = "";
+
+      String loyaltyMemberId = SharedPreferenceUtils.getInstance(this).getStringValue(
+          SharedPreferenceUtils.LOYALTY_MEMBER_ID, "");
+      if (!TextUtils.isEmpty(loyaltyMemberId)) {
+
+        url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_CANCEL_RESERVATION)
+            + confirmationNumber + "/" + loyaltyMemberId + "/" + restaurantId;
+
+      } else {
+
+        url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_CANCEL_RESERVATION)
+            + confirmationNumber + "/" + restaurantId;
+      }
+
+      JSONObject jsonObject = new JSONObject();
+      try {
+        jsonObject.put("deviceId", AppUtil.getDeviceId(this));
+
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+
+      StringEntity entity = null;
+      try {
+        entity = new StringEntity(jsonObject.toString());
+      } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+      }
+
+      new HttpClientRequest(this, url,
+          entity, WebServiceUtil.CONTENT_TYPE,
+          CANCEL_BOOKING, true).httpPutRequest();
+    } else {
+      AppUtil.showAlertDialog(this,
+          getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(CANCEL_BOOKING)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
+
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("tab", "2");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        AppUtil.startActivityWithAnimation(this, intent, true);
+
+      } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
+
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog(this,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
+        } else {
+          AppUtil.showAlertDialog(this,
+              new JSONObject(responseVal).getString("message"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
+        }
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog(this, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
+  }
 }

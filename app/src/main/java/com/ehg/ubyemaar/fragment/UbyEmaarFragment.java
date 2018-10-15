@@ -258,6 +258,10 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
           + accountId,
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
           GET_MEMBER_DETAIL_METHOD, true).httpGetRequest();
+    } else {
+      AppUtil.showAlertDialog((AppCompatActivity) context,
+          context.getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
     }
   }
 

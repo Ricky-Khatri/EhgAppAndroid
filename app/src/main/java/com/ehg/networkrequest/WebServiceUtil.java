@@ -64,8 +64,11 @@ public class WebServiceUtil {
   //LockReservation method
   public static final String METHOD_LOCK_RESERVATION = "/restaurantReservation/lockReservation/v1";
 
-  //LockReservation method
+  //MakeReservation method
   public static final String METHOD_MAKE_RESERVATION = "/restaurantReservation/makeReservation/v1";
+
+  //CancelReservation method
+  public static final String METHOD_CANCEL_RESERVATION = "/restaurantReservation/cancelReservation/v1/";
 
 
 

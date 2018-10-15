@@ -464,6 +464,10 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
       new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_SIGN_UP),
           entity, WebServiceUtil.CONTENT_TYPE,
           USER_SIGNUP_METHOD, true).httpPostRequest();
+    } else {
+      AppUtil.showAlertDialog((AppCompatActivity) context,
+          context.getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
     }
   }
 

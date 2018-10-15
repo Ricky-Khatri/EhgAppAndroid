@@ -392,6 +392,10 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_LOGIN),
           entity, WebServiceUtil.CONTENT_TYPE,
           USER_LOGIN_METHOD, true).httpPostRequest();
+    } else {
+      AppUtil.showAlertDialog((AppCompatActivity) context,
+          context.getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
     }
   }
 

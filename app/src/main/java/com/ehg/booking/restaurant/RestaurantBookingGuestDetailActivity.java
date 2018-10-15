@@ -137,6 +137,17 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
       editTextSpecialRequest.setOnEditorActionListener(this);
       findViewById(R.id.imageview_header_back).setOnClickListener(this);
 
+      //Set OnEditorActionListener
+      editTextSpecialRequest.setOnEditorActionListener(new OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+          if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+            validateSignUpFormFields();
+          }
+          return false;
+        }
+      });
+
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (IndexOutOfBoundsException e) {
@@ -375,6 +386,7 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
 
   /**
    * Called to make reservation.
+   *
    * @param firstName first name
    * @param lastName last name
    * @param email email
@@ -437,6 +449,10 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_MAKE_RESERVATION),
           entity, WebServiceUtil.CONTENT_TYPE,
           OPERATION, true).httpPostRequest();
+    } else {
+      AppUtil.showAlertDialog(this,
+          getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
     }
   }
 
@@ -454,7 +470,8 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
 
-        Intent intent = new Intent(this, BookingSummaryActivity.class);
+        Intent intent = new Intent(this, RestaurantBookingSummaryActivity.class);
+        intent.putExtra("restaurantId", restaurantId);
         intent.putExtra("response", responseVal);
         AppUtil.startActivityWithAnimation(this, intent, false);
 

@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.chip.Chip;
 import android.support.design.chip.ChipGroup;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -281,6 +282,10 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_LOCK_RESERVATION),
           entity, WebServiceUtil.CONTENT_TYPE,
           OPERATION, true).httpPostRequest();
+    } else {
+      AppUtil.showAlertDialog(this,
+          getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
     }
   }
 

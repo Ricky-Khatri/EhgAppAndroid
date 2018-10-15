@@ -242,11 +242,10 @@
         android:layout_marginEnd="@dimen/height_all_verticaldivider"
         android:layout_gravity="start"
         android:background="@null"
-        android:imeOptions="actionNext"
+        android:imeOptions="actionDone"
         android:inputType="phone"
         android:maxLength="10"
         android:maxLines="1"
-
         android:singleLine="true"
         android:textAlignment="viewStart"
         />

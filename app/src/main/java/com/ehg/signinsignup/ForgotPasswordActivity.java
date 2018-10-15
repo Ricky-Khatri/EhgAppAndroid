@@ -203,6 +203,10 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
           + accountId,
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
           FORGOT_PASSWORD_METHOD, true).httpGetRequest();
+    } else {
+      AppUtil.showAlertDialog(this,
+          getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
     }
   }
 

@@ -205,6 +205,90 @@ public class HttpClientRequest {
   }
 
   /**
+   * This method will use to call PUT type request to the server.
+   */
+  public void httpPutRequest() {
+
+    try {
+
+      if (showLoadingIndicator) {
+        AppUtil.showLoadingIndicator((AppCompatActivity) context);
+      }
+
+      startFirebaseMonitorTrace(HttpMethod.POST);
+
+      asyncHttpClient.addHeader("Access-Token", "dummy"); //TODO: Need to pass access-token
+
+      asyncHttpClient.put(context, url, entity, contentType, new AsyncHttpResponseHandler() {
+        @Override
+        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+          try {
+
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
+
+            stopFirebaseMonitorTrace();
+
+            String result = new String(responseBody);
+
+            Log.e(TAG + "======", result);
+
+            if (TextUtils.isEmpty(result)) {
+              apiResponseListner.onFailureResponse(errorMessage);
+            } else {
+              apiResponseListner.onSuccessResponse(result, requestMethod);
+            }
+
+          } catch (NullPointerException e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
+            apiResponseListner.onFailureResponse(errorMessage);
+            e.printStackTrace();
+          } catch (Exception e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
+            apiResponseListner.onFailureResponse(errorMessage);
+            e.printStackTrace();
+          }
+        }
+
+        @Override
+        public void onFailure(int statusCode, Header[] headers,
+            byte[] responseBody, Throwable error) {
+
+          try {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
+
+            stopFirebaseMonitorTrace();
+
+            String result = new String(responseBody);
+
+            Log.e(TAG + "======", result);
+
+            if (TextUtils.isEmpty(result)) {
+              apiResponseListner.onFailureResponse(errorMessage);
+            } else {
+              apiResponseListner.onFailureResponse(result);
+            }
+
+          } catch (NullPointerException e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
+            apiResponseListner.onFailureResponse(errorMessage);
+          } catch (Exception e) {
+            AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
+            apiResponseListner.onFailureResponse(errorMessage);
+          }
+        }
+      });
+
+    } catch (NullPointerException e) {
+      AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
+      apiResponseListner.onFailureResponse(errorMessage);
+    } catch (Exception e) {
+      AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
+      apiResponseListner.onFailureResponse(errorMessage);
+    }
+  }
+
+  /**
    * This method will use to call GET type request to the server.
    */
   public void httpGetRequest() {

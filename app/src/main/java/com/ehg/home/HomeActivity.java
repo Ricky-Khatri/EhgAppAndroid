@@ -158,7 +158,12 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
           .rootFragmentListener(this, arrayListTabTitles.size())
           .build();
 
-      switchTab(0);
+      //Switch tab based on calling activity condition
+      String selectedTab = "0";
+      if(getIntent() != null && getIntent().getStringExtra("tab") != null) {
+        selectedTab = getIntent().getStringExtra("tab");
+      }
+      switchTab(Integer.parseInt(selectedTab));
 
       //Check for app location permissions
       /*if (AppPermissionCheckerUtil.checkAppPermission(this,

@@ -25,6 +25,7 @@ import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -107,6 +108,11 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
     textViewNext.setOnClickListener(this);
     linearLayoutTime.setOnClickListener(this);
     dayPickerView.setController(this);
+    findViewById(R.id.imageview_header_back).setOnClickListener(this);
+
+    if(getIntent() != null && getIntent().getStringExtra("restaurantId") != null) {
+      restaurantId = getIntent().getStringExtra("restaurantId");
+    }
   }
 
   /**
@@ -194,8 +200,8 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
 
             textViewAmPm.setText(am_pm);*/
 
-            String hourStr = hourOfDay+"";
-            String minuteStr = minutes+"";
+            String hourStr = hourOfDay + "";
+            String minuteStr = minutes + "";
             if (hourOfDay < 10) {
               hourStr = "0" + hourOfDay;
             }
@@ -231,6 +237,10 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
         restaurantId = "1";
         fetchAvailability(dateStr, timeStr,
             numberOfPeopleStr, restaurantId);
+        break;
+
+      case R.id.imageview_header_back:
+        AppUtil.finishActivityWithAnimation(this);
         break;
 
       default:
@@ -309,6 +319,10 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
       new HttpClientRequest(this, url,
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
           FETCH_AVAILABILITY, true).httpGetRequest();
+    } else {
+      AppUtil.showAlertDialog((AppCompatActivity) context,
+          context.getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
     }
   }
 
