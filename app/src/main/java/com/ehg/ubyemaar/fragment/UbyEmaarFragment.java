@@ -98,10 +98,6 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
 
     ButterKnife.bind(this, view);
 
-    if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
-      ((HomeActivity) Objects.requireNonNull(getActivity()))
-          .updateToolbarTitle(getResources().getString(R.string.u_by_emaar_title));
-    }
     return view;
   }
 
@@ -115,10 +111,10 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+    /*if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
       ((HomeActivity) Objects.requireNonNull(getActivity()))
           .updateToolbarTitle(getResources().getString(R.string.u_by_emaar_title));
-    }
+    }*/
 
     this.context = getActivity();
     initView(view);
@@ -143,6 +139,9 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
    * Called to init view components of this fragment.
    */
   private void initView(View view) {
+    TextView textViewHeaderTitle = view.findViewById(R.id.textview_header_title);
+    textViewHeaderTitle.setText(getResources().getString(R.string.offers_title));
+    view.findViewById(R.id.imageview_header_back).setVisibility(View.INVISIBLE);
     textViewProfile = view.findViewById(R.id.textview_ubyemaar_profile);
     textViewUPoint = view.findViewById(R.id.textview_ubyemaar_upointactivity);
     textViewPreference = view.findViewById(R.id.textview_ubyemaar_preferences);

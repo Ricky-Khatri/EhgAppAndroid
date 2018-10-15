@@ -30,10 +30,10 @@ public class WebServiceUtil {
 
   //Dev environment
   //public static final String BASE_URL = "https://his-dev.digivalet.com/dv_app_ehggateway/";
-  //public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway/";
+  public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway/";
 
   //Local ip for reservations
-  public static final String BASE_URL = "http://192.168.3.66:8080/digivalet-ehg-gateway";
+  //public static final String BASE_URL = "http://192.168.3.66:8080/digivalet-ehg-gateway";
 
   public static final String DEVICE_TYPE = "Android";
 

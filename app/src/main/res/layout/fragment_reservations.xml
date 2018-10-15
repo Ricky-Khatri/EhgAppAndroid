@@ -23,6 +23,10 @@
     android:orientation="vertical"
     android:gravity="center">
 
+  <include
+    android:id="@+id/layout_home_header"
+    layout="@layout/layout_header_with_navigation"/>
+
   <include layout="@layout/view_all_tab_layout"/>
 
 </LinearLayout>

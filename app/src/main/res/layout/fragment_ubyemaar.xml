@@ -23,7 +23,12 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
+  <include
+    android:id="@+id/layout_home_header"
+    layout="@layout/layout_header_with_navigation"/>
+
   <LinearLayout
+    android:layout_below="@+id/layout_home_header"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/textsize_all_labels"

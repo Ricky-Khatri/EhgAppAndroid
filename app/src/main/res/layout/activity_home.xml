@@ -38,6 +38,7 @@
     </android.support.v7.widget.Toolbar>-->
 
   <include
+    android:visibility="gone"
     android:id="@+id/layout_home_header"
     layout="@layout/layout_header_with_navigation"/>
 

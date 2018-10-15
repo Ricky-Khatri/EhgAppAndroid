@@ -35,6 +35,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
@@ -101,10 +102,10 @@ public class OffersFragment extends BaseFragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+   /* if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
       ((HomeActivity) Objects.requireNonNull(getActivity()))
           .updateToolbarTitle(getResources().getString(R.string.offers_title));
-    }
+    }*/
 
     this.context = getActivity();
     initView(view);
@@ -115,7 +116,9 @@ public class OffersFragment extends BaseFragment {
    * @param view view
    */
   private void initView(View view) {
-
+    TextView textViewHeaderTitle = view.findViewById(R.id.textview_header_title);
+    textViewHeaderTitle.setText(getResources().getString(R.string.offers_title));
+    view.findViewById(R.id.imageview_header_back).setVisibility(View.INVISIBLE);
     //Init tab layout
     TabLayout tabLayout = view.findViewById(R.id.tab_layout_all);
     final ViewPager viewPager = view.findViewById(R.id.viewpager_all_fragment_viewpager);

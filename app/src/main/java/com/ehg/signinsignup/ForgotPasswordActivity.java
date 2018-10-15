@@ -202,7 +202,7 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_RESET_PASSWORD)
           + accountId,
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
-          FORGOT_PASSWORD_METHOD, true).httpGetRequest();
+          FORGOT_PASSWORD_METHOD, true).httpPutRequest();
     } else {
       AppUtil.showAlertDialog(this,
           getResources().getString(R.string.all_please_check_network_settings),

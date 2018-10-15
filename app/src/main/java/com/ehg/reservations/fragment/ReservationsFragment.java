@@ -33,6 +33,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.HomeActivity;
 import com.ehg.home.fragment.BaseFragment;
@@ -65,10 +66,6 @@ public class ReservationsFragment extends BaseFragment {
 
     View view = inflater.inflate(R.layout.fragment_reservations, container, false);
 
-    if (VERSION_CODES.KITKAT <= VERSION.SDK_INT) {
-      ((HomeActivity) Objects.requireNonNull(getActivity()))
-          .updateToolbarTitle(getResources().getString(R.string.reservations_title));
-    }
     return view;
   }
 
@@ -81,10 +78,10 @@ public class ReservationsFragment extends BaseFragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+    /*if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
       ((HomeActivity) Objects.requireNonNull(getActivity()))
           .updateToolbarTitle(getResources().getString(R.string.reservations_title));
-    }
+    }*/
 
     this.context = getActivity();
     initView(view);
@@ -105,6 +102,10 @@ public class ReservationsFragment extends BaseFragment {
    * @param view view
    */
   private void initView(View view) {
+
+    TextView textViewHeaderTitle = view.findViewById(R.id.textview_header_title);
+    textViewHeaderTitle.setText(getResources().getString(R.string.reservations_title));
+    view.findViewById(R.id.imageview_header_back).setVisibility(View.INVISIBLE);
 
     //Init tab layout
     TabLayout tabLayout = view.findViewById(R.id.tab_layout_all);
