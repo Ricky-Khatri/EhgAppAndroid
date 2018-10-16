@@ -183,5 +183,11 @@
   <string name="restaurantbookingguestdetail_bookrestaurent">BOOK A RESTAURENT</string>
   <string name="fetchavailability_notimeslotsavailable">No item slots available.</string>
   <string name="restaurantbookingsummary_guests">Guests:</string>
+  <string name="sparequestenquiry_title">Title</string>
+  <string name="sparequestenquiry_headertitle">Enter Your Personal Information</string>
+  <string name="sparequestenquiry_telephonenumber">Telephone Number</string>
+  <string name="sparequestenquiry_numberofpeople">Number of People</string>
+  <string name="sparequestenquiry_preferreddatetime"><![CDATA[Preferred Date & Time]]></string>
+  <string name="spabookingsummary_email">Email :</string>
 
 </resources>

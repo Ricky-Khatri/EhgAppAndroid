@@ -188,13 +188,17 @@
     <activity
       android:name=".booking.restaurant.RestaurantBookingGuestDetailActivity"
       android:screenOrientation="portrait"/>
-    <!--<activity
-      android:name=".booking.restaurant.RestaurantBookingSlotActivity"
-      android:screenOrientation="portrait"/>-->
+
     <activity
       android:name=".booking.restaurant.RestaurantBookingSummaryActivity"
       android:screenOrientation="portrait">
     </activity>
+    <activity
+      android:name=".booking.spa.SpaRequestEnquiryActivity"
+      android:screenOrientation="portrait"/>
+    <activity
+      android:name=".booking.spa.SpaBookingSummaryActivity"
+      android:screenOrientation="portrait"/>
   </application>
 
 </manifest>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 24/9/18 12:23 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 24/9/18 12:23 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <include
+    android:id="@+id/layoutheader_spabookingsummary"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/layoutheader_spabookingsummary">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="@dimen/margin_all_bannerimage"
+      android:orientation="vertical">
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/marginleft_all_header"
+        android:paddingStart="@dimen/margin_all_bannerimage"
+        android:paddingEnd="@dimen/margin_all_bannerimage"
+        android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/textview_spabookingsummary_guestname"
+          style="@style/AppLabelsTextAppearance"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/bookingsummary_clientname"/>
+
+        <TextView
+          android:id="@+id/textview_spabookingsummary_yourtablereservation"
+          style="@style/AppLabelsTextAppearance"
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/imagesize_all_locationimage"
+          android:text="Your Spa Enquiry:"
+          android:textColor="@color/colorBlack"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/marginleft_all_header"
+          android:orientation="horizontal">
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_bookingconfirmationlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spa :"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_bookingconfirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:text="216786234897289"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_restaurantlabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Desired Treatment :"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_restaurant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:text="Address Downtown"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_namelabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name :"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_bookingname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:text="Mr. John Doe"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_telephonelabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Telephone :"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_telephone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:text="00971564994350"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_emaillabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spabookingsummary_email"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+          <TextView
+            android:id="@+id/textview_spabookingsummary_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:text="john@digivalet.com"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/height_all_verticaldivider"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:weightSum="2.15">
+
+          <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/textview_spabookingsummary_date"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/restaurentbookingslot_date"
+              android:textSize="@dimen/textsize_all_guestdetail"/>
+
+            <TextView
+              android:id="@+id/textview_spabookingsummary_time"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/restaurentbookingslots_time"
+              android:textSize="@dimen/textsize_all_guestdetail"/>
+
+          </LinearLayout>
+          <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.15"
+            android:gravity="center|start">
+
+            <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@color/colorGray"/>
+
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:orientation="vertical">
+
+            <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+              <TextView
+                android:id="@+id/textview_spabookingsummary_guestlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/restaurantbookingsummary_guests"
+                android:textSize="@dimen/textsize_all_guestdetail"/>
+
+              <TextView
+                android:id="@+id/textview_spabookingsummary_guestcount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textSize="@dimen/textsize_all_guestdetail"/>
+            </LinearLayout>
+
+          </LinearLayout>
+        </LinearLayout>
+      </LinearLayout>
+
+      <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:layout_marginStart="@dimen/google_1x"
+        android:layout_marginEnd="@dimen/google_1x"
+        app:cardCornerRadius="@dimen/margin_all_continueasguest">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+          <fragment
+            android:id="@+id/fragment_spabookingsummary_map"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.8"
+            android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:paddingTop="@dimen/margin_all_vertical"
+            android:paddingStart="@dimen/size_socialmedia_mediaicon"
+            android:paddingEnd="@dimen/size_socialmedia_mediaicon"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/textview_spabookingsummary_restaurantname"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Address Downtown"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <TextView
+              android:id="@+id/textview_spabookingsummary_restaurantaddress"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/marginstart_header_search"
+              android:gravity="center"
+              android:text="Sheikh Mohammed bin Rashid Blvd-Dubai-United Arab Emirates"/>
+
+          </LinearLayout>
+        </LinearLayout>
+
+      </android.support.v7.widget.CardView>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/marginleft_all_header"
+        android:paddingStart="@dimen/margin_all_bannerimage"
+        android:paddingEnd="@dimen/margin_all_bannerimage"
+        android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/textview_spabookingsummary_aboutrestaurant"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_all_continueasguest"
+          android:layout_gravity="center"
+          android:text="@string/bookingsummary_abouthotal"
+          android:textColor="@color/colorAboutHotel"
+          android:textSize="@dimen/textsize_all_headertitle"/>
+
+        <TextView
+          android:id="@+id/textview_spabookingsummary_disclaimerlabel"
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_all_continueasguest"
+          android:text="@string/bookingsummary_disclaimer"
+          android:textSize="@dimen/textsize_all_guesttitle"/>
+
+        <TextView
+          android:id="@+id/textview_spabookingsummary_disclaimer"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Starting January 1 2018,rate will be subject to 5%VAT"
+          android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        <!-- <Button
+           android:id="@+id/button_spabookingsummary_modifybooking"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="@dimen/imagesize_all_locationimage"
+           android:background="@drawable/all_rounded_button"
+           android:text="@string/bookingsummary_modifybooking"
+           android:textAllCaps="false"
+           android:textColor="@color/white"
+           android:textSize="@dimen/textsize_all_labels"/>
+
+         <TextView
+           android:id="@+id/textview_restaurantbookingsummary_cancelbooking"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="@dimen/imagesize_all_locationimage"
+           android:layout_marginBottom="@dimen/margin_all_vertical"
+           android:layout_gravity="center"
+           android:text="@string/bookingsummary_cancelbooking"
+           android:textSize="@dimen/textsize_all_labels"/>-->
+      </LinearLayout>
+    </LinearLayout>
+  </ScrollView>
+</RelativeLayout>
