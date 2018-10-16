@@ -217,6 +217,7 @@
             android:padding="@dimen/google_1x"
             android:gravity="center"
             android:text="@string/restaurentbookingslots_pm"
+            android:visibility="gone"
             android:textColor="@color/colorBlack"/>
 
         </LinearLayout>
@@ -269,6 +270,9 @@
     android:background="@color/colorGray"
     android:gravity="center"
     android:text="@string/splash_next"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:textColor="@color/colorWhite"
-    android:textSize="@dimen/textsize_all_large"/>
+    android:textSize="@dimen/textsize_medium"/>
 </RelativeLayout>

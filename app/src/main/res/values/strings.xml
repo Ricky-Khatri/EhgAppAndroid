@@ -181,7 +181,7 @@
   <string name="restaurantbookingguestdetail_specialrequest">Special Request (Optional)</string>
   <string name="restaurantbookingguestdetail_phonenumber">Phone Number</string>
   <string name="restaurantbookingguestdetail_bookrestaurent">BOOK A RESTAURENT</string>
-  <string name="fetchavailability_notimeslotsavailable">No item slots available.</string>
+  <string name="fetchavailability_notimeslotsavailable">Please select time slot.</string>
   <string name="restaurantbookingsummary_guests">Guests:</string>
   <string name="restaurant_title">Book a Restaurant from an exclusive list of Restaurants at Emaar properties.</string>
   <string name="restaurant_searchhint">Cuisine, Property or Location</string>

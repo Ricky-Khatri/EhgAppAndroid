@@ -39,7 +39,10 @@ import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.reservations.BookingSummaryActivity;
+import com.ehg.signinsignup.pojo.Detail;
+import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import java.util.Calendar;
@@ -106,6 +109,22 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
       editTextLastName = findViewById(R.id.edittext_restaurantbookingguestdetail_lastname);
       editTextEmailAddress = findViewById(R.id.edittext_restaurantbookingguestdetail_email);
       editTextPhoneNumber = findViewById(R.id.edittext_restaurantbookingguestdetail_phonenumber);
+
+      //If guest is logged in then pre fill form details
+      if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+          .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+        UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(this).getUserProfilePojo();
+        if (userProfilePojo.getData() != null && userProfilePojo.getData().getDetail() != null
+            && userProfilePojo.getData().getDetail().size() > 0) {
+
+          Detail detail = userProfilePojo.getData().getDetail().get(0);
+          editTextFirstName.setText(detail.getFirstName());
+          editTextLastName.setText(detail.getLastName());
+          editTextEmailAddress.setText(detail.getEmailId());
+          editTextPhoneNumber.setText(detail.getMobileNumber());
+        }
+      }
+
       editTextSpecialRequest = findViewById(R.id
           .edittext_restaurantbookingguestdetail_specialinstruction);
       textViewBookingRestaurent = findViewById(R.id.textview_restaurantbookingguestdetail_booking);
