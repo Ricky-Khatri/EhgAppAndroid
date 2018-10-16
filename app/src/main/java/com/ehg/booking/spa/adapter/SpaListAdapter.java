@@ -20,7 +20,9 @@
 package com.ehg.booking.spa.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,6 +32,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.spa.SpaDetailActivity;
+import com.ehg.utilities.AppUtil;
 
 public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHolder> {
 
@@ -70,13 +74,23 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
   @Override
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-    String name = "THE SPA";
+    final String name = "THE SPA";
     String address = "Address Downtown, Downtown Dubai";
     String type = "45 Spa Treatments";
 
     viewHolder.textViewSpaName.setText(name);
     viewHolder.textViewSpaAddress.setText(address);
     viewHolder.textViewSpaType.setText(type);
+
+    viewHolder.itemView.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        Intent intent = new Intent(context, SpaDetailActivity.class);
+        intent.putExtra("title", name);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+      }
+    });
   }
 
   /**
@@ -117,6 +131,7 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
       buttonBook = itemView.findViewById(R.id.button_itemspa_book);
 
       buttonBook.setOnClickListener(this);
+
     }
 
     /**

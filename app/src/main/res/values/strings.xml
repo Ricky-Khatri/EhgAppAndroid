@@ -193,5 +193,14 @@
   <string name="restaurant_searchhint">Cuisine, Property or Location</string>
   <string name="restaurant_bookarestaurant">Book a Restaurant</string>
   <string name="spa_bookaspatreatment">Book a Spa Treatment</string>
+  <string name="hotellist_hotelintro"><![CDATA[Book a Hotel from an exclusive range of Emaar Hospitality properties across Dubai & Egypt.]]></string>
+  <string name="spadetail_requestenquiry">Request Enquiry</string>
+  <string name="spadetail_highlights">Highlights</string>
+  <string name="spadetai_timings">Timings</string>
+  <string name="spadetail_spatreatments">SPA TREATMENTS</string>
+  <string name="spadetail_seeall">SEE ALL</string>
+  <string name="hotellist_promo_code">Do you have a Promo Code?</string>
+  <string name="hotellist_clickhere"><u>Click here</u></string>
+  <string name="hotellist_searchhint"><![CDATA[Dates of Stay,Guest & Rooms]]></string>
 
 </resources>

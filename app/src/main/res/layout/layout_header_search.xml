@@ -33,7 +33,7 @@
     <android.support.v7.widget.AppCompatImageView
       android:id="@+id/appcompatimageview_headersearch_appicon"
       android:layout_width="@dimen/size_socialmedia_mediaicon"
-      android:layout_height="@dimen/size_socialmedia_mediaicon"
+      android:layout_height="@dimen/size_all_backicon"
       android:layout_gravity="center"
       android:src="@drawable/emaar_logo"/>
 

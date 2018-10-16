@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.hotel.HotelListActivity;
 import com.ehg.booking.pojo.BookingPojo;
 import com.ehg.booking.restaurant.RestaurantActivity;
 import com.ehg.booking.spa.SpaActivity;
@@ -91,6 +92,10 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         switch (position) {
 
           case 0:
+
+            intent = new Intent(context, HotelListActivity.class);
+            intent.putExtra("title", bookList.get(position).getTitle());
+            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
 
             break;
           case 1:
