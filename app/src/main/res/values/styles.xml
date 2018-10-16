@@ -30,13 +30,25 @@
     <item name="android:windowSoftInputMode">stateAlwaysHidden</item>
   </style>
 
+  <!--&lt;!&ndash;Number picker theme&ndash;&gt;
+  <style name="MyAppTheme" parent="Theme.AppCompat.Light">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="android:numberPickerStyle">@style/MyNumberPickerTheme</item>
+  </style>
+
+  <style name="MyNumberPickerTheme" parent="@android:style/Widget.Material.NumberPicker">
+    <item name="colorControlNormal ">#01579b</item>
+    <item name="android:background">#64b5f6</item>
+  </style>-->
+
   <!--Material theme for chips activity-->
-  <style name="ChipTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+  <style name="ChipTheme" parent="Theme.MaterialComponents.Light">
     <item name="android:screenOrientation">portrait</item>
     <item name="windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorDarkerGray</item>
+    <item name="colorPrimary">@color/colorGray</item>
+    <item name="colorPrimaryDark">@color/colorGray</item>
     <item name="colorAccent">@color/colorBlackTransparent</item>
     <item name="actionMenuTextColor">@color/colorBlack</item>
     <item name="android:windowSoftInputMode">stateAlwaysHidden</item>

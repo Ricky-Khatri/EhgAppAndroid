@@ -48,6 +48,7 @@ public class HomeFragmentHorizontalItemAdapter extends
   private int heightWidthFactor;
 
   private HorizontalItemClickListener horizontalItemClickListener;
+  private String itemName;
 
   /**
    * Parameterized constructor for HomeFragmentHorizontalItemAdapter.
@@ -94,6 +95,33 @@ public class HomeFragmentHorizontalItemAdapter extends
     /*Glide.with(context).load(imageUrls[position % imageUrls.length])
         .into(viewHolder.roundedImageView);*/
 
+    if (title.equalsIgnoreCase("RESTAURANTS")) {
+
+      if(position == 0) {
+        itemName = "3IN1";
+      }
+      if(position == 1) {
+        itemName = "AL BAYT";
+      }
+      if(position == 2) {
+        itemName = "ASADO";
+      }
+      viewHolder.textViewBrandName.setText(itemName);
+    }
+
+    if (title.equalsIgnoreCase("EMAAR LEISURE GROUP")) {
+
+      if(position == 0) {
+        itemName = "ARABIAN RANCHES GOLF CLUB";
+      }
+      if(position == 1) {
+        itemName = "DUBAI POLO & EQUESTRIAN CLUB";
+      }
+      if(position == 2) {
+        itemName = "DUBAI MARINA YACHT CLUB";
+      }
+      viewHolder.textViewBrandName.setText(itemName);
+    }
   }
 
   /**
@@ -140,7 +168,7 @@ public class HomeFragmentHorizontalItemAdapter extends
     @Override
     public void onClick(View view) {
       if(horizontalItemClickListener != null) {
-        horizontalItemClickListener.onHorizontalItemClicked(title);
+        horizontalItemClickListener.onHorizontalItemClicked(title,itemName);
       }
     }
   }
@@ -149,6 +177,6 @@ public class HomeFragmentHorizontalItemAdapter extends
    * Horizontal item click listener.
    */
   public interface HorizontalItemClickListener {
-    void onHorizontalItemClicked(String title);
+    void onHorizontalItemClicked(String title, String itemName);
   }
 }

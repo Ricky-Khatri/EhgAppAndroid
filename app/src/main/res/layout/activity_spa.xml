@@ -52,7 +52,7 @@
         android:id="@+id/recyclerview_spa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/marginstart_header_search">
+        android:padding="@dimen/elevation_all_header">
 
       </android.support.v7.widget.RecyclerView>
     </LinearLayout>

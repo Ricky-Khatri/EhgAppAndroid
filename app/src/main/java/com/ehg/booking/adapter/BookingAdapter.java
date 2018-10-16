@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.pojo.BookingPojo;
+import com.ehg.booking.restaurant.RestaurantActivity;
 import com.ehg.booking.spa.SpaActivity;
 import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
@@ -86,19 +87,22 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
       @Override
       public void onClick(View v) {
 
+        Intent intent = null;
         switch (position) {
 
           case 0:
 
             break;
           case 1:
-
+            intent = new Intent(context, RestaurantActivity.class);
+            intent.putExtra("title", bookList.get(position).getTitle());
+            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
             break;
 
           case 2:
 
-            Intent intent = new Intent(context, SpaActivity.class);
-            intent.putExtra("spaTreatment", bookList.get(position).getTitle());
+            intent = new Intent(context, SpaActivity.class);
+            intent.putExtra("title", bookList.get(position).getTitle());
             AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
 
             break;

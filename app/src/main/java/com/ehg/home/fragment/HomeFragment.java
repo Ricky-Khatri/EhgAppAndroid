@@ -340,7 +340,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
    * @param title title
    */
   @Override
-  public void onHorizontalItemClicked(String title) {
+  public void onHorizontalItemClicked(String title, String itemName) {
 
     Intent intent = null;
 
@@ -348,12 +348,12 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
 
       case "HOTELS AND RESORTS":
         intent = new Intent(context, BrandDetailActivity.class);
-        intent.putExtra("title", title);
+        intent.putExtra("title", itemName);
         break;
 
       case "RESTAURANTS":
         intent = new Intent(context, RestaurantDetailActivity.class);
-        intent.putExtra("title", title);
+        intent.putExtra("title", itemName);
         break;
 
       default:

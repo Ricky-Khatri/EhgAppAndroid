@@ -117,6 +117,7 @@
     android:layout_above="@+id/button_fetchavailablity_next"
     android:layout_below="@+id/textview_fetchavailablity_information"
     android:layout_gravity="center"
+    android:layout_centerHorizontal="true"
     app:chipSpacingHorizontal="@dimen/margin_all_horizontal"
     app:singleLine="false">
 

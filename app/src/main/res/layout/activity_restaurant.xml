@@ -18,11 +18,92 @@
   ~
   -->
 
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context=".booking.restaurant.RestaurantActivity">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  tools:context=".booking.spa.SpaActivity">
 
-</android.support.constraint.ConstraintLayout>
+  <include
+    android:id="@+id/layout_spa_header"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/layout_spa_header">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/textview_restaurant_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppLabelsTextAppearance"
+        android:layout_margin="@dimen/margin_all_vertical"
+        android:gravity="center"
+        android:text="@string/restaurant_title"/>
+
+      <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/padding_headersearch_linearlayoutparent"
+          android:orientation="horizontal">
+
+          <LinearLayout
+            android:id="@+id/linearlayout_restaurant_searchlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginstart_header_search"
+            android:layout_marginEnd="@dimen/marginstart_header_search"
+            android:layout_gravity="center"
+            android:background="@drawable/all_rounded_border"
+            android:elevation="3dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+              android:layout_width="wrap_content"
+              android:layout_height="@dimen/height_all_searchicon"
+              android:padding="@dimen/padding_all_imageview"
+              app:srcCompat="@drawable/all_search_icon"/>
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:paddingStart="@dimen/elevation_all_header"
+              android:paddingEnd="@dimen/elevation_all_header"
+              android:gravity="center|start"
+              android:text="@string/restaurant_searchhint"
+              android:textSize="@dimen/textsize_all_guesttitle"/>
+
+          </LinearLayout>
+        </LinearLayout>
+
+        <View
+          android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:background="@color/colorDarkerGray"/>
+      </LinearLayout>
+
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_restaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/elevation_all_header">
+
+      </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+  </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

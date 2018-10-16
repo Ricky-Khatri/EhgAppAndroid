@@ -66,12 +66,19 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
     initView();
   }
 
-
   /**
    * Called to init view components of this activity.
    */
   private void initView() {
     try {
+
+      Button buttonModifyBooking = findViewById(R.id.button_restaurantbookingsummary_modifybooking);
+      buttonModifyBooking.setOnClickListener(this);
+      TextView textViewCancelBooking = findViewById(
+          R.id.textview_restaurantbookingsummary_cancelbooking);
+      textViewCancelBooking.setOnClickListener(this);
+      findViewById(R.id.imageview_header_back).setOnClickListener(this);
+
       String response = getIntent().getStringExtra("response");
       restaurantId = getIntent().getStringExtra("restaurantId");
       JSONObject jsonObject = new JSONObject(response);
@@ -138,16 +145,8 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
               R.id.textview_restaurantbookingsummary_disclaimerlabel);
           TextView textViewDisclaimer = findViewById(
               R.id.textview_restaurantbookingsummary_disclaimer);
-          Button buttonModifyBooking = findViewById(
-              R.id.button_restaurantbookingsummary_modifybooking);
-          buttonModifyBooking.setOnClickListener(this);
-          TextView textViewCancelBooking = findViewById(
-              R.id.textview_restaurantbookingsummary_cancelbooking);
-          textViewCancelBooking.setOnClickListener(this);
         }
       }
-
-      findViewById(R.id.imageview_header_back).setOnClickListener(this);
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception e) {

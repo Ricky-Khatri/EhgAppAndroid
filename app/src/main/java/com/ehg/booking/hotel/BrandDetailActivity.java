@@ -51,6 +51,10 @@ public class BrandDetailActivity extends BaseActivity implements OnPageChangeLis
   private RecyclerView recyclerViewBrandList;
   private AppCompatImageView appCompatImageViewBackArrow;
 
+  /**
+   * Called when activity created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -73,6 +77,10 @@ public class BrandDetailActivity extends BaseActivity implements OnPageChangeLis
    * Called to init view components of screen.
    */
   private void initView() {
+    TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    if (getIntent() != null && getIntent().getStringExtra("title") != null) {
+      textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
+    }
     recyclerViewBrandList = findViewById(R.id.recyclerview_branddetail_list);
     //recyclerViewBrandList.setLayoutManager(new LinearLayoutManager(context));
 
@@ -94,9 +102,6 @@ public class BrandDetailActivity extends BaseActivity implements OnPageChangeLis
         AppUtil.finishActivityWithAnimation(BrandDetailActivity.this);
       }
     });
-
-    TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
-    textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
   }
 
   /**
@@ -233,7 +238,7 @@ public class BrandDetailActivity extends BaseActivity implements OnPageChangeLis
    * @param title title
    */
   @Override
-  public void onHorizontalItemClicked(String title) {
+  public void onHorizontalItemClicked(String title, String itemName) {
 
   }
 

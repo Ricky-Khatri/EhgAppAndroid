@@ -28,6 +28,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.restaurant.adapter.RestaurantDetailGalleryAdapter;
 import com.ehg.booking.restaurant.adapter.RestaurantDetailGalleryAdapter.OnItemClickListener;
@@ -48,14 +49,25 @@ import java.util.ArrayList;
 public class RestaurantDetailActivity extends BaseActivity implements OnItemClickListener,
     OnSliderClickListener, OnClickListener {
 
+  /**
+   * Called when activity created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_restaurant_detail);
 
-    initAutoScrollViewPager();
+    try {
+      setContentView(R.layout.activity_restaurant_detail);
 
-    initView();
+      initAutoScrollViewPager();
+
+      initView();
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -63,6 +75,10 @@ public class RestaurantDetailActivity extends BaseActivity implements OnItemClic
    */
   private void initView() {
 
+    TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    if (getIntent() != null && getIntent().getStringExtra("title") != null) {
+      textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
+    }
     RecyclerView recyclerViewRestaurantGallery = findViewById(
         R.id.recyclerview_restaurantdetail_gallery);
     GridLayoutManager manager = new GridLayoutManager(this, 3);

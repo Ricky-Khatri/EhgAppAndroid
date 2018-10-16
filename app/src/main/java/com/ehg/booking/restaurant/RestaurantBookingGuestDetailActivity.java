@@ -100,6 +100,8 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
    */
   private void initView() {
     try {
+      TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+      textViewHeaderTitle.setText("Na3Na3");
       editTextFirstName = findViewById(R.id.edittext_restaurantbookingguestdetail_firstname);
       editTextLastName = findViewById(R.id.edittext_restaurantbookingguestdetail_lastname);
       editTextEmailAddress = findViewById(R.id.edittext_restaurantbookingguestdetail_email);
