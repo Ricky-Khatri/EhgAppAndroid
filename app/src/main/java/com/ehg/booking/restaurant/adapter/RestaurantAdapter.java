@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 15/10/18 8:09 PM
+ *  Created by Emaar Hospitality Group on 16/10/18 11:10 AM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 15/10/18 8:09 PM
+ *  Last modified 16/10/18 11:10 AM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.booking.spa.adapter;
+package com.ehg.booking.restaurant.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -31,20 +31,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import com.ehg.R;
 
-public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHolder> {
+public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
 
   private final LayoutInflater inflater;
+
   private Context context;
 
-  private OnSpaItemClickListener onSpaItemClickListener;
+  private OnRestaurantItemClickListener onRestaurantClickListener;
 
   /**
    * Parameterized constructor for offer list adapter.
    */
-  public SpaListAdapter(Context context, OnSpaItemClickListener onSpaItemClickListener) {
+  public RestaurantAdapter(Context context, OnRestaurantItemClickListener onRestaurantClickListener) {
     this.context = context;
     this.inflater = LayoutInflater.from(context);
-    this.onSpaItemClickListener = onSpaItemClickListener;
+    this.onRestaurantClickListener = onRestaurantClickListener;
   }
 
   /**
@@ -57,7 +58,7 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
-    return new SpaListAdapter.ViewHolder(inflater.inflate(R.layout.item_spa,
+    return new ViewHolder(inflater.inflate(R.layout.item_restaurant,
         viewGroup, false));
   }
 
@@ -70,13 +71,31 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
   @Override
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-    String name = "THE SPA";
-    String address = "Address Downtown, Downtown Dubai";
-    String type = "45 Spa Treatments";
+    String name = "";
+    String address = "";
+    String type = "";
 
-    viewHolder.textViewSpaName.setText(name);
-    viewHolder.textViewSpaAddress.setText(address);
-    viewHolder.textViewSpaType.setText(type);
+    if (position == 0) {
+      name = "Na3Na3";
+      address = "Address Boulevard";
+      type = "Middle Eastern";
+    }
+
+    if (position == 1) {
+      name = "Grand Cafe Boulevard";
+      address = "Address Boulevard";
+      type = "Middle Eastern";
+    }
+
+    if (position == 2) {
+      name = "Na3Na3";
+      address = "Address Boulevard";
+      type = "Middle Eastern";
+    }
+
+    viewHolder.textViewrestaurantName.setText(name);
+    viewHolder.textViewrestaurantAddress.setText(address);
+    viewHolder.textViewrestaurantType.setText(type);
   }
 
   /**
@@ -96,9 +115,9 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
 
     private final AppCompatImageView appCompatImageView;
 
-    private final TextView textViewSpaName;
-    private final TextView textViewSpaAddress;
-    private final TextView textViewSpaType;
+    private final TextView textViewrestaurantName;
+    private final TextView textViewrestaurantAddress;
+    private final TextView textViewrestaurantType;
 
     private final Button buttonBook;
 
@@ -110,23 +129,23 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 
-      textViewSpaName = itemView.findViewById(R.id.textview_itemspa_spaname);
-      textViewSpaAddress = itemView.findViewById(R.id.textview_itemspa_address);
-      textViewSpaType = itemView.findViewById(R.id.textview_itemspa_spatype);
-      appCompatImageView = itemView.findViewById(R.id.appcompatimageview_itemspa_spaimage);
-      buttonBook = itemView.findViewById(R.id.button_itemspa_book);
+      textViewrestaurantName = itemView.findViewById(R.id.textview_itemrestaurant_restaurantname);
+      textViewrestaurantAddress = itemView.findViewById(R.id.textview_itemrestaurant_address);
+      textViewrestaurantType = itemView.findViewById(R.id.textview_itemrestaurant_restauranttype);
+      appCompatImageView = itemView.findViewById(R.id.appcompatimageview_itemrestaurant_restaurantimage);
+      buttonBook = itemView.findViewById(R.id.button_itemrestaurant_book);
 
       buttonBook.setOnClickListener(this);
     }
 
     /**
-     * Called when spa item clicked.
+     * Called when restaurant list item clicked.
      * @param view clicked item view
      */
     @Override
     public void onClick(View view) {
-      if (onSpaItemClickListener != null) {
-        onSpaItemClickListener.onSpaItemClicked(getAdapterPosition());
+      if(onRestaurantClickListener != null) {
+        onRestaurantClickListener.onRestaurantItemClicked(getAdapterPosition());
       }
     }
   }
@@ -134,7 +153,7 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
   /**
    * Interface.
    */
-  public interface OnSpaItemClickListener {
-    void onSpaItemClicked (int position);
+  public interface OnRestaurantItemClickListener {
+    void onRestaurantItemClicked(int position);
   }
 }

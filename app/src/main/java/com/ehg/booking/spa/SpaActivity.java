@@ -24,14 +24,20 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.spa.adapter.SpaListAdapter;
+import com.ehg.booking.spa.adapter.SpaListAdapter.OnSpaItemClickListener;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
-public class SpaActivity extends BaseActivity implements View.OnClickListener {
+/**
+ * This class shows list of Spa at Emaar properties.
+ */
+public class SpaActivity extends BaseActivity implements OnClickListener, OnSpaItemClickListener {
 
   private AppCompatImageView imageViewHeaderBack;
   private RecyclerView recyclerViewSpa;
@@ -39,47 +45,63 @@ public class SpaActivity extends BaseActivity implements View.OnClickListener {
   private String headerName;
   private TextView textViewHeader;
 
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_spa);
 
-    context = this;
+    try {
+      context = this;
 
-    Bundle bundle = getIntent().getExtras();
+      Bundle bundle = getIntent().getExtras();
 
-    if (bundle != null) {
+      if (bundle != null) {
 
-      headerName = bundle.getString("spaTreatment");
+        headerName = bundle.getString("title");
+      }
+      initView();
+
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
-
-    initView();
-
   }
 
+  /**
+   * Called to init view components.
+   */
   private void initView() {
 
-    recyclerViewSpa = (RecyclerView) findViewById(R.id.recyclerview_spa);
-    imageViewHeaderBack = (AppCompatImageView) findViewById(R.id.imageview_header_back);
-    textViewHeader = (TextView) findViewById(R.id.textview_header_title);
-
+    recyclerViewSpa = findViewById(R.id.recyclerview_spa);
+    imageViewHeaderBack = findViewById(R.id.imageview_header_back);
+    textViewHeader = findViewById(R.id.textview_header_title);
     textViewHeader.setText(headerName);
     recyclerViewSpa.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewSpa.setHasFixedSize(true);
 
     imageViewHeaderBack.setOnClickListener(this);
 
-    SpaListAdapter spaListAdapter = new SpaListAdapter(context);
+    SpaListAdapter spaListAdapter = new SpaListAdapter(context,this);
     recyclerViewSpa.setAdapter(spaListAdapter);
 
     AppUtil.animateRecyclerView(context, recyclerViewSpa,
         R.anim.layout_animation_from_bottom);
   }
 
+  /**
+   * Called when activity item clicked.
+   * @param view clicked view
+   */
   @Override
-  public void onClick(View v) {
+  public void onClick(View view) {
 
-    switch (v.getId()) {
+    switch (view.getId()) {
 
       case R.id.imageview_header_back:
 
@@ -89,5 +111,48 @@ public class SpaActivity extends BaseActivity implements View.OnClickListener {
       default:
         break;
     }
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to update back arrow rtl icons.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * Called when Spa list item clicked.
+   * @param position clicked item position
+   */
+  @Override
+  public void onSpaItemClicked(int position) {
+
   }
 }

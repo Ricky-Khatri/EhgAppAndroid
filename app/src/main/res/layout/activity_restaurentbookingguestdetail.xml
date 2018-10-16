@@ -266,6 +266,9 @@
     android:layout_height="@dimen/size_socialmedia_mediaicon"
     android:layout_alignParentBottom="true"
     android:background="@color/colorGray"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:gravity="center"
     android:text="@string/restaurantbookingguestdetail_bookrestaurent"
     android:textColor="@color/colorWhite"/>

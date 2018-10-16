@@ -151,7 +151,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         calendar:drawRoundRect="false"
-        app:singleDaySelection="false"/>
+        app:singleDaySelection="true"/>
 
     </LinearLayout>
 
@@ -204,7 +204,7 @@
           <TextView
             android:id="@+id/textview_restaurentbookingslot_time"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="09:30"
             android:textColor="@color/colorBlack"
@@ -217,6 +217,7 @@
             android:padding="@dimen/google_1x"
             android:gravity="center"
             android:text="@string/restaurentbookingslots_pm"
+            android:visibility="gone"
             android:textColor="@color/colorBlack"/>
 
         </LinearLayout>
@@ -237,7 +238,7 @@
           <TextView
             android:id="@+id/textview_restaurentbookingslots_guestcount"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="2 "
             android:textColor="@color/colorBlack"
@@ -245,7 +246,7 @@
 
           <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="@dimen/google_1x"
             android:gravity="center"
             android:text="@string/restaurentbookingslot_textviewlabel"/>
@@ -269,6 +270,9 @@
     android:background="@color/colorGray"
     android:gravity="center"
     android:text="@string/splash_next"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:textColor="@color/colorWhite"
-    android:textSize="@dimen/textsize_all_large"/>
+    android:textSize="@dimen/textsize_medium"/>
 </RelativeLayout>

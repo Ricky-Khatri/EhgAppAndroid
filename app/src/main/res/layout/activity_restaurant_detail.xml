@@ -304,6 +304,9 @@
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:background="@color/colorGray"
+      android:clickable="true"
+      android:focusable="true"
+      android:foreground="?attr/selectableItemBackground"
       android:text="@string/hoteldetail_booknow"
       android:textAllCaps="true"
       android:textColor="@color/white"/>
@@ -320,6 +323,9 @@
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:background="@drawable/all_rounded_border"
+      android:clickable="true"
+      android:focusable="true"
+      android:foreground="?attr/selectableItemBackground"
       android:text="@string/hoteldetail_callus"
       android:textAllCaps="true"/>
   </LinearLayout>

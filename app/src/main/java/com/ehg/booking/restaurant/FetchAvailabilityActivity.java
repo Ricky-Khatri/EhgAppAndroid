@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.chip.Chip;
 import android.support.design.chip.ChipGroup;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -47,6 +46,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import org.json.JSONArray;
@@ -68,6 +68,7 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
   private String dateStr;
   private String timeStr;
   private String numberOfPeople;
+  private String response;
 
   /**
    * Called when activity created.
@@ -77,7 +78,6 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    requestWindowFeature(Window.FEATURE_NO_TITLE);
     setContentView(R.layout.activity_fetch_availability);
 
     initView();
@@ -89,7 +89,8 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
   private void initView() {
 
     try {
-
+      TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+      textViewHeaderTitle.setText("Na3Na3");
       restaurantId = getIntent().getStringExtra("restaurantId");
       dateStr = getIntent().getStringExtra("date");
       timeStr = getIntent().getStringExtra("time");
@@ -108,66 +109,91 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
       textViewTime.setText(timeStr);
       textViewNumberOfPeople.setText(numberOfPeople + " Guests");
 
-      ChipGroup chipGroup = findViewById(R.id.chipgroup_fetchavailability_timeslots);
-
-      Button buttonNext = findViewById(R.id.button_fetchavailablity_next);
-      buttonNext.setOnClickListener(this);
-      //Create dynamic chips
-      if (getIntent() != null && getIntent().getStringExtra("availableSlotes") != null) {
-        RestaurantFetchAvailabilityPojo restaurantFetchAvailabilityPojo = new Gson().fromJson(
-            getIntent().getStringExtra("availableSlotes"),
-            new TypeToken<RestaurantFetchAvailabilityPojo>() {
-            }.getType());
-
-        if (restaurantFetchAvailabilityPojo != null
-            && restaurantFetchAvailabilityPojo.getData() != null) {
-          List<Detail> detailList = restaurantFetchAvailabilityPojo.getData().getDetail();
-          if (detailList != null && detailList.size() > 0) {
-            for (int index = 0; index < detailList.size(); index++) {
-
-              Detail detail = detailList.get(index);
-              timeSegmentList = detail.getTimeSegments();
-              for (int index1 = 0; index1 < timeSegmentList.size(); index1++) {
-
-                final Chip chip = (Chip) getLayoutInflater()
-                    .inflate(R.layout.view_fetchavailabilitychiplayout,
-                        chipGroup, false);
-
-                chip.setPadding(10, 10, 10, 10);
-                final int finalIndex = index1;
-                chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                  @Override
-                  public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-
-                    if (isChecked) {
-                      chip.setChipBackgroundColorResource(R.color.colorGray);
-                      chip.setTextColor(getResources().getColor(R.color.white));
-                      selectedTimeSlot = timeSegmentList.get(finalIndex).getReservationTime();
-                    } else {
-                      chip.setChipBackgroundColorResource(R.color.colorDarkerGray);
-                      chip.setTextColor(getResources().getColor(R.color.colorGray));
-                      selectedTimeSlot = "";
-                    }
-                  }
-                });
-
-                chip.setText(timeSegmentList.get(index1).getReservationTime());
-                chipGroup.addView(chip);
-              }
-            }
-          }
-        }
-      }
-
       //Set OnClickListener
       findViewById(R.id.imageview_header_back).setOnClickListener(this);
+      Button buttonNext = findViewById(R.id.button_fetchavailablity_next);
+      buttonNext.setBackgroundColor(getResources().getColor(R.color.colorGray));
+      buttonNext.setOnClickListener(this);
 
+      if (getIntent() != null && getIntent().getStringExtra("availableSlotes") != null) {
+        response = getIntent().getStringExtra("availableSlotes");
+        initChipLayout();
+      }
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (IndexOutOfBoundsException e) {
       e.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called to init chip layout.
+   */
+  private void initChipLayout() {
+
+    ChipGroup chipGroup = findViewById(R.id.chipgroup_fetchavailability_timeslots);
+    //Create dynamic chips
+    if (!TextUtils.isEmpty(response)) {
+      RestaurantFetchAvailabilityPojo restaurantFetchAvailabilityPojo = new Gson().fromJson(
+          response,
+          new TypeToken<RestaurantFetchAvailabilityPojo>() {
+          }.getType());
+
+      timeSegmentList = new ArrayList<>();
+      chipGroup.removeAllViews();
+      if (restaurantFetchAvailabilityPojo != null
+          && restaurantFetchAvailabilityPojo.getData() != null) {
+        List<Detail> detailList = restaurantFetchAvailabilityPojo.getData().getDetail();
+        if (detailList != null && detailList.size() > 0) {
+          for (int index = 0; index < detailList.size(); index++) {
+
+            Detail detail = detailList.get(index);
+            timeSegmentList = detail.getTimeSegments();
+            for (int index1 = 0; index1 < timeSegmentList.size(); index1++) {
+
+              final Chip chip = (Chip) getLayoutInflater()
+                  .inflate(R.layout.view_fetchavailabilitychiplayout,
+                      chipGroup, false);
+
+              chip.setPadding(10, 10, 10, 10);
+              chip.setChipBackgroundColorResource(R.color.colorChipBackground);
+              chip.setTextColor(getResources().getColor(R.color.colorGray));
+
+              if (!TextUtils.isEmpty(selectedTimeSlot) && selectedTimeSlot
+                  .equalsIgnoreCase(timeSegmentList.get(index1).getReservationTime())) {
+                chip.setChipBackgroundColorResource(R.color.colorGray);
+                chip.setTextColor(getResources().getColor(R.color.white));
+              } else {
+                chip.setChipBackgroundColorResource(R.color.colorChipBackground);
+                chip.setTextColor(getResources().getColor(R.color.colorGray));
+              }
+
+              final int finalIndex = index1;
+              chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
+                  if (isChecked) {
+                    chip.setChipBackgroundColorResource(R.color.colorGray);
+                    chip.setTextColor(getResources().getColor(R.color.white));
+                    selectedTimeSlot = timeSegmentList.get(finalIndex).getReservationTime();
+                  } else {
+                    chip.setChipBackgroundColorResource(R.color.colorChipBackground);
+                    chip.setTextColor(getResources().getColor(R.color.colorGray));
+                    selectedTimeSlot = "";
+                  }
+                  initChipLayout();
+                }
+              });
+
+              chip.setText(timeSegmentList.get(index1).getReservationTime());
+              chipGroup.addView(chip);
+            }
+          }
+        }
+      }
     }
   }
 
@@ -186,7 +212,8 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
         break;
 
       case R.id.button_fetchavailablity_next:
-        if (timeSegmentList != null && timeSegmentList.size() > 0) {
+        if (timeSegmentList != null && timeSegmentList.size() > 0 && !TextUtils
+            .isEmpty(selectedTimeSlot)) {
           lockReservation();
         } else {
           AppUtil.showToast(this, getString(R.string.fetchavailability_notimeslotsavailable));

@@ -32,6 +32,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import com.andexert.calendarlistview.library.DatePickerController;
@@ -40,6 +42,7 @@ import com.andexert.calendarlistview.library.SimpleMonthAdapter.CalendarDay;
 import com.andexert.calendarlistview.library.SimpleMonthAdapter.SelectedDays;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.customview.NumberPickerDialog;
 import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
@@ -55,7 +58,7 @@ import org.json.JSONObject;
  * This class allows to select date, time and number of people for fetching available time slots.
  */
 public class RestaurantBookingSlotActivity extends BaseActivity implements
-    DatePickerController, OnClickListener, ApiResponseListener {
+    DatePickerController, OnClickListener, ApiResponseListener, OnValueChangeListener {
 
   private static final String FETCH_AVAILABILITY = "fetchAvailability";
 
@@ -96,6 +99,8 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
    */
   private void initView() {
 
+    TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    textViewHeaderTitle.setText("Na3Na3");
     dayPickerView = findViewById(R.id.daypickerview_restaurantbookingslot_calandar);
     linearLayoutTime = findViewById(R.id.linearlayout_restaurentbookingslot_time);
     textViewTime = findViewById(R.id.textview_restaurentbookingslot_time);
@@ -108,9 +113,10 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
     textViewNext.setOnClickListener(this);
     linearLayoutTime.setOnClickListener(this);
     dayPickerView.setController(this);
+    linearLayoutGuestCount.setOnClickListener(this);
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
 
-    if(getIntent() != null && getIntent().getStringExtra("restaurantId") != null) {
+    if (getIntent() != null && getIntent().getStringExtra("restaurantId") != null) {
       restaurantId = getIntent().getStringExtra("restaurantId");
     }
   }
@@ -134,7 +140,8 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
    */
   @Override
   public void onDayOfMonthSelected(int year, int month, int day) {
-
+    month++;
+    dateStr = year + "-" + month + "-" + day;
   }
 
   /**
@@ -215,28 +222,14 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
         }, hour, minute, true);
 
         timePickerDialog.show();
-
         break;
 
       case R.id.linearlayout_restaurentbookingslots_guestcount:
-
-        //TODO : Number picker for guest count need to be implement after discussion.
-
+        showNumberPicker();
         break;
 
       case R.id.textview_restaurentbookingslot_next:
-        //TODO: Need to implement single date selection
-        int date = Calendar.getInstance().get(Calendar.DATE);
-        int month = Calendar.getInstance().get(Calendar.MONTH);
-        month++;
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-
-        dateStr = year + "-" + month + "-" + date;
-        timeStr = textViewTime.getText().toString();
-        numberOfPeopleStr = "2";
-        restaurantId = "1";
-        fetchAvailability(dateStr, timeStr,
-            numberOfPeopleStr, restaurantId);
+        fetchRestaurantSlotAvailability();
         break;
 
       case R.id.imageview_header_back:
@@ -246,6 +239,48 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
       default:
         break;
     }
+  }
+
+  /**
+   * Called to init fetch slot availability api.
+   */
+  private void fetchRestaurantSlotAvailability() {
+    if (TextUtils.isEmpty(dateStr)) {
+      int date = Calendar.getInstance().get(Calendar.DATE);
+      int month = Calendar.getInstance().get(Calendar.MONTH);
+      month++;
+      int year = Calendar.getInstance().get(Calendar.YEAR);
+      dateStr = year + "-" + month + "-" + date;
+    }
+    timeStr = textViewTime.getText().toString();
+    if (TextUtils.isEmpty(numberOfPeopleStr)) {
+      numberOfPeopleStr = "2";
+    }
+    restaurantId = "1";
+    fetchAvailability(dateStr, timeStr,
+        numberOfPeopleStr, restaurantId);
+  }
+
+  /**
+   * Called when number picker value changed.
+   *
+   * @param numberPicker numberPicker object
+   * @param index index
+   * @param index1 index1
+   */
+  @Override
+  public void onValueChange(NumberPicker numberPicker, int index, int index1) {
+    numberOfPeopleStr = index + "";
+    textViewGuestCount.setText(numberOfPeopleStr);
+  }
+
+  /**
+   * Called to show number picker.
+   */
+  public void showNumberPicker() {
+    NumberPickerDialog numberPickerDialog = new NumberPickerDialog();
+    numberPickerDialog.setValueChangeListener(this);
+    numberPickerDialog.show(getSupportFragmentManager(), "Select number of people");
   }
 
   /**

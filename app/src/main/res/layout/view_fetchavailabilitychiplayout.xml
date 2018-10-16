@@ -22,4 +22,5 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   style="@style/Widget.MaterialComponents.Chip.Choice"
   android:layout_width="wrap_content"
+  android:textAppearance="@style/AppLabelsTextAppearance"
   android:layout_height="wrap_content"/>

@@ -26,14 +26,17 @@ package com.ehg.networkrequest;
 public class WebServiceUtil {
 
   //API base url
-  //public static final String BASE_URL = "http://192.168.3.28:8080/digivalet-ehg-gateway/";
+  //public static final String BASE_URL = "http://192.168.3.28:8080/digivalet-ehg-gateway";
 
   //Dev environment
-  //public static final String BASE_URL = "https://his-dev.digivalet.com/dv_app_ehggateway/";
-  public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway/";
+  //public static final String BASE_URL = "https://his-dev.digivalet.com/dv_app_ehggateway";
+  //public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway";
 
   //Local ip for reservations
   //public static final String BASE_URL = "http://192.168.3.66:8080/digivalet-ehg-gateway";
+
+  //UAT environment
+  public static final String BASE_URL = "https://ehgmobileapp-uat.digivalet.com/dv_app_ehggateway";
 
   public static final String DEVICE_TYPE = "Android";
 
@@ -41,22 +44,22 @@ public class WebServiceUtil {
   public static final String CONTENT_TYPE = "application/json";
 
   //Signup method
-  public static final String METHOD_SIGN_UP = "signUp/quickEnrollment/v1";
+  public static final String METHOD_SIGN_UP = "/signUp/quickEnrollment/v1";
 
   //Login method
-  public static final String METHOD_LOGIN = "signUp/login/v1";
+  public static final String METHOD_LOGIN = "/signUp/login/v1";
 
   //Logout method
-  public static final String METHOD_LOGOUT = "signUp/logout/v1";
+  public static final String METHOD_LOGOUT = "/signUp/logout/v1";
 
   //UpdateToken method
-  public static final String METHOD_UPDATE_TOKEN = "updateToken";
+  public static final String METHOD_UPDATE_TOKEN = "/signUp/updateToken/v1";
 
   //ResetPassword method
-  public static final String METHOD_RESET_PASSWORD = "signUp/resetPassword/v1/";
+  public static final String METHOD_RESET_PASSWORD = "/signUp/resetPassword/v1/";
 
   //GetMemberDetails method
-  public static final String METHOD_GET_MEMBER_DETAIL = "signUp/memberDetails/v1/";
+  public static final String METHOD_GET_MEMBER_DETAIL = "/signUp/memberDetails/v1/";
 
   //FetchAvailability api for restaurant reservations method
   public static final String METHOD_GET_RESTAURANT_AVAILABILITY = "/restaurantReservation/fetchAvailability/v1/";

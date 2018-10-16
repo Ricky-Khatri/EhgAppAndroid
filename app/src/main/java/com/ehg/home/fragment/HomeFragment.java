@@ -340,7 +340,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
    * @param title title
    */
   @Override
-  public void onHorizontalItemClicked(String title) {
+  public void onHorizontalItemClicked(String title, String itemName) {
 
     Intent intent = null;
 

@@ -175,22 +175,25 @@
     </activity>
     <activity
       android:name=".booking.restaurant.RestaurantDetailActivity"
+      android:launchMode="singleTask"
       android:screenOrientation="portrait">
     </activity>
     <activity
       android:name=".booking.restaurant.RestaurantBookingSlotActivity"
+      android:launchMode="singleTask"
       android:screenOrientation="portrait"/>
     <activity
       android:name=".booking.restaurant.FetchAvailabilityActivity"
-      android:screenOrientation="portrait"
-      android:theme="@style/ChipTheme">
+      android:launchMode="singleTask"
+      android:screenOrientation="portrait">
     </activity>
     <activity
       android:name=".booking.restaurant.RestaurantBookingGuestDetailActivity"
+      android:launchMode="singleTask"
       android:screenOrientation="portrait"/>
-
     <activity
       android:name=".booking.restaurant.RestaurantBookingSummaryActivity"
+      android:launchMode="singleTask"
       android:screenOrientation="portrait">
     </activity>
     <activity

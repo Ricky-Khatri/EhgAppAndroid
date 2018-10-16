@@ -19,21 +19,40 @@
 
 package com.ehg.booking.restaurant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.restaurant.adapter.RestaurantAdapter;
+import com.ehg.booking.restaurant.adapter.RestaurantAdapter.OnRestaurantItemClickListener;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
-public class RestaurantActivity extends BaseActivity {
+/**
+ * This class shows list of Restaurants at Emaar properties.
+ */
+public class RestaurantActivity extends BaseActivity implements OnClickListener,
+    OnRestaurantItemClickListener {
 
+  private RecyclerView recyclerViewRestaurantList;
+
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_restaurant);
+
+    initView();
   }
 
   /**
@@ -41,13 +60,40 @@ public class RestaurantActivity extends BaseActivity {
    */
   private void initView() {
 
+    TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    if (getIntent() != null && getIntent().getStringExtra("title") != null) {
+      textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
+    }
     //Set OnClickListener
-    findViewById(R.id.imageview_header_back).setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        AppUtil.finishActivityWithAnimation(RestaurantActivity.this);
-      }
-    });
+    findViewById(R.id.imageview_header_back).setOnClickListener(this);
+    //Init recycler view
+    recyclerViewRestaurantList = findViewById(R.id.recyclerview_restaurant);
+    recyclerViewRestaurantList.setLayoutManager(new LinearLayoutManager(this));
+    recyclerViewRestaurantList.setHasFixedSize(true);
+    //Set adapter
+    RestaurantAdapter restaurantAdapter = new RestaurantAdapter(this, this);
+    recyclerViewRestaurantList.setAdapter(restaurantAdapter);
+
+    AppUtil.animateRecyclerView(this, recyclerViewRestaurantList,
+        R.anim.layout_animation_from_bottom);
+  }
+
+  /**
+   * Called when activity item clicked.
+   */
+  @Override
+  public void onClick(View view) {
+
+    switch (view.getId()) {
+
+      case R.id.imageview_header_back:
+
+        AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      default:
+        break;
+    }
   }
 
   /**
@@ -82,5 +128,16 @@ public class RestaurantActivity extends BaseActivity {
       AppUtil.finishActivityWithAnimation(this);
     }
     return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * Called when restaurant list item clicked.
+   *
+   * @param position clicked item position from list
+   */
+  @Override
+  public void onRestaurantItemClicked(int position) {
+    Intent intent = new Intent(this, RestaurantBookingSlotActivity.class);
+    AppUtil.startActivityWithAnimation(this, intent, false);
   }
 }
