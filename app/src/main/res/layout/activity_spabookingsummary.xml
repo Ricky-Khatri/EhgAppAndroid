@@ -92,14 +92,14 @@
           android:orientation="horizontal">
 
           <TextView
-            android:id="@+id/textview_spabookingsummary_restaurantlabel"
+            android:id="@+id/textview_spabookingsummary_spalabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Desired Treatment :"
             android:textSize="@dimen/textsize_all_guestdetail"/>
 
           <TextView
-            android:id="@+id/textview_spabookingsummary_restaurant"
+            android:id="@+id/textview_spabookingsummary_spa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/elevation_all_header"
@@ -277,14 +277,14 @@
             android:orientation="vertical">
 
             <TextView
-              android:id="@+id/textview_spabookingsummary_restaurantname"
+              android:id="@+id/textview_spabookingsummary_spaname"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="Address Downtown"
               android:textSize="@dimen/textsize_all_headertitle"/>
 
             <TextView
-              android:id="@+id/textview_spabookingsummary_restaurantaddress"
+              android:id="@+id/textview_spabookingsummary_spaaddress"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/marginstart_header_search"
@@ -305,7 +305,7 @@
         android:orientation="vertical">
 
         <TextView
-          android:id="@+id/textview_spabookingsummary_aboutrestaurant"
+          android:id="@+id/textview_spabookingsummary_aboutspa"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_all_continueasguest"
@@ -342,7 +342,7 @@
            android:textSize="@dimen/textsize_all_labels"/>
 
          <TextView
-           android:id="@+id/textview_restaurantbookingsummary_cancelbooking"
+           android:id="@+id/textview_spabookingsummary_cancelbooking"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginTop="@dimen/imagesize_all_locationimage"

@@ -25,6 +25,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -33,6 +34,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -46,19 +48,35 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.restaurant.RestaurantBookingSummaryActivity;
 import com.ehg.home.BaseActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.signinsignup.pojo.Data;
+import com.ehg.signinsignup.pojo.Detail;
+import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
  * This class allows user to submit enquiry for Spa .
  */
 public class SpaRequestEnquiryActivity extends BaseActivity implements
-    View.OnClickListener, OnEditorActionListener {
+    OnClickListener, OnEditorActionListener, ApiResponseListener {
+
+  private static final String OPERATION = "spa";
 
   private static AutoCompleteTextView textViewPrefferedDateTime;
   private Context context;
@@ -71,7 +89,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
   private EditText editTextPhoneNumber;
   private Spinner spinnerNumberOfpeople;
   private TextView textViewBook;
-  private String numberOfGuest;
+  private String numberOfGuest = "2";
   private String guestTitle;
 
 
@@ -90,8 +108,10 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
       context = this;
       initView();
-    } catch (Exception e) {
 
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
@@ -108,6 +128,18 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     editTextLastName = findViewById(R.id.edittext_sparequestenquiry_lastname);
     editTextEmail = findViewById(R.id.edittext_sparequestenquiry_email);
     editTextPhoneNumber = findViewById(R.id.edittext_sparequestenquiry_phonenumber);
+
+    UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(this).getUserProfilePojo();
+    if (userProfilePojo.getData() != null && userProfilePojo.getData().getDetail() != null &&
+        userProfilePojo.getData().getDetail().size() > 0) {
+      Detail detail = userProfilePojo.getData().getDetail().get(0);
+
+      editTextFirstName.setText(detail.getFirstName());
+      editTextLastName.setText(detail.getLastName());
+      editTextEmail.setText(detail.getEmailId());
+      editTextPhoneNumber.setText(detail.getMobileNumber());
+    }
+
     spinnerNumberOfpeople = findViewById(R.id.spinner_sparequestenquiry_numberofpeople);
     textViewPrefferedDateTime = findViewById(R.id.textview_sparequestenquiry_preferreddatetime);
     textViewBook = findViewById(R.id.textview_sparequestenquiry_booking);
@@ -228,7 +260,6 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
         break;
     }
-
   }
 
   /**
@@ -250,7 +281,8 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     if (guestTitle.equalsIgnoreCase("Please Select Title")) {
 
       Toast.makeText(context, "Please select Title", Toast.LENGTH_SHORT).show();
-      //cancel =true;
+      cancel = true;
+      focusView = textViewPrefferedDateTime;
     } else if (TextUtils.isEmpty(firstName)) {
 
       editTextFirstName.setError(getResources().getString(R.string.all_fieldrequired));
@@ -300,7 +332,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
     } else {
 
-      //makeReservation(firstName, lastName, email, mobile, specialRequest);
+      saveSpaTransactionRequest();
     }
   }
 
@@ -381,8 +413,8 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
    * this method is calling time picker class.
    */
   public void showTimePickerDialog() {
-    DialogFragment newFragment = new TimePickerFragment();
-    newFragment.show(getSupportFragmentManager(), "timePicker");
+    DialogFragment dialogFragment = new TimePickerFragment();
+    dialogFragment.show(getSupportFragmentManager(), "timePicker");
   }
 
   /**
@@ -520,5 +552,143 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
           + " -" + hourOfDay + ":" + minute);
       textViewPrefferedDateTime.setError(null);
     }
+  }
+
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Called to make Spa inquiry.
+   */
+  private void saveSpaTransactionRequest() {
+    if (AppUtil.isNetworkAvailable(this)) {
+      new HttpClientRequest().setApiResponseListner(this);
+      JSONObject jsonObject = new JSONObject();
+      JSONArray detailsArray = new JSONArray();
+      JSONObject detailObject = new JSONObject();
+
+      try {
+        //Date
+        Calendar calendar = Calendar.getInstance();
+        int date = Calendar.getInstance().get(Calendar.DATE);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        month++;
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String spaDate = year + "-" + month + "-" + date;
+
+        //time
+        String[] times = calendar.getTime().toString().split(" ");
+        String spaTime = "10:00";
+        if (times != null && times.length > 0) {
+          spaTime = times[3].split(":")[1];
+        }
+
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("ibuId", 1);//TODO: make it dynamic
+        deviceDetailObject.put("spaName", "The Spa"); //TODO: make it dynamic
+        deviceDetailObject.put("treatmentName", "Balinese Massage");//TODO: make it dynamic
+        deviceDetailObject.put("spaDate", spaDate);
+        deviceDetailObject.put("spaTime", spaTime);
+        deviceDetailObject.put("totalPeople", Integer.parseInt(numberOfGuest));
+        deviceDetailObject.put("firstName", editTextFirstName.getText().toString());
+        deviceDetailObject.put("lastName", editTextLastName.getText().toString());
+        deviceDetailObject.put("emailAddress", editTextEmail.getText().toString());
+        deviceDetailObject.put("mobileNumber", editTextPhoneNumber.getText().toString());
+
+        if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+
+          deviceDetailObject.put("loyaltyMemberId",
+              Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+                  .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
+        }
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(this));
+
+        //detailObject.put("deviceDetails", deviceDetailObject);
+
+        detailsArray.put(deviceDetailObject);
+
+        jsonObject.put("details", detailsArray);
+        jsonObject.put("operation", OPERATION);
+        jsonObject.put("feature", WebServiceUtil.FEATURE_SAVE_SPA_TRANSACTION);
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+
+      StringEntity entity = null;
+      try {
+        entity = new StringEntity(jsonObject.toString());
+      } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+      }
+
+      new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_SPA_INQUIRY),
+          entity, WebServiceUtil.CONTENT_TYPE,
+          OPERATION, true).httpPostRequest();
+    } else {
+      AppUtil.showAlertDialog(this,
+          getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(OPERATION)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
+
+        Intent intent = new Intent(this, SpaBookingSummaryActivity.class);
+        intent.putExtra("response", responseVal);
+        AppUtil.startActivityWithAnimation(this, intent, false);
+
+      } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
+
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog(this,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
+        } else {
+          AppUtil.showAlertDialog(this,
+              new JSONObject(responseVal).getString("message"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
+        }
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog(this, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }

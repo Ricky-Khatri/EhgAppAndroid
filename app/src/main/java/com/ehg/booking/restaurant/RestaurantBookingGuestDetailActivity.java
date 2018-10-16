@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.chip.ChipGroup;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -35,10 +36,10 @@ import android.widget.TextView.OnEditorActionListener;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
+import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
-import com.ehg.reservations.BookingSummaryActivity;
 import com.ehg.signinsignup.pojo.Detail;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
@@ -59,6 +60,7 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
     OnEditorActionListener, ApiResponseListener {
 
   private static final String OPERATION = "MakeReservation";
+  private static final String OPERATION_MODIFY_RESERVATION = "ModifyReservation";
 
   private Context context;
   private ChipGroup chipGroup;
@@ -80,7 +82,6 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
   private String numberOfPeople;
   private String expiresAt;
   private String reservationToken;
-
 
   /**
    * Called when fragment created.
@@ -344,7 +345,16 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
 
     } else {
 
-      makeReservation(firstName, lastName, email, mobile, specialRequest);
+      //If reservation confirmation number is available then call modifyReservation api
+      if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+          .getStringValue(SharedPreferenceUtils.RESTAURANT_CONFIRMATION_NUMBER, ""))) {
+
+        modifyReservation();
+
+      } else {
+
+        makeReservation(firstName, lastName, email, mobile, specialRequest);
+      }
     }
   }
 
@@ -404,6 +414,63 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
   }
 
   //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Called to modify reservation.
+   */
+  private void modifyReservation() {
+    if (AppUtil.isNetworkAvailable(this)) {
+      new HttpClientRequest().setApiResponseListner(this);
+      JSONObject jsonObject = new JSONObject();
+      JSONArray detailsArray = new JSONArray();
+      JSONObject detailObject = new JSONObject();
+
+      try {
+        JSONObject deviceDetailObject = new JSONObject();
+        deviceDetailObject.put("confirmationNumber", SharedPreferenceUtils.getInstance(this).
+            getStringValue(SharedPreferenceUtils.RESTAURANT_CONFIRMATION_NUMBER, ""));
+        deviceDetailObject.put("restaurantId", Integer.parseInt(restaurantId));
+        deviceDetailObject.put("modifiedDate", dateStr);
+        deviceDetailObject.put("modifiedTime", timeStr);
+        deviceDetailObject.put("partySize", Integer.parseInt(numberOfPeople));
+
+        if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+
+          deviceDetailObject.put("loyaltyMemberId",
+              Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+                  .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
+        }
+        deviceDetailObject.put("deviceId", AppUtil.getDeviceId(this));
+
+        //detailObject.put("deviceDetails", deviceDetailObject);
+
+        detailsArray.put(deviceDetailObject);
+
+        jsonObject.put("details", detailsArray);
+        jsonObject.put("operation", OPERATION_MODIFY_RESERVATION);
+        jsonObject.put("feature", WebServiceUtil.FEATURE_DINNING);
+
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+
+      StringEntity entity = null;
+      try {
+        entity = new StringEntity(jsonObject.toString());
+      } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+      }
+
+      new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_MODIFY_RESERVATION),
+          entity, WebServiceUtil.CONTENT_TYPE,
+          OPERATION_MODIFY_RESERVATION, true).httpPutRequest();
+    } else {
+      AppUtil.showAlertDialog(this,
+          getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
+    }
+  }
 
   /**
    * Called to make reservation.
@@ -487,6 +554,7 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
   public void onSuccessResponse(String responseVal, String requestMethod) {
 
     try {
+      //Make Reservation operation
       if (requestMethod.equalsIgnoreCase(OPERATION)
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
@@ -496,7 +564,44 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
         intent.putExtra("response", responseVal);
         AppUtil.startActivityWithAnimation(this, intent, false);
 
-      } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
+      } else if (requestMethod.equalsIgnoreCase(OPERATION)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
+
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog(this,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
+        } else {
+          AppUtil.showAlertDialog(this,
+              new JSONObject(responseVal).getString("message"), false,
+              getResources().getString(R.string.dialog_errortitle), true, null);
+        }
+
+        //Modify Reservation operation
+      } else if (requestMethod.equalsIgnoreCase(OPERATION_MODIFY_RESERVATION)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
+
+        SharedPreferenceUtils.getInstance(this)
+            .setValue(SharedPreferenceUtils.RESTAURANT_CONFIRMATION_NUMBER, "");
+
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        AppUtil.showAlertDialog((AppCompatActivity) context,
+            new JSONObject(responseVal).getString("message"), true,
+            getResources().getString(R.string.dialog_alerttitle), false, intent);
+
+      } else if (requestMethod.equalsIgnoreCase(OPERATION_MODIFY_RESERVATION)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
 
         JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");

@@ -86,12 +86,16 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     setContentView(R.layout.activity_restaurantbookingslot);
 
-    context = this;
-
-    initView();
+    try {
+      context = this;
+      initView();
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -116,8 +120,24 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
     linearLayoutGuestCount.setOnClickListener(this);
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
 
-    if (getIntent() != null && getIntent().getStringExtra("restaurantId") != null) {
+    Intent intent = getIntent();
+
+    if (intent != null && intent.getStringExtra("restaurantId") != null) {
       restaurantId = getIntent().getStringExtra("restaurantId");
+    }
+
+    if (intent != null && intent.getStringExtra("key") == null) {
+      SharedPreferenceUtils.getInstance(this)
+          .setValue(SharedPreferenceUtils.RESTAURANT_CONFIRMATION_NUMBER, "");
+    }
+  }
+
+  @Override
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    if (intent != null && intent.getStringExtra("key") == null) {
+      SharedPreferenceUtils.getInstance(this)
+          .setValue(SharedPreferenceUtils.RESTAURANT_CONFIRMATION_NUMBER, "");
     }
   }
 

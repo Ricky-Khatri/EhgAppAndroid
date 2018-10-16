@@ -136,6 +136,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
       buttonBook = itemView.findViewById(R.id.button_itemrestaurant_book);
 
       buttonBook.setOnClickListener(this);
+      itemView.setOnClickListener(this);
     }
 
     /**
@@ -145,7 +146,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
     @Override
     public void onClick(View view) {
       if(onRestaurantClickListener != null) {
-        onRestaurantClickListener.onRestaurantItemClicked(getAdapterPosition());
+        onRestaurantClickListener.onRestaurantItemClicked(getAdapterPosition(),view);
       }
     }
   }
@@ -154,6 +155,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
    * Interface.
    */
   public interface OnRestaurantItemClickListener {
-    void onRestaurantItemClicked(int position);
+    void onRestaurantItemClicked(int position, View view);
   }
 }

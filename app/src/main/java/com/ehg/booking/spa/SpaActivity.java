@@ -20,6 +20,7 @@
 package com.ehg.booking.spa;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -87,7 +88,7 @@ public class SpaActivity extends BaseActivity implements OnClickListener, OnSpaI
 
     imageViewHeaderBack.setOnClickListener(this);
 
-    SpaListAdapter spaListAdapter = new SpaListAdapter(context,this);
+    SpaListAdapter spaListAdapter = new SpaListAdapter(context, this);
     recyclerViewSpa.setAdapter(spaListAdapter);
 
     AppUtil.animateRecyclerView(context, recyclerViewSpa,
@@ -96,6 +97,7 @@ public class SpaActivity extends BaseActivity implements OnClickListener, OnSpaI
 
   /**
    * Called when activity item clicked.
+   *
    * @param view clicked view
    */
   @Override
@@ -149,10 +151,26 @@ public class SpaActivity extends BaseActivity implements OnClickListener, OnSpaI
 
   /**
    * Called when Spa list item clicked.
+   *
    * @param position clicked item position
+   * @param view clicked item view
    */
   @Override
-  public void onSpaItemClicked(int position) {
+  public void onSpaItemClicked(int position, View view) {
 
+    Intent intent = null;
+
+    switch (view.getId()) {
+      case R.id.button_itemspa_book:
+        intent = new Intent(this, SpaRequestEnquiryActivity.class);
+        break;
+
+      default:
+        //TODO: Need to make dynamic
+        intent = new Intent(this, SpaRequestEnquiryActivity.class);
+        break;
+    }
+
+    AppUtil.startActivityWithAnimation(this, intent, false);
   }
 }

@@ -117,6 +117,8 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
       buttonBook = itemView.findViewById(R.id.button_itemspa_book);
 
       buttonBook.setOnClickListener(this);
+
+      itemView.setOnClickListener(this);
     }
 
     /**
@@ -126,7 +128,7 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
     @Override
     public void onClick(View view) {
       if (onSpaItemClickListener != null) {
-        onSpaItemClickListener.onSpaItemClicked(getAdapterPosition());
+        onSpaItemClickListener.onSpaItemClicked(getAdapterPosition(),view);
       }
     }
   }
@@ -135,6 +137,6 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
    * Interface.
    */
   public interface OnSpaItemClickListener {
-    void onSpaItemClicked (int position);
+    void onSpaItemClicked (int position, View view);
   }
 }
