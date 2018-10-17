@@ -134,10 +134,22 @@ public class RestaurantActivity extends BaseActivity implements OnClickListener,
    * Called when restaurant list item clicked.
    *
    * @param position clicked item position from list
+   * @param view clicked item view
    */
   @Override
-  public void onRestaurantItemClicked(int position) {
-    Intent intent = new Intent(this, RestaurantBookingSlotActivity.class);
+  public void onRestaurantItemClicked(int position, View view) {
+
+    Intent intent = null;
+
+    switch (view.getId()) {
+      case R.id.button_itemrestaurant_book:
+        intent = new Intent(this, RestaurantBookingSlotActivity.class);
+        break;
+
+      default:
+        intent = new Intent(this, RestaurantDetailActivity.class);
+        break;
+    }
     AppUtil.startActivityWithAnimation(this, intent, false);
   }
 }

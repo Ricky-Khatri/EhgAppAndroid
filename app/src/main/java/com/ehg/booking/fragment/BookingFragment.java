@@ -20,11 +20,13 @@
 package com.ehg.booking.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -32,11 +34,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.ehg.R;
+import com.ehg.booking.adapter.BookingAdapter;
+import com.ehg.booking.adapter.BookingAdapter.OnBookingItemClickListener;
+import com.ehg.booking.pojo.BookingPojo;
+import com.ehg.booking.restaurant.RestaurantActivity;
+import com.ehg.booking.spa.SpaActivity;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
-import com.ehg.booking.adapter.BookingAdapter;
 import com.ehg.home.fragment.BaseFragment;
-import com.ehg.booking.pojo.BookingPojo;
 import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -44,12 +49,15 @@ import java.util.Objects;
 /**
  * Fragment class.
  */
-public class BookingFragment extends BaseFragment {
+public class BookingFragment extends BaseFragment implements OnBookingItemClickListener {
 
   private Context context;
 
+  private ArrayList<BookingPojo> bookList;
+
   /**
    * Called when fragment created.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
@@ -59,6 +67,7 @@ public class BookingFragment extends BaseFragment {
 
   /**
    * Called to inflate fragment view.
+   *
    * @param inflater LayoutInflater
    * @param container ViewGroup
    * @param savedInstanceState Bundle
@@ -76,6 +85,7 @@ public class BookingFragment extends BaseFragment {
 
   /**
    * Called to instantiate view components of fragment.
+   *
    * @param view View
    * @param savedInstanceState Bundle
    */
@@ -94,6 +104,7 @@ public class BookingFragment extends BaseFragment {
 
   /**
    * Called to attach activity context to fragment.
+   *
    * @param context activity context
    */
   @Override
@@ -114,7 +125,7 @@ public class BookingFragment extends BaseFragment {
     recyclerViewBookList.setHasFixedSize(true);
 
     //Prepare data
-    ArrayList<BookingPojo> bookList = new ArrayList<>();
+    bookList = new ArrayList<>();
     BookingPojo bookingPojo = new BookingPojo();
     bookingPojo.setTitle("Book a Hotel");
     bookingPojo.setImageUrl("");
@@ -140,9 +151,48 @@ public class BookingFragment extends BaseFragment {
     DisplayMetrics displaymetrics = new DisplayMetrics();
     ((BaseActivity) context).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
     BookingAdapter bookingAdapter = new BookingAdapter(context,
-        AppUtil.getDeviceHeight((BaseActivity) context),bookList);
+        AppUtil.getDeviceHeight((BaseActivity) context), bookList, this);
     recyclerViewBookList.setAdapter(bookingAdapter);
-    AppUtil.animateRecyclerView(context,recyclerViewBookList,
+    AppUtil.animateRecyclerView(context, recyclerViewBookList,
         R.anim.layout_animation_from_bottom);
+  }
+
+  /**
+   * Called when booking list item clicked.
+   *
+   * @param position clicked item position
+   */
+  @Override
+  public void onBookingItemClicked(int position) {
+
+    if (bookList != null) {
+      Intent intent = null;
+      switch (position) {
+        case 0:
+
+          break;
+        case 1:
+          intent = new Intent(context, RestaurantActivity.class);
+          intent.putExtra("title", bookList.get(position).getTitle());
+
+          break;
+
+        case 2:
+          intent = new Intent(context, SpaActivity.class);
+          intent.putExtra("title", bookList.get(position).getTitle());
+          break;
+
+        case 3:
+
+          break;
+
+        case 4:
+
+          break;
+        default:
+          break;
+      }
+      AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+    }
   }
 }

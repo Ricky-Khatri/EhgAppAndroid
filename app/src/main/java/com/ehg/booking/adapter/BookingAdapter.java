@@ -20,8 +20,6 @@
 package com.ehg.booking.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,11 +29,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ehg.R;
-import com.ehg.booking.hotel.HotelListActivity;
 import com.ehg.booking.pojo.BookingPojo;
-import com.ehg.booking.restaurant.RestaurantActivity;
-import com.ehg.booking.spa.SpaActivity;
-import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 
 public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHolder> {
@@ -47,14 +41,18 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
 
   private ArrayList<BookingPojo> bookList;
 
+  private OnBookingItemClickListener onBookingItemClickListener;
+
   /**
    * Parameterized constructor for offer list adapter.
    */
-  public BookingAdapter(Context context, int itemHeight, ArrayList<BookingPojo> bookList) {
+  public BookingAdapter(Context context, int itemHeight, ArrayList<BookingPojo> bookList,
+      OnBookingItemClickListener onBookingItemClickListener) {
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     this.itemHeight = itemHeight / 4 - 20;
     this.bookList = bookList;
+    this.onBookingItemClickListener = onBookingItemClickListener;
   }
 
   /**
@@ -83,46 +81,6 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
         .into(viewHolder.appCompatImageView);*/
 
     viewHolder.textViewTitle.setText(bookList.get(position).getTitle());
-
-    viewHolder.relativeLayout.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-
-        Intent intent = null;
-        switch (position) {
-
-          case 0:
-
-            intent = new Intent(context, HotelListActivity.class);
-            intent.putExtra("title", bookList.get(position).getTitle());
-            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
-
-            break;
-          case 1:
-            intent = new Intent(context, RestaurantActivity.class);
-            intent.putExtra("title", bookList.get(position).getTitle());
-            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
-            break;
-
-          case 2:
-
-            intent = new Intent(context, SpaActivity.class);
-            intent.putExtra("title", bookList.get(position).getTitle());
-            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
-
-            break;
-
-          case 3:
-
-            break;
-
-          case 4:
-
-            break;
-        }
-      }
-    });
-
   }
 
   /**
@@ -138,7 +96,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
   /**
    * This is ViewHolder class.
    */
-  public class ViewHolder extends RecyclerView.ViewHolder {
+  public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener{
 
     private final TextView textViewTitle;
 
@@ -160,6 +118,26 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
 
       //Set dynamic height of item layout
       relativeLayout.getLayoutParams().height = itemHeight;
+
+      itemView.setOnClickListener(this);
     }
+
+    /**
+     * Called when booking list item clicked.
+     * @param view clicked item view
+     */
+    @Override
+    public void onClick(View view) {
+      if (onBookingItemClickListener != null) {
+        onBookingItemClickListener.onBookingItemClicked(getAdapterPosition());
+      }
+    }
+  }
+
+  /**
+   * Interface.
+   */
+  public interface OnBookingItemClickListener {
+    void onBookingItemClicked(int position);
   }
 }

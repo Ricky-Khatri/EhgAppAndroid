@@ -202,5 +202,6 @@
   <string name="hotellist_promo_code">Do you have a Promo Code?</string>
   <string name="hotellist_clickhere"><u>Click here</u></string>
   <string name="hotellist_searchhint"><![CDATA[Dates of Stay,Guest & Rooms]]></string>
+  <string name="all_bookingsummary">Booking Summary</string>
 
 </resources>

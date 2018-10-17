@@ -30,13 +30,13 @@ public class WebServiceUtil {
 
   //Dev environment
   //public static final String BASE_URL = "https://his-dev.digivalet.com/dv_app_ehggateway";
-  //public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway";
+  public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway";
 
   //Local ip for reservations
   //public static final String BASE_URL = "http://192.168.3.66:8080/digivalet-ehg-gateway";
 
   //UAT environment
-  public static final String BASE_URL = "https://ehgmobileapp-uat.digivalet.com/dv_app_ehggateway";
+  //public static final String BASE_URL = "https://ehgmobileapp-uat.digivalet.com/dv_app_ehggateway";
 
   public static final String DEVICE_TYPE = "Android";
 
@@ -70,14 +70,20 @@ public class WebServiceUtil {
   //MakeReservation method
   public static final String METHOD_MAKE_RESERVATION = "/restaurantReservation/makeReservation/v1";
 
+  //ModifyReservation method
+  public static final String METHOD_MODIFY_RESERVATION = "/restaurantReservation/modifyReservation/v1";
+
   //CancelReservation method
   public static final String METHOD_CANCEL_RESERVATION = "/restaurantReservation/cancelReservation/v1/";
 
+  //Spa inquiry method
+  public static final String METHOD_SPA_INQUIRY = "/spa/saveSpaTransaction/v1";
 
 
   //Api feature constants
   public static final String FEATURE_SIGN_UP = "signUp";
   public static final String FEATURE_DINNING = "Dining";
+  public static final String FEATURE_SAVE_SPA_TRANSACTION = "SaveSpaTransaction";
 
   /**
    * Returns complete api url.

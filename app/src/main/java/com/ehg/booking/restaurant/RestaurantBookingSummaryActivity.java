@@ -21,6 +21,7 @@ package com.ehg.booking.restaurant;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -36,6 +37,7 @@ import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
+import com.loopj.android.http.RequestParams;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import org.json.JSONArray;
@@ -71,7 +73,8 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
    */
   private void initView() {
     try {
-
+      TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+      textViewHeaderTitle.setText(R.string.all_bookingsummary);
       Button buttonModifyBooking = findViewById(R.id.button_restaurantbookingsummary_modifybooking);
       buttonModifyBooking.setOnClickListener(this);
       TextView textViewCancelBooking = findViewById(
@@ -211,6 +214,9 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
       case R.id.button_restaurantbookingsummary_modifybooking:
         intent = new Intent(this, RestaurantBookingSlotActivity.class);
         intent.putExtra("restaurantId", restaurantId);
+        intent.putExtra("key", "modifyReservation");
+        SharedPreferenceUtils.getInstance(this)
+            .setValue(SharedPreferenceUtils.RESTAURANT_CONFIRMATION_NUMBER, confirmationNumber);
         AppUtil.startActivityWithAnimation(this, intent, true);
         break;
 
@@ -237,31 +243,17 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
       if (!TextUtils.isEmpty(loyaltyMemberId)) {
 
         url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_CANCEL_RESERVATION)
-            + confirmationNumber + "/" + loyaltyMemberId + "/" + restaurantId;
+            + confirmationNumber + "/" + restaurantId + "?loyaltyMemberId=" + loyaltyMemberId
+            + "&deviceId=" + AppUtil.getDeviceId(this);
 
       } else {
 
         url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_CANCEL_RESERVATION)
-            + confirmationNumber + "/" + restaurantId;
-      }
-
-      JSONObject jsonObject = new JSONObject();
-      try {
-        jsonObject.put("deviceId", AppUtil.getDeviceId(this));
-
-      } catch (JSONException e) {
-        e.printStackTrace();
-      }
-
-      StringEntity entity = null;
-      try {
-        entity = new StringEntity(jsonObject.toString());
-      } catch (UnsupportedEncodingException e) {
-        e.printStackTrace();
+            + confirmationNumber + "/" + restaurantId + "?deviceId=" + AppUtil.getDeviceId(this);
       }
 
       new HttpClientRequest(this, url,
-          entity, WebServiceUtil.CONTENT_TYPE,
+          new RequestParams(), WebServiceUtil.CONTENT_TYPE,
           CANCEL_BOOKING, true).httpPutRequest();
     } else {
       AppUtil.showAlertDialog(this,
@@ -284,10 +276,15 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
 
+        SharedPreferenceUtils.getInstance(this)
+            .setValue(SharedPreferenceUtils.RESTAURANT_CONFIRMATION_NUMBER, "");
+
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("tab", "2");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        AppUtil.startActivityWithAnimation(this, intent, true);
+        AppUtil.showAlertDialog(this,
+            new JSONObject(responseVal).getString("message"), true,
+            getResources().getString(R.string.dialog_alerttitle), false, intent);
 
       } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
