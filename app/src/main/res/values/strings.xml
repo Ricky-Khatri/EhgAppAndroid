@@ -15,14 +15,14 @@
   <string name="all_signin">SIGN-IN</string>
   <string name="splash_signin">Sign-in</string>
   <string name="all_forgotpassword">Forgot Password </string>
-  <string name="all_signin_to_tap">Sign-In to tap with your</string>
+  <string name="all_signin_to_tap">Sign-In to the app with your</string>
   <string name="all_u_by_emaar"><b>U By Emaar</b></string>
   <string name="signupfragment_sign_up_and_create">Sign-Up &amp; Create </string>
-  <string name="signupfragment_what_is_u_by_emaar"><u>What is U By Emaar ?</u></string>
+  <string name="signupfragment_what_is_u_by_emaar"><u>What is U By Emaar?</u></string>
   <string name="all_account">account.</string>
 
   <string name="signupfragment_signup">SIGN-UP</string>
-  <string name="all_continue_as_guest">Continue as guest </string>
+  <string name="all_continue_as_guest">Continue as Guest </string>
 
   <!-- Strings related to login -->
   <string name="all_mobilenumber">Mobile Number</string>
@@ -36,8 +36,8 @@
   <string name="all_erroremailormobile">Please enter registered mobile number or email.</string>
 
   <!--Strings related to signup-->
-  <string name="signup_termsandcondition">By tapping on Sign-up you are agree to our\nTerms and Conditions</string>
-  <string name="all_email">Email address</string>
+  <string name="signup_termsandcondition">By tapping on Sign-up you agree to our\nTerms and Conditions</string>
+  <string name="all_email">Email Address</string>
   <string name="all_or">OR</string>
   <string name="forgotpassword_instruction">Give us your mobile number or email address\nand we\'ll send you password reset instructions</string>
 
@@ -63,7 +63,7 @@
   <string name="dialog_errortitle">Error</string>
   <string name="dialog_alerttitle">Alert</string>
   <string name="all_confirmtitle">Confirm</string>
-  <string name="setting_signoutmessage">Are you sure do you want to Signout ?</string>
+  <string name="setting_signoutmessage">Are you sure you want to sign out?</string>
   <string name="all_yes">Yes</string>
   <string name="all_no">No</string>
 
@@ -204,5 +204,9 @@
   <string name="hotellist_searchhint"><![CDATA[Dates of Stay,Guest & Rooms]]></string>
   <string name="all_bookingsummary">Booking Summary</string>
   <string name="spabookingsummary_desiredtreatment">Desired Treatment :</string>
+  <string name="hotelfilter_brand">Brand</string>
+  <string name="hotelfilter_property">Property</string>
+  <string name="hotelfilter_classification">Classification</string>
+  <string name="hotelfilter_facilities">Facilities</string>
 
 </resources>

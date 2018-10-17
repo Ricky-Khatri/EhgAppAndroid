@@ -63,6 +63,8 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
 
     try {
 
+      //updateToken();
+
       setBroadCastMessageInterface(this);
 
       //Get phone default language and configure in app
@@ -135,9 +137,13 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
 
       try {
 
-        detailObject.put("loyaltyMemberId", SharedPreferenceUtils.getInstance(this)
-            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""));
+        if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
 
+          detailObject
+              .put("loyaltyMemberId", Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+                  .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
+        }
         JSONObject deviceDetailObject = new JSONObject();
         deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);
         deviceDetailObject.put("deviceId", AppUtil.getDeviceId(this));
@@ -166,7 +172,7 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
 
       new HttpClientRequest(this, WebServiceUtil.getUrl(WebServiceUtil.METHOD_UPDATE_TOKEN),
           entity, WebServiceUtil.CONTENT_TYPE,
-          UPDATE_TOKEN_METHOD, false).httpPostRequest();
+          UPDATE_TOKEN_METHOD, false).httpPutRequest();
     }
   }
 

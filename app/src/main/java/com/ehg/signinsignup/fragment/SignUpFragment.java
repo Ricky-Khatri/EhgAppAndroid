@@ -504,26 +504,22 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
               userProfilePojo.getMessage(), true,
               getResources().getString(R.string.dialog_alerttitle), false, intent);
         }
+      } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
 
-        /*JSONObject jsonObject = new JSONObject(responseVal);
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
 
-        if (jsonObject.getBoolean("status")) {
-          JSONObject dataObject = jsonObject.getJSONObject("data");
+        if (dataObject != null) {
           JSONArray detailArray = dataObject.optJSONArray("detail");
           if (detailArray != null && detailArray.length() > 0) {
-            //Save loyaltyMEmberId
-            SharedPreferenceUtils.getInstance(context)
-                .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
-                    detailArray.getJSONObject(0).getString("loyaltyMemberId"));
-            //Save mobile number as accoundId
-            SharedPreferenceUtils.getInstance(context)
-                .setValue(SharedPreferenceUtils.ACCOUNT_ID,
-                    autoCompleteTextViewMobileNumber.getText().toString().trim());
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
 
-            Intent intent = new Intent(context, HomeActivity.class);
-            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+            AppUtil.showAlertDialog((AppCompatActivity) context,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
           }
-        }*/
+        }
       } else {
         AppUtil.showAlertDialog((AppCompatActivity) context,
             new JSONObject(responseVal).getString("message"), false,

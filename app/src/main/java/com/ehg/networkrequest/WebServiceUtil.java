@@ -53,7 +53,7 @@ public class WebServiceUtil {
   public static final String METHOD_LOGOUT = "/signUp/logout/v1";
 
   //UpdateToken method
-  public static final String METHOD_UPDATE_TOKEN = "/signUp/updateToken/v1";
+  public static final String METHOD_UPDATE_TOKEN = "/signUp/token/v1";
 
   //ResetPassword method
   public static final String METHOD_RESET_PASSWORD = "/signUp/resetPassword/v1/";

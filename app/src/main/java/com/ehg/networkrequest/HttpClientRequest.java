@@ -215,7 +215,7 @@ public class HttpClientRequest {
         AppUtil.showLoadingIndicator((AppCompatActivity) context);
       }
 
-      startFirebaseMonitorTrace(HttpMethod.POST);
+      startFirebaseMonitorTrace(HttpMethod.PUT);
 
       asyncHttpClient.addHeader("Access-Token", "dummy"); //TODO: Need to pass access-token
 
