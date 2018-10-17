@@ -29,13 +29,14 @@ import android.view.View;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.hotel.adapter.HotelResortsAdapter;
+import com.ehg.booking.hotel.adapter.HotelResortsAdapter.OnHotelItemClickListener;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
 /**
  * This class allows to show Hotel & Resorts List.
  */
-public class HotelResortsListActivity extends BaseActivity implements View.OnClickListener {
+public class HotelResortsListActivity extends BaseActivity implements View.OnClickListener, OnHotelItemClickListener {
 
   private Context context;
   private RecyclerView recyclerViewHotelList;
@@ -83,7 +84,7 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
     recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewHotelList.setHasFixedSize(true);
 
-    HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context);
+    HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context, this);
 
     recyclerViewHotelList.setAdapter(hotelResortsAdapter);
 
@@ -131,5 +132,10 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
       default:
         break;
     }
+  }
+
+  @Override
+  public void onHotelItemClicked(int position, View view) {
+
   }
 }

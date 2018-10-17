@@ -20,6 +20,7 @@
 package com.ehg.booking.hotel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
@@ -31,10 +32,14 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.hotel.adapter.HotelResortsAdapter;
+import com.ehg.booking.hotel.adapter.HotelResortsAdapter.OnHotelItemClickListener;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
-public class HotelListActivity extends BaseActivity implements OnClickListener {
+/**
+ * This class will show  all the available hotel list.
+ */
+public class HotelListActivity extends BaseActivity implements OnClickListener, OnHotelItemClickListener {
 
   private Context context;
   private AppCompatImageView headerBackButton;
@@ -42,6 +47,11 @@ public class HotelListActivity extends BaseActivity implements OnClickListener {
   private RecyclerView recyclerViewHotelList;
   private String headerTitle;
 
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -56,10 +66,12 @@ public class HotelListActivity extends BaseActivity implements OnClickListener {
     } catch (Exception e) {
       e.printStackTrace();
     }
-
-
   }
 
+
+  /**
+   * Called to init ui components of this screen.
+   */
   private void initView() {
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
@@ -69,7 +81,7 @@ public class HotelListActivity extends BaseActivity implements OnClickListener {
     recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewHotelList.setHasFixedSize(true);
 
-    HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context);
+    HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context, this);
 
     recyclerViewHotelList.setAdapter(hotelResortsAdapter);
 
@@ -123,6 +135,37 @@ public class HotelListActivity extends BaseActivity implements OnClickListener {
         break;
 
     }
+
+  }
+
+  /**
+   * Called when Hotel list item will click.
+   *
+   * @param position - clicked item position.
+   * @param view - clicked view reference.
+   */
+  @Override
+  public void onHotelItemClicked(int position, View view) {
+
+    Intent intent = null;
+
+    switch (view.getId()) {
+      case R.id.linearlayout_itemhotelresorts:
+        intent = new Intent(this, HotelDetailActivity.class);
+        break;
+
+      case R.id.button_itemhotelresort_book:
+
+        intent = new Intent(this, HotelBookingslotActivity.class);
+        break;
+
+      default:
+        //TODO: Need to make dynamic
+        //intent = new Intent(this, SpaRequestEnquiryActivity.class);
+        break;
+    }
+
+    AppUtil.startActivityWithAnimation(this, intent, false);
 
   }
 }

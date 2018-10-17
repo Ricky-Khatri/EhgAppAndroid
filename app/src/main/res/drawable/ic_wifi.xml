@@ -1,0 +1,38 @@
+<!--
+  ~  Created by Emaar Hospitality Group on 17/10/18 12:52 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 17/10/18 12:52 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:autoMirrored="true"
+  android:height="24dp"
+  android:viewportHeight="512"
+  android:viewportWidth="512"
+  android:width="24dp">
+  <path
+    android:fillColor="#FF000000"
+    android:pathData="M256.001,394.836c-26.197,0 -47.511,21.314 -47.511,47.511c0,26.198 21.314,47.512 47.511,47.512c26.198,0 47.511,-21.314 47.511,-47.512C303.512,416.15 282.198,394.836 256.001,394.836z"/>
+  <path
+    android:fillColor="#FF000000"
+    android:pathData="M325.133,304.942c-18.992,-17.164 -43.546,-26.62 -69.132,-26.62c-25.587,0 -50.14,9.456 -69.141,26.62l-22.845,20.64l51.749,57.262c8.413,-13.369 23.302,-22.279 40.237,-22.279s31.824,8.91 40.237,22.279l51.74,-57.262L325.133,304.942z"/>
+  <path
+    android:fillColor="#FF000000"
+    android:pathData="M407.995,212.035c-41.758,-37.739 -95.736,-58.523 -151.992,-58.523c-56.257,0 -110.237,20.784 -151.996,58.522L81.162,232.68l62.208,68.834l22.844,-20.645c24.673,-22.298 56.561,-34.578 89.789,-34.578c33.225,0 65.111,12.28 89.784,34.577l22.844,20.645l62.209,-68.832L407.995,212.035z"/>
+  <path
+    android:fillColor="#FF000000"
+    android:pathData="M489.155,111.915c-64.058,-57.892 -146.859,-89.774 -233.152,-89.774c-86.296,0 -169.099,31.882 -233.158,89.774L0,132.56l65.201,72.146l22.845,-20.646c46.15,-41.708 105.798,-64.677 167.957,-64.677c62.156,0 121.801,22.969 167.95,64.676l22.844,20.645L512,132.561L489.155,111.915z"/>
+</vector>

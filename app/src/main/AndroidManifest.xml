@@ -205,7 +205,10 @@
     <activity
       android:name=".booking.hotel.HotelListActivity"
       android:screenOrientation="portrait"/>
-    <activity android:name=".booking.spa.SpaDetailActivity"/>
+    <activity
+      android:name=".booking.spa.SpaDetailActivity"
+      android:screenOrientation="portrait"/>
+    <activity android:name=".booking.hotel.HotelBookingslotActivity"/>
   </application>
 
 </manifest>

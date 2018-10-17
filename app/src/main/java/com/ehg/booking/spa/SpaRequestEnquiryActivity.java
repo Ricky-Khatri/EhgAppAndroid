@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -146,6 +147,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
     textViewPrefferedDateTime.setOnClickListener(this);
     textViewBook.setOnClickListener(this);
+    imageViewBack.setOnClickListener(this);
 
     showGuestTitle();
     showNumberOfGuest();
@@ -254,6 +256,10 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
         validateSignUpFormFields();
 
+        break;
+      case R.id.imageview_header_back:
+
+        AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
 
       default:

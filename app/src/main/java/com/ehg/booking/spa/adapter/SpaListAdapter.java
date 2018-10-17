@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
 
@@ -101,6 +102,7 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
     private final TextView textViewSpaType;
 
     private final Button buttonBook;
+    private final LinearLayout linearlayoutView;
 
     /**
      * ViewHolder constructor.
@@ -115,10 +117,13 @@ public class SpaListAdapter extends RecyclerView.Adapter<SpaListAdapter.ViewHold
       textViewSpaType = itemView.findViewById(R.id.textview_itemspa_spatype);
       appCompatImageView = itemView.findViewById(R.id.appcompatimageview_itemspa_spaimage);
       buttonBook = itemView.findViewById(R.id.button_itemspa_book);
+      linearlayoutView = itemView.findViewById(R.id.linearlayout_itemspa);
+
+      linearlayoutView.setOnClickListener(this);
 
       buttonBook.setOnClickListener(this);
 
-      itemView.setOnClickListener(this);
+      // itemView.setOnClickListener(this);
     }
 
     /**

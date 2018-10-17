@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 import com.ehg.R;
 import com.ehg.booking.adapter.BookingAdapter;
 import com.ehg.booking.adapter.BookingAdapter.OnBookingItemClickListener;
+import com.ehg.booking.hotel.HotelListActivity;
 import com.ehg.booking.pojo.BookingPojo;
 import com.ehg.booking.restaurant.RestaurantActivity;
 import com.ehg.booking.spa.SpaActivity;
@@ -169,7 +170,8 @@ public class BookingFragment extends BaseFragment implements OnBookingItemClickL
       Intent intent = null;
       switch (position) {
         case 0:
-
+          intent = new Intent(context, HotelListActivity.class);
+          intent.putExtra("title", bookList.get(position).getTitle());
           break;
         case 1:
           intent = new Intent(context, RestaurantActivity.class);

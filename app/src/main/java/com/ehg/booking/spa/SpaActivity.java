@@ -165,9 +165,14 @@ public class SpaActivity extends BaseActivity implements OnClickListener, OnSpaI
         intent = new Intent(this, SpaRequestEnquiryActivity.class);
         break;
 
+      case R.id.linearlayout_itemspa:
+
+        intent = new Intent(this, SpaDetailActivity.class);
+
+        break;
       default:
         //TODO: Need to make dynamic
-        intent = new Intent(this, SpaRequestEnquiryActivity.class);
+        //intent = new Intent(this, SpaRequestEnquiryActivity.class);
         break;
     }
 

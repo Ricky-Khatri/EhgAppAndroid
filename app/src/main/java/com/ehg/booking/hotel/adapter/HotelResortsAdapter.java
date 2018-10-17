@@ -25,8 +25,10 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.ehg.R;
@@ -37,14 +39,15 @@ import com.ehg.R;
 public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapter.ViewHolder> {
 
   private final LayoutInflater inflater;
+  private final OnHotelItemClickListener onHotelItemClickListener;
 
   /**
    * Parameterized constructor for HotelResortsAdapter.
    */
-  public HotelResortsAdapter(Context context) {
+  public HotelResortsAdapter(Context context, OnHotelItemClickListener onHotelItemClickListener) {
 
     this.inflater = LayoutInflater.from(context);
-
+    this.onHotelItemClickListener = onHotelItemClickListener;
   }
 
   /**
@@ -82,13 +85,22 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
     return 10;
   }
 
-  public class ViewHolder extends RecyclerView.ViewHolder {
+  /**
+   * Interface.
+   */
+  public interface OnHotelItemClickListener {
+
+    void onHotelItemClicked(int position, View view);
+  }
+
+  public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
     private final AppCompatImageView imageViewHotel;
     private final TextView textViewHotelname;
     private final TextView textViewHotellocation;
     private final RatingBar ratingBarHotel;
     private final Button buttonBook;
+    private final LinearLayout linearlayoutImageView;
 
     /**
      * ViewHolder constructor.
@@ -103,7 +115,24 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
       textViewHotellocation = itemView.findViewById(R.id.textview_itemhotelresort_hotellocation);
       ratingBarHotel = itemView.findViewById(R.id.raitingbar_itemhotelresorts_raiting);
       buttonBook = itemView.findViewById(R.id.button_itemhotelresort_book);
+      linearlayoutImageView = itemView.findViewById(R.id.linearlayout_itemhotelresorts);
 
+      linearlayoutImageView.setOnClickListener(this);
+      buttonBook.setOnClickListener(this);
+      //itemView.setOnClickListener(this);
+    }
+
+    /**
+     * Called when spa item clicked.
+     *
+     * @param view clicked item view
+     */
+    @Override
+    public void onClick(View view) {
+      if (onHotelItemClickListener != null) {
+        onHotelItemClickListener.onHotelItemClicked(getAdapterPosition(), view);
+      }
     }
   }
+
 }

@@ -203,5 +203,7 @@
   <string name="hotellist_clickhere"><u>Click here</u></string>
   <string name="hotellist_searchhint"><![CDATA[Dates of Stay,Guest & Rooms]]></string>
   <string name="all_bookingsummary">Booking Summary</string>
+  <string name="hotelbookingslot_guestrooms"><![CDATA[Guest&Rooms]]></string>
+  <string name="hotelbookingslot_datesofstay">Select the Dates of Stay</string>
 
 </resources>

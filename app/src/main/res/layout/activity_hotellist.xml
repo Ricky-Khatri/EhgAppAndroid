@@ -63,6 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:elevation="3dp"
         android:background="@drawable/all_rounded_border"
         android:orientation="horizontal">
 
@@ -119,7 +120,7 @@
     android:id="@+id/view_hotellist"
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:layout_marginTop="@dimen/imagesize_tabitembottom_tabicon"
+    android:layout_marginTop="@dimen/marginstart_header_search"
     android:layout_below="@+id/linearlayout_hotellist"
     android:background="@color/colorGray"/>
 

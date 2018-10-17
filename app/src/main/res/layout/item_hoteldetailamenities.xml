@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 17/10/18 4:17 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 17/10/18 4:17 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_margin="@dimen/elevation_all_header">
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:ignore="UselessParent">
+
+    <android.support.v7.widget.AppCompatImageView
+      android:id="@+id/appcompactimageview_itemhoteldetailamenities_amenitiesimage"
+      android:layout_width="@dimen/size_all_backicon"
+      android:layout_height="@dimen/size_all_backicon"
+      android:scaleType="centerCrop"
+      android:src="@drawable/ic_wifi"
+      />
+
+    <TextView
+      android:id="@+id/textview_itemhoteldetailamenities_amenitiesname"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/textsize_all_guestdetail"
+      android:gravity="start|center"
+      android:text="Free WiFi"
+      android:textColor="@color/colorGray"
+      android:textSize="@dimen/textsize_all_guestdetail"/>
+
+  </LinearLayout>
+
+
+</LinearLayout>

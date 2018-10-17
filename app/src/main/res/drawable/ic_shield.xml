@@ -1,0 +1,32 @@
+<!--
+  ~  Created by Emaar Hospitality Group on 17/10/18 12:51 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 17/10/18 12:51 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:autoMirrored="true"
+  android:height="24dp"
+  android:viewportHeight="360.886"
+  android:viewportWidth="360.886"
+  android:width="24dp">
+  <path
+    android:fillColor="#FF000000"
+    android:pathData="M355.21,46.272C302.229,15.826 241.336,0.001 180.443,0.001c-60.893,0 -121.786,15.825 -174.766,46.271C2.322,48.508 0,51.949 0,56.421c0,131.935 67.687,248.045 174.767,303.347c2.236,1.118 3.354,1.118 5.677,1.118c2.236,0 3.354,0 5.677,-1.118c107.078,-55.216 173.648,-171.412 174.767,-303.347C360.886,51.863 358.564,48.508 355.21,46.272zM180.443,337.148C85.749,285.286 25.974,181.562 22.62,63.13c48.508,-27.092 102.606,-40.595 157.823,-40.595S289.844,36.038 338.265,63.13C334.912,181.562 275.137,286.404 180.443,337.148z"/>
+  <path
+    android:fillColor="#FF000000"
+    android:pathData="M295.522,85.835c-34.059,-15.654 -71.558,-23.824 -109.057,-24.427c-1.722,-1.117 -3.7,-1.633 -6.022,-1.633c-2.322,0 -4.386,0.516 -6.021,1.548c-36.553,0.946 -72.762,9.116 -105.531,24.426c-4.472,2.236 -6.794,6.795 -6.794,11.267c3.354,42.831 15.825,83.427 36.123,119.55c20.384,35.349 47.82,56.42 72.762,73.02c1.892,3.01 5.247,4.816 9.547,4.816c2.236,0 4.472,0 9.03,-2.236c25.974,-15.825 55.216,-38.359 76.633,-75.514c20.298,-34.919 32.683,-76.632 36.123,-119.55C302.316,92.629 300.08,88.071 295.522,85.835zM169.176,261.72c-18.663,-13.589 -36.811,-31.134 -51.862,-56.507c-18.062,-30.447 -29.329,-65.365 -32.683,-102.606c26.49,-11.525 55.388,-17.89 84.545,-19.179V261.72zM243.572,205.213c-14.105,25.372 -32.941,42.918 -51.862,56.593V83.427c29.156,1.29 58.054,7.741 84.545,19.179C272.901,139.848 261.634,174.767 243.572,205.213z"/>
+</vector>

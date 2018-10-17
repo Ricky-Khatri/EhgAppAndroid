@@ -30,7 +30,7 @@
     android:id="@+id/layout_hoteldetail_header"
     layout="@layout/layout_header_with_navigation"/>
 
-  <ScrollView
+  <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_above="@+id/linearlayout_hoteldetail"
@@ -41,14 +41,26 @@
       android:layout_height="wrap_content"
       android:orientation="vertical">
 
-      <android.support.v7.widget.AppCompatImageView
+      <com.glide.slider.library.SliderLayout
+        android:id="@+id/sliderlayout_hoteldetail_slider"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_all_alertdialog"
-        android:layout_marginTop="@dimen/marginstart_header_search"
-        android:layout_marginStart="@dimen/marginstart_header_search"
-        android:layout_marginEnd="@dimen/marginstart_header_search"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/placeholder"/>
+        android:layout_marginTop="@dimen/elevation_all_header"
+        android:elevation="@dimen/elevation_all_header"/>
+
+      <com.glide.slider.library.Indicators.PagerIndicator
+        android:id="@+id/pageindicator_hoteldetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+      <!--  <android.support.v7.widget.AppCompatImageView
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/height_all_alertdialog"
+          android:layout_marginTop="@dimen/marginstart_header_search"
+          android:layout_marginStart="@dimen/marginstart_header_search"
+          android:layout_marginEnd="@dimen/marginstart_header_search"
+          android:scaleType="centerCrop"
+          app:srcCompat="@drawable/placeholder"/>-->
 
       <LinearLayout
         android:layout_width="match_parent"
@@ -57,6 +69,7 @@
         android:layout_marginStart="@dimen/marginstart_header_search"
         android:layout_marginEnd="@dimen/marginstart_header_search"
         android:padding="@dimen/padding_all_headerbutton"
+        android:elevation="3dp"
         android:background="@drawable/all_rounded_border"
         android:orientation="horizontal">
 
@@ -129,11 +142,11 @@
 
       <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_hoteldetail_amenities"
-        android:layout_width="match_parent"
+
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/imagesize_all_locationimage"
-        android:layout_marginStart="@dimen/height_all_verticaldivider"
-        android:layout_marginEnd="@dimen/height_all_verticaldivider"/>
+        android:layout_gravity="center_horizontal"/>
 
       <View
         android:layout_width="match_parent"
@@ -153,14 +166,12 @@
 
       <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_hoteldetail_gallery"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/imagesize_all_locationimage"
-        android:layout_marginBottom="@dimen/imagesize_all_locationimage"
-        android:layout_marginStart="@dimen/marginstart_header_search"
-        android:layout_marginEnd="@dimen/marginstart_header_search"/>
+        android:layout_gravity="center_horizontal"/>
     </LinearLayout>
-  </ScrollView>
+  </android.support.v4.widget.NestedScrollView>
 
   <LinearLayout
     android:id="@+id/linearlayout_hoteldetail"
