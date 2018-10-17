@@ -59,7 +59,7 @@ public class HomeRoomControlAdapter extends
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     imageUrls = ary;
-    heightWidthFactor = AppUtil.getDeviceHeight((AppCompatActivity) context) / 4 - 200;
+    heightWidthFactor = AppUtil.getDeviceHeight((AppCompatActivity) context) / 4 - 100;
   }
 
   /**

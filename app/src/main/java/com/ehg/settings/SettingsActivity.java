@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -341,8 +342,13 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
 
       try {
 
-        detailObject.put("loyaltyMemberId", SharedPreferenceUtils.getInstance(this)
-            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""));
+        if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+
+          detailObject
+              .put("loyaltyMemberId", Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+                  .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
+        }
 
         JSONObject deviceDetailObject = new JSONObject();
         deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);

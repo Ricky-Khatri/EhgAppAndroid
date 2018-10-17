@@ -431,6 +431,22 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
           Intent intent = new Intent(context, HomeActivity.class);
           AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
         }
+      } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
+
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog((AppCompatActivity) context,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
+        }
       } else {
         AppUtil.showAlertDialog((AppCompatActivity) context,
             new JSONObject(responseVal).getString("message"), false,

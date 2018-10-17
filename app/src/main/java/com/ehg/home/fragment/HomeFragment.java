@@ -19,8 +19,6 @@
 
 package com.ehg.home.fragment;
 
-import static com.ehg.R.id.appcompatimageview_headersearch_appicon;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build.VERSION;
@@ -34,6 +32,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -68,7 +67,7 @@ import java.util.Objects;
  */
 
 public class HomeFragment extends BaseFragment implements OnSliderClickListener,
-    OnPageChangeListener, HorizontalItemClickListener {
+    OnPageChangeListener, HorizontalItemClickListener, OnClickListener {
 
   private SliderLayout sliderLayoutHomeOffers;
 
@@ -221,6 +220,8 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
       linearLayoutRoomControls.setVisibility(View.GONE);
       linearLayoutGuestDetails.setVisibility(View.GONE);
     }
+
+    view.findViewById(R.id.layout_search).setOnClickListener(this);
   }
 
   /**
@@ -361,5 +362,22 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     }
 
     AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+  }
+
+  /**
+   * Called when home fragment item clicked.
+   *
+   * @param view clicked view item
+   */
+  @Override
+  public void onClick(View view) {
+    switch (view.getId()) {
+      case R.id.layout_search:
+        /*Intent intent = new Intent(context, SearchActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);*/
+        break;
+      default:
+        break;
+    }
   }
 }

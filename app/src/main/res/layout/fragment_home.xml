@@ -25,6 +25,7 @@
   android:orientation="vertical">
 
   <include
+    android:id="@+id/layout_search"
     layout="@layout/layout_header_search"/>
 
   <LinearLayout

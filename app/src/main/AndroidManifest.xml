@@ -174,26 +174,26 @@
       android:screenOrientation="portrait">
     </activity>
     <activity
+      android:launchMode="singleTask"
       android:name=".booking.restaurant.RestaurantDetailActivity"
-      android:launchMode="singleTask"
       android:screenOrientation="portrait">
     </activity>
     <activity
+      android:launchMode="singleTask"
       android:name=".booking.restaurant.RestaurantBookingSlotActivity"
-      android:launchMode="singleTask"
       android:screenOrientation="portrait"/>
     <activity
-      android:name=".booking.restaurant.FetchAvailabilityActivity"
       android:launchMode="singleTask"
+      android:name=".booking.restaurant.FetchAvailabilityActivity"
       android:screenOrientation="portrait">
     </activity>
     <activity
-      android:name=".booking.restaurant.RestaurantBookingGuestDetailActivity"
       android:launchMode="singleTask"
+      android:name=".booking.restaurant.RestaurantBookingGuestDetailActivity"
       android:screenOrientation="portrait"/>
     <activity
-      android:name=".booking.restaurant.RestaurantBookingSummaryActivity"
       android:launchMode="singleTask"
+      android:name=".booking.restaurant.RestaurantBookingSummaryActivity"
       android:screenOrientation="portrait">
     </activity>
     <activity
@@ -208,7 +208,12 @@
     <activity
       android:name=".booking.spa.SpaDetailActivity"
       android:screenOrientation="portrait"/>
-    <activity android:name=".booking.hotel.HotelBookingslotActivity"/>
+    <activity android:name=".booking.hotel.HotelBookingslotActivity"
+      android:screenOrientation="portrait"/>
+
+    <activity android:name=".booking.hotel.HotelFilterActivity"
+      android:screenOrientation="portrait">
+    </activity>
   </application>
 
 </manifest>

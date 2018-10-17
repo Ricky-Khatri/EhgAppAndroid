@@ -70,7 +70,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 /**
  * This class allows user to submit enquiry for Spa .
  */
@@ -93,6 +92,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
   private String numberOfGuest = "2";
   private String guestTitle;
 
+  private static String selectedTime;
 
   /**
    * Called when Activity created.
@@ -130,9 +130,11 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     editTextEmail = findViewById(R.id.edittext_sparequestenquiry_email);
     editTextPhoneNumber = findViewById(R.id.edittext_sparequestenquiry_phonenumber);
 
+    textViewHeaderTitle.setText("The Spa");
+
     UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(this).getUserProfilePojo();
-    if (userProfilePojo.getData() != null && userProfilePojo.getData().getDetail() != null &&
-        userProfilePojo.getData().getDetail().size() > 0) {
+    if (userProfilePojo.getData() != null && userProfilePojo.getData().getDetail() != null
+        && userProfilePojo.getData().getDetail().size() > 0) {
       Detail detail = userProfilePojo.getData().getDetail().get(0);
 
       editTextFirstName.setText(detail.getFirstName());
@@ -145,9 +147,11 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     textViewPrefferedDateTime = findViewById(R.id.textview_sparequestenquiry_preferreddatetime);
     textViewBook = findViewById(R.id.textview_sparequestenquiry_booking);
 
-    textViewPrefferedDateTime.setOnClickListener(this);
+    //Set OnClickListener
+    //textViewPrefferedDateTime.setOnClickListener(this);
     textViewBook.setOnClickListener(this);
-    imageViewBack.setOnClickListener(this);
+    findViewById(R.id.linearlayout_sparequestenquiry_preferreddatetime).setOnClickListener(this);
+    findViewById(R.id.imageview_header_back).setOnClickListener(this);
 
     showGuestTitle();
     showNumberOfGuest();
@@ -246,24 +250,20 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
     switch (view.getId()) {
 
-      case R.id.textview_sparequestenquiry_preferreddatetime:
-
+      case R.id.linearlayout_sparequestenquiry_preferreddatetime:
         showTimePickerDialog();
         showDatePickerDialog();
-
         break;
+
       case R.id.textview_sparequestenquiry_booking:
-
         validateSignUpFormFields();
-
         break;
-      case R.id.imageview_header_back:
 
+      case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
 
       default:
-
         break;
     }
   }
@@ -541,7 +541,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
       // Create a new instance of TimePickerDialog and return it
       return new TimePickerDialog(getActivity(), this, hour, minute,
-          DateFormat.is24HourFormat(getActivity()));
+          true);
     }
 
     /**
@@ -553,9 +553,20 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
      */
     @SuppressLint("SetTextI18n")
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-      // Do something with the time chosen by the user
+
+      String hourStr = hourOfDay + "";
+      String minuteStr = minute + "";
+      if (hourOfDay < 10) {
+        hourStr = "0" + hourOfDay;
+      }
+      if (minute < 10) {
+        minuteStr = "0" + minute;
+      }
+
+      selectedTime = hourStr + ":" + minuteStr;
+
       textViewPrefferedDateTime.setText(textViewPrefferedDateTime.getText()
-          + " -" + hourOfDay + ":" + minute);
+          + " - " + selectedTime);
       textViewPrefferedDateTime.setError(null);
     }
   }
@@ -581,19 +592,19 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
         int year = Calendar.getInstance().get(Calendar.YEAR);
         String spaDate = year + "-" + month + "-" + date;
 
-        //time
+        /*//time
         String[] times = calendar.getTime().toString().split(" ");
         String spaTime = "10:00";
         if (times != null && times.length > 0) {
           spaTime = times[3].split(":")[1];
-        }
+        }*/
 
         JSONObject deviceDetailObject = new JSONObject();
         deviceDetailObject.put("ibuId", 1);//TODO: make it dynamic
         deviceDetailObject.put("spaName", "The Spa"); //TODO: make it dynamic
         deviceDetailObject.put("treatmentName", "Balinese Massage");//TODO: make it dynamic
         deviceDetailObject.put("spaDate", spaDate);
-        deviceDetailObject.put("spaTime", spaTime);
+        deviceDetailObject.put("spaTime", selectedTime);
         deviceDetailObject.put("totalPeople", Integer.parseInt(numberOfGuest));
         deviceDetailObject.put("firstName", editTextFirstName.getText().toString());
         deviceDetailObject.put("lastName", editTextLastName.getText().toString());
