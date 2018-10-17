@@ -38,8 +38,6 @@ import org.json.JSONObject;
  */
 public class SpaBookingSummaryActivity extends BaseActivity implements OnClickListener {
 
-  private String confirmationNumber;
-
   /**
    * Called when activity created.
    *
@@ -57,8 +55,10 @@ public class SpaBookingSummaryActivity extends BaseActivity implements OnClickLi
    * Called to init view components of this activity.
    */
   private void initView() {
-    try {
 
+    try {
+      TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+      textViewHeaderTitle.setText(getResources().getString(R.string.all_bookingsummary));
       findViewById(R.id.imageview_header_back).setOnClickListener(this);
 
       if (getIntent() != null && getIntent().getStringExtra("response") != null) {
@@ -76,19 +76,18 @@ public class SpaBookingSummaryActivity extends BaseActivity implements OnClickLi
                 R.id.textview_spabookingsummary_guestname);
             textViewGuestName.setText("Dear Mr. " + detailObject.getString("firstName") + " "
                 + detailObject.getString("lastName"));
-            TextView textViewYourTableReservation = findViewById(
-                R.id.textview_spabookingsummary_yourtablereservation);
-            TextView textViewBookingConfirmLabel = findViewById(
-                R.id.textview_spabookingsummary_bookingconfirmationlabel);
-            TextView textViewBookingConfirmationNumber = findViewById(
-                R.id.textview_spabookingsummary_bookingconfirmation);
-            confirmationNumber = detailObject.getString("confirmationNumber");
-            textViewBookingConfirmationNumber.setText(confirmationNumber);
+            TextView textViewSpaInquiry = findViewById(
+                R.id.textview_spabookingsummary_inquiry);
             TextView textViewspaLable = findViewById(
                 R.id.textview_spabookingsummary_spalabel);
             TextView textViewspaName = findViewById(
                 R.id.textview_spabookingsummary_spa);
-            textViewspaName.setText("Lounge at Address Downtown");//TODO: Make dynamic
+            textViewspaName.setText(detailObject.getString("spaName"));
+            TextView textViewspatreatmentLabel = findViewById(
+                R.id.textview_spabookingsummary_spatreatmentlabel);
+            TextView textViewspaTreatment = findViewById(
+                R.id.textview_spabookingsummary_spatreatment);
+            textViewspaTreatment.setText(detailObject.getString("treatmentName"));
             TextView textViewNameLabel = findViewById(
                 R.id.textview_spabookingsummary_namelabel);
             TextView textViewBookingName = findViewById(
@@ -99,20 +98,20 @@ public class SpaBookingSummaryActivity extends BaseActivity implements OnClickLi
                 R.id.textview_spabookingsummary_telephonelabel);
             TextView textViewTelephoneNumber = findViewById(
                 R.id.textview_spabookingsummary_telephone);
-            textViewTelephoneNumber.setText(detailObject.getString("phoneNumber"));
+            textViewTelephoneNumber.setText(detailObject.getString("mobileNumber"));
             TextView textViewEmailLabel = findViewById(
                 R.id.textview_spabookingsummary_emaillabel);
             TextView textViewEmail = findViewById(R.id.textview_spabookingsummary_email);
             textViewEmail.setText(detailObject.getString("emailAddress"));
             TextView textViewDate = findViewById(R.id.textview_spabookingsummary_date);
-            textViewDate.setText("Date          :" + detailObject.getString("reservationDate"));
+            textViewDate.setText("Date          :" + detailObject.getString("spaDate"));
             TextView textViewTime = findViewById(R.id.textview_spabookingsummary_time);
-            textViewTime.setText("Time          :" + detailObject.getString("reservationTime"));
+            textViewTime.setText("Time          :" + detailObject.getString("spaTime"));
             TextView textViewGuestLabel = findViewById(
                 R.id.textview_spabookingsummary_guestlabel);
             TextView textViewGuestCount = findViewById(
                 R.id.textview_spabookingsummary_guestcount);
-            textViewGuestCount.setText(detailObject.getInt("partySize"));
+            textViewGuestCount.setText(detailObject.getInt("totalPeople"));
             TextView textViewspaHighlightedName = findViewById(
                 R.id.textview_spabookingsummary_spaname);
             textViewspaHighlightedName

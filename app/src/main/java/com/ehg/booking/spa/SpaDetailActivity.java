@@ -20,6 +20,7 @@
 package com.ehg.booking.spa;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
@@ -42,12 +43,20 @@ import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.glide.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import java.util.ArrayList;
 
+/**
+ * This class shows details of selected Spa.
+ */
 public class SpaDetailActivity extends BaseActivity implements OnSliderClickListener,
     OnClickListener {
 
   private Context context;
   private AppCompatImageView backButton;
 
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -76,6 +85,8 @@ public class SpaDetailActivity extends BaseActivity implements OnSliderClickList
       textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
     }
 
+    Button buttonRequestInquiry = findViewById(R.id.button_spadetail_requestenquiry);
+    buttonRequestInquiry.setOnClickListener(this);
     backButton = findViewById(R.id.imageview_header_back);
     backButton.setOnClickListener(this);
     RecyclerView recyclerViewSpaList = findViewById(
@@ -190,6 +201,11 @@ public class SpaDetailActivity extends BaseActivity implements OnSliderClickList
     return super.onKeyDown(keyCode, event);
   }
 
+  /**
+   * Called when activity item clicked.
+   *
+   * @param view clicked item view
+   */
   @Override
   public void onClick(View view) {
 
@@ -197,14 +213,22 @@ public class SpaDetailActivity extends BaseActivity implements OnSliderClickList
 
       case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
+        break;
 
+      case R.id.button_spadetail_requestenquiry:
+        Intent intent = new Intent(this, SpaRequestEnquiryActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
       default:
         break;
     }
   }
 
-
+  /**
+   * Called when slider item clicked.
+   *
+   * @param baseSliderView clicked view
+   */
   @Override
   public void onSliderClick(BaseSliderView baseSliderView) {
 

@@ -166,8 +166,7 @@ public class SpaActivity extends BaseActivity implements OnClickListener, OnSpaI
         break;
 
       default:
-        //TODO: Need to make dynamic
-        intent = new Intent(this, SpaRequestEnquiryActivity.class);
+        intent = new Intent(this, SpaDetailActivity.class);
         break;
     }
 

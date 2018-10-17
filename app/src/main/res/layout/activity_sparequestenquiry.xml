@@ -284,17 +284,26 @@
         android:hint="@string/sparequestenquiry_preferreddatetime"/>
 
 
-      <AutoCompleteTextView
-        android:id="@+id/textview_sparequestenquiry_preferreddatetime"
+      <LinearLayout
+        android:id="@+id/linearlayout_sparequestenquiry_preferreddatetime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/google_1x"
-        android:layout_marginStart="@dimen/height_all_verticaldivider"
-        android:layout_marginEnd="@dimen/height_all_verticaldivider"
-        android:layout_gravity="start"
-        android:background="@null"
-        android:editable="false"
-        tools:ignore="LabelFor"/>
+        android:orientation="vertical">
+
+        <AutoCompleteTextView
+          android:id="@+id/textview_sparequestenquiry_preferreddatetime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/google_1x"
+          android:layout_marginStart="@dimen/height_all_verticaldivider"
+          android:layout_marginEnd="@dimen/height_all_verticaldivider"
+          android:layout_gravity="start"
+          android:background="@null"
+          android:editable="false"
+          tools:ignore="LabelFor"/>
+
+      </LinearLayout>
+
 
       <View
         android:layout_width="match_parent"
@@ -313,6 +322,6 @@
     android:layout_alignParentBottom="true"
     android:background="@color/colorGray"
     android:gravity="center"
-    android:text="@string/restaurantbookingguestdetail_bookrestaurent"
+    android:text="@string/spadetail_requestenquiry"
     android:textColor="@color/colorWhite"/>
 </RelativeLayout>

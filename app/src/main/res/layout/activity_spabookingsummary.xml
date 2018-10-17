@@ -54,7 +54,7 @@
           android:text="@string/bookingsummary_clientname"/>
 
         <TextView
-          android:id="@+id/textview_spabookingsummary_yourtablereservation"
+          android:id="@+id/textview_spabookingsummary_inquiry"
           style="@style/AppLabelsTextAppearance"
           android:textStyle="bold"
           android:layout_width="wrap_content"
@@ -70,14 +70,14 @@
           android:orientation="horizontal">
 
           <TextView
-            android:id="@+id/textview_spabookingsummary_bookingconfirmationlabel"
+            android:id="@+id/textview_spabookingsummary_spalabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Spa :"
             android:textSize="@dimen/textsize_all_guestdetail"/>
 
           <TextView
-            android:id="@+id/textview_spabookingsummary_bookingconfirmation"
+            android:id="@+id/textview_spabookingsummary_spa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/elevation_all_header"
@@ -92,14 +92,14 @@
           android:orientation="horizontal">
 
           <TextView
-            android:id="@+id/textview_spabookingsummary_spalabel"
+            android:id="@+id/textview_spabookingsummary_spatreatmentlabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Desired Treatment :"
+            android:text="@string/spabookingsummary_desiredtreatment"
             android:textSize="@dimen/textsize_all_guestdetail"/>
 
           <TextView
-            android:id="@+id/textview_spabookingsummary_spa"
+            android:id="@+id/textview_spabookingsummary_spatreatment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/elevation_all_header"
@@ -351,6 +351,11 @@
            android:text="@string/bookingsummary_cancelbooking"
            android:textSize="@dimen/textsize_all_labels"/>-->
       </LinearLayout>
+
+      <TextView
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/margin_all_vertical"/>
     </LinearLayout>
   </ScrollView>
 </RelativeLayout>

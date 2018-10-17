@@ -291,6 +291,7 @@
       android:foreground="?attr/selectableItemBackground"
       android:text="@string/spadetail_requestenquiry"
       android:textAllCaps="true"
+      android:textSize="@dimen/textsize_signup_termsandcondition"
       android:textColor="@color/white"/>
 
     <View
@@ -307,6 +308,7 @@
       android:background="@drawable/all_rounded_border"
       android:clickable="true"
       android:focusable="true"
+      android:textSize="@dimen/textsize_signup_termsandcondition"
       android:foreground="?attr/selectableItemBackground"
       android:text="@string/hoteldetail_callus"
       android:textAllCaps="true"/>
