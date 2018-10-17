@@ -43,7 +43,7 @@ public class HomeRoomControlAdapter extends
   private final Context context;
   private final String[] imageUrls;
   private final LayoutInflater inflater;
-  private String[] imageUrl = new String[]{
+  private String[] imageUrl = new String[] {
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_1.jpg",
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_2.jpg",
       "http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png",
@@ -59,7 +59,7 @@ public class HomeRoomControlAdapter extends
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     imageUrls = ary;
-    heightWidthFactor = AppUtil.getDeviceHeight((AppCompatActivity) context) / 4 - 200;
+    heightWidthFactor = AppUtil.getDeviceHeight((AppCompatActivity) context) / 4 - 80;
   }
 
   /**
