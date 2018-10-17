@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -121,7 +122,6 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
    * Method init's view components of this screen.
    */
   private void initView() {
-
     imageViewBack = findViewById(R.id.imageview_header_back);
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     spinnerGuestTitle = findViewById(R.id.spinner_sparequestenquiry_title);
@@ -129,6 +129,8 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     editTextLastName = findViewById(R.id.edittext_sparequestenquiry_lastname);
     editTextEmail = findViewById(R.id.edittext_sparequestenquiry_email);
     editTextPhoneNumber = findViewById(R.id.edittext_sparequestenquiry_phonenumber);
+
+    textViewHeaderTitle.setText("The Spa");
 
     UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(this).getUserProfilePojo();
     if (userProfilePojo.getData() != null && userProfilePojo.getData().getDetail() != null
@@ -149,6 +151,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     //textViewPrefferedDateTime.setOnClickListener(this);
     textViewBook.setOnClickListener(this);
     findViewById(R.id.linearlayout_sparequestenquiry_preferreddatetime).setOnClickListener(this);
+    findViewById(R.id.imageview_header_back).setOnClickListener(this);
 
     showGuestTitle();
     showNumberOfGuest();
@@ -254,6 +257,10 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
       case R.id.textview_sparequestenquiry_booking:
         validateSignUpFormFields();
+        break;
+
+      case R.id.imageview_header_back:
+        AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
 
       default:

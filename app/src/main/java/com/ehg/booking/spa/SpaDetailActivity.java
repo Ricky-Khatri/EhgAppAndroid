@@ -83,6 +83,8 @@ public class SpaDetailActivity extends BaseActivity implements OnSliderClickList
     TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
     if (getIntent() != null && getIntent().getStringExtra("title") != null) {
       textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
+    } else {
+      textViewHeaderTitle.setText("The Spa");
     }
 
     Button buttonRequestInquiry = findViewById(R.id.button_spadetail_requestenquiry);
