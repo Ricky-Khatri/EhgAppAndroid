@@ -70,7 +70,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 /**
  * This class allows user to submit enquiry for Spa .
  */
