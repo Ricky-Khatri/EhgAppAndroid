@@ -90,6 +90,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
       "TELEVISION",
       "PRIVACY & \nCLEANING",
   };
+  private LinearLayout linearlayoutheaderSearch;
 
   /**
    * Called when fragment created.
@@ -176,6 +177,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     textViewGuestInformation = view.findViewById(R.id.textview_homefragment_guest_information);
     textViewRoomInformation = view.findViewById(R.id.textview_homefragment_roomcontrol_roomdetail);
     recyclerViewHotelList = view.findViewById(R.id.recyclerview_home_fragment);
+
     //recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
 
     LinearLayoutManager manager = new LinearLayoutManager(getActivity(),
@@ -222,6 +224,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     }
 
     view.findViewById(R.id.layout_search).setOnClickListener(this);
+
   }
 
   /**
@@ -373,8 +376,8 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
   public void onClick(View view) {
     switch (view.getId()) {
       case R.id.layout_search:
-        /*Intent intent = new Intent(context, SearchActivity.class);
-        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);*/
+        Intent intent = new Intent(context, SearchActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
         break;
       default:
         break;

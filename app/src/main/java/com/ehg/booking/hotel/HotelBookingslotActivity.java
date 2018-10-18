@@ -20,12 +20,16 @@
 package com.ehg.booking.hotel;
 
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.andexert.calendarlistview.library.DatePickerController;
 import com.andexert.calendarlistview.library.DayPickerView;
 import com.andexert.calendarlistview.library.SimpleMonthAdapter.CalendarDay;
 import com.andexert.calendarlistview.library.SimpleMonthAdapter.SelectedDays;
+import com.diegocarloslima.fgelv.lib.FloatingGroupExpandableListView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
@@ -38,6 +42,32 @@ public class HotelBookingslotActivity extends BaseActivity implements
     DatePickerController, OnClickListener {
 
   private DayPickerView dayPickerView;
+  private LinearLayout linearlayoutCheckIn;
+  private LinearLayout linearlayoutCheckOut;
+  private LinearLayout linearlayoutGuestRoom;
+  private LinearLayout linearlayoutDestination;
+  private TextView textViewtitle;
+  private LinearLayout linearlayoutGuestRoomCount;
+  private AppCompatImageView imageViewRoomMinus;
+  private TextView textViewRoomcount;
+  private AppCompatImageView imageViewRoomPlus;
+  private AppCompatImageView imageViewAdultsMinus;
+  private AppCompatImageView imageViewAdultsPlus;
+  private TextView textViewAdultsCount;
+  private AppCompatImageView imageViewChildMinus;
+  private AppCompatImageView imageViewChildPlus;
+  private TextView textViewChildCount;
+  private AppCompatImageView imageViewInfantMinus;
+  private AppCompatImageView imageViewInfantPlus;
+  private TextView textViewInfantCount;
+  private FloatingGroupExpandableListView expendableListViewDestination;
+
+  private String[] parent = {"Dubai", "Egypt"};
+  private String[] child = {"Dubai Marina", "Dera", "Downtown", "Bur Dubai",
+      "Emirates Hills", "Al Alamein",
+      "Matrouh"};
+
+  private int[] parentImage = {R.drawable.placeholder, R.drawable.placeholder};
 
   /**
    * Called when activity created.
@@ -70,6 +100,35 @@ public class HotelBookingslotActivity extends BaseActivity implements
     dayPickerView = findViewById(R.id.daypickerview_hotelbookingslot_calandar);
     dayPickerView.setController(this);
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
+
+    linearlayoutCheckIn = findViewById(R.id.linearlayout_hotelbookingslot_checkin);
+    linearlayoutCheckOut = findViewById(R.id.linearlayout_hotelbookingslot_checkout);
+    linearlayoutGuestRoom = findViewById(R.id.linearlayout_hotelbookingslot_guestroom);
+    linearlayoutDestination = findViewById(R.id.linearlayout_hotelbookingslot_destination);
+
+    textViewtitle = findViewById(R.id.textview_hotelbookingslot_viewtitle);
+    linearlayoutGuestRoomCount = findViewById(R.id.linearlayout_hotelbookingslot_guestroomnumber);
+    imageViewRoomMinus = findViewById(R.id.imageview_hotelbookingslot_roomminus);
+    imageViewRoomPlus = findViewById(R.id.imageview_hotelbookingslot_roomplus);
+    textViewRoomcount = findViewById(R.id.imageview_hotelbookingslot_roomcount);
+
+    imageViewAdultsMinus = findViewById(R.id.imageview_hotelbookingslot_adultminus);
+    imageViewAdultsPlus = findViewById(R.id.imageview_hotelbookingslot_adultplus);
+    textViewAdultsCount = findViewById(R.id.textview_hotelbookingslot_adultcount);
+
+    imageViewChildMinus = findViewById(R.id.imageview_hotelbookingslot_childminus);
+    imageViewChildPlus = findViewById(R.id.imageview_hotelbookingslot_childplus);
+    textViewChildCount = findViewById(R.id.textview_hotelbookingslot_childcount);
+
+    imageViewInfantMinus = findViewById(R.id.imageview_hotelbookingslot_infantminus);
+    imageViewInfantPlus = findViewById(R.id.imageview_hotelbookingslot_infantplus);
+    textViewInfantCount = findViewById(R.id.textview_hotelbookingslot_infantcount);
+    expendableListViewDestination = findViewById(R.id.expandablelistview_hotelbookingslot_destination);
+
+    linearlayoutCheckIn.setOnClickListener(this);
+    linearlayoutCheckOut.setOnClickListener(this);
+    linearlayoutGuestRoom.setOnClickListener(this);
+
   }
 
   @Override
@@ -96,6 +155,38 @@ public class HotelBookingslotActivity extends BaseActivity implements
 
         AppUtil.finishActivityWithAnimation(this);
 
+        break;
+
+      case R.id.linearlayout_hotelbookingslot_guestroom:
+
+        expendableListViewDestination.setVisibility(View.GONE);
+        linearlayoutGuestRoomCount.setVisibility(View.VISIBLE);
+        dayPickerView.setVisibility(View.GONE);
+
+        break;
+
+      case R.id.linearlayout_hotelbookingslot_checkin:
+
+        expendableListViewDestination.setVisibility(View.GONE);
+        linearlayoutGuestRoomCount.setVisibility(View.GONE);
+        dayPickerView.setVisibility(View.VISIBLE);
+
+        break;
+
+      case R.id.linearlayout_hotelbookingslot_checkout:
+
+        linearlayoutGuestRoomCount.setVisibility(View.GONE);
+        dayPickerView.setVisibility(View.VISIBLE);
+        expendableListViewDestination.setVisibility(View.GONE);
+
+        break;
+
+      case R.id.linearlayout_hotelbookingslot_destination:
+
+        linearlayoutGuestRoomCount.setVisibility(View.GONE);
+        dayPickerView.setVisibility(View.GONE);
+
+        expendableListViewDestination.setVisibility(View.VISIBLE);
         break;
 
       default:

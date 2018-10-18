@@ -28,193 +28,389 @@
     android:id="@+id/layout_hotelbookingslot_header"
     layout="@layout/layout_header_with_navigation"/>
 
-  <LinearLayout
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+
     android:layout_above="@+id/textview_hotelbookingslot_next"
-    android:layout_below="@+id/layout_hotelbookingslot_header"
-    android:orientation="vertical">
+    android:layout_below="@+id/layout_hotelbookingslot_header">
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/google_1x"
-      android:layout_marginStart="@dimen/google_1x"
-      android:layout_marginEnd="@dimen/google_1x"
-      android:orientation="horizontal">
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.6"
-        android:paddingTop="@dimen/google_1x"
-        android:paddingBottom="@dimen/google_1x"
-        android:paddingStart="@dimen/google_1x"
-        android:paddingEnd="@dimen/google_1x"
-        android:background="@drawable/all_rounded_border"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:srcCompat="@drawable/all_calendaricon"/>
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginStart="@dimen/elevation_all_header"
-          android:gravity="center"
-          android:text="Check-in"
-          android:textSize="@dimen/textsize_all_small"/>
-
-      </LinearLayout>
-
-      <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="0.1"/>
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.6"
-        android:padding="@dimen/google_1x"
-        android:background="@drawable/all_rounded_border"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:srcCompat="@drawable/all_calendaricon"/>
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginStart="@dimen/elevation_all_header"
-          android:gravity="center"
-          android:text="check-out"
-          android:textSize="@dimen/textsize_all_small"/>
-
-      </LinearLayout>
-
-      <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="0.1"/>
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="@dimen/google_1x"
-        android:background="@drawable/all_rounded_border"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:srcCompat="@drawable/ic_friends"/>
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginStart="@dimen/elevation_all_header"
-          android:gravity="center"
-          android:text="@string/hotelbookingslot_guestrooms"
-          android:textSize="@dimen/textsize_itemreservation_itemtext"/>
-
-      </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/google_1x"
-      android:layout_marginStart="@dimen/google_1x"
-      android:layout_marginEnd="@dimen/google_1x"
-      android:orientation="horizontal">
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.6"
-        android:paddingTop="@dimen/google_1x"
-        android:paddingBottom="@dimen/google_1x"
-        android:paddingStart="@dimen/google_1x"
-        android:paddingEnd="@dimen/google_1x"
-        android:background="@drawable/all_rounded_border"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:srcCompat="@drawable/all_locationicon"/>
-
-        <TextView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginStart="@dimen/elevation_all_header"
-          android:gravity="center"
-          android:text="Destination"
-          android:textSize="@dimen/textsize_all_small"/>
-
-      </LinearLayout>
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.6"
-        android:padding="@dimen/google_1x"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          app:srcCompat="@drawable/hotel_filtericon"/>
-
-      </LinearLayout>
-    </LinearLayout>
-
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_marginTop="@dimen/marginstart_header_search"
-      android:background="@color/colorGray"/>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="1"
-      android:layout_marginTop="@dimen/size_alertdialogbutton"
-      android:layout_marginBottom="@dimen/size_all_backicon"
-      android:layout_marginStart="@dimen/marginstart_header_search"
-      android:layout_marginEnd="@dimen/marginstart_header_search"
-      android:background="@drawable/all_rounded_border"
       android:orientation="vertical">
-      <TextView
-        android:textStyle="bold"
+
+      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/google_1x"
-        android:text="@string/hotelbookingslot_datesofstay"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/textsize_all_headertitle"/>
+        android:layout_marginTop="@dimen/google_1x"
+        android:layout_marginStart="@dimen/google_1x"
+        android:layout_marginEnd="@dimen/google_1x"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:id="@+id/linearlayout_hotelbookingslot_checkin"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.7"
+          android:layout_margin="@dimen/google_1x"
+          android:paddingTop="@dimen/google_1x"
+          android:paddingBottom="@dimen/google_1x"
+          android:paddingStart="@dimen/google_1x"
+          android:paddingEnd="@dimen/google_1x"
+          android:background="@drawable/all_rounded_border"
+          android:elevation="3dp"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+          <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/all_calendaricon"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:gravity="center"
+            android:text="Check-in"
+            android:textSize="@dimen/textsize_all_small"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+          android:id="@+id/linearlayout_hotelbookingslot_checkout"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.7"
+          android:layout_margin="@dimen/google_1x"
+          android:padding="@dimen/google_1x"
+          android:background="@drawable/all_rounded_border"
+          android:elevation="3dp"
+          android:orientation="horizontal">
+
+          <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/all_calendaricon"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:gravity="center"
+            android:text="check-out"
+            android:textSize="@dimen/textsize_all_small"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/linearlayout_hotelbookingslot_guestroom"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.8"
+          android:layout_margin="@dimen/google_1x"
+          android:padding="@dimen/google_1x"
+          android:background="@drawable/all_rounded_border"
+          android:elevation="3dp"
+          android:orientation="horizontal">
+
+          <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_friends"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:gravity="center"
+            android:text="@string/hotelbookingslot_guestrooms"
+            android:textSize="@dimen/textsize_itemreservation_itemtext"/>
+
+        </LinearLayout>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/google_1x"
+        android:layout_marginEnd="@dimen/google_1x"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:id="@+id/linearlayout_hotelbookingslot_destination"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.6"
+          android:layout_margin="@dimen/google_1x"
+          android:paddingTop="@dimen/google_1x"
+          android:paddingBottom="@dimen/google_1x"
+          android:paddingStart="@dimen/google_1x"
+          android:paddingEnd="@dimen/google_1x"
+          android:background="@drawable/all_rounded_border"
+          android:elevation="3dp"
+          android:gravity="center_vertical"
+          android:orientation="horizontal">
+
+          <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/all_locationicon"/>
+
+          <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:gravity="center"
+            android:text="Destination"
+            android:textSize="@dimen/textsize_all_small"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.6"
+          android:padding="@dimen/google_1x"
+          android:orientation="horizontal">
+
+          <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/hotel_filtericon"/>
+
+        </LinearLayout>
+      </LinearLayout>
+
       <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="@dimen/marginstart_header_search"
         android:background="@color/colorGray"/>
 
-      <com.andexert.calendarlistview.library.DayPickerView
-        android:id="@+id/daypickerview_hotelbookingslot_calandar"
+      <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:singleDaySelection="false"
-        calendar:drawRoundRect="false"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/size_alertdialogbutton"
+        android:layout_marginBottom="@dimen/marginstart_header_search"
+        android:layout_marginStart="@dimen/marginstart_header_search"
+        android:layout_marginEnd="@dimen/marginstart_header_search"
+        android:paddingBottom="@dimen/marginstart_header_search"
+        android:background="@drawable/all_rounded_border"
+        android:elevation="3dp"
+        android:orientation="vertical">
+        <TextView
+          android:id="@+id/textview_hotelbookingslot_viewtitle"
+          android:textStyle="bold"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/google_1x"
+          android:text="@string/hotelbookingslot_datesofstay"
+          android:textColor="@color/colorBlack"
+          android:textSize="@dimen/textsize_all_headertitle"/>
+        <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/colorGray"/>
 
+        <com.andexert.calendarlistview.library.DayPickerView
+          android:id="@+id/daypickerview_hotelbookingslot_calandar"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:visibility="visible"
+          app:singleDaySelection="false"
+          calendar:drawRoundRect="false"/>
+
+        <LinearLayout
+          android:id="@+id/linearlayout_hotelbookingslot_guestroomnumber"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/imagesize_tabitembottom_tabicon"
+          android:orientation="vertical"
+          android:visibility="gone">
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="1.5">
+            <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.5"
+              android:text="@string/hotelbookingslot_roomslabel"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <View
+              android:layout_width="0dp"
+              android:layout_height="1dp"
+              android:layout_weight="0.1"/>
+
+            <android.support.v7.widget.AppCompatImageView
+              android:id="@+id/imageview_hotelbookingslot_roomminus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_minus"/>
+
+            <TextView
+              android:id="@+id/imageview_hotelbookingslot_roomcount"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.25"
+              android:gravity="center"
+              android:text="2"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <android.support.v7.widget.AppCompatImageView
+              android:id="@+id/imageview_hotelbookingslot_roomplus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_add"/>
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/height_all_verticaldivider"
+            android:orientation="horizontal"
+            android:weightSum="1.5">
+            <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.5"
+              android:text="@string/hotelbookingslot_adults"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <View
+              android:layout_width="0dp"
+              android:layout_height="1dp"
+              android:layout_weight="0.1"/>
+
+            <android.support.v7.widget.AppCompatImageView
+              android:id="@+id/imageview_hotelbookingslot_adultminus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_minus"/>
+
+            <TextView
+              android:id="@+id/textview_hotelbookingslot_adultcount"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.25"
+              android:gravity="center"
+              android:text="2"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <android.support.v7.widget.AppCompatImageView
+              android:id="@+id/imageview_hotelbookingslot_adultplus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_add"/>
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/height_all_verticaldivider"
+            android:orientation="horizontal"
+            android:weightSum="1.5">
+            <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.5"
+              android:text="@string/hotelbookingslot_child"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <View
+              android:layout_width="0dp"
+              android:layout_height="1dp"
+              android:layout_weight="0.1"/>
+
+            <android.support.v7.widget.AppCompatImageView
+              android:id="@+id/imageview_hotelbookingslot_childminus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_minus"/>
+
+            <TextView
+              android:id="@+id/textview_hotelbookingslot_childcount"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.25"
+              android:gravity="center"
+              android:text="2"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <android.support.v7.widget.AppCompatImageView
+              android:id="@+id/imageview_hotelbookingslot_childplus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_add"/>
+          </LinearLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/height_all_verticaldivider"
+            android:orientation="horizontal"
+            android:weightSum="1.5">
+            <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.5"
+              android:text="@string/hotelbookingslot_infant"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <View
+              android:layout_width="0dp"
+              android:layout_height="1dp"
+              android:layout_weight="0.1"/>
+
+            <android.support.v7.widget.AppCompatImageView
+              android:id="@+id/imageview_hotelbookingslot_infantminus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_minus"/>
+
+            <TextView
+              android:id="@+id/textview_hotelbookingslot_infantcount"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="0.25"
+              android:gravity="center"
+              android:text="2"
+              android:textSize="@dimen/textsize_all_headertitle"/>
+
+            <android.support.v7.widget.AppCompatImageView
+              android:id="@+id/imageview_hotelbookingslot_infantplus"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/ic_add"/>
+          </LinearLayout>
+
+        </LinearLayout>
+
+
+        <com.diegocarloslima.fgelv.lib.FloatingGroupExpandableListView
+          android:id="@+id/expandablelistview_hotelbookingslot_destination"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:paddingBottom="@dimen/google_1x"
+          android:paddingStart="@dimen/marginstart_header_search"
+          android:paddingEnd="@dimen/marginstart_header_search"
+          android:cacheColorHint="@android:color/transparent"
+          android:childDivider="@android:color/transparent"
+          android:divider="@null"
+          android:groupIndicator="@null"
+          android:visibility="gone"/>
+
+      </LinearLayout>
     </LinearLayout>
-  </LinearLayout>
+  </ScrollView>
 
   <TextView
     android:id="@+id/textview_hotelbookingslot_next"

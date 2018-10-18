@@ -210,5 +210,9 @@
   <string name="hotelfilter_property">Property</string>
   <string name="hotelfilter_classification">Classification</string>
   <string name="hotelfilter_facilities">Facilities</string>
+  <string name="hotelbookingslot_roomslabel">Rooms</string>
+  <string name="hotelbookingslot_adults">Adults</string>
+  <string name="hotelbookingslot_child">Child</string>
+  <string name="hotelbookingslot_infant">Infant</string>
 
 </resources>
