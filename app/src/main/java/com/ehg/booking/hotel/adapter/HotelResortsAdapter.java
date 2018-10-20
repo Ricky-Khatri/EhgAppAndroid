@@ -119,7 +119,7 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
 
       linearlayoutImageView.setOnClickListener(this);
       buttonBook.setOnClickListener(this);
-      //itemView.setOnClickListener(this);
+      itemView.setOnClickListener(this);
     }
 
     /**

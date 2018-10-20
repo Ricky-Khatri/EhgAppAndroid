@@ -55,4 +55,6 @@
   <dimen name="textsize_roomcontrolitems_title">9sp</dimen>
   <dimen name="textsize_itemreservation_itemtext">9sp</dimen>
   <dimen name="textsize_all_large">14sp</dimen>
+  <dimen name="height_all_itemview">250dp</dimen>
+  <dimen name="height_all_alertdialog">100dp</dimen>
 </resources>

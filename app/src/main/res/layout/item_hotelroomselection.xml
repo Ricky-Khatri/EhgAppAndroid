@@ -23,91 +23,194 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_marginBottom="@dimen/marginstart_header_search">
+  android:layout_marginBottom="@dimen/elevation_all_header">
 
   <LinearLayout
-    android:id="@+id/linearlayout_itemhotelresorts"
+    android:id="@+id/linearlayout_itemhotelroomselection"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/marginstart_header_search"
-    android:layout_marginStart="@dimen/marginstart_header_search"
-    android:layout_marginEnd="@dimen/marginstart_header_search"
+    android:layout_height="@dimen/height_all_itemview"
+
+    android:layout_marginStart="@dimen/elevation_all_header"
+    android:layout_marginEnd="@dimen/elevation_all_header"
     android:background="@drawable/all_background_border"
     android:orientation="vertical"
     tools:ignore="UselessParent">
 
     <com.glide.slider.library.SliderLayout
-      android:id="@+id/sliderlayout_hoteldetail_slider"
+      android:id="@+id/sliderlayout_itemhotelroomselection_slider"
       android:layout_width="match_parent"
       android:layout_height="@dimen/height_all_alertdialog"
       android:layout_marginTop="@dimen/elevation_all_header"
       android:elevation="@dimen/elevation_all_header"/>
 
     <com.glide.slider.library.Indicators.PagerIndicator
-      android:id="@+id/pageindicator_hoteldetail"
+      android:id="@+id/pageindicator_itemhotelroomselection"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="center"/>
 
-    <TextView
-      android:id="@+id/textview_itemhotelresort_hotelname"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/padding_all_imageview"
-      android:layout_marginStart="@dimen/marginstart_header_search"
-      android:text="@string/all_email"/>
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
-      <TextView
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_all_imageview"
-        android:layout_marginStart="@dimen/marginstart_header_search"
-        android:text="@string/all_email"/>
-    </LinearLayout>
-
-    <TextView
-      android:id="@+id/textview_itemhotelresort_hotellocation"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/elevation_all_header"
-      android:layout_marginStart="@dimen/marginstart_header_search"
-      android:text="@string/all_email"/>
-
-
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="@dimen/padding_all_imageview"
-      android:gravity="center"
-      android:orientation="horizontal">
+      android:layout_marginTop="@dimen/padding_all_imageview"
+      android:orientation="vertical">
 
-      <RatingBar
-        android:id="@+id/raitingbar_itemhotelresorts_raiting"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
+      <TextView
+        android:id="@+id/textview_itemhotelroomselection_roomtype"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/marginstart_header_search"/>
+        android:layout_marginStart="@dimen/marginstart_header_search"
+        android:text="DELUXE ROOM"/>
+
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
+        android:paddingBottom="@dimen/google_1x"
+        android:orientation="horizontal">
+
+        <TextView
+
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/marginstart_header_search"
+          android:layout_gravity="center"
+          android:text="Maximum Occupancy: "
+          android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        <TextView
+          android:id="@+id/textview_itemhoteroomselection_occupancy"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:text="3 people"
+          android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        <View
+          android:layout_width="1dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/elevation_all_header"
+          android:layout_gravity="center_horizontal"
+          android:background="@color/colorGray"/>
+
+        <TextView
+
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/elevation_all_header"
+          android:layout_gravity="center"
+          android:text="View: "
+          android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        <TextView
+          android:id="@+id/textView_itemhoteroomselection_view"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:text="City"
+          android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        <View
+          android:layout_width="1dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/elevation_all_header"
+          android:layout_gravity="center_horizontal"
+          android:background="@color/colorGray"/>
+
+        <TextView
+          android:id="@+id/textview_itemhoteroomselection_size"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/elevation_all_header"
+          android:layout_gravity="center_vertical"
+          android:text="Size: "
+          android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:text="55 sqm"
+          android:textSize="@dimen/textsize_all_guestdetail"/>
+
+      </LinearLayout>
 
       <View
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_weight="0.5"/>
+        android:background="@color/colorGray"/>
 
-      <Button
-        android:id="@+id/button_itemhotelresort_book"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_alertdialogbutton"
-        android:layout_marginEnd="@dimen/padding_all_imageview"
-        android:background="@drawable/all_rounded_button"
-        android:text="@string/book_title"
-        android:textColor="@color/white"/>
 
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/marginstart_header_search"
+          android:gravity="center"
+          android:orientation="horizontal">
+
+          <TextView
+            android:id="@+id/textview_itemhoteroomselection_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AED 824"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/textsize_all_headertitle"/>
+
+          <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imageview_itemhoteroomselection_information"
+            android:layout_width="@dimen/mdtp_date_picker_view_animator_padding_v2"
+            android:layout_height="@dimen/mdtp_date_picker_view_animator_padding_v2"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            app:srcCompat="@drawable/ic_information"/>
+
+          <TextView
+            android:id="@+id/textView_itemhoteroomselection_allrates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:text="@string/itemhotelroonselection_rates"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/textsize_all_guestdetail"/>
+
+        </LinearLayout>
+
+        <View
+          android:layout_width="0dp"
+          android:layout_height="1dp"
+          android:layout_weight="0.5"
+          tools:ignore="NestedWeights"/>
+
+        <TextView
+          android:id="@+id/textview_itemhoteroomselection_selectioncount"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/elevation_all_header"
+          android:paddingStart="@dimen/google_1x"
+          android:paddingEnd="@dimen/google_1x"
+          android:background="@drawable/all_background_border"
+          android:text="2"/>
+
+        <TextView
+          android:id="@+id/button_itemhoteroomselection_selection"
+          android:layout_width="@dimen/imagesize_all_reservationimage"
+          android:layout_height="@dimen/mdtp_time_label_subscript_size"
+          android:layout_marginStart="-2dp"
+          android:layout_marginEnd="@dimen/padding_all_imageview"
+          android:background="@drawable/all_rounded_button"
+          android:gravity="center"
+          android:text="SELECTED"
+          android:textColor="@color/white"/>
+
+      </LinearLayout>
     </LinearLayout>
-
   </LinearLayout>
 
 </RelativeLayout>

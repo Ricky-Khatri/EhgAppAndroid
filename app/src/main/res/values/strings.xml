@@ -214,5 +214,6 @@
   <string name="hotelbookingslot_adults">Adults</string>
   <string name="hotelbookingslot_child">Child</string>
   <string name="hotelbookingslot_infant">Infant</string>
+  <string name="itemhotelroonselection_rates"><u>ViewAllRates(22)</u></string>
 
 </resources>

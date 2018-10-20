@@ -214,10 +214,19 @@
     <activity android:name=".booking.hotel.HotelFilterActivity"
       android:screenOrientation="portrait">
     </activity>
+
     <activity
       android:name=".booking.hotel.HotelBookingPromoCodeActivity"
       android:screenOrientation="portrait"/>
-    <activity android:name=".booking.hotel.SelectRoomActivity"/>
+
+    <activity
+      android:name=".booking.hotel.SelectRoomActivity"
+      android:screenOrientation="portrait"/>
+
+    <activity
+      android:name=".booking.hotel.HotelRoomdetailActivity"
+      android:screenOrientation="portrait"/>
+    <activity android:name=".booking.hotel.EnhanceStayActivity"/>
   </application>
 
 </manifest>

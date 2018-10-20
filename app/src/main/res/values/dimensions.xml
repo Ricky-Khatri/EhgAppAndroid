@@ -52,4 +52,5 @@
 
 
   <dimen name="textsize_all_small">12sp</dimen>
+  <dimen name="height_all_itemview">320dp</dimen>
 </resources>

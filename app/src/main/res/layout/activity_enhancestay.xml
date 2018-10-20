@@ -23,14 +23,14 @@
   android:layout_height="match_parent">
 
   <include
-    android:id="@+id/layout_hotelroomselection_header"
+    android:id="@+id/layout_enhancestay_header"
     layout="@layout/layout_header_with_navigation"/>
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_above="@+id/linearlayout_hotelroomselection_bottom"
-    android:layout_below="@+id/layout_hotelroomselection_header"
+    android:layout_above="@+id/linearlayout_enhancestay_bottom"
+    android:layout_below="@+id/layout_enhancestay_header"
     android:orientation="vertical">
 
     <LinearLayout
@@ -38,8 +38,9 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/mdtp_date_picker_view_animator_padding_v2"
       android:layout_marginBottom="@dimen/google_1x"
+      android:layout_marginStart="@dimen/google_1x"
       android:layout_marginEnd="@dimen/imagesize_all_locationimage"
-      android:padding="@dimen/marginstart_header_search "
+      android:elevation="3dp"
       android:orientation="horizontal"
       android:weightSum="3">
 
@@ -54,7 +55,7 @@
         android:orientation="horizontal">
 
         <TextView
-          android:id="@+id/textview_hotelroomselection_date"
+          android:id="@+id/textview_enhancestay_date"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_marginStart="@dimen/elevation_all_header"
@@ -79,7 +80,7 @@
 
 
         <TextView
-          android:id="@+id/textview_hotelroomselection_guestcount"
+          android:id="@+id/textview_enhancestay_guestcount"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_marginStart="@dimen/elevation_all_header"
@@ -94,23 +95,24 @@
         android:layout_height="1dp"
         android:layout_weight="0.1"/>
 
-      <!--   <LinearLayout
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:layout_weight="1"
-           android:padding="@dimen/google_1x"
-           android:background="@drawable/all_rounded_border"
-           android:orientation="horizontal">
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="@dimen/google_1x"
+        android:background="@drawable/all_rounded_border"
+        android:orientation="horizontal">
 
-           <TextView
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:layout_marginStart="@dimen/elevation_all_header"
-             android:gravity="center"
-             android:text="@string/restaurentbookingslots_numberofpeople"
-             android:textSize="@dimen/textsize_all_small"/>
+        <TextView
+          android:id="@+id/textview_enhancestay_roomtype"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginStart="@dimen/elevation_all_header"
+          android:gravity="center"
+          android:text="Deluxe Room x2"
+          android:textSize="@dimen/textsize_all_small"/>
 
-         </LinearLayout>-->
+      </LinearLayout>
     </LinearLayout>
 
     <View
@@ -118,20 +120,34 @@
       android:layout_height="0.7dp"
       android:background="@color/colorGray"/>
 
-    <TextView
-      android:id="@+id/textView_hotelroomselection_selectroom"
-      android:textStyle="bold"
-      android:layout_width="wrap_content"
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/mdtp_date_picker_view_animator_padding_v2"
       android:layout_marginStart="@dimen/marginstart_header_search"
       android:layout_marginEnd="@dimen/mdtp_date_picker_view_animator_padding_v2"
-      android:text="Select the Room (16)"
-      android:textColor="@color/colorBlack"
-      android:textSize="@dimen/textsize_all_large"/>
+      android:orientation="horizontal">
 
+      <TextView
+        android:id="@+id/textView_enhancestay"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enhance your Stay (2)"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_large"/>
+
+      <TextView
+        android:id="@+id/textview_enhancestay_skip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="Skip"
+        android:textColor="@color/colorBlack"/>
+
+    </LinearLayout>
     <android.support.v7.widget.RecyclerView
-      android:id="@+id/recyclerview_hotelroomselection"
+      android:id="@+id/recyclerview_enhancestay"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginTop="@dimen/marginstart_header_search"
@@ -144,14 +160,14 @@
   </LinearLayout>
 
   <LinearLayout
-    android:id="@+id/linearlayout_hotelroomselection_bottom"
+    android:id="@+id/linearlayout_enhancestay_bottom"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:orientation="horizontal">
 
     <TextView
-      android:id="@+id/textview_hotelroomselection_amount"
+      android:id="@+id/textview_enhancestay_amount"
       android:textStyle="bold"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -166,7 +182,7 @@
       android:layout_weight="1"/>
 
     <TextView
-      android:id="@+id/textview_hotelroomselection_next"
+      android:id="@+id/textview_enhancestay_next"
       android:textStyle="bold"
       android:layout_width="@dimen/mdtp_material_button_minwidth"
       android:layout_height="wrap_content"

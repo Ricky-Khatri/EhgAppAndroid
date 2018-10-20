@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 27/9/18 11:36 AM
+ *  Created by Emaar Hospitality Group on 20/10/18 5:39 PM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 27/9/18 11:36 AM
+ *  Last modified 20/10/18 5:39 PM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,103 +20,74 @@
 package com.ehg.booking.hotel;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.hotel.adapter.HotelDetailAmenitiesAdapter;
 import com.ehg.booking.hotel.adapter.HotelDetailAmenitiesAdapter.OnAmenitiesItemClickedListener;
-import com.ehg.booking.hotel.adapter.HotelDetailGalleryAdapter;
-import com.ehg.booking.hotel.adapter.HotelDetailGalleryAdapter.OnItemClickListener;
-import com.ehg.booking.hotel.adapter.HotelResortsAdapter.OnHotelItemClickListener;
 import com.ehg.customview.TextSliderView;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
-import com.glide.slider.library.Indicators.PagerIndicator;
 import com.glide.slider.library.SliderLayout;
 import com.glide.slider.library.SliderLayout.Transformer;
 import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.glide.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import java.util.ArrayList;
 
-/**
- * This activity will show hotel details.
- */
-public class HotelDetailActivity extends BaseActivity implements OnSliderClickListener,
-    OnClickListener, OnItemClickListener, OnAmenitiesItemClickedListener {
+public class HotelRoomdetailActivity extends BaseActivity implements OnClickListener, OnSliderClickListener,
+    OnAmenitiesItemClickedListener {
 
+  private TextView textViewHeaderTitle;
+  private AppCompatImageView headerBackButton;
   private Context context;
-  private SliderLayout sliderImageView;
-  private PagerIndicator pageIndicator;
-  private AppCompatImageView backButton;
-  private Button buttonBookNow;
 
-  /**
-   * Called when activity created.
-   * @param savedInstanceState bundle object
-   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     try {
 
-      setContentView(R.layout.activity_hoteldetail);
+      setContentView(R.layout.activity_roomdetail);
       context = this;
 
       initAutoScrollViewPager();
+
       initView();
 
     } catch (NullPointerException e) {
 
       e.printStackTrace();
+
     } catch (Exception e) {
+
       e.printStackTrace();
     }
   }
 
   private void initView() {
 
-    TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
-    if (getIntent() != null && getIntent().getStringExtra("title") != null) {
-      textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
-    }
+    textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    headerBackButton = findViewById(R.id.imageview_header_back);
 
-    buttonBookNow = (Button) findViewById(R.id.button_hoteldetail_booknow);
-    RecyclerView recyclerViewHotelsGallery = findViewById(
-        R.id.recyclerview_hoteldetail_gallery);
-    GridLayoutManager manager = new GridLayoutManager(this, 3);
-    recyclerViewHotelsGallery.setLayoutManager(manager);
-    recyclerViewHotelsGallery.setHasFixedSize(true);
-    HotelDetailGalleryAdapter hotelDetailGalleryAdapter = new HotelDetailGalleryAdapter(context, this);
-    recyclerViewHotelsGallery.setAdapter(hotelDetailGalleryAdapter);
-    AppUtil.animateRecyclerView(this, recyclerViewHotelsGallery,
-        R.anim.layout_animation_from_right);
-
-    RecyclerView recyclerViewHotelsAmenities = findViewById(
-        R.id.recyclerview_hoteldetail_amenities);
+    RecyclerView recyclerViewRoomAmenities = findViewById(
+        R.id.recyclerview_roomdetail_amenities);
     GridLayoutManager managerGridlayout = new GridLayoutManager(this, 5);
-    recyclerViewHotelsAmenities.setLayoutManager(managerGridlayout);
-    recyclerViewHotelsAmenities.setHasFixedSize(true);
+    recyclerViewRoomAmenities.setLayoutManager(managerGridlayout);
+    recyclerViewRoomAmenities.setHasFixedSize(true);
 
     HotelDetailAmenitiesAdapter hotelDetailAmenitiesAdapter = new HotelDetailAmenitiesAdapter(context, this);
 
-    recyclerViewHotelsAmenities.setAdapter(hotelDetailAmenitiesAdapter);
-    AppUtil.animateRecyclerView(this, recyclerViewHotelsAmenities,
+    recyclerViewRoomAmenities.setAdapter(hotelDetailAmenitiesAdapter);
+    AppUtil.animateRecyclerView(this, recyclerViewRoomAmenities,
         R.anim.layout_animation_from_right);
 
-    backButton = findViewById(R.id.imageview_header_back);
-    backButton.setOnClickListener(this);
-    buttonBookNow.setOnClickListener(this);
+    headerBackButton.setOnClickListener(this);
   }
 
   /**
@@ -125,7 +96,7 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
   private void initAutoScrollViewPager() {
 
     SliderLayout sliderLayoutRestaurantDetail = findViewById(
-        R.id.sliderlayout_hoteldetail_slider);
+        R.id.sliderlayout_roomdetail_slider);
 
     sliderLayoutRestaurantDetail.setPresetTransformer(Transformer.Default);
 
@@ -180,11 +151,11 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
   @Override
   protected void onResume() {
     super.onResume();
-    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+    setBackArrowRtl(headerBackButton);
   }
 
   /**
-   * Called to update back arrow rtl icons.
+   * Called to set RTL back arrow.
    *
    * @param appCompatImageView imageview object
    */
@@ -193,41 +164,22 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
     super.setBackArrowRtl(appCompatImageView);
   }
 
-  /**
-   * OnKeyDown callback will be called when phone back key pressed.
-   *
-   * @param keyCode keycode
-   * @param event event
-   * @return return boolean value
-   */
-  @Override
-  public boolean onKeyDown(int keyCode, KeyEvent event) {
-    if (keyCode == KeyEvent.KEYCODE_BACK) {
-      AppUtil.finishActivityWithAnimation(this);
-    }
-    return super.onKeyDown(keyCode, event);
-  }
-
   @Override
   public void onClick(View view) {
 
-    Intent intent = null;
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
 
-        AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
+        AppUtil.finishActivityWithAnimation(this);
+
         break;
-
-      case R.id.button_hoteldetail_booknow:
-
-        intent = new Intent(context, SelectRoomActivity.class);
 
       default:
-        break;
 
+        break;
     }
-    AppUtil.startActivityWithAnimation(this, intent, false);
+
   }
 
   @Override

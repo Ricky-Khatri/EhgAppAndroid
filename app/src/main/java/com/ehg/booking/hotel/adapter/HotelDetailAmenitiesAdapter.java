@@ -64,13 +64,6 @@ public class HotelDetailAmenitiesAdapter extends RecyclerView.Adapter<HotelDetai
     return images != null ? images.length : 0;
   }
 
-  /**
-   * OnItemClick interface for Select item Recycler view.
-   */
-  public interface OnAmenitiesItemClickedListener {
-
-    void onItemClick(int position);
-  }
 
   public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
@@ -101,4 +94,13 @@ public class HotelDetailAmenitiesAdapter extends RecyclerView.Adapter<HotelDetai
       }
     }
   }
+
+  /**
+   * OnItemClick interface for Select item Recycler view.
+   */
+  public interface OnAmenitiesItemClickedListener {
+
+    void onItemClick(int position);
+  }
+
 }

@@ -1,0 +1,29 @@
+<!--
+  ~  Created by Emaar Hospitality Group on 20/10/18 12:59 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 20/10/18 12:59 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:autoMirrored="true"
+  android:height="24dp"
+  android:viewportHeight="512"
+  android:viewportWidth="512"
+  android:width="24dp">
+  <path
+    android:fillColor="#6c6e70"
+    android:pathData="M256,0C114.844,0 0,114.844 0,256s114.844,256 256,256s256,-114.844 256,-256S397.156,0 256,0zM298.667,416c0,5.896 -4.771,10.667 -10.667,10.667h-64c-5.896,0 -10.667,-4.771 -10.667,-10.667V256h-10.667c-5.896,0 -10.667,-4.771 -10.667,-10.667v-42.667c0,-5.896 4.771,-10.667 10.667,-10.667H288c5.896,0 10.667,4.771 10.667,10.667V416zM256,170.667c-23.531,0 -42.667,-19.135 -42.667,-42.667S232.469,85.333 256,85.333s42.667,19.135 42.667,42.667S279.531,170.667 256,170.667z"/>
+</vector>
