@@ -45,6 +45,8 @@ import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.signinsignup.SignInSignupActivity;
+import com.ehg.signinsignup.SignInSignupActivity.OnCountryCodeChangeListener;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.JsonParserUtil;
@@ -64,7 +66,7 @@ import org.json.JSONObject;
  */
 
 public class SignUpFragment extends Fragment implements OnClickListener, ApiResponseListener,
-    OnEditorActionListener {
+    OnEditorActionListener, OnCountryCodeChangeListener {
 
   private static final String USER_SIGNUP_METHOD = "userSignup";
 
@@ -133,7 +135,8 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
     super.onViewCreated(view, savedInstanceState);
 
     context = getActivity();
-
+    SignInSignupActivity signInSignupActivity = (SignInSignupActivity) context;
+    signInSignupActivity.setOnCountryCodeChangeListener(this);
     initView(view);
   }
 
@@ -145,8 +148,6 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   private void initView(View view) {
 
     countryCodePicker = view.findViewById(R.id.countrycodepicker_signup_countrycode);
-    countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(context)
-        .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
     countryCodePicker.setOnCountryChangeListener(new OnCountryChangeListener() {
       @Override
       public void onCountrySelected(Country country) {
@@ -560,5 +561,16 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
         getResources().getString(R.string.dialog_errortitle), true, null);
+  }
+
+  /**
+   * Called when country code changed.
+   */
+  @Override
+  public void onCountryCodeChanged() {
+    if (countryCodePicker != null) {
+      countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(context)
+          .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
+    }
   }
 }

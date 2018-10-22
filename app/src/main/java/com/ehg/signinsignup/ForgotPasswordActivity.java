@@ -74,8 +74,6 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   private void initView() {
 
     countryCodePicker = findViewById(R.id.countrycodepicker_forgot_password_countrycode);
-    countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(this)
-        .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
     countryCodePicker.setOnCountryChangeListener(new OnCountryChangeListener() {
       @Override
       public void onCountrySelected(Country country) {
@@ -110,6 +108,10 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   protected void onResume() {
     super.onResume();
     setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+    if(countryCodePicker != null) {
+      countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(this)
+          .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
+    }
   }
 
   /**
