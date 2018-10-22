@@ -26,6 +26,8 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.NumberPicker;
 import com.ehg.R;
+import com.ehg.booking.restaurant.RestaurantBookingSlotActivity;
+import com.ehg.utilities.AppUtil;
 
 /**
  * This class will show number picker dialog.
@@ -36,6 +38,7 @@ public class NumberPickerDialog extends DialogFragment {
 
   /**
    * Called when dialog created.
+   *
    * @param savedInstanceState bundle object
    * @return returns dialog
    */
@@ -46,7 +49,7 @@ public class NumberPickerDialog extends DialogFragment {
 
     numberPicker.setMinValue(1);
     numberPicker.setMaxValue(5);
-    numberPicker.setValue(2);
+    numberPicker.setValue(AppUtil.numberPickerdefaultSelectedNumber);
 
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setTitle("Select number of people");
@@ -56,6 +59,8 @@ public class NumberPickerDialog extends DialogFragment {
         , new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
+            RestaurantBookingSlotActivity.onNumberPickerActionSelected(false,
+                numberPicker.getValue());
             valueChangeListener.onValueChange(numberPicker,
                 numberPicker.getValue(), numberPicker.getValue());
           }
@@ -64,18 +69,20 @@ public class NumberPickerDialog extends DialogFragment {
     builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
       @Override
       public void onClick(DialogInterface dialog, int which) {
+        RestaurantBookingSlotActivity.onNumberPickerActionSelected(true,
+            numberPicker.getValue());
         valueChangeListener.onValueChange(numberPicker,
             numberPicker.getValue(), numberPicker.getValue());
       }
     });
 
     builder.setView(numberPicker);
+
     return builder.create();
   }
 
   /**
    * Called to get valueChangeListener object.
-   * @return
    */
   public NumberPicker.OnValueChangeListener getValueChangeListener() {
     return valueChangeListener;
@@ -83,7 +90,6 @@ public class NumberPickerDialog extends DialogFragment {
 
   /**
    * Called to set valueChangeListener
-   * @param valueChangeListener
    */
   public void setValueChangeListener(NumberPicker.OnValueChangeListener valueChangeListener) {
     this.valueChangeListener = valueChangeListener;

@@ -56,7 +56,7 @@
         android:gravity="center|start"
         android:hint="@string/search_searchhint"
         android:inputType="text"
-        android:textSize="@dimen/textsize_all_guesttitle"/>
+        android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
     </LinearLayout>
 
@@ -65,7 +65,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:padding="@dimen/padding_all_imageview"
-      android:layout_marginStart="@dimen/marginstart_header_search"
       app:srcCompat="@drawable/all_closeicon"/>
   </LinearLayout>
 

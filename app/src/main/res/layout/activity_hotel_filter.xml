@@ -18,96 +18,127 @@
   ~
   -->
 
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:orientation="vertical"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".booking.hotel.HotelFilterActivity">
 
-  <include layout="@layout/layout_header_with_navigation"/>
+  <include
+    android:id="@+id/layout_hotelfilter"
+    layout="@layout/layout_header_with_navigation"/>
 
   <View
+    android:id="@+id/view_hotelfilter"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_all_viewline"
     android:layout_marginTop="@dimen/margin_all_vertical"
+    android:layout_below="@+id/layout_hotelfilter"
+    android:background="@color/colorGray"/>
+
+  <ScrollView
+    android:layout_above="@+id/button_hotelfilter_searchforhotels"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/view_hotelfilter">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="@dimen/margin_all_vertical"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/textview_hotelfilter_brand"
+        style="@style/AppLabelsTextAppearance"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hotelfilter_brand"/>
+
+      <android.support.design.chip.ChipGroup
+        android:id="@+id/chipgroup_hotelfilter_brand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elevation_all_header"
+        android:layout_gravity="center|start"
+        app:chipSpacingHorizontal="@dimen/margin_all_horizontal"
+        app:singleLine="false"/>
+
+      <TextView
+        android:id="@+id/textview_hotelfilter_property"
+        style="@style/AppLabelsTextAppearance"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:text="@string/hotelfilter_property"/>
+
+      <android.support.design.chip.ChipGroup
+        android:id="@+id/chipgroup_hotelfilter_property"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elevation_all_header"
+        android:layout_gravity="center|start"
+        app:chipSpacingHorizontal="@dimen/margin_all_horizontal"
+        app:singleLine="false"/>
+
+      <TextView
+        android:id="@+id/textview_hotelfilter_classification"
+        style="@style/AppLabelsTextAppearance"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:text="@string/hotelfilter_classification"/>
+
+      <android.support.design.chip.ChipGroup
+        android:id="@+id/chipgroup_hotelfilter_classification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elevation_all_header"
+        android:layout_gravity="center|start"
+        app:chipSpacingHorizontal="@dimen/margin_all_horizontal"
+        app:singleLine="false"/>
+
+      <TextView
+        android:id="@+id/textview_hotelfilter_facilities"
+        style="@style/AppLabelsTextAppearance"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:text="@string/hotelfilter_facilities"/>
+
+      <android.support.design.chip.ChipGroup
+        android:id="@+id/chipgroup_hotelfilter_facilities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elevation_all_header"
+        android:layout_gravity="center|start"
+        app:chipSpacingHorizontal="@dimen/margin_all_horizontal"
+        app:singleLine="false"/>
+
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/margin_all_vertical"
+        android:layout_marginBottom="@dimen/margin_all_vertical"
+        android:visibility="invisible"/>
+    </LinearLayout>
+  </ScrollView>
+
+  <Button
+    android:id="@+id/button_hotelfilter_searchforhotels"
+    style="@style/AppLabelsTextAppearance"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
     android:background="@color/colorGray"
-    android:layout_height="@dimen/height_all_viewline"/>
-
-  <LinearLayout
-    android:layout_margin="@dimen/margin_all_vertical"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-      android:textStyle="bold"
-      style="@style/AppLabelsTextAppearance"
-      android:id="@+id/textview_hotelfilter_brand"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/hotelfilter_brand"/>
-
-    <android.support.design.chip.ChipGroup
-      android:id="@+id/chipgroup_hotelfilter_brand"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      app:chipSpacingHorizontal="@dimen/margin_all_horizontal"
-      app:singleLine="false"/>
-
-    <TextView
-      android:layout_marginTop="@dimen/margin_all_vertical"
-      android:textStyle="bold"
-      style="@style/AppLabelsTextAppearance"
-      android:id="@+id/textview_hotelfilter_property"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/hotelfilter_property"/>
-
-    <android.support.design.chip.ChipGroup
-      android:id="@+id/chipgroup_hotelfilter_property"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      app:chipSpacingHorizontal="@dimen/margin_all_horizontal"
-      app:singleLine="false"/>
-
-    <TextView
-      android:layout_marginTop="@dimen/margin_all_vertical"
-      android:textStyle="bold"
-      style="@style/AppLabelsTextAppearance"
-      android:id="@+id/textview_hotelfilter_classification"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/hotelfilter_classification"/>
-
-    <android.support.design.chip.ChipGroup
-      android:id="@+id/chipgroup_hotelfilter_classification"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      app:chipSpacingHorizontal="@dimen/margin_all_horizontal"
-      app:singleLine="false"/>
-
-    <TextView
-      android:layout_marginTop="@dimen/margin_all_vertical"
-      android:textStyle="bold"
-      style="@style/AppLabelsTextAppearance"
-      android:id="@+id/textview_hotelfilter_facilities"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/hotelfilter_facilities"/>
-
-    <android.support.design.chip.ChipGroup
-      android:id="@+id/chipgroup_hotelfilter_facilities"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      app:chipSpacingHorizontal="@dimen/margin_all_horizontal"
-      app:singleLine="false"/>
-
-  </LinearLayout>
-
-</LinearLayout>
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:text="@string/hotelfilter_searchforhotels"
+    android:textColor="@color/white"/>
+</RelativeLayout>

@@ -23,6 +23,7 @@ import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -67,7 +68,7 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
   private LinearLayout linearLayoutTime;
   private TextView textViewTime;
   private LinearLayout linearLayoutGuestCount;
-  private TextView textViewGuestCount;
+  private static TextView textViewGuestCount;
   private TextView textViewNext;
   private int hour;
   private int minute;
@@ -75,7 +76,7 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
 
   private String dateStr;
   private String timeStr;
-  private String numberOfPeopleStr;
+  private static String numberOfPeopleStr;
   private String restaurantId;
 
   /**
@@ -277,6 +278,7 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
       numberOfPeopleStr = "2";
     }
     restaurantId = "1";
+    numberOfPeopleStr = textViewGuestCount.getText().toString();
     fetchAvailability(dateStr, timeStr,
         numberOfPeopleStr, restaurantId);
   }
@@ -285,19 +287,26 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
    * Called when number picker value changed.
    *
    * @param numberPicker numberPicker object
-   * @param index index
-   * @param index1 index1
+   * @param oldValue old value
+   * @param newValue new value
    */
   @Override
-  public void onValueChange(NumberPicker numberPicker, int index, int index1) {
-    numberOfPeopleStr = index + "";
-    textViewGuestCount.setText(numberOfPeopleStr);
+  public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
+
+    numberOfPeopleStr = newValue + "";
+    //textViewGuestCount.setText(numberOfPeopleStr);
   }
 
   /**
    * Called to show number picker.
    */
   public void showNumberPicker() {
+    String numberOfPeople = textViewGuestCount.getText().toString().trim();
+    if(TextUtils.isEmpty(numberOfPeople)){
+      numberOfPeople = "2";
+    }
+    AppUtil.numberPickerdefaultSelectedNumber = Integer.parseInt(numberOfPeople);
+
     NumberPickerDialog numberPickerDialog = new NumberPickerDialog();
     numberPickerDialog.setValueChangeListener(this);
     numberPickerDialog.show(getSupportFragmentManager(), "Select number of people");
@@ -367,7 +376,7 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
 
         url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_GET_RESTAURANT_AVAILABILITY)
             + restaurantId
-            + "&tentativeDate=" + date + "&tentativeTime=" + time + "&partySize="
+            + "?tentativeDate=" + date + "&tentativeTime=" + time + "&partySize="
             + numberOfPeople;
       }
 
@@ -444,5 +453,15 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog(this, errorMessage, false,
         getResources().getString(R.string.dialog_errortitle), true, null);
+  }
+
+  /**
+   * Called when number picker action (Ok/Cancel) selected.
+   */
+  public static void onNumberPickerActionSelected(boolean isCanceled, int value) {
+    if (!isCanceled) {
+      numberOfPeopleStr = value + "";
+      textViewGuestCount.setText(numberOfPeopleStr);
+    }
   }
 }

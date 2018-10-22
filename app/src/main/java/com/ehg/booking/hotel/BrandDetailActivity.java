@@ -63,9 +63,7 @@ public class BrandDetailActivity extends BaseActivity implements OnPageChangeLis
     try {
 
       initAutoScrollViewPager();
-
       initView();
-
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception e) {

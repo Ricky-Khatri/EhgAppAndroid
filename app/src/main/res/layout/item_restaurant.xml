@@ -48,6 +48,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/padding_all_imageview"
       android:layout_marginStart="@dimen/marginstart_header_search"
+      android:textStyle="bold"
       android:text="@string/all_email"/>
 
     <TextView

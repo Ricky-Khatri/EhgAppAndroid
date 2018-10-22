@@ -33,11 +33,12 @@ import com.ehg.signinsignup.fragment.SignUpFragment;
 import com.ehg.signinsignup.fragment.SigninFragment;
 import com.ehg.utilities.AppUtil;
 
-
 /**
  * This class shows Login options to users like: Login Signup Skip or explore app as guest user.
  */
 public class SignInSignupActivity extends BaseActivity {
+
+  private  OnCountryCodeChangeListener onCountryCodeChangeListener;
 
   /**
    * Called when activity created.
@@ -80,6 +81,9 @@ public class SignInSignupActivity extends BaseActivity {
         public void onTabSelected(TabLayout.Tab layoutTab) {
           AppUtil.hideKeyboard(SignInSignupActivity.this,viewPager);
           viewPager.setCurrentItem(layoutTab.getPosition());
+          if (onCountryCodeChangeListener != null) {
+            onCountryCodeChangeListener.onCountryCodeChanged();
+          }
         }
 
         @Override
@@ -100,6 +104,9 @@ public class SignInSignupActivity extends BaseActivity {
     }
   }
 
+  /**
+   * Called when activity resumed.
+   */
   @Override
   protected void onResume() {
     super.onResume();
@@ -163,5 +170,19 @@ public class SignInSignupActivity extends BaseActivity {
       AppUtil.finishActivityWithAnimation(this);
     }
     return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * Called to set countryCodeChangeListener object.
+   * @param onCountryCodeChangeListener object
+   */
+  public void setOnCountryCodeChangeListener(OnCountryCodeChangeListener onCountryCodeChangeListener) {
+    this.onCountryCodeChangeListener = onCountryCodeChangeListener;
+  }
+  /**
+   * Interface for CountryCodeChange.
+   */
+  public interface OnCountryCodeChangeListener {
+    void onCountryCodeChanged();
   }
 }

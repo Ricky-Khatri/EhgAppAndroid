@@ -61,7 +61,7 @@
         android:paddingEnd="@dimen/elevation_all_header"
         android:gravity="center|start"
         android:text="@string/headersearchlayout_textviewhint"
-        android:textSize="@dimen/textsize_all_guesttitle"/>
+        android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
     </LinearLayout>
   </LinearLayout>

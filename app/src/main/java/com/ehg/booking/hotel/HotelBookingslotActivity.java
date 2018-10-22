@@ -21,6 +21,7 @@ package com.ehg.booking.hotel;
 
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
@@ -82,21 +83,21 @@ public class HotelBookingslotActivity extends BaseActivity implements
 
       setContentView(R.layout.activity_hotelbookingslot);
       initView();
-
     } catch (NullPointerException e) {
-
       e.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
     }
-
   }
 
   /**
    * Called to init ui components of this screen.
    */
   private void initView() {
-
+    TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    if (getIntent() != null && getIntent().getStringExtra("title") != null) {
+      textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
+    }
     dayPickerView = findViewById(R.id.daypickerview_hotelbookingslot_calandar);
     dayPickerView.setController(this);
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
@@ -123,77 +124,116 @@ public class HotelBookingslotActivity extends BaseActivity implements
     imageViewInfantMinus = findViewById(R.id.imageview_hotelbookingslot_infantminus);
     imageViewInfantPlus = findViewById(R.id.imageview_hotelbookingslot_infantplus);
     textViewInfantCount = findViewById(R.id.textview_hotelbookingslot_infantcount);
-    expendableListViewDestination = findViewById(R.id.expandablelistview_hotelbookingslot_destination);
+    expendableListViewDestination = findViewById(
+        R.id.expandablelistview_hotelbookingslot_destination);
 
     linearlayoutCheckIn.setOnClickListener(this);
     linearlayoutCheckOut.setOnClickListener(this);
     linearlayoutGuestRoom.setOnClickListener(this);
-
   }
 
+  /**
+   * Called to get max calender years.
+   * @return years
+   */
   @Override
   public int getMaxYear() {
     return 2050;
   }
 
+  /**
+   * Called to get year, month, day from calender.
+   * @param year selected year
+   * @param month selected month
+   * @param day selected day
+   */
   @Override
   public void onDayOfMonthSelected(int year, int month, int day) {
 
   }
 
+  /**
+   * Called to get day range.
+   * @param selectedDays selected day range
+   */
   @Override
   public void onDateRangeSelected(SelectedDays<CalendarDay> selectedDays) {
 
   }
 
+  /**
+   * Called when view clicked on this screen.
+   * @param view clicked view
+   */
   @Override
   public void onClick(View view) {
 
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-
         AppUtil.finishActivityWithAnimation(this);
-
         break;
 
       case R.id.linearlayout_hotelbookingslot_guestroom:
-
         expendableListViewDestination.setVisibility(View.GONE);
         linearlayoutGuestRoomCount.setVisibility(View.VISIBLE);
         dayPickerView.setVisibility(View.GONE);
-
         break;
 
       case R.id.linearlayout_hotelbookingslot_checkin:
-
         expendableListViewDestination.setVisibility(View.GONE);
         linearlayoutGuestRoomCount.setVisibility(View.GONE);
         dayPickerView.setVisibility(View.VISIBLE);
-
         break;
 
       case R.id.linearlayout_hotelbookingslot_checkout:
-
         linearlayoutGuestRoomCount.setVisibility(View.GONE);
         dayPickerView.setVisibility(View.VISIBLE);
         expendableListViewDestination.setVisibility(View.GONE);
-
         break;
 
       case R.id.linearlayout_hotelbookingslot_destination:
-
         linearlayoutGuestRoomCount.setVisibility(View.GONE);
         dayPickerView.setVisibility(View.GONE);
-
         expendableListViewDestination.setVisibility(View.VISIBLE);
         break;
 
       default:
-
         break;
-
     }
+  }
 
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to set RTL back arrow.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
   }
 }

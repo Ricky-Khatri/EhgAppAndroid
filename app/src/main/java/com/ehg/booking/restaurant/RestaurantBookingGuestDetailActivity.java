@@ -122,7 +122,15 @@ public class RestaurantBookingGuestDetailActivity extends BaseActivity implement
           editTextFirstName.setText(detail.getFirstName());
           editTextLastName.setText(detail.getLastName());
           editTextEmailAddress.setText(detail.getEmailId());
-          editTextPhoneNumber.setText(detail.getMobileNumber());
+          String mobileNumber = detail.getMobileNumber();
+          if (mobileNumber.length() == 10) {
+          } else if (mobileNumber.length() > 10) {
+            mobileNumber = mobileNumber.substring(mobileNumber.length() - 10);
+          } else {
+            // whatever is appropriate in this case
+            throw new IllegalArgumentException("word has less than 10 characters!");
+          }
+          editTextPhoneNumber.setText(mobileNumber);
         }
       }
 

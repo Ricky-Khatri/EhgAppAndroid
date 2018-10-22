@@ -87,6 +87,8 @@ public class AppUtil {
 
   private static Dialog dialogLoadingIndicator;
 
+  public static int numberPickerdefaultSelectedNumber = 2;
+
   /**
    * Method returns device screen width in pixel.
    */

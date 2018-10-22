@@ -27,6 +27,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -39,7 +40,8 @@ import com.ehg.utilities.AppUtil;
 /**
  * This class will show  all the available hotel list.
  */
-public class HotelListActivity extends BaseActivity implements OnClickListener, OnHotelItemClickListener {
+public class HotelListActivity extends BaseActivity implements
+    OnClickListener, OnHotelItemClickListener {
 
   private Context context;
   private AppCompatImageView headerBackButton;
@@ -68,7 +70,6 @@ public class HotelListActivity extends BaseActivity implements OnClickListener, 
     }
   }
 
-
   /**
    * Called to init ui components of this screen.
    */
@@ -76,15 +77,13 @@ public class HotelListActivity extends BaseActivity implements OnClickListener, 
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
-    recyclerViewHotelList = findViewById(R.id.recyclerview_hotellist_list);
 
+    //Set Adapter
+    recyclerViewHotelList = findViewById(R.id.recyclerview_hotellist_list);
     recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewHotelList.setHasFixedSize(true);
-
     HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context, this);
-
     recyclerViewHotelList.setAdapter(hotelResortsAdapter);
-
     AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_bottom);
 
@@ -98,8 +97,9 @@ public class HotelListActivity extends BaseActivity implements OnClickListener, 
 
       textViewHeaderTitle.setText(headerTitle);
     }
+    //Set OnClickListener
     headerBackButton.setOnClickListener(this);
-
+    findViewById(R.id.appcompactimageview_hotellist_filter).setOnClickListener(this);
   }
 
   /**
@@ -121,21 +121,43 @@ public class HotelListActivity extends BaseActivity implements OnClickListener, 
     super.setBackArrowRtl(appCompatImageView);
   }
 
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * Called when activity view item clicked.
+   *
+   * @param view clicked view item
+   */
   @Override
   public void onClick(View view) {
 
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
+        break;
+
+      case R.id.appcompactimageview_hotellist_filter:
+        Intent intent = new Intent(this, HotelFilterActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
 
       default:
         break;
-
     }
-
   }
 
   /**
@@ -164,8 +186,6 @@ public class HotelListActivity extends BaseActivity implements OnClickListener, 
         //intent = new Intent(this, SpaRequestEnquiryActivity.class);
         break;
     }
-
     AppUtil.startActivityWithAnimation(this, intent, false);
-
   }
 }

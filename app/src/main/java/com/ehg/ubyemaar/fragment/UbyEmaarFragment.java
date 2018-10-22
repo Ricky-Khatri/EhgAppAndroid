@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -120,8 +121,11 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     initView(view);
 
     //Call getMemberDetail api
-    /*getMemberDetails(SharedPreferenceUtils.getInstance(context).getStringValue(
-        SharedPreferenceUtils.ACCOUNT_ID, ""));*/
+    /*if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
+        SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+      getMemberDetails(SharedPreferenceUtils.getInstance(context).getStringValue(
+          SharedPreferenceUtils.ACCOUNT_ID, ""));
+    }*/
   }
 
   /**

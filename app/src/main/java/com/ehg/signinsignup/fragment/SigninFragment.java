@@ -46,12 +46,16 @@ import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.signinsignup.ForgotPasswordActivity;
+import com.ehg.signinsignup.SignInSignupActivity;
+import com.ehg.signinsignup.SignInSignupActivity.OnCountryCodeChangeListener;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.JsonParserUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.rilixtech.Country;
 import com.rilixtech.CountryCodePicker;
+import com.rilixtech.CountryCodePicker.OnCountryChangeListener;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import org.json.JSONArray;
@@ -62,7 +66,7 @@ import org.json.JSONObject;
  * A login screen that offers login via all_email/password.
  */
 public class SigninFragment extends Fragment implements OnClickListener, ApiResponseListener,
-    OnEditorActionListener {
+    OnEditorActionListener, OnCountryCodeChangeListener {
 
   private static final String USER_LOGIN_METHOD = "userLogin";
 
@@ -127,6 +131,8 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     super.onViewCreated(view, savedInstanceState);
 
     context = getActivity();
+    SignInSignupActivity signInSignupActivity = (SignInSignupActivity) context;
+    signInSignupActivity.setOnCountryCodeChangeListener(this);
     initView(view);
   }
 
@@ -138,7 +144,16 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   private void initView(View view) {
 
     countryCodePicker = view.findViewById(R.id.countrycodepicker_signinfragment_countrycode);
-    countryCodePicker.setCountryForPhoneCode(971);
+    countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(context)
+        .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
+    countryCodePicker.setOnCountryChangeListener(new OnCountryChangeListener() {
+      @Override
+      public void onCountrySelected(Country country) {
+        SharedPreferenceUtils.getInstance(context)
+            .setValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE,
+                Integer.parseInt(country.getPhoneCode().replace("+", "")));
+      }
+    });
 
     AppCompatImageView appCompatImageViewLogo = view.findViewById(R.id.imageview_signin_logo);
     appCompatImageViewLogo.getLayoutParams().height = AppUtil.getDeviceHeight(
@@ -419,6 +434,10 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
         if (userProfilePojo != null && userProfilePojo.getStatus()) {
 
+          SharedPreferenceUtils.getInstance(context)
+              .setValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE,
+                  Integer.parseInt(countryCodePicker.getSelectedCountryCode()));
+
           JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
           //Save loyaltyMEmberId
           SharedPreferenceUtils.getInstance(context)
@@ -472,6 +491,17 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   public void onFailureResponse(String errorMessage) {
     AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
         getResources().getString(R.string.dialog_errortitle), true, null);
+  }
+
+  /**
+   * Called when country code changed.
+   */
+  @Override
+  public void onCountryCodeChanged() {
+    if (countryCodePicker != null) {
+      countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(context)
+          .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
+    }
   }
 }
 

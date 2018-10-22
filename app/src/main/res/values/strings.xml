@@ -22,7 +22,7 @@
   <string name="all_account">account.</string>
 
   <string name="signupfragment_signup">SIGN-UP</string>
-  <string name="all_continue_as_guest">Continue as Guest </string>
+  <string name="all_continue_as_guest">Continue as a Guest </string>
 
   <!-- Strings related to login -->
   <string name="all_mobilenumber">Mobile Number</string>
@@ -74,8 +74,8 @@
   <string name="all_permissionalert">User must allow these permissions to access all functions in app.</string>
 
   <!--Strings related to signup-->
-  <string name="all_firstname">First name</string>
-  <string name="all_lastname">Last name</string>
+  <string name="all_firstname">First Name</string>
+  <string name="all_lastname">Last Name</string>
   <string name="email">email</string>
 
   <string name="homefragment_guestname_title">Hello Mr John Doe,</string>
@@ -228,5 +228,6 @@
   <string name="all_numberofpeople">Number of People</string>
   <string name="all_roomtype">Room Type</string>
   <string name="all_addons">Add-ons</string>
+  <string name="hotelfilter_searchforhotels">SEARCH FOR HOTELS</string>
 
 </resources>

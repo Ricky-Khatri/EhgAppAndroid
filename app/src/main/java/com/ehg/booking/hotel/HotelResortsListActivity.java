@@ -20,11 +20,13 @@
 package com.ehg.booking.hotel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import com.ehg.R;
@@ -36,7 +38,8 @@ import com.ehg.utilities.AppUtil;
 /**
  * This class allows to show Hotel & Resorts List.
  */
-public class HotelResortsListActivity extends BaseActivity implements View.OnClickListener, OnHotelItemClickListener {
+public class HotelResortsListActivity extends BaseActivity
+    implements View.OnClickListener, OnHotelItemClickListener {
 
   private Context context;
   private RecyclerView recyclerViewHotelList;
@@ -69,7 +72,6 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
 
     Bundle bundle = getIntent().getExtras();
     if (bundle != null) {
-
       headerTitle = bundle.getString("title");
     }
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
@@ -79,20 +81,19 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
     imageViewHotelSort = findViewById(R.id.appcompactimageview_hotelresorts_sort);
     headerBackButton = findViewById(R.id.imageview_header_back);
 
+    //Set OnClickListener
     headerBackButton.setOnClickListener(this);
+    findViewById(R.id.appcompactimageview_hotelresorts_filter).setOnClickListener(this);
 
+    //Set Adapter
     recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewHotelList.setHasFixedSize(true);
-
     HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context, this);
-
     recyclerViewHotelList.setAdapter(hotelResortsAdapter);
-
     AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_bottom);
 
     if (!TextUtils.isEmpty(headerTitle)) {
-
       textViewHeaderTitle.setText(headerTitle);
     }
   }
@@ -103,16 +104,32 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
   @Override
   protected void onResume() {
     super.onResume();
-    setBackArrowRtl(headerBackButton);
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
   }
 
   /**
    * Called to set RTL back arrow.
+   *
    * @param appCompatImageView imageview object
    */
   @Override
   public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
     super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
   }
 
   /**
@@ -126,14 +143,24 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-
         AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      case R.id.appcompactimageview_hotelresorts_filter:
+        Intent intent = new Intent(this, HotelFilterActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
       default:
         break;
     }
   }
 
+  /**
+   * Called when hotel list item clicked.
+   *
+   * @param position clicked item position
+   * @param view clicked view item
+   */
   @Override
   public void onHotelItemClicked(int position, View view) {
 

@@ -84,14 +84,16 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
     }
   }
 
+  /**
+   * Called to init view component of this screen.
+   */
   private void initView() {
 
     TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
     if (getIntent() != null && getIntent().getStringExtra("title") != null) {
       textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
     }
-
-    buttonBookNow = (Button) findViewById(R.id.button_hoteldetail_booknow);
+    buttonBookNow = findViewById(R.id.button_hoteldetail_booknow);
     RecyclerView recyclerViewHotelsGallery = findViewById(
         R.id.recyclerview_hoteldetail_gallery);
     GridLayoutManager manager = new GridLayoutManager(this, 3);
@@ -208,6 +210,10 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
     return super.onKeyDown(keyCode, event);
   }
 
+  /**
+   * Called when activity view item clicked.
+   * @param view clicked view item
+   */
   @Override
   public void onClick(View view) {
 
@@ -215,26 +221,30 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
 
       case R.id.button_hoteldetail_booknow:
-
         intent = new Intent(context, SelectRoomActivity.class);
-
       default:
         break;
-
     }
     AppUtil.startActivityWithAnimation(this, intent, false);
   }
 
+  /**
+   * Called when slider view item clicked.
+   * @param baseSliderView clicked slider item
+   */
   @Override
   public void onSliderClick(BaseSliderView baseSliderView) {
 
   }
 
+  /**
+   * Called when list item clicked.
+   * @param position clicked view item
+   */
   @Override
   public void onItemClick(int position) {
 

@@ -149,7 +149,7 @@ public class HttpClientRequest {
 
             Log.e(TAG + "======", result);
 
-            if (TextUtils.isEmpty(result)) {
+            if (TextUtils.isEmpty(result) || result.contains("Internal server error!")) {
               apiResponseListner.onFailureResponse(errorMessage);
             } else {
               apiResponseListner.onSuccessResponse(result, requestMethod);
@@ -233,7 +233,7 @@ public class HttpClientRequest {
 
             Log.e(TAG + "======", result);
 
-            if (TextUtils.isEmpty(result)) {
+            if (TextUtils.isEmpty(result) || result.contains("Internal server error!")) {
               apiResponseListner.onFailureResponse(errorMessage);
             } else {
               apiResponseListner.onSuccessResponse(result, requestMethod);
@@ -340,12 +340,12 @@ public class HttpClientRequest {
 
             stopFirebaseMonitorTrace();
 
-            if (TextUtils.isEmpty(result)) {
+            Log.e(TAG + "======", result);
+
+            if (TextUtils.isEmpty(result) || result.contains("Internal server error!")) {
               apiResponseListner.onFailureResponse(errorMessage);
-              Log.e(TAG + "======", errorMessage);
             } else {
               apiResponseListner.onSuccessResponse(result, requestMethod);
-              Log.e(TAG + "======", result);
             }
           } catch (NullPointerException e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
