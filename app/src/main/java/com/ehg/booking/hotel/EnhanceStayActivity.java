@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -34,33 +35,40 @@ import com.ehg.booking.hotel.adapter.SelectRoomAdapter;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
-public class EnhanceStayActivity extends BaseActivity implements OnClickListener, OnEnhanceStayItemClicklistner {
+/**
+ * This class will list of show room enhancement items.
+ */
+public class EnhanceStayActivity extends BaseActivity implements
+    OnClickListener, OnEnhanceStayItemClicklistner {
 
   private Context context;
   private TextView textViewHeaderTitle;
   private AppCompatImageView headerBackButton;
   private RecyclerView recyclerViewRoomList;
 
+  /**
+   * Called when activity created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     try {
-
       setContentView(R.layout.activity_enhancestay);
 
       context = this;
       initView();
-
     } catch (NullPointerException e) {
-
       e.printStackTrace();
     } catch (Exception e) {
-
       e.printStackTrace();
     }
   }
 
+  /**
+   * Called to init view components of this activity.
+   */
   private void initView() {
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
@@ -68,31 +76,32 @@ public class EnhanceStayActivity extends BaseActivity implements OnClickListener
     recyclerViewRoomList = findViewById(R.id.recyclerview_enhancestay);
     recyclerViewRoomList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewRoomList.setHasFixedSize(true);
-
+    //Set adapter
     EnhanceStayAdapter selectRoomAdapter = new EnhanceStayAdapter(context, this);
     recyclerViewRoomList.setAdapter(selectRoomAdapter);
-
     AppUtil.animateRecyclerView(context, recyclerViewRoomList,
         R.anim.layout_animation_from_bottom);
 
+    //Set OnClickListener
     headerBackButton.setOnClickListener(this);
-
   }
 
+  /**
+   * Called when view item clicked on this activity.
+   * @param view clicked view
+   */
   @Override
   public void onClick(View view) {
 
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-
         AppUtil.finishActivityWithAnimation(this);
         break;
 
       default:
         break;
     }
-
   }
 
   /**
@@ -101,7 +110,7 @@ public class EnhanceStayActivity extends BaseActivity implements OnClickListener
   @Override
   protected void onResume() {
     super.onResume();
-    setBackArrowRtl(headerBackButton);
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
   }
 
   /**
@@ -114,6 +123,26 @@ public class EnhanceStayActivity extends BaseActivity implements OnClickListener
     super.setBackArrowRtl(appCompatImageView);
   }
 
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * Called when list item clicked.
+   * @param position clicked item position
+   * @param view clicked item view
+   */
   @Override
   public void onItemClick(int position, View view) {
 

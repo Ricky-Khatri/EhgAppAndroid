@@ -144,7 +144,7 @@
         android:layout_gravity="start"
         android:background="@null"
         android:imeOptions="actionNext"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textCapWords"
         android:maxLines="1"
         android:singleLine="true"
         android:textAlignment="viewStart"
@@ -175,7 +175,7 @@
         android:layout_gravity="start"
         android:background="@null"
         android:imeOptions="actionNext"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textCapWords"
         android:maxLines="1"
         android:singleLine="true"
         android:textAlignment="viewStart"/>

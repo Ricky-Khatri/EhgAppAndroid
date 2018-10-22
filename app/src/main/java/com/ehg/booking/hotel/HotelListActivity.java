@@ -27,6 +27,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -39,7 +40,8 @@ import com.ehg.utilities.AppUtil;
 /**
  * This class will show  all the available hotel list.
  */
-public class HotelListActivity extends BaseActivity implements OnClickListener, OnHotelItemClickListener {
+public class HotelListActivity extends BaseActivity implements
+    OnClickListener, OnHotelItemClickListener {
 
   private Context context;
   private AppCompatImageView headerBackButton;
@@ -67,7 +69,6 @@ public class HotelListActivity extends BaseActivity implements OnClickListener, 
       e.printStackTrace();
     }
   }
-
 
   /**
    * Called to init ui components of this screen.
@@ -99,7 +100,6 @@ public class HotelListActivity extends BaseActivity implements OnClickListener, 
       textViewHeaderTitle.setText(headerTitle);
     }
     headerBackButton.setOnClickListener(this);
-
   }
 
   /**
@@ -121,21 +121,37 @@ public class HotelListActivity extends BaseActivity implements OnClickListener, 
     super.setBackArrowRtl(appCompatImageView);
   }
 
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * Called when activity view item clicked.
+   * @param view clicked view item
+   */
   @Override
   public void onClick(View view) {
 
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
 
       default:
         break;
-
     }
-
   }
 
   /**
@@ -164,8 +180,6 @@ public class HotelListActivity extends BaseActivity implements OnClickListener, 
         //intent = new Intent(this, SpaRequestEnquiryActivity.class);
         break;
     }
-
     AppUtil.startActivityWithAnimation(this, intent, false);
-
   }
 }

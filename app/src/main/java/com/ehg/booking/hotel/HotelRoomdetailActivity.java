@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -151,7 +152,7 @@ public class HotelRoomdetailActivity extends BaseActivity implements OnClickList
   @Override
   protected void onResume() {
     super.onResume();
-    setBackArrowRtl(headerBackButton);
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
   }
 
   /**
@@ -164,29 +165,52 @@ public class HotelRoomdetailActivity extends BaseActivity implements OnClickList
     super.setBackArrowRtl(appCompatImageView);
   }
 
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * Called when activity view item clicked.
+   * @param view clicked view item
+   */
   @Override
   public void onClick(View view) {
 
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-
         AppUtil.finishActivityWithAnimation(this);
-
         break;
 
       default:
-
         break;
     }
-
   }
 
+  /**
+   * Called when slider item clicked.
+   * @param baseSliderView clicked view item
+   */
   @Override
   public void onSliderClick(BaseSliderView baseSliderView) {
 
   }
 
+  /**
+   * Called when list view item clicked.
+   * @param position clicked item position
+   */
   @Override
   public void onItemClick(int position) {
 

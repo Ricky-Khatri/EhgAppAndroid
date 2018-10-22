@@ -23,8 +23,15 @@ import android.os.Bundle;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
 
+/**
+ * This class will show or allow to enter available promo code.
+ */
 public class HotelBookingPromoCodeActivity extends BaseActivity {
 
+  /**
+   * Called when activity created.
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -32,8 +39,6 @@ public class HotelBookingPromoCodeActivity extends BaseActivity {
     try {
 
       setContentView(R.layout.activity_hotelbookingpromocode);
-
-
     } catch (NullPointerException e) {
       e.printStackTrace();
     } catch (Exception e) {

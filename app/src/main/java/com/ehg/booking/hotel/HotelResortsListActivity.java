@@ -25,6 +25,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import com.ehg.R;
@@ -36,7 +37,8 @@ import com.ehg.utilities.AppUtil;
 /**
  * This class allows to show Hotel & Resorts List.
  */
-public class HotelResortsListActivity extends BaseActivity implements View.OnClickListener, OnHotelItemClickListener {
+public class HotelResortsListActivity extends BaseActivity
+    implements View.OnClickListener, OnHotelItemClickListener {
 
   private Context context;
   private RecyclerView recyclerViewHotelList;
@@ -103,16 +105,32 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
   @Override
   protected void onResume() {
     super.onResume();
-    setBackArrowRtl(headerBackButton);
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
   }
 
   /**
    * Called to set RTL back arrow.
+   *
    * @param appCompatImageView imageview object
    */
   @Override
   public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
     super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
   }
 
   /**
@@ -126,7 +144,6 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-
         AppUtil.finishActivityWithAnimation(this);
         break;
       default:
@@ -134,6 +151,11 @@ public class HotelResortsListActivity extends BaseActivity implements View.OnCli
     }
   }
 
+  /**
+   * Called when hotel list item clicked.
+   * @param position clicked item position
+   * @param view clicked view item
+   */
   @Override
   public void onHotelItemClicked(int position, View view) {
 
