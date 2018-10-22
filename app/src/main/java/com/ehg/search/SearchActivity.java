@@ -89,7 +89,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     for (int i = 0; i < wrapperAdapter.getGroupCount(); i++) {
       exapandableList.expandGroup(i);
     }
-
   }
 
   private List<SearchGroupPojo> setAdapter() {

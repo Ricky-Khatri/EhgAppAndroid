@@ -121,11 +121,11 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     initView(view);
 
     //Call getMemberDetail api
-    if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
+    /*if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context).getStringValue(
         SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
       getMemberDetails(SharedPreferenceUtils.getInstance(context).getStringValue(
           SharedPreferenceUtils.ACCOUNT_ID, ""));
-    }
+    }*/
   }
 
   /**
