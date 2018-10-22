@@ -207,7 +207,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     List<String> userTitlelist = new ArrayList<String>();
     userTitlelist.add("Please Select Title");
     userTitlelist.add("Mr.");
-    userTitlelist.add("Mrs.");
+    userTitlelist.add("Ms.");
 
     // Creating adapter for spinner
     ArrayAdapter<String> guestTitleAdapter = new ArrayAdapter<String>(this,
@@ -609,7 +609,10 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
         deviceDetailObject.put("firstName", editTextFirstName.getText().toString());
         deviceDetailObject.put("lastName", editTextLastName.getText().toString());
         deviceDetailObject.put("emailAddress", editTextEmail.getText().toString());
-        deviceDetailObject.put("mobileNumber", editTextPhoneNumber.getText().toString());
+        deviceDetailObject.put("mobileNumber", "00"
+            + SharedPreferenceUtils.getInstance(this)
+                .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971)
+            + editTextPhoneNumber.getText().toString());
 
         if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
             .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {

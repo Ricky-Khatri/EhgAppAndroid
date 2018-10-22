@@ -51,7 +51,9 @@ import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.JsonParserUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.rilixtech.Country;
 import com.rilixtech.CountryCodePicker;
+import com.rilixtech.CountryCodePicker.OnCountryChangeListener;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import org.json.JSONArray;
@@ -138,7 +140,16 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
   private void initView(View view) {
 
     countryCodePicker = view.findViewById(R.id.countrycodepicker_signinfragment_countrycode);
-    countryCodePicker.setCountryForPhoneCode(971);
+    countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(context)
+        .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
+    countryCodePicker.setOnCountryChangeListener(new OnCountryChangeListener() {
+      @Override
+      public void onCountrySelected(Country country) {
+        SharedPreferenceUtils.getInstance(context)
+            .setValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE,
+                Integer.parseInt(country.getPhoneCode().replace("+", "")));
+      }
+    });
 
     AppCompatImageView appCompatImageViewLogo = view.findViewById(R.id.imageview_signin_logo);
     appCompatImageViewLogo.getLayoutParams().height = AppUtil.getDeviceHeight(
@@ -418,6 +429,10 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
             }.getType());
 
         if (userProfilePojo != null && userProfilePojo.getStatus()) {
+
+          SharedPreferenceUtils.getInstance(context)
+              .setValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE,
+                  Integer.parseInt(countryCodePicker.getSelectedCountryCode()));
 
           JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
           //Save loyaltyMEmberId

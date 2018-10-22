@@ -30,13 +30,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
 import com.loopj.android.http.RequestParams;
+import com.rilixtech.Country;
 import com.rilixtech.CountryCodePicker;
+import com.rilixtech.CountryCodePicker.OnCountryChangeListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,7 +74,16 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
   private void initView() {
 
     countryCodePicker = findViewById(R.id.countrycodepicker_forgot_password_countrycode);
-    countryCodePicker.setCountryForPhoneCode(971);
+    countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(this)
+        .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
+    countryCodePicker.setOnCountryChangeListener(new OnCountryChangeListener() {
+      @Override
+      public void onCountrySelected(Country country) {
+        SharedPreferenceUtils.getInstance(ForgotPasswordActivity.this)
+            .setValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE,
+                Integer.parseInt(country.getPhoneCode().replace("+", "")));
+      }
+    });
 
     TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
     textViewHeaderTitle.setText(R.string.all_forgotpassword);
@@ -222,6 +234,9 @@ public class ForgotPasswordActivity extends BaseActivity implements OnClickListe
       try {
         JSONObject jsonObject = new JSONObject(responseVal);
         if (jsonObject.getBoolean("status")) {
+          SharedPreferenceUtils.getInstance(this)
+              .setValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE,
+                  Integer.parseInt(countryCodePicker.getSelectedCountryCode()));
           AppUtil.showAlertDialog(this,
               jsonObject.getString("message"),
               true, getResources().getString(R.string.dialog_alerttitle), false, null);
