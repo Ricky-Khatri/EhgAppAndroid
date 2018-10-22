@@ -20,6 +20,7 @@
 package com.ehg.booking.hotel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -71,7 +72,6 @@ public class HotelResortsListActivity extends BaseActivity
 
     Bundle bundle = getIntent().getExtras();
     if (bundle != null) {
-
       headerTitle = bundle.getString("title");
     }
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
@@ -81,20 +81,19 @@ public class HotelResortsListActivity extends BaseActivity
     imageViewHotelSort = findViewById(R.id.appcompactimageview_hotelresorts_sort);
     headerBackButton = findViewById(R.id.imageview_header_back);
 
+    //Set OnClickListener
     headerBackButton.setOnClickListener(this);
+    findViewById(R.id.appcompactimageview_hotelresorts_filter).setOnClickListener(this);
 
+    //Set Adapter
     recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewHotelList.setHasFixedSize(true);
-
     HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context, this);
-
     recyclerViewHotelList.setAdapter(hotelResortsAdapter);
-
     AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_bottom);
 
     if (!TextUtils.isEmpty(headerTitle)) {
-
       textViewHeaderTitle.setText(headerTitle);
     }
   }
@@ -146,6 +145,11 @@ public class HotelResortsListActivity extends BaseActivity
       case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation(this);
         break;
+
+      case R.id.appcompactimageview_hotelresorts_filter:
+        Intent intent = new Intent(this, HotelFilterActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
+        break;
       default:
         break;
     }
@@ -153,6 +157,7 @@ public class HotelResortsListActivity extends BaseActivity
 
   /**
    * Called when hotel list item clicked.
+   *
    * @param position clicked item position
    * @param view clicked view item
    */

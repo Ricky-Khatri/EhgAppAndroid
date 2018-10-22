@@ -140,7 +140,15 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
       editTextFirstName.setText(detail.getFirstName());
       editTextLastName.setText(detail.getLastName());
       editTextEmail.setText(detail.getEmailId());
-      editTextPhoneNumber.setText(detail.getMobileNumber());
+      String mobileNumber = detail.getMobileNumber();
+      if (mobileNumber.length() == 10) {
+      } else if (mobileNumber.length() > 10) {
+        mobileNumber = mobileNumber.substring(mobileNumber.length() - 10);
+      } else {
+        // whatever is appropriate in this case
+        throw new IllegalArgumentException("word has less than 10 characters!");
+      }
+      editTextPhoneNumber.setText(mobileNumber);
     }
 
     spinnerNumberOfpeople = findViewById(R.id.spinner_sparequestenquiry_numberofpeople);
@@ -329,7 +337,6 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
       textViewPrefferedDateTime.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = textViewPrefferedDateTime;
       cancel = true;
-
     }
 
     if (cancel) {

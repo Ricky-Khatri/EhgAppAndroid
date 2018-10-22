@@ -33,7 +33,6 @@ import com.ehg.signinsignup.fragment.SignUpFragment;
 import com.ehg.signinsignup.fragment.SigninFragment;
 import com.ehg.utilities.AppUtil;
 
-
 /**
  * This class shows Login options to users like: Login Signup Skip or explore app as guest user.
  */

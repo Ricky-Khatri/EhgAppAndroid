@@ -77,15 +77,13 @@ public class HotelListActivity extends BaseActivity implements
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
-    recyclerViewHotelList = findViewById(R.id.recyclerview_hotellist_list);
 
+    //Set Adapter
+    recyclerViewHotelList = findViewById(R.id.recyclerview_hotellist_list);
     recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewHotelList.setHasFixedSize(true);
-
     HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context, this);
-
     recyclerViewHotelList.setAdapter(hotelResortsAdapter);
-
     AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_bottom);
 
@@ -99,7 +97,9 @@ public class HotelListActivity extends BaseActivity implements
 
       textViewHeaderTitle.setText(headerTitle);
     }
+    //Set OnClickListener
     headerBackButton.setOnClickListener(this);
+    findViewById(R.id.appcompactimageview_hotellist_filter).setOnClickListener(this);
   }
 
   /**
@@ -138,6 +138,7 @@ public class HotelListActivity extends BaseActivity implements
 
   /**
    * Called when activity view item clicked.
+   *
    * @param view clicked view item
    */
   @Override
@@ -147,6 +148,11 @@ public class HotelListActivity extends BaseActivity implements
 
       case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
+        break;
+
+      case R.id.appcompactimageview_hotellist_filter:
+        Intent intent = new Intent(this, HotelFilterActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
 
       default:
