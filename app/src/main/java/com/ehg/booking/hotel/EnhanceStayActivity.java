@@ -20,17 +20,18 @@
 package com.ehg.booking.hotel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.hotel.adapter.EnhanceStayAdapter;
 import com.ehg.booking.hotel.adapter.EnhanceStayAdapter.OnEnhanceStayItemClicklistner;
-import com.ehg.booking.hotel.adapter.SelectRoomAdapter;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
@@ -40,6 +41,7 @@ public class EnhanceStayActivity extends BaseActivity implements OnClickListener
   private TextView textViewHeaderTitle;
   private AppCompatImageView headerBackButton;
   private RecyclerView recyclerViewRoomList;
+  private TextView textViewNext;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,7 @@ public class EnhanceStayActivity extends BaseActivity implements OnClickListener
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
+    textViewNext = findViewById(R.id.textview_enhancestay_next);
     recyclerViewRoomList = findViewById(R.id.recyclerview_enhancestay);
     recyclerViewRoomList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewRoomList.setHasFixedSize(true);
@@ -76,12 +79,14 @@ public class EnhanceStayActivity extends BaseActivity implements OnClickListener
         R.anim.layout_animation_from_bottom);
 
     headerBackButton.setOnClickListener(this);
+    textViewNext.setOnClickListener(this);
 
   }
 
   @Override
   public void onClick(View view) {
 
+    Intent intent = null;
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
@@ -89,10 +94,15 @@ public class EnhanceStayActivity extends BaseActivity implements OnClickListener
         AppUtil.finishActivityWithAnimation(this);
         break;
 
+      case R.id.textview_enhancestay_next:
+
+        intent = new Intent(context, RoomBookingGuestDetailActivity.class);
+        break;
+
       default:
         break;
     }
-
+    AppUtil.startActivityWithAnimation(this, intent, false);
   }
 
   /**
@@ -117,5 +127,20 @@ public class EnhanceStayActivity extends BaseActivity implements OnClickListener
   @Override
   public void onItemClick(int position, View view) {
 
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
   }
 }

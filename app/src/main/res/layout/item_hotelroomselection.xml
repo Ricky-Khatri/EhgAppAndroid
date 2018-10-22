@@ -28,8 +28,7 @@
   <LinearLayout
     android:id="@+id/linearlayout_itemhotelroomselection"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_all_itemview"
-
+    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/elevation_all_header"
     android:layout_marginEnd="@dimen/elevation_all_header"
     android:background="@drawable/all_background_border"
@@ -51,7 +50,7 @@
 
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/padding_all_imageview"
       android:orientation="vertical">
 
@@ -65,8 +64,8 @@
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.7"
+        android:layout_height="wrap_content"
+
         android:paddingBottom="@dimen/google_1x"
         android:orientation="horizontal">
 
@@ -89,9 +88,9 @@
 
         <View
           android:layout_width="1dp"
-          android:layout_height="wrap_content"
+          android:layout_height="@dimen/height_all_verticaldivider"
           android:layout_marginStart="@dimen/elevation_all_header"
-          android:layout_gravity="center_horizontal"
+          android:layout_gravity="center"
           android:background="@color/colorGray"/>
 
         <TextView
@@ -113,9 +112,9 @@
 
         <View
           android:layout_width="1dp"
-          android:layout_height="wrap_content"
+          android:layout_height="@dimen/height_all_verticaldivider"
           android:layout_marginStart="@dimen/elevation_all_header"
-          android:layout_gravity="center_horizontal"
+          android:layout_gravity="center"
           android:background="@color/colorGray"/>
 
         <TextView
@@ -144,8 +143,9 @@
 
       <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/google_1x"
+        android:paddingBottom="@dimen/google_1x"
         android:gravity="center"
         android:orientation="horizontal">
 

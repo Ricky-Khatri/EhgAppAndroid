@@ -215,5 +215,18 @@
   <string name="hotelbookingslot_child">Child</string>
   <string name="hotelbookingslot_infant">Infant</string>
   <string name="itemhotelroonselection_rates"><u>ViewAllRates(22)</u></string>
+  <string name="roombookingguestdetail_address">Address</string>
+  <string name="roombookingguestdetail_country">Country</string>
+  <string name="roombookingguestdetail_city">City</string>
+  <string name="roombookingguestdetail_frequentguestid">Frequent Guest ID(Optional)</string>
+  <string name="roombookingguestdetail_specialrequest">Special Request(Optional Eg:Check-in,Pillows etc)</string>
+  <string name="roompayment_summarypayment"><![CDATA[Summary & Payment]]></string>
+  <string name="all_name">Name:</string>
+  <string name="all_address">Address:</string>
+  <string name="all_checkin">Checkin</string>
+  <string name="all_checkout">Check out</string>
+  <string name="all_numberofpeople">Number of People</string>
+  <string name="all_roomtype">Room Type</string>
+  <string name="all_addons">Add-ons</string>
 
 </resources>

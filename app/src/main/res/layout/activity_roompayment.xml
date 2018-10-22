@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 22/10/18 6:11 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 22/10/18 6:11 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <include
+    android:id="@+id/layout_roompayment_header"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/layout_roompayment_header">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_all_vertical"
+      android:orientation="vertical">
+
+      <TextView
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/roompayment_summarypayment"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_headertitle"/>
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/all_name"
+          android:textColor="@color/colorBlack"/>
+
+        <TextView
+          android:id="@+id/textview_roompayment_guestname"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/google_1x"
+          android:text="@string/ubyemaar_username"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/bookingsummary_telephonelabel"
+          android:textColor="@color/colorBlack"/>
+
+        <TextView
+          android:id="@+id/textview_roompayment_guesttelephone"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/google_1x"
+          android:text="00971564994350"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/bookingsummary_emaillabel"
+          android:textColor="@color/colorBlack"/>
+
+        <TextView
+          android:id="@+id/textView_roompayment_guestemail"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/google_1x"
+          android:text="john@digivalet.com"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/all_address"
+          android:textColor="@color/colorBlack"/>
+
+        <TextView
+          android:id="@+id/textview_roompayment_guestaddress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/google_1x"
+          android:text="@string/restaurantdetail_address"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all_checkin"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tue,Sep 30,2018"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all_checkout"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wed,Oct 02,2018"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all_numberofpeople"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4 Adults, 1 Infant"
+            android:textColor="@color/colorBlack"/>
+
+        </LinearLayout>
+
+        <View
+          android:layout_width="1dp"
+          android:layout_height="match_parent"
+          android:layout_marginStart="@dimen/margin_all_vertical"
+          android:background="@color/colorGray"/>
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_all_vertical"
+          android:orientation="vertical">
+
+          <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all_roomtype"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tue,Sep 30,2018"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all_addons"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tue,Sep 30,2018"
+            android:textColor="@color/colorBlack"/>
+
+
+        </LinearLayout>
+      </LinearLayout>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:background="@color/colorGray"/>
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+          android:textStyle="bold"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="SALE :"
+          android:textColor="@color/colorBlack"/>
+
+        <TextView
+          android:id="@+id/textview_roompayment_sale"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/google_1x"
+          android:text="U BY EMAAR- EARLY BIRD OFFER 30 DAYS"/>
+      </LinearLayout>
+
+    </LinearLayout>
+  </ScrollView>
+</RelativeLayout>
