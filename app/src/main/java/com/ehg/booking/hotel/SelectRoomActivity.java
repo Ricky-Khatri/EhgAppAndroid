@@ -105,8 +105,13 @@ public class SelectRoomActivity extends BaseActivity
     Intent intent = null;
     switch (view.getId()) {
 
-      case R.id.linearlayout_itemhotelroomselection:
+      case R.id.sliderlayout_itemhotelroomselection_slider:
+
         intent = new Intent(context, HotelRoomdetailActivity.class);
+        break;
+      case R.id.linearlayout_itemhotelroomselection_allrates:
+
+        intent = new Intent(context, AvailableRoomRatesActivity.class);
         break;
       default:
         break;

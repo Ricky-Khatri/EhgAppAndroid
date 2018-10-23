@@ -22,4 +22,77 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
+  <include
+    android:id="@+id/layout_hotelbookingpromocode_header"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_all_vertical"
+    android:layout_marginStart="@dimen/marginstart_header_search"
+    android:layout_marginEnd="@dimen/marginstart_header_search"
+    android:layout_below="@+id/layout_hotelbookingpromocode_header"
+    android:background="@drawable/all_rounded_border"
+    android:orientation="vertical">
+
+    <TextView
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/google_1x"
+      android:text="@string/hotelbookingpromocode_promo_code"
+      android:textColor="@color/colorBlack"
+      android:textSize="@dimen/textsize_all_headertitle"/>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/colorGray"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/margin_all_vertical"
+      android:orientation="horizontal">
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="@dimen/google_1x"
+        android:background="@drawable/all_rounded_border">
+
+        <Spinner
+          android:id="@+id/spinner_hotelbookingpromocode_category"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:spinnerMode="dropdown"
+          />
+
+      </LinearLayout>
+
+      <EditText
+        android:id="@+id/edittext_hotelbookingpromocode_promocode"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:layout_marginStart="@dimen/google_1x"
+        android:paddingStart="@dimen/google_1x"
+        android:paddingEnd="@dimen/google_1x"
+        android:background="@drawable/all_rounded_border"
+        android:hint="@string/hotelbookingpromocode_enterpromocode"
+        android:textSize="@dimen/textsize_all_guestdetail"/>
+
+      <Button
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:layout_marginStart="@dimen/google_1x"
+        android:background="@drawable/all_rounded_button"
+        android:text="ADD"
+        android:textColor="@color/colorWhite"/>
+    </LinearLayout>
+  </LinearLayout>
+
 </RelativeLayout>

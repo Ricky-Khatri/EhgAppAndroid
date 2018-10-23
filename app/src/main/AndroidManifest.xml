@@ -235,6 +235,14 @@
       android:name=".booking.hotel.RoomBookingGuestDetailActivity"
       android:screenOrientation="portrait"/>
 
+    <activity
+      android:name=".booking.hotel.RoomPaymentActivity"
+      android:screenOrientation="portrait"/>
+
+    <activity
+      android:name=".booking.hotel.AvailableRoomRatesActivity"
+      android:screenOrientation="portrait"/>
+
   </application>
 
 </manifest>

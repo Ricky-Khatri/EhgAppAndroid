@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 23/10/18 4:26 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 23/10/18 4:26 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <include
+    android:id="@+id/layout_availableroomrates_header"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/layout_availableroomrates_header"
+    android:padding="@dimen/margin_all_vertical"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/textView_availableroomrates"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Available Room Rates (18)"
+      android:textColor="@color/colorBlack"
+      android:textSize="@dimen/textsize_all_large"/>
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/recyclerview_availableroomrates_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="@dimen/google_1x"
+      />
+
+  </LinearLayout>
+</RelativeLayout>

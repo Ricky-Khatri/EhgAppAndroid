@@ -48,6 +48,7 @@ public class HotelListActivity extends BaseActivity implements
   private TextView textViewHeaderTitle;
   private RecyclerView recyclerViewHotelList;
   private String headerTitle;
+  private TextView textViewClickHere;
 
   /**
    * Called when activity created.
@@ -77,6 +78,7 @@ public class HotelListActivity extends BaseActivity implements
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
+    textViewClickHere = findViewById(R.id.textView_hotellist_clickhere);
 
     //Set Adapter
     recyclerViewHotelList = findViewById(R.id.recyclerview_hotellist_list);
@@ -100,6 +102,7 @@ public class HotelListActivity extends BaseActivity implements
     //Set OnClickListener
     headerBackButton.setOnClickListener(this);
     findViewById(R.id.appcompactimageview_hotellist_filter).setOnClickListener(this);
+    textViewClickHere.setOnClickListener(this);
   }
 
   /**
@@ -143,21 +146,25 @@ public class HotelListActivity extends BaseActivity implements
    */
   @Override
   public void onClick(View view) {
-
+    Intent intent = null;
     switch (view.getId()) {
+
 
       case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
 
       case R.id.appcompactimageview_hotellist_filter:
-        Intent intent = new Intent(this, HotelFilterActivity.class);
-        AppUtil.startActivityWithAnimation(this, intent, false);
+        intent = new Intent(this, HotelFilterActivity.class);
         break;
-
+      case R.id.textView_hotellist_clickhere:
+        intent = new Intent(this, HotelBookingPromoCodeActivity.class);
+        break;
       default:
         break;
     }
+    AppUtil.startActivityWithAnimation(this, intent, false);
+
   }
 
   /**

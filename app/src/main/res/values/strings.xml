@@ -229,5 +229,11 @@
   <string name="all_roomtype">Room Type</string>
   <string name="all_addons">Add-ons</string>
   <string name="hotelfilter_searchforhotels">SEARCH FOR HOTELS</string>
+  <string name="all_book">Book</string>
+  <string name="all_expirydate">Expiry Date</string>
+  <string name="all_cardnumber">Card Number</string>
+  <string name="roompayment_nameoncard">Name on Card</string>
+  <string name="hotelbookingpromocode_promo_code">Promo Code</string>
+  <string name="hotelbookingpromocode_enterpromocode">Enter Promo Code</string>
 
 </resources>

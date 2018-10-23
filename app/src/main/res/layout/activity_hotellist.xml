@@ -111,6 +111,7 @@
         android:textSize="@dimen/textsize_all_guestdetail"/>
 
       <TextView
+        android:id="@+id/textView_hotellist_clickhere"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="@string/hotellist_clickhere"

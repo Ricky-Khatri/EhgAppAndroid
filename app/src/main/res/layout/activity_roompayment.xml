@@ -29,6 +29,7 @@
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_above="@+id/linearlayout_roompayment_bottom"
     android:layout_below="@+id/layout_roompayment_header">
 
     <LinearLayout
@@ -142,6 +143,7 @@
 
 
           <TextView
+            android:id="@+id/textview_roompayment_checkin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tue,Sep 30,2018"
@@ -157,6 +159,7 @@
 
 
           <TextView
+            android:id="@+id/textview_roompayment_checkout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wed,Oct 02,2018"
@@ -172,6 +175,7 @@
 
 
           <TextView
+            android:id="@+id/textview_roompayment_numberofpepople"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4 Adults, 1 Infant"
@@ -200,6 +204,7 @@
 
 
           <TextView
+            android:id="@+id/textview_roompayment_roomtype"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tue,Sep 30,2018"
@@ -215,6 +220,7 @@
 
 
           <TextView
+            android:id="@+id/textview_roompayment_addons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tue,Sep 30,2018"
@@ -251,6 +257,333 @@
           android:text="U BY EMAAR- EARLY BIRD OFFER 30 DAYS"/>
       </LinearLayout>
 
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/textview_roompayment_datefirst"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sep 30,2018"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_pricefirst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="839.00 AED"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_datesecond"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_all_vertical"
+            android:text="Oct 1,2018"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_pricesecond"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="829.00 AED"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_datethird"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_all_vertical"
+            android:text="Oct 2,2018"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_pricethird"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="839.00 AED"
+            android:textColor="@color/colorBlack"/>
+
+        </LinearLayout>
+
+        <View
+          android:layout_width="1dp"
+          android:layout_height="match_parent"
+          android:layout_marginStart="@dimen/margin_all_vertical"
+          android:background="@color/colorGray"/>
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_all_vertical"
+          android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/textview_roompayment_subtotal"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sub-Total"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_pricesubtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="839.00 AED"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_tax"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_all_vertical"
+            android:text="Tax"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_pricetax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="129.00 AED"
+            android:textColor="@color/colorBlack"/>
+
+          <TextView
+            android:id="@+id/textview_roompayment_servicecharge"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_all_vertical"
+            android:text="Service charge"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_servicechargeprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="39.00 AED"
+            android:textColor="@color/colorBlack"/>
+
+
+        </LinearLayout>
+
+        <View
+          android:layout_width="1dp"
+          android:layout_height="match_parent"
+          android:layout_marginStart="@dimen/margin_all_vertical"
+          android:background="@color/colorGray"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_all_vertical"
+          android:layout_gravity="bottom"
+          android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/textview_roompayment_pricelabel"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="price"
+            android:textColor="@color/colorBlack"/>
+
+
+          <TextView
+            android:id="@+id/textview_roompayment_pricetotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="839.00 AED"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/textsize_all_large"/>
+
+        </LinearLayout>
+      </LinearLayout>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:background="@color/colorGray"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:text="Payment"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_large"/>
+
+      <TextView
+        style="@style/AppLabelsTextAppearance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/height_all_verticaldivider"
+        android:text="@string/roompayment_nameoncard"
+        />
+
+      <EditText
+        android:id="@+id/edittext_roombookingguestdetail_nameoncard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:layout_gravity="start"
+        android:background="@null"
+        android:imeOptions="actionNext"
+        android:inputType="textAutoComplete"
+        android:maxLength="10"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
+        />
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/height_all_verticaldivider"
+        android:background="@color/colorBlackTransparent"/>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:orientation="vertical">
+          <TextView
+            style="@style/AppLabelsTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/height_all_verticaldivider"
+            android:text="@string/all_cardnumber"
+            />
+
+          <EditText
+            android:id="@+id/edittext_roompayment_cardnumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/height_all_verticaldivider"
+            android:layout_gravity="start"
+            android:background="@null"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            />
+
+          <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="@dimen/height_all_verticaldivider"
+            android:background="@color/colorBlackTransparent"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.7"
+          android:orientation="vertical">
+
+          <TextView
+            style="@style/AppLabelsTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/height_all_verticaldivider"
+            android:text="@string/all_expirydate"
+            />
+
+          <EditText
+            android:id="@+id/edittextroompayment_expirydate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/height_all_verticaldivider"
+            android:layout_gravity="start"
+            android:background="@null"
+            android:imeOptions="actionNext"
+            android:inputType="date"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            />
+
+          <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginEnd="@dimen/height_all_verticaldivider"
+            android:background="@color/colorBlackTransparent"/>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
     </LinearLayout>
   </ScrollView>
+
+  <LinearLayout
+    android:id="@+id/linearlayout_roompayment_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/marginstart_header_search"
+    android:layout_marginEnd="@dimen/margin_all_vertical"
+    android:layout_alignParentBottom="true"
+    android:background="@color/colorWhite"
+    android:orientation="horizontal">
+
+    <TextView
+      android:id="@+id/textview_roompayment_amount"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/google_1x"
+      android:text="839 AED "
+      android:textColor="@color/colorBlack"
+      android:textSize="@dimen/textsize_ubyemaar_points"/>
+
+    <View
+      android:layout_width="0dp"
+      android:layout_height="1dp"
+      android:layout_weight="1"/>
+
+    <TextView
+      android:id="@+id/textview_roompayment_book"
+      android:textStyle="bold"
+      android:layout_width="@dimen/mdtp_material_button_minwidth"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/mdtp_date_picker_view_animator_padding_v2"
+      android:layout_marginEnd="@dimen/google_1x"
+      android:padding="@dimen/google_1x"
+      android:background="@drawable/all_background_border"
+      android:gravity="center"
+      android:text="@string/all_book"
+      android:textColor="@color/colorBlack"
+      android:textSize="@dimen/textsize_all_headertitle"/>
+  </LinearLayout>
 </RelativeLayout>

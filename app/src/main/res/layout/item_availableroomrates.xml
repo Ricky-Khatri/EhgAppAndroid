@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 23/10/18 4:36 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 23/10/18 4:36 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="@dimen/google_1x">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/all_background_border"
+    android:orientation="vertical">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/google_1x"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/textview_itemavailableroomrates_ratestitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="U BY EMAAR - EARLY BIRD OFFER 30 DAYS"
+        android:textColor="@color/colorBlack"/>
+
+      <TextView
+        android:id="@+id/textview_itemavailableroomrates_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:text="@string/dummy_description"/>
+
+    </LinearLayout>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/colorGray"/>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/google_1x"
+      android:orientation="horizontal">
+
+      <TextView
+        android:id="@+id/textview_itemavailableroomrates_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AED 824"
+        android:textSize="@dimen/textsize_all_headertitle"/>
+
+
+      <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>
+
+      <TextView
+        android:id="@+id/textview_itemavailableroomrates_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/mdtp_date_picker_view_animator_padding_bottom_v2"
+        android:background="@drawable/all_rounded_button"
+        android:text="SELECT"
+        android:textColor="@color/colorWhite"/>
+
+    </LinearLayout>
+  </LinearLayout>
+
+</RelativeLayout>

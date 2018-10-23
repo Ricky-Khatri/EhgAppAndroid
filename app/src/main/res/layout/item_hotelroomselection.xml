@@ -40,7 +40,8 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/height_all_alertdialog"
       android:layout_marginTop="@dimen/elevation_all_header"
-      android:elevation="@dimen/elevation_all_header"/>
+      android:elevation="@dimen/elevation_all_header"
+      />
 
     <com.glide.slider.library.Indicators.PagerIndicator
       android:id="@+id/pageindicator_itemhotelroomselection"
@@ -150,6 +151,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+          android:id="@+id/linearlayout_itemhotelroomselection_allrates"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/marginstart_header_search"

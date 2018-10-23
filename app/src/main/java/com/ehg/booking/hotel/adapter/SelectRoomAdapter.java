@@ -139,13 +139,16 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
 
     private final SliderLayout sliderLayoutImageView;
     private final LinearLayout linearLayoutSlider;
+    private final LinearLayout linearlayoutViewAllRates;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 
       sliderLayoutImageView = itemView.findViewById(R.id.sliderlayout_itemhotelroomselection_slider);
       linearLayoutSlider = itemView.findViewById(R.id.linearlayout_itemhotelroomselection);
+      linearlayoutViewAllRates = itemView.findViewById(R.id.linearlayout_itemhotelroomselection_allrates);
 
+      linearlayoutViewAllRates.setOnClickListener(this);
       sliderLayoutImageView.setOnClickListener(this);
       linearLayoutSlider.setOnClickListener(this);
       itemView.setOnClickListener(this);

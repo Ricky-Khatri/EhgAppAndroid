@@ -20,6 +20,7 @@
 package com.ehg.booking.hotel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
@@ -376,6 +377,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
   @Override
   public void onClick(View view) {
 
+    Intent intent = null;
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
@@ -384,11 +386,14 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
 
       case R.id.textview_roombookingguestdetail_next:
 
-        validateSignUpFormFields();
+        intent = new Intent(context, RoomPaymentActivity.class);
+        //validateSignUpFormFields();
         break;
+
       default:
         break;
     }
+    AppUtil.startActivityWithAnimation(this, intent, false);
   }
 
 

@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 22/10/18 6:08 PM
+ *  Created by Emaar Hospitality Group on 23/10/18 4:23 PM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 22/10/18 6:08 PM
+ *  Last modified 23/10/18 4:23 PM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,27 +22,35 @@ package com.ehg.booking.hotel;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.hotel.adapter.AvailableRoomRatesAdapter;
+import com.ehg.booking.hotel.adapter.AvailableRoomRatesAdapter.OnRoomRatesItemClicklistner;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
-public class RoomPaymentActivity extends BaseActivity implements OnClickListener {
+public class AvailableRoomRatesActivity extends BaseActivity implements OnClickListener, OnRoomRatesItemClicklistner {
 
+  private Context context;
   private TextView textViewHeaderTitle;
   private AppCompatImageView headerBackButton;
-  private Context context;
+  private RecyclerView recyclerViewPriceList;
+  private String headerTitle;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     try {
-      setContentView(R.layout.activity_roompayment);
+      setContentView(R.layout.activity_availableroomrates);
 
       context = this;
       initView();
@@ -61,8 +69,29 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
 
+    //Set Adapter
+    recyclerViewPriceList = findViewById(R.id.recyclerview_availableroomrates_list);
+    recyclerViewPriceList.setLayoutManager(new LinearLayoutManager(context));
+    recyclerViewPriceList.setHasFixedSize(true);
+    AvailableRoomRatesAdapter hotelResortsAdapter = new AvailableRoomRatesAdapter(context, this);
+    recyclerViewPriceList.setAdapter(hotelResortsAdapter);
+    AppUtil.animateRecyclerView(context, recyclerViewPriceList,
+        R.anim.layout_animation_from_bottom);
+
+    Bundle bundle = getIntent().getExtras();
+    if (bundle != null) {
+
+      headerTitle = bundle.getString("title");
+    }
+
+    if (!TextUtils.isEmpty(headerTitle)) {
+
+      textViewHeaderTitle.setText(headerTitle);
+    }
+    //Set OnClickListener
     headerBackButton.setOnClickListener(this);
   }
+
 
   /**
    * Called when activity resumed.
@@ -70,12 +99,11 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
   @Override
   protected void onResume() {
     super.onResume();
-    // resetErrors();
-    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+    setBackArrowRtl(headerBackButton);
   }
 
   /**
-   * Called to update back arrow rtl icons.
+   * Called to set RTL back arrow.
    *
    * @param appCompatImageView imageview object
    */
@@ -103,15 +131,22 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
   public void onClick(View view) {
 
     Intent intent = null;
+
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
-        AppUtil.finishActivityWithAnimation(this);
+        AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
 
       default:
         break;
     }
     AppUtil.startActivityWithAnimation(this, intent, false);
+
+  }
+
+  @Override
+  public void onItemClick(int position, View view) {
+
   }
 }

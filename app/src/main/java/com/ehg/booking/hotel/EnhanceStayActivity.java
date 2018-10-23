@@ -46,6 +46,7 @@ public class EnhanceStayActivity extends BaseActivity implements
   private AppCompatImageView headerBackButton;
   private RecyclerView recyclerViewRoomList;
   private TextView textViewNext;
+  private TextView textViewSkip;
 
   /**
    * Called when activity created.
@@ -74,6 +75,8 @@ public class EnhanceStayActivity extends BaseActivity implements
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
+    textViewNext = findViewById(R.id.textview_enhancestay_next);
+    textViewSkip = findViewById(R.id.textview_enhancestay_skip);
     recyclerViewRoomList = findViewById(R.id.recyclerview_enhancestay);
     recyclerViewRoomList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewRoomList.setHasFixedSize(true);
@@ -86,6 +89,7 @@ public class EnhanceStayActivity extends BaseActivity implements
     //Set OnClickListener
     headerBackButton.setOnClickListener(this);
     textViewNext.setOnClickListener(this);
+    textViewSkip.setOnClickListener(this);
 
   }
 
@@ -104,6 +108,11 @@ public class EnhanceStayActivity extends BaseActivity implements
         break;
 
       case R.id.textview_enhancestay_next:
+
+        intent = new Intent(context, RoomBookingGuestDetailActivity.class);
+        break;
+
+      case R.id.textview_enhancestay_skip:
 
         intent = new Intent(context, RoomBookingGuestDetailActivity.class);
         break;
