@@ -231,6 +231,8 @@
       android:name=".roomcontrols.LightsActivity"
       android:screenOrientation="portrait">
     </activity>
+    <activity android:name=".roomcontrols.PrivacyAndCleaningActivity">
+    </activity>
   </application>
 
 </manifest>

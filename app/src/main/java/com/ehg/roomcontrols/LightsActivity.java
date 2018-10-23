@@ -40,8 +40,6 @@ import com.ehg.utilities.AppUtil;
  */
 public class LightsActivity extends BaseActivity {
 
-  private LightDataUpdateListener lightDataUpdateListener;
-
   /**
    * Called when activity created.
    *
@@ -86,9 +84,6 @@ public class LightsActivity extends BaseActivity {
       @Override
       public void onTabSelected(TabLayout.Tab layoutTab) {
         viewPager.setCurrentItem(layoutTab.getPosition());
-        if (lightDataUpdateListener != null) {
-          lightDataUpdateListener.updateLightList();
-        }
       }
 
       @Override
@@ -177,22 +172,5 @@ public class LightsActivity extends BaseActivity {
       AppUtil.finishActivityWithAnimation(this);
     }
     return super.onKeyDown(keyCode, event);
-  }
-
-  /**
-   * Called to set lightDataUpdateListener reference.
-   *
-   * @param lightDataUpdateListener reference
-   */
-  public void setLightDataUpdateListener(LightDataUpdateListener lightDataUpdateListener) {
-    this.lightDataUpdateListener = lightDataUpdateListener;
-  }
-
-  /**
-   * This interface allows to update light data in list.
-   */
-  public interface LightDataUpdateListener {
-
-    void updateLightList();
   }
 }
