@@ -222,5 +222,6 @@
   <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="light_scenes">Scenes</string>
   <string name="privacyandcleaning_title"><![CDATA[Privacy & Cleaning]]></string>
+  <string name="television_title">Television</string>
 
 </resources>

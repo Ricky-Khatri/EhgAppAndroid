@@ -231,7 +231,13 @@
       android:name=".roomcontrols.LightsActivity"
       android:screenOrientation="portrait">
     </activity>
-    <activity android:name=".roomcontrols.PrivacyAndCleaningActivity">
+    <activity
+      android:name=".roomcontrols.PrivacyAndCleaningActivity"
+      android:screenOrientation="portrait">
+    </activity>
+    <activity
+      android:name=".roomcontrols.TelevisionActivity"
+      android:screenOrientation="portrait">
     </activity>
   </application>
 

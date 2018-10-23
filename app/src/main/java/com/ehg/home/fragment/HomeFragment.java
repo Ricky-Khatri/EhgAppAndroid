@@ -50,6 +50,7 @@ import com.ehg.home.adapter.HomeRoomControlAdapter.OnRoomControlsItemClickListen
 import com.ehg.offers.adapter.OfferListAdapter;
 import com.ehg.roomcontrols.LightsActivity;
 import com.ehg.roomcontrols.PrivacyAndCleaningActivity;
+import com.ehg.roomcontrols.TelevisionActivity;
 import com.ehg.search.SearchActivity;
 import com.ehg.signinsignup.pojo.Detail;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
@@ -414,7 +415,8 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
           break;
 
         case "television":
-
+          intent = new Intent(context, TelevisionActivity.class);
+          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
           break;
 
         case "privacy & \ncleaning":

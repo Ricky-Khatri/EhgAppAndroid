@@ -42,6 +42,7 @@
       android:id="@+id/textview_light_lighttitle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:gravity="center_horizontal"
       android:layout_marginBottom="@dimen/margin_all_vertical"
       android:layout_gravity="bottom|center"
       android:textColor="@color/white"
