@@ -59,6 +59,9 @@ public class ReservationCategoryAdapter extends
     this.inflater = LayoutInflater.from(context);
     this.itemHeight = itemHeight / 4;
     this.reservationCategoryList = reservationCategoryList;
+    if (this.itemHeight == 0 || this.itemHeight < 100) {
+      this.itemHeight = 100;
+    }
   }
 
   /**

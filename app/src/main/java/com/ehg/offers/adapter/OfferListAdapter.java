@@ -55,6 +55,9 @@ public class OfferListAdapter extends RecyclerView.Adapter<OfferListAdapter.View
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     this.itemHeight = itemHeight / 4;
+    if (this.itemHeight == 0 || this.itemHeight < 100) {
+      this.itemHeight = 100;
+    }
   }
 
   /**

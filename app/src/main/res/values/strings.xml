@@ -216,5 +216,10 @@
   <string name="hotelbookingslot_infant">Infant</string>
   <string name="itemhotelroonselection_rates"><u>ViewAllRates(22)</u></string>
   <string name="hotelfilter_searchforhotels">SEARCH FOR HOTELS</string>
+  <string name="lights_headertitle">Lights</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="light_scenes">Scenes</string>
 
 </resources>

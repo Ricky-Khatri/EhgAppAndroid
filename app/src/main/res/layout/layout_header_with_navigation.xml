@@ -27,43 +27,43 @@
   android:elevation="@dimen/elevation_all_header">
 
   <android.support.v7.widget.AppCompatImageView
-    android:layout_centerVertical="true"
-    android:layout_alignParentStart="true"
     android:id="@+id/imageview_header_back"
+    android:layout_width="@dimen/size_all_backicon"
+    android:layout_height="@dimen/size_all_backicon"
+    android:layout_alignParentStart="true"
+    android:layout_centerVertical="true"
+    android:padding="@dimen/elevation_all_header"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    android:layout_width="@dimen/size_all_backicon"
-    android:layout_height="@dimen/size_all_backicon"
-    android:padding="@dimen/elevation_all_header"
     android:tint="@color/white"
     app:srcCompat="@drawable/ic_back_arrow"/>
 
   <TextView
-    android:layout_centerVertical="true"
-    android:layout_toStartOf="@+id/imageview_header_extra"
-    android:layout_toEndOf="@+id/imageview_header_back"
     android:id="@+id/textview_header_title"
-    android:layout_marginStart="@dimen/marginleft_all_header"
-    android:layout_marginEnd="@dimen/marginright_all_header"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
     style="@style/AppLabelsTextAppearance"
     android:textStyle="bold"
-    android:textColor="@color/white"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/marginleft_all_header"
+    android:layout_marginEnd="@dimen/marginright_all_header"
+    android:layout_centerVertical="true"
+    android:layout_toEndOf="@+id/imageview_header_back"
+    android:layout_toStartOf="@+id/imageview_header_extra"
     android:gravity="center"
-    android:text=""/>
+    android:text=""
+    android:textColor="@color/white"/>
 
 
   <ImageView
-    android:layout_centerVertical="true"
-    android:layout_alignParentEnd="true"
     android:id="@+id/imageview_header_extra"
     android:layout_width="@dimen/size_all_backicon"
     android:layout_height="@dimen/size_all_backicon"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
     android:padding="@dimen/padding_all_headerbutton"
-    android:visibility="invisible"
     android:background="@drawable/ic_launcher_background"
-    android:contentDescription="@string/all_filter"/>
+    android:contentDescription="@string/all_filter"
+    android:visibility="invisible"/>
 
 </RelativeLayout>
