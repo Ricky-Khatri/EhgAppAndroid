@@ -235,5 +235,12 @@
   <string name="roompayment_nameoncard">Name on Card</string>
   <string name="hotelbookingpromocode_promo_code">Promo Code</string>
   <string name="hotelbookingpromocode_enterpromocode">Enter Promo Code</string>
+  <string name="lights_headertitle">Lights</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="light_scenes">Scenes</string>
+  <string name="privacyandcleaning_title"><![CDATA[Privacy & Cleaning]]></string>
+  <string name="television_title">Television</string>
 
 </resources>

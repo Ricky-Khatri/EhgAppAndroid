@@ -53,6 +53,9 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     this.inflater = LayoutInflater.from(context);
     this.itemHeight = itemHeight / 4 - 50;
     this.reservationList = reservationList;
+    if (this.itemHeight == 0 || this.itemHeight < 100) {
+      this.itemHeight = 100;
+    }
   }
 
   /**

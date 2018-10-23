@@ -53,6 +53,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.ViewHold
     this.itemHeight = itemHeight / 4 - 20;
     this.bookList = bookList;
     this.onBookingItemClickListener = onBookingItemClickListener;
+    if (this.itemHeight == 0 || this.itemHeight < 100) {
+      this.itemHeight = 100;
+    }
   }
 
   /**

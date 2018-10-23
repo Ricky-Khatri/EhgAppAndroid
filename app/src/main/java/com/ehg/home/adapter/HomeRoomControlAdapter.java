@@ -25,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -40,6 +41,8 @@ public class HomeRoomControlAdapter extends
 
   private int heightWidthFactor;
 
+  private OnRoomControlsItemClickListener onRoomControlsItemClickListener;
+
   private final Context context;
   private final String[] imageUrls;
   private final LayoutInflater inflater;
@@ -54,12 +57,14 @@ public class HomeRoomControlAdapter extends
   /**
    * Parameterized constructor for HomeRoomControlAdapter.
    */
-  public HomeRoomControlAdapter(Context context, String[] ary) {
+  public HomeRoomControlAdapter(Context context, String[] ary,
+      OnRoomControlsItemClickListener onRoomControlsItemClickListener) {
 
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     imageUrls = ary;
     heightWidthFactor = AppUtil.getDeviceHeight((AppCompatActivity) context) / 4 - 100;
+    this.onRoomControlsItemClickListener = onRoomControlsItemClickListener;
   }
 
   /**
@@ -102,7 +107,7 @@ public class HomeRoomControlAdapter extends
     return imageUrls.length;
   }
 
-  public class ViewHolder extends RecyclerView.ViewHolder {
+  public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
     private final RoundedImageView roundedImageView;
     private final TextView textViewControlName;
@@ -121,6 +126,28 @@ public class HomeRoomControlAdapter extends
 
       itemView.getLayoutParams().height = heightWidthFactor;
       itemView.getLayoutParams().width = heightWidthFactor;
+
+      itemView.setOnClickListener(this);
     }
+
+    /**
+     * Called when view item clicked.
+     *
+     * @param view view
+     */
+    @Override
+    public void onClick(View view) {
+      if (onRoomControlsItemClickListener != null) {
+        onRoomControlsItemClickListener.onRoomControlItemClicked(getAdapterPosition());
+      }
+    }
+  }
+
+  /**
+   * RoomControlsItemClickListener.
+   */
+  public interface OnRoomControlsItemClickListener {
+
+    void onRoomControlItemClicked(int position);
   }
 }

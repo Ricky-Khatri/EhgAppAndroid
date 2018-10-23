@@ -46,7 +46,11 @@ import com.ehg.home.HomeActivity;
 import com.ehg.home.adapter.HomeFragmentAdapter;
 import com.ehg.home.adapter.HomeFragmentHorizontalItemAdapter.HorizontalItemClickListener;
 import com.ehg.home.adapter.HomeRoomControlAdapter;
+import com.ehg.home.adapter.HomeRoomControlAdapter.OnRoomControlsItemClickListener;
 import com.ehg.offers.adapter.OfferListAdapter;
+import com.ehg.roomcontrols.LightsActivity;
+import com.ehg.roomcontrols.PrivacyAndCleaningActivity;
+import com.ehg.roomcontrols.TelevisionActivity;
 import com.ehg.search.SearchActivity;
 import com.ehg.signinsignup.pojo.Detail;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
@@ -67,7 +71,8 @@ import java.util.Objects;
  */
 
 public class HomeFragment extends BaseFragment implements OnSliderClickListener,
-    OnPageChangeListener, HorizontalItemClickListener, OnClickListener {
+    OnPageChangeListener, HorizontalItemClickListener, OnClickListener,
+    OnRoomControlsItemClickListener {
 
   private SliderLayout sliderLayoutHomeOffers;
 
@@ -84,7 +89,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
 
   private LinearLayout linearLayoutGuestDetails;
 
-  private String[] imageUrl = new String[]{
+  private String[] roomControlsArray = new String[]{
       "LIGHTS",
       "AC CONTROL",
       "TELEVISION",
@@ -192,7 +197,8 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
     //Room controls Recyclerview
     recyclerViewRoomControls.setLayoutManager(new LinearLayoutManager(this.context,
         LinearLayoutManager.HORIZONTAL, false));
-    recyclerViewRoomControls.setAdapter(new HomeRoomControlAdapter(context, imageUrl));
+    recyclerViewRoomControls
+        .setAdapter(new HomeRoomControlAdapter(context, roomControlsArray, this));
     AppUtil.animateRecyclerView(context, recyclerViewRoomControls,
         R.anim.layout_animation_from_right);
 
@@ -381,6 +387,46 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
         break;
       default:
         break;
+    }
+  }
+
+  /**
+   * Called when room control item clicked.
+   *
+   * @param position item position
+   */
+  @Override
+  public void onRoomControlItemClicked(int position) {
+    String title;
+    Intent intent;
+    if (roomControlsArray != null && roomControlsArray.length > 0
+        && position < roomControlsArray.length) {
+
+      title = roomControlsArray[position];
+
+      switch (title.toLowerCase()) {
+        case "lights":
+          intent = new Intent(context, LightsActivity.class);
+          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+          break;
+
+        case "ac controls":
+
+          break;
+
+        case "television":
+          intent = new Intent(context, TelevisionActivity.class);
+          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+          break;
+
+        case "privacy & \ncleaning":
+          intent = new Intent(context, PrivacyAndCleaningActivity.class);
+          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+          break;
+
+        default:
+          break;
+      }
     }
   }
 }

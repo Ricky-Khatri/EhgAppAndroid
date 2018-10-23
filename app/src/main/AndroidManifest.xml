@@ -208,13 +208,13 @@
     <activity
       android:name=".booking.spa.SpaDetailActivity"
       android:screenOrientation="portrait"/>
-    <activity android:name=".booking.hotel.HotelBookingslotActivity"
+    <activity
+      android:name=".booking.hotel.HotelBookingslotActivity"
       android:screenOrientation="portrait"/>
-
-    <activity android:name=".booking.hotel.HotelFilterActivity"
+    <activity
+      android:name=".booking.hotel.HotelFilterActivity"
       android:screenOrientation="portrait">
     </activity>
-
     <activity
       android:name=".booking.hotel.HotelBookingPromoCodeActivity"
       android:screenOrientation="portrait"/>
@@ -243,6 +243,18 @@
       android:name=".booking.hotel.AvailableRoomRatesActivity"
       android:screenOrientation="portrait"/>
 
+    <activity
+      android:name=".roomcontrols.LightsActivity"
+      android:screenOrientation="portrait">
+    </activity>
+    <activity
+      android:name=".roomcontrols.PrivacyAndCleaningActivity"
+      android:screenOrientation="portrait">
+    </activity>
+    <activity
+      android:name=".roomcontrols.TelevisionActivity"
+      android:screenOrientation="portrait">
+    </activity>
   </application>
 
 </manifest>
