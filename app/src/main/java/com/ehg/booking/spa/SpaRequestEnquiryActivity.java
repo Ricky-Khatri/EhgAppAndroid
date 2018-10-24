@@ -142,6 +142,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
       editTextEmail.setText(detail.getEmailId());
       String mobileNumber = detail.getMobileNumber();
       if (mobileNumber.length() == 10) {
+        //TODO: Do nothing
       } else if (mobileNumber.length() > 10) {
         mobileNumber = mobileNumber.substring(mobileNumber.length() - 10);
       } else {
@@ -153,6 +154,37 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
     spinnerNumberOfpeople = findViewById(R.id.spinner_sparequestenquiry_numberofpeople);
     textViewPrefferedDateTime = findViewById(R.id.textview_sparequestenquiry_preferreddatetime);
+    //Set default date and time
+    Calendar currentCalender = Calendar.getInstance();
+    int day = currentCalender.get(Calendar.DAY_OF_MONTH);
+    int month = currentCalender.get(Calendar.MONTH);
+    month++;
+    int hour = currentCalender.get(Calendar.HOUR_OF_DAY);
+    int minute = currentCalender.get(Calendar.MINUTE);
+
+    String dayStr = day + "";
+    String monthStr = month + "";
+    String hourStr = hour + "";
+    String minuteStr = minute + "";
+
+    if (day < 10) {
+      dayStr = "0" + day;
+    }
+    if (month < 10) {
+      monthStr = "0" + month;
+    }
+    if (hour < 10) {
+      hourStr = "0" + hour;
+    }
+    if (minute < 10) {
+      minuteStr = "0" + minute;
+    }
+
+    int year = currentCalender.get(Calendar.YEAR);
+
+    String dateTimeStr = dayStr + "/" + monthStr + "/" + year + "-" + hourStr + ":" + minuteStr;
+    textViewPrefferedDateTime.setText(dateTimeStr);
+
     textViewBook = findViewById(R.id.textview_sparequestenquiry_booking);
 
     //Set OnClickListener
@@ -160,6 +192,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     textViewBook.setOnClickListener(this);
     findViewById(R.id.linearlayout_sparequestenquiry_preferreddatetime).setOnClickListener(this);
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
+    findViewById(R.id.textview_sparequestinquiry_datetimelabel).setOnClickListener(this);
 
     showGuestTitle();
     showNumberOfGuest();
@@ -259,6 +292,11 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     switch (view.getId()) {
 
       case R.id.linearlayout_sparequestenquiry_preferreddatetime:
+        showTimePickerDialog();
+        showDatePickerDialog();
+        break;
+
+      case R.id.textview_sparequestinquiry_datetimelabel:
         showTimePickerDialog();
         showDatePickerDialog();
         break;
@@ -618,7 +656,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
         deviceDetailObject.put("emailAddress", editTextEmail.getText().toString());
         deviceDetailObject.put("mobileNumber", "00"
             + SharedPreferenceUtils.getInstance(this)
-                .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971)
+            .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971)
             + editTextPhoneNumber.getText().toString());
 
         if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)

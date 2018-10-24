@@ -109,6 +109,21 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
     dayPickerView = findViewById(R.id.daypickerview_restaurantbookingslot_calandar);
     linearLayoutTime = findViewById(R.id.linearlayout_restaurentbookingslot_time);
     textViewTime = findViewById(R.id.textview_restaurentbookingslot_time);
+    String[] currentTimes = Calendar.getInstance().getTime().toString().split(" ");
+    if (currentTimes != null && currentTimes.length > 0) {
+      int min = Integer.parseInt(currentTimes[3].split(":")[1]);
+      if (min <= 55) {
+        min = min + 5;
+      } else if (min > 55) {
+        min = (min - 55) + 5;
+      }
+      String minStr = min + "";
+      if (min < 10) {
+        minStr = "0" + min;
+      }
+      String currentTime = currentTimes[3].split(":")[0] + ":" + minStr;
+      textViewTime.setText(currentTime);
+    }
     linearLayoutGuestCount = findViewById(R.id.linearlayout_restaurentbookingslots_guestcount);
     textViewGuestCount = findViewById(R.id.textview_restaurentbookingslots_guestcount);
     textViewNext = findViewById(R.id.textview_restaurentbookingslot_next);
@@ -162,7 +177,15 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
   @Override
   public void onDayOfMonthSelected(int year, int month, int day) {
     month++;
-    dateStr = year + "-" + month + "-" + day;
+    String dayString = day + "";
+    String monthString = month + "";
+    if (day < 10) {
+      dayString = "0" + day;
+    }
+    if (month < 10) {
+      monthString = "0" + month;
+    }
+    dateStr = year + "-" + monthString + "-" + dayString;
   }
 
   /**
@@ -271,16 +294,52 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
       int month = Calendar.getInstance().get(Calendar.MONTH);
       month++;
       int year = Calendar.getInstance().get(Calendar.YEAR);
-      dateStr = year + "-" + month + "-" + date;
+
+      String dateString = date + "";
+      String monthString = month + "";
+      if (date < 10) {
+        dateString = "0" + date;
+      }
+
+      if (month < 10) {
+        monthString = "0" + month;
+      }
+
+      dateStr = year + "-" + monthString + "-" + dateString;
     }
-    timeStr = textViewTime.getText().toString();
     if (TextUtils.isEmpty(numberOfPeopleStr)) {
       numberOfPeopleStr = "2";
     }
     restaurantId = "1";
     numberOfPeopleStr = textViewGuestCount.getText().toString();
-    fetchAvailability(dateStr, timeStr,
-        numberOfPeopleStr, restaurantId);
+
+    //TODO: Time validation
+    timeStr = textViewTime.getText().toString();
+    int hour = Integer.parseInt(timeStr.split(":")[0]);
+    int minute = Integer.parseInt(timeStr.split(":")[1]);
+    Calendar currentCalender = Calendar.getInstance();
+    currentCalender
+        .set(Calendar.HOUR_OF_DAY, Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+    currentCalender.set(Calendar.MINUTE, Calendar.getInstance().get(Calendar.MINUTE));
+
+    Calendar selectedCalender = Calendar.getInstance();
+    selectedCalender.set(Calendar.HOUR_OF_DAY, hour);
+    selectedCalender.set(Calendar.MINUTE, minute);
+
+    if (selectedCalender.equals(currentCalender)) {
+      if (minute < 60) {
+        minute = minute + 1;
+      } else {
+        minute = 0;
+        hour = hour + 1;
+      }
+      timeStr = hour + ":" + minute;
+    } else if (selectedCalender.before(currentCalender)) {
+      AppUtil.showToast(this, getString(R.string.all_timevldationalert));
+    } else {
+      fetchAvailability(dateStr, timeStr,
+          numberOfPeopleStr, restaurantId);
+    }
   }
 
   /**
@@ -302,8 +361,8 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
    */
   public void showNumberPicker() {
     String numberOfPeople = textViewGuestCount.getText().toString().trim();
-    if(TextUtils.isEmpty(numberOfPeople)){
-      numberOfPeople = "2";
+    if (TextUtils.isEmpty(numberOfPeople)) {
+      numberOfPeople = "1";
     }
     AppUtil.numberPickerdefaultSelectedNumber = Integer.parseInt(numberOfPeople);
 

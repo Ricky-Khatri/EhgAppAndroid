@@ -138,7 +138,8 @@ public class HomeRoomControlAdapter extends
     @Override
     public void onClick(View view) {
       if (onRoomControlsItemClickListener != null) {
-        onRoomControlsItemClickListener.onRoomControlItemClicked(getAdapterPosition());
+        //TODO: Uncomment this
+        //onRoomControlsItemClickListener.onRoomControlItemClicked(getAdapterPosition());
       }
     }
   }

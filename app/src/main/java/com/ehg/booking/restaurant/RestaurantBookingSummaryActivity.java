@@ -19,6 +19,7 @@
 
 package com.ehg.booking.restaurant;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import com.ehg.R;
@@ -221,11 +223,64 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
         break;
 
       case R.id.textview_restaurantbookingsummary_cancelbooking:
-        cancelBooking();
+        showCancelReservationDialog(this);
         break;
 
       default:
         break;
+    }
+  }
+
+  /**
+   * This method will use to show Cancel Reservation dialog and allows user to cancel reservation.
+   *
+   * @param appCompatActivity calling class object
+   */
+  private void showCancelReservationDialog(final AppCompatActivity appCompatActivity) {
+
+    try {
+      // We need to get the instance of the LayoutInflater
+      final Dialog dialog = new Dialog(appCompatActivity);
+      dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+      dialog.setCancelable(true);
+      dialog.setContentView(R.layout.view_alertdialog);
+      dialog.getWindow().getAttributes().windowAnimations = R.style.AlertDialogAnimation;
+
+      TextView textViewTitle = dialog.findViewById(R.id.textview_alertdialog_title);
+      TextView textViewAlertMessage = dialog.findViewById(R.id.textview_alertdialog_message);
+      textViewTitle.setText(getResources().getString(R.string.all_confirmtitle));
+
+      textViewAlertMessage.setText(R.string.all_cancelreservationmessage);
+
+      Button buttonCancel = dialog.findViewById(R.id.button_alertdialog_cancel);
+      buttonCancel.setText(getResources().getString(R.string.all_no));
+      buttonCancel.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          dialog.dismiss();
+        }
+      });
+
+      Button buttonOk = dialog.findViewById(R.id.button_alertdialog_ok);
+      buttonOk.setText(getResources().getString(R.string.all_yes));
+
+      buttonOk.setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+          dialog.dismiss();
+          cancelBooking();
+        }
+      });
+
+      dialog.show();
+
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (RuntimeException rte) {
+      rte.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 

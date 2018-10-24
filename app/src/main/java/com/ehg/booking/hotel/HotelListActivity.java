@@ -22,6 +22,7 @@ package com.ehg.booking.hotel;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,9 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AutoCompleteTextView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.hotel.adapter.HotelResortsAdapter;
@@ -49,6 +53,15 @@ public class HotelListActivity extends BaseActivity implements
   private RecyclerView recyclerViewHotelList;
   private String headerTitle;
   private TextView textViewClickHere;
+  private LinearLayout linearlayoutSearch;
+
+  private TextView textViewResults;
+
+  private static final int REQUEST_CODE = 1;
+  private AutoCompleteTextView textviewSearch;
+
+  private AppCompatImageView appCompatImageViewSort;
+  private RelativeLayout relativeLayoutResults;
 
   /**
    * Called when activity created.
@@ -76,6 +89,11 @@ public class HotelListActivity extends BaseActivity implements
    */
   private void initView() {
 
+    appCompatImageViewSort = findViewById(R.id.appcompactimageview_hotellist_sort);
+    relativeLayoutResults = findViewById(R.id.relativelayout_hotellist_results);
+    relativeLayoutResults.setVisibility(View.GONE);
+    textViewResults = findViewById(R.id.textView_hotellist_results);
+    linearlayoutSearch = findViewById(R.id.linearlayout_hotellist_layoutsearch);
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
     textViewClickHere = findViewById(R.id.textView_hotellist_clickhere);
@@ -103,6 +121,10 @@ public class HotelListActivity extends BaseActivity implements
     headerBackButton.setOnClickListener(this);
     findViewById(R.id.appcompactimageview_hotellist_filter).setOnClickListener(this);
     textViewClickHere.setOnClickListener(this);
+    linearlayoutSearch.setOnClickListener(this);
+    textviewSearch = findViewById(R.id.textview_hotellist_search);
+    textviewSearch.setOnClickListener(this);
+    appCompatImageViewSort.setOnClickListener(this);
   }
 
   /**
@@ -149,22 +171,35 @@ public class HotelListActivity extends BaseActivity implements
     Intent intent = null;
     switch (view.getId()) {
 
-
       case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
 
       case R.id.appcompactimageview_hotellist_filter:
         intent = new Intent(this, HotelFilterActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
+
       case R.id.textView_hotellist_clickhere:
         intent = new Intent(this, HotelBookingPromoCodeActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
+        break;
+
+      case R.id.textview_hotellist_search:
+        intent = new Intent(this, HotelBookingslotActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
+        break;
+
+      case R.id.linearlayout_hotellist_layoutsearch:
+        intent = new Intent(this, HotelBookingslotActivity.class);
+        startActivityForResult(intent, REQUEST_CODE);
+        break;
+
+      case R.id.appcompactimageview_hotellist_sort:
         break;
       default:
         break;
     }
-    AppUtil.startActivityWithAnimation(this, intent, false);
-
   }
 
   /**
@@ -172,27 +207,44 @@ public class HotelListActivity extends BaseActivity implements
    *
    * @param position - clicked item position.
    * @param view - clicked view reference.
+   * @param title - title
    */
   @Override
-  public void onHotelItemClicked(int position, View view) {
+  public void onHotelItemClicked(int position, View view, String title) {
 
     Intent intent = null;
 
     switch (view.getId()) {
-      case R.id.linearlayout_itemhotelresorts:
-        intent = new Intent(this, HotelDetailActivity.class);
-        break;
-
       case R.id.button_itemhotelresort_book:
-
         intent = new Intent(this, HotelBookingslotActivity.class);
+        intent.putExtra("title", title);
+        startActivityForResult(intent, REQUEST_CODE);
         break;
 
       default:
-        //TODO: Need to make dynamic
-        //intent = new Intent(this, SpaRequestEnquiryActivity.class);
+        intent = new Intent(this, HotelDetailActivity.class);
+        intent.putExtra("title", title);
+        AppUtil.startActivityWithAnimation(this, intent, false);
         break;
     }
-    AppUtil.startActivityWithAnimation(this, intent, false);
+  }
+
+  /**
+   * Called when activity returned with result.
+   *
+   * @param requestCode requestCode
+   * @param resultCode resultCode
+   * @param data data
+   */
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (data != null && requestCode == REQUEST_CODE) {
+      relativeLayoutResults.setVisibility(View.VISIBLE);
+      String numberOfGuests = data.getStringExtra("numberOfGuests");
+      String dates = data.getStringExtra("dates");
+      String numberOfRooms = data.getStringExtra("numberOfRooms");
+      textviewSearch.setText(dates + " | " + numberOfGuests + "," + numberOfRooms);
+    }
   }
 }

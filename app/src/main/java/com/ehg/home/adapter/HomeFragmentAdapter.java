@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.hotel.HotelResortsListActivity;
+import com.ehg.booking.restaurant.RestaurantActivity;
 import com.ehg.home.fragment.HomeFragment;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.LanguageUtil;
@@ -107,14 +108,34 @@ public class HomeFragmentAdapter extends RecyclerView.Adapter<HomeFragmentAdapte
         break;
     }
 
+    //Set OnClickListener
     final String finalTitle = title;
     viewHolder.textViewShowAll.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
 
-        Intent intent = new Intent(context, HotelResortsListActivity.class);
-        intent.putExtra("title", finalTitle);
-        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+        Intent intent = null;
+        switch (finalTitle) {
+          case "HOTELS AND RESORTS":
+            intent = new Intent(context, HotelResortsListActivity.class);
+            intent.putExtra("title", finalTitle);
+            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+            break;
+
+          case "EMAAR LEISURE GROUP":
+
+            break;
+
+          case "RESTAURANTS":
+            intent = new Intent(context, RestaurantActivity.class);
+            intent.putExtra("title", finalTitle);
+            AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+            break;
+
+          default:
+            break;
+        }
+
       }
     });
 

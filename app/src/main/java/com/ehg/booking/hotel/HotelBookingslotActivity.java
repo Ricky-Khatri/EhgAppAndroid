@@ -20,8 +20,11 @@
 package com.ehg.booking.hotel;
 
 import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,6 +46,7 @@ import com.ehg.search.pojo.SearchGroupPojo;
 import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
 
 
 /**
@@ -52,24 +56,39 @@ public class HotelBookingslotActivity extends BaseActivity implements
     DatePickerController, OnClickListener {
 
   private DayPickerView dayPickerView;
+
   private LinearLayout linearlayoutCheckIn;
   private LinearLayout linearlayoutCheckOut;
   private LinearLayout linearlayoutGuestRoom;
   private LinearLayout linearlayoutDestination;
-  private TextView textViewtitle;
   private LinearLayout linearlayoutGuestRoomCount;
+
+  private TextView textViewtitle;
+  private TextView textViewRoomCount;
+  private TextView textViewChildCount;
+  private TextView textViewAdultsCount;
+  private TextView textViewInfantCount;
+  private TextView textViewChekinDate;
+  private TextView textViewCheckoutDate;
+  private TextView textViewGuestRooms;
+  private TextView textViewDestination;
+  private TextView textViewNext;
+
   private AppCompatImageView imageViewRoomMinus;
-  private TextView textViewRoomcount;
   private AppCompatImageView imageViewRoomPlus;
   private AppCompatImageView imageViewAdultsMinus;
   private AppCompatImageView imageViewAdultsPlus;
-  private TextView textViewAdultsCount;
   private AppCompatImageView imageViewChildMinus;
   private AppCompatImageView imageViewChildPlus;
-  private TextView textViewChildCount;
   private AppCompatImageView imageViewInfantMinus;
   private AppCompatImageView imageViewInfantPlus;
-  private TextView textViewInfantCount;
+
+  private int numberOfRooms = 0;
+  private int numberOfChild = 0;
+  private int numberOfAdults = 0;
+  private int numberOfInfants = 0;
+  private int totalGuests = 0;
+
   private FloatingGroupExpandableListView expendableListViewDestination;
 
   private String[] parent = {"Dubai", "Egypt"};
@@ -79,6 +98,9 @@ public class HotelBookingslotActivity extends BaseActivity implements
 
   private int[] parentImage = {R.drawable.placeholder, R.drawable.placeholder};
   private Context context;
+
+  private String checkinDateStr;
+  private String checkoutDateStr;
 
   /**
    * Called when activity created.
@@ -106,9 +128,21 @@ public class HotelBookingslotActivity extends BaseActivity implements
    */
   private void initView() {
     TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    textViewHeaderTitle.setText(getResources().getString(R.string.splash_book_hotel_title));
     if (getIntent() != null && getIntent().getStringExtra("title") != null) {
       textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
     }
+
+    textViewNext = findViewById(R.id.textview_hotelbookingslot_next);
+    textViewChekinDate = findViewById(R.id.textviewhotelbookingslot_checkin);
+    textViewCheckoutDate = findViewById(R.id.textviewhotelbookingslot_checkout);
+    textViewGuestRooms = findViewById(R.id.textview_hotelbookingslot_rooms);
+    textViewDestination = findViewById(R.id.textview_hotelbookingslot_destination);
+    textViewRoomCount = findViewById(R.id.imageview_hotelbookingslot_roomcount);
+    textViewAdultsCount = findViewById(R.id.textview_hotelbookingslot_adultcount);
+    textViewInfantCount = findViewById(R.id.textview_hotelbookingslot_infantcount);
+    textViewChildCount = findViewById(R.id.textview_hotelbookingslot_childcount);
+
     dayPickerView = findViewById(R.id.daypickerview_hotelbookingslot_calandar);
     dayPickerView.setController(this);
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
@@ -122,7 +156,7 @@ public class HotelBookingslotActivity extends BaseActivity implements
     linearlayoutGuestRoomCount = findViewById(R.id.linearlayout_hotelbookingslot_guestroomnumber);
     imageViewRoomMinus = findViewById(R.id.imageview_hotelbookingslot_roomminus);
     imageViewRoomPlus = findViewById(R.id.imageview_hotelbookingslot_roomplus);
-    textViewRoomcount = findViewById(R.id.imageview_hotelbookingslot_roomcount);
+    textViewRoomCount = findViewById(R.id.imageview_hotelbookingslot_roomcount);
 
     imageViewAdultsMinus = findViewById(R.id.imageview_hotelbookingslot_adultminus);
     imageViewAdultsPlus = findViewById(R.id.imageview_hotelbookingslot_adultplus);
@@ -161,10 +195,20 @@ public class HotelBookingslotActivity extends BaseActivity implements
     linearlayoutCheckOut.setOnClickListener(this);
     linearlayoutGuestRoom.setOnClickListener(this);
     linearlayoutDestination.setOnClickListener(this);
+    imageViewRoomMinus.setOnClickListener(this);
+    imageViewRoomPlus.setOnClickListener(this);
+    imageViewAdultsMinus.setOnClickListener(this);
+    imageViewAdultsPlus.setOnClickListener(this);
+    imageViewChildMinus.setOnClickListener(this);
+    imageViewChildPlus.setOnClickListener(this);
+    imageViewInfantMinus.setOnClickListener(this);
+    imageViewInfantPlus.setOnClickListener(this);
+    textViewNext.setOnClickListener(this);
   }
 
   /**
    * Called to get max calender years.
+   *
    * @return years
    */
   @Override
@@ -174,17 +218,27 @@ public class HotelBookingslotActivity extends BaseActivity implements
 
   /**
    * Called to get year, month, day from calender.
+   *
    * @param year selected year
    * @param month selected month
    * @param day selected day
    */
   @Override
   public void onDayOfMonthSelected(int year, int month, int day) {
-
+    Calendar calendar = Calendar.getInstance();
+    calendar.set(Calendar.MONTH, month++);
+    if (TextUtils.isEmpty(checkinDateStr)) {
+      checkinDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
+      textViewChekinDate.setText(checkinDateStr);
+    } else if (TextUtils.isEmpty(checkoutDateStr)) {
+      checkoutDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
+      textViewCheckoutDate.setText(checkoutDateStr);
+    }
   }
 
   /**
    * Called to get day range.
+   *
    * @param selectedDays selected day range
    */
   @Override
@@ -194,12 +248,61 @@ public class HotelBookingslotActivity extends BaseActivity implements
 
   /**
    * Called when view clicked on this screen.
+   *
    * @param view clicked view
    */
   @Override
   public void onClick(View view) {
 
     switch (view.getId()) {
+
+      case R.id.imageview_hotelbookingslot_adultminus:
+        if (numberOfAdults > 0) {
+          numberOfAdults--;
+          textViewAdultsCount.setText(numberOfAdults + "");
+        }
+        break;
+
+      case R.id.imageview_hotelbookingslot_adultplus:
+        numberOfAdults++;
+        textViewAdultsCount.setText(numberOfAdults + "");
+        break;
+
+      case R.id.imageview_hotelbookingslot_infantminus:
+        if (numberOfInfants > 0) {
+          numberOfInfants--;
+          textViewInfantCount.setText(numberOfInfants + "");
+        }
+        break;
+
+      case R.id.imageview_hotelbookingslot_infantplus:
+        numberOfInfants++;
+        textViewInfantCount.setText(numberOfInfants + "");
+        break;
+
+      case R.id.imageview_hotelbookingslot_roomminus:
+        if (numberOfRooms > 0) {
+          numberOfRooms--;
+          textViewRoomCount.setText(numberOfRooms + "");
+        }
+        break;
+
+      case R.id.imageview_hotelbookingslot_roomplus:
+        numberOfRooms++;
+        textViewRoomCount.setText(numberOfRooms + "");
+        break;
+
+      case R.id.imageview_hotelbookingslot_childminus:
+        if (numberOfChild > 0) {
+          numberOfChild--;
+          textViewChildCount.setText(numberOfChild + "");
+        }
+        break;
+
+      case R.id.imageview_hotelbookingslot_childplus:
+        numberOfChild++;
+        textViewChildCount.setText(numberOfChild + "");
+        break;
 
       case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation(this);
@@ -212,12 +315,14 @@ public class HotelBookingslotActivity extends BaseActivity implements
         break;
 
       case R.id.linearlayout_hotelbookingslot_checkin:
+        checkinDateStr = "";
         expendableListViewDestination.setVisibility(View.GONE);
         linearlayoutGuestRoomCount.setVisibility(View.GONE);
         dayPickerView.setVisibility(View.VISIBLE);
         break;
 
       case R.id.linearlayout_hotelbookingslot_checkout:
+        checkoutDateStr = "";
         linearlayoutGuestRoomCount.setVisibility(View.GONE);
         dayPickerView.setVisibility(View.VISIBLE);
         expendableListViewDestination.setVisibility(View.GONE);
@@ -227,6 +332,21 @@ public class HotelBookingslotActivity extends BaseActivity implements
         linearlayoutGuestRoomCount.setVisibility(View.GONE);
         dayPickerView.setVisibility(View.GONE);
         expendableListViewDestination.setVisibility(View.VISIBLE);
+        break;
+
+      case R.id.textview_hotelbookingslot_next:
+        totalGuests = numberOfAdults + numberOfChild + numberOfInfants;
+        if (!TextUtils.isEmpty(checkinDateStr) && !TextUtils.isEmpty(checkoutDateStr) &&
+            totalGuests > 0 && numberOfRooms > 0) {
+          Intent intent = new Intent();
+          intent.putExtra("numberOfGuests", totalGuests + " guests");
+          intent.putExtra("dates", checkinDateStr + " to " + checkoutDateStr);
+          intent.putExtra("numberOfRooms", numberOfRooms + " rooms");
+          setResult(Activity.RESULT_OK, intent);
+          finish();
+        } else {
+          AppUtil.showToast(this, getString(R.string.all_hotelslotsfilteralert));
+        }
         break;
 
       default:

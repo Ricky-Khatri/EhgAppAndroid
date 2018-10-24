@@ -42,9 +42,9 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 public class HttpClientRequest {
 
   private static final String TAG = HttpClientRequest.class.getName();
-  public static ApiResponseListener apiResponseListner;
+  public static ApiResponseListener apiResponseListener;
 
-  private static final int TIME_OUT = 6000;
+  private static final int TIME_OUT = 600000;
 
   private Context context;
 
@@ -136,6 +136,13 @@ public class HttpClientRequest {
       asyncHttpClient.addHeader("Access-Token", "dummy"); //TODO: Need to pass access-token
 
       asyncHttpClient.post(context, url, entity, contentType, new AsyncHttpResponseHandler() {
+
+        /**
+         * Called when api returns success response.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param responseBody responseBody
+         */
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
@@ -150,22 +157,29 @@ public class HttpClientRequest {
             Log.e(TAG + "======", result);
 
             if (TextUtils.isEmpty(result) || result.contains("Internal server error!")) {
-              apiResponseListner.onFailureResponse(errorMessage);
+              apiResponseListener.onFailureResponse(errorMessage);
             } else {
-              apiResponseListner.onSuccessResponse(result, requestMethod);
+              apiResponseListener.onSuccessResponse(result, requestMethod);
             }
 
           } catch (NullPointerException e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
             e.printStackTrace();
           } catch (Exception e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
             e.printStackTrace();
           }
         }
 
+        /**
+         * Called when api response failure.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param responseBody responseBody
+         * @param error error
+         */
         @Override
         public void onFailure(int statusCode, Header[] headers,
             byte[] responseBody, Throwable error) {
@@ -180,27 +194,27 @@ public class HttpClientRequest {
             Log.e(TAG + "======", result);
 
             if (TextUtils.isEmpty(result)) {
-              apiResponseListner.onFailureResponse(errorMessage);
+              apiResponseListener.onFailureResponse(errorMessage);
             } else {
-              apiResponseListner.onFailureResponse(result);
+              apiResponseListener.onFailureResponse(result);
             }
 
           } catch (NullPointerException e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
           } catch (Exception e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
           }
         }
       });
 
     } catch (NullPointerException e) {
       AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-      apiResponseListner.onFailureResponse(errorMessage);
+      apiResponseListener.onFailureResponse(errorMessage);
     } catch (Exception e) {
       AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-      apiResponseListner.onFailureResponse(errorMessage);
+      apiResponseListener.onFailureResponse(errorMessage);
     }
   }
 
@@ -220,6 +234,13 @@ public class HttpClientRequest {
       asyncHttpClient.addHeader("Access-Token", "dummy"); //TODO: Need to pass access-token
 
       asyncHttpClient.put(context, url, entity, contentType, new AsyncHttpResponseHandler() {
+
+        /**
+         * Called when api returns success response.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param responseBody responseBody
+         */
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
@@ -234,22 +255,29 @@ public class HttpClientRequest {
             Log.e(TAG + "======", result);
 
             if (TextUtils.isEmpty(result) || result.contains("Internal server error!")) {
-              apiResponseListner.onFailureResponse(errorMessage);
+              apiResponseListener.onFailureResponse(errorMessage);
             } else {
-              apiResponseListner.onSuccessResponse(result, requestMethod);
+              apiResponseListener.onSuccessResponse(result, requestMethod);
             }
 
           } catch (NullPointerException e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
             e.printStackTrace();
           } catch (Exception e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
             e.printStackTrace();
           }
         }
 
+        /**
+         * Called when api response failure.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param responseBody responseBody
+         * @param error error
+         */
         @Override
         public void onFailure(int statusCode, Header[] headers,
             byte[] responseBody, Throwable error) {
@@ -264,27 +292,27 @@ public class HttpClientRequest {
             Log.e(TAG + "======", result);
 
             if (TextUtils.isEmpty(result)) {
-              apiResponseListner.onFailureResponse(errorMessage);
+              apiResponseListener.onFailureResponse(errorMessage);
             } else {
-              apiResponseListner.onFailureResponse(result);
+              apiResponseListener.onFailureResponse(result);
             }
 
           } catch (NullPointerException e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
           } catch (Exception e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
           }
         }
       });
 
     } catch (NullPointerException e) {
       AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-      apiResponseListner.onFailureResponse(errorMessage);
+      apiResponseListener.onFailureResponse(errorMessage);
     } catch (Exception e) {
       AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-      apiResponseListner.onFailureResponse(errorMessage);
+      apiResponseListener.onFailureResponse(errorMessage);
     }
   }
 
@@ -305,6 +333,14 @@ public class HttpClientRequest {
       asyncHttpClient.addHeader("Content-Type", contentType);
 
       asyncHttpClient.get(context, url, params, new TextHttpResponseHandler() {
+
+        /**
+         * Called when api response failure.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param result result
+         * @param throwable error
+         */
         @Override
         public void onFailure(int statusCode, Header[] headers,
             String result, Throwable throwable) {
@@ -316,22 +352,28 @@ public class HttpClientRequest {
             stopFirebaseMonitorTrace();
 
             if (TextUtils.isEmpty(result)) {
-              apiResponseListner.onFailureResponse(errorMessage);
+              apiResponseListener.onFailureResponse(errorMessage);
               Log.e(TAG + "======", errorMessage);
             } else {
-              apiResponseListner.onFailureResponse(result);
+              apiResponseListener.onFailureResponse(result);
               Log.e(TAG + "======", result);
             }
 
           } catch (NullPointerException e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
           } catch (Exception e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
           }
         }
 
+        /**
+         * Called when api returns success response.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param result responseBody
+         */
         @Override
         public void onSuccess(int statusCode, Header[] headers, String result) {
           try {
@@ -343,26 +385,26 @@ public class HttpClientRequest {
             Log.e(TAG + "======", result);
 
             if (TextUtils.isEmpty(result) || result.contains("Internal server error!")) {
-              apiResponseListner.onFailureResponse(errorMessage);
+              apiResponseListener.onFailureResponse(errorMessage);
             } else {
-              apiResponseListner.onSuccessResponse(result, requestMethod);
+              apiResponseListener.onSuccessResponse(result, requestMethod);
             }
           } catch (NullPointerException e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
           } catch (Exception e) {
             AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-            apiResponseListner.onFailureResponse(errorMessage);
+            apiResponseListener.onFailureResponse(errorMessage);
           }
         }
       });
 
     } catch (NullPointerException e) {
       AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-      apiResponseListner.onFailureResponse(errorMessage);
+      apiResponseListener.onFailureResponse(errorMessage);
     } catch (Exception e) {
       AppUtil.dismissLoadingIndicator((AppCompatActivity) context);
-      apiResponseListner.onFailureResponse(errorMessage);
+      apiResponseListener.onFailureResponse(errorMessage);
     }
   }
 
@@ -476,13 +518,19 @@ public class HttpClientRequest {
 
   //************************************************************************************
 
-  //-------ApiResponse--Interface-----//
+  /**
+   * Called to set apiResponseListener.
+   *
+   * @param apiResponseListener listener object
+   */
+  public void setApiResponseListner(ApiResponseListener apiResponseListener) {
 
-  public void setApiResponseListner(ApiResponseListener apiResponseListner) {
-
-    this.apiResponseListner = apiResponseListner;
+    this.apiResponseListener = apiResponseListener;
   }
 
+  /**
+   * ApiResponseListener interface.
+   */
   public interface ApiResponseListener {
 
     void onSuccessResponse(String responseVal, String requestMethod);

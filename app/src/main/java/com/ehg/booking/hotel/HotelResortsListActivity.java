@@ -160,9 +160,10 @@ public class HotelResortsListActivity extends BaseActivity
    *
    * @param position clicked item position
    * @param view clicked view item
+   * @param title title
    */
   @Override
-  public void onHotelItemClicked(int position, View view) {
+  public void onHotelItemClicked(int position, View view, String title) {
 
   }
 }
