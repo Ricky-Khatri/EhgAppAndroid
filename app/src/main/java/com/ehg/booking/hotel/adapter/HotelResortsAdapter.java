@@ -25,6 +25,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -115,30 +116,7 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
 
     viewHolder.textViewHotelname.setText(title);
     viewHolder.textViewHotellocation.setText(address);
-
-    //TODO: Temporary solution, will be removed after content api implementation
-    viewHolder.itemView.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        if (hotelDetailList != null && hotelDetailList.size() > 0) {
-          Intent intent = new Intent(context, HotelDetailActivity.class);
-          intent.putExtra("title", hotelDetailList.get(position).title);
-          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
-        }
-      }
-    });
-
-    //TODO: Temporary solution, will be removed after content api implementation
-    viewHolder.buttonBook.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        if (hotelDetailList != null && hotelDetailList.size() > 0) {
-          Intent intent = new Intent(context, HotelBookingslotActivity.class);
-          intent.putExtra("title", hotelDetailList.get(position).title);
-          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
-        }
-      }
-    });
+    viewHolder.textViewPrice.setText(Html.fromHtml("Price starting at\n<font><b>AED 983</b></font>"));
   }
 
   /**
@@ -156,7 +134,8 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
    */
   public interface OnHotelItemClickListener {
 
-    void onHotelItemClicked(int position, View view);
+    void onHotelItemClicked(int position, View view,
+        String title);
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
@@ -167,6 +146,7 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
     private final RatingBar ratingBarHotel;
     private final Button buttonBook;
     private final LinearLayout linearlayoutImageView;
+    private final TextView textViewPrice;
 
     /**
      * ViewHolder constructor.
@@ -176,6 +156,7 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 
+      textViewPrice = itemView.findViewById(R.id.textview_itemhotelresorts_price);
       imageViewHotel = itemView.findViewById(R.id.appcompatimageview_itemhotelresort_hotelimage);
       textViewHotelname = itemView.findViewById(R.id.textview_itemhotelresort_hotelname);
       textViewHotellocation = itemView.findViewById(R.id.textview_itemhotelresort_hotellocation);
@@ -183,9 +164,8 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
       buttonBook = itemView.findViewById(R.id.button_itemhotelresort_book);
       linearlayoutImageView = itemView.findViewById(R.id.linearlayout_itemhotelresorts);
 
-      /*linearlayoutImageView.setOnClickListener(this);
       buttonBook.setOnClickListener(this);
-      itemView.setOnClickListener(this);*/
+      itemView.setOnClickListener(this);
     }
 
     /**
@@ -195,12 +175,17 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
      */
     @Override
     public void onClick(View view) {
-      if (onHotelItemClickListener != null) {
-        onHotelItemClickListener.onHotelItemClicked(getAdapterPosition(), view);
+      if (onHotelItemClickListener != null && hotelDetailList != null
+          && hotelDetailList.size() > 0) {
+        onHotelItemClickListener.onHotelItemClicked(getAdapterPosition(), view,
+            hotelDetailList.get(getAdapterPosition()).getTitle());
       }
     }
   }
 
+  /**
+   * HotelDetail class.
+   */
   public class HotelDetail {
 
     private String title;

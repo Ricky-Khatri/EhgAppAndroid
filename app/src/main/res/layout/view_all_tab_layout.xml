@@ -32,7 +32,7 @@
     android:layout_marginEnd="@dimen/elevation_all_header"
     android:background="@color/transparent"
     android:elevation="@dimen/elevation_all_header"
-    android:minHeight="?attr/actionBarSize"
+    android:minHeight="@dimen/height_tablayout_tab"
     android:theme="@style/Base.Widget.Design.TabLayout"
     app:tabIndicatorColor="@color/colorGray"/>
 

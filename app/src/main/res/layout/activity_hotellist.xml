@@ -63,8 +63,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:elevation="3dp"
         android:background="@drawable/all_rounded_border"
+        android:elevation="3dp"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatImageView
@@ -73,15 +73,17 @@
           android:padding="@dimen/padding_all_imageview"
           app:srcCompat="@drawable/all_search_icon"/>
 
-        <EditText
+        <AutoCompleteTextView
+          android:id="@+id/textview_hotellist_search"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
           android:paddingStart="@dimen/elevation_all_header"
           android:paddingEnd="@dimen/elevation_all_header"
           android:background="@null"
+          android:editable="false"
           android:gravity="center|start"
           android:hint="@string/hotellist_searchhint"
-          android:textSize="@dimen/textsize_all_guesttitle"/>
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
       </LinearLayout>
       <android.support.v7.widget.AppCompatImageView
@@ -98,7 +100,7 @@
 
     <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/marginstart_header_search"
       android:layout_marginEnd="@dimen/marginstart_header_search"
       android:orientation="horizontal">
@@ -113,7 +115,7 @@
       <TextView
         android:id="@+id/textView_hotellist_clickhere"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/hotellist_clickhere"
         android:textSize="@dimen/textsize_all_guestdetail"/>
 
@@ -129,10 +131,44 @@
     android:layout_below="@+id/linearlayout_hotellist"
     android:background="@color/colorGray"/>
 
+  <RelativeLayout
+    android:id="@+id/relativelayout_hotellist_results"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/view_hotellist"
+    android:visibility="gone">
+
+    <TextView
+      android:id="@+id/textView_hotellist_results"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/elevation_all_header"
+      android:layout_marginStart="@dimen/elevation_all_header"
+      android:layout_centerVertical="true"
+      android:text="@string/hotellist_results"
+      android:textColor="@color/colorBlack"
+      android:textSize="@dimen/textsize_all_headertitle"/>
+
+    <android.support.v7.widget.AppCompatImageView
+      android:id="@+id/appcompactimageview_hotellist_sort"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/size_all_backicon"
+      android:layout_marginEnd="@dimen/marginstart_header_search"
+      android:layout_alignParentEnd="true"
+      android:layout_centerVertical="true"
+      android:padding="@dimen/elevation_all_header"
+      android:clickable="true"
+      android:focusable="true"
+      android:foreground="?attr/selectableItemBackground"
+      app:srcCompat="@drawable/all_sorticon"/>
+
+  </RelativeLayout>
+
   <android.support.v7.widget.RecyclerView
     android:id="@+id/recyclerview_hotellist_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/view_hotellist"/>
+    android:layout_below="@+id/relativelayout_hotellist_results"/>
 
 </RelativeLayout>

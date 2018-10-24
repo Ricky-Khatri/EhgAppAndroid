@@ -44,7 +44,7 @@ public class HttpClientRequest {
   private static final String TAG = HttpClientRequest.class.getName();
   public static ApiResponseListener apiResponseListner;
 
-  private static final int TIME_OUT = 6000;
+  private static final int TIME_OUT = 600000;
 
   private Context context;
 
@@ -136,6 +136,13 @@ public class HttpClientRequest {
       asyncHttpClient.addHeader("Access-Token", "dummy"); //TODO: Need to pass access-token
 
       asyncHttpClient.post(context, url, entity, contentType, new AsyncHttpResponseHandler() {
+
+        /**
+         * Called when api returns success response.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param responseBody responseBody
+         */
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
@@ -166,6 +173,13 @@ public class HttpClientRequest {
           }
         }
 
+        /**
+         * Called when api response failure.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param responseBody responseBody
+         * @param error error
+         */
         @Override
         public void onFailure(int statusCode, Header[] headers,
             byte[] responseBody, Throwable error) {
@@ -220,6 +234,13 @@ public class HttpClientRequest {
       asyncHttpClient.addHeader("Access-Token", "dummy"); //TODO: Need to pass access-token
 
       asyncHttpClient.put(context, url, entity, contentType, new AsyncHttpResponseHandler() {
+
+        /**
+         * Called when api returns success response.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param responseBody responseBody
+         */
         @Override
         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
@@ -250,6 +271,13 @@ public class HttpClientRequest {
           }
         }
 
+        /**
+         * Called when api response failure.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param responseBody responseBody
+         * @param error error
+         */
         @Override
         public void onFailure(int statusCode, Header[] headers,
             byte[] responseBody, Throwable error) {
@@ -305,6 +333,14 @@ public class HttpClientRequest {
       asyncHttpClient.addHeader("Content-Type", contentType);
 
       asyncHttpClient.get(context, url, params, new TextHttpResponseHandler() {
+
+        /**
+         * Called when api response failure.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param result result
+         * @param throwable error
+         */
         @Override
         public void onFailure(int statusCode, Header[] headers,
             String result, Throwable throwable) {
@@ -332,6 +368,12 @@ public class HttpClientRequest {
           }
         }
 
+        /**
+         * Called when api returns success response.
+         * @param statusCode statusCode
+         * @param headers headers
+         * @param result responseBody
+         */
         @Override
         public void onSuccess(int statusCode, Header[] headers, String result) {
           try {

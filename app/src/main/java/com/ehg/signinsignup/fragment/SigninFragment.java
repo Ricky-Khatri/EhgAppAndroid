@@ -235,7 +235,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
             editTextPassword.setError(getString(R.string.all_fieldrequired));
             isToReturn = true;
           } else if (!isPasswordValid(password)) {
-            editTextPassword.setError(getString(R.string.all_passwordlength));
+            editTextPassword.setError(getString(R.string.all_invalidpassword));
             isToReturn = true;
           } else {
             isToReturn = false;
@@ -336,7 +336,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       cancel = true;
 
     } else if (!isPasswordValid(password)) {
-      editTextPassword.setError(getString(R.string.all_passwordlength));
+      editTextPassword.setError(getString(R.string.all_invalidpassword));
       focusView = editTextPassword;
       cancel = true;
     }

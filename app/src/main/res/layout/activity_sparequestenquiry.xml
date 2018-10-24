@@ -273,22 +273,21 @@
         android:layout_marginEnd="@dimen/height_all_verticaldivider"
         android:background="@color/colorBlackTransparent"/>
 
-
-      <TextView
-        style="@style/AppLabelsTextAppearance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/height_all_verticaldivider"
-        android:layout_marginStart="@dimen/height_all_verticaldivider"
-        android:layout_marginEnd="@dimen/height_all_verticaldivider"
-        android:hint="@string/sparequestenquiry_preferreddatetime"/>
-
-
       <LinearLayout
         android:id="@+id/linearlayout_sparequestenquiry_preferreddatetime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/textview_sparequestinquiry_datetimelabel"
+          style="@style/AppLabelsTextAppearance"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/height_all_verticaldivider"
+          android:layout_marginStart="@dimen/height_all_verticaldivider"
+          android:layout_marginEnd="@dimen/height_all_verticaldivider"
+          android:hint="@string/sparequestenquiry_preferreddatetime"/>
 
         <AutoCompleteTextView
           android:id="@+id/textview_sparequestenquiry_preferreddatetime"

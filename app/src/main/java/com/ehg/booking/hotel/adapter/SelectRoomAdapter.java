@@ -52,7 +52,7 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
 
   @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
     View view = LayoutInflater.from(viewGroup.getContext())
         .inflate(R.layout.item_hotelroomselection, viewGroup, false);
 
@@ -60,7 +60,7 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
   }
 
   @Override
-  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
     initAutoScrollViewPager(viewHolder);
   }

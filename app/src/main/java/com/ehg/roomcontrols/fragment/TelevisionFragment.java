@@ -26,7 +26,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +40,9 @@ import com.ehg.roomcontrols.pojo.LightPojo;
 import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 
+/**
+ * This class will show list of TV Channels.
+ */
 public class TelevisionFragment extends BaseFragment implements OnLightItemClickListener {
 
   private Context context;
@@ -163,8 +165,8 @@ public class TelevisionFragment extends BaseFragment implements OnLightItemClick
     ReservationCategoryAdapter reservationCategoryAdapter = new ReservationCategoryAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context), reservationCategoryList);
     recyclerViewLanguageList.setAdapter(reservationCategoryAdapter);
-    AppUtil.animateRecyclerView(context, recyclerViewLanguageList,
-        R.anim.layout_animation_from_right);
+    /*AppUtil.animateRecyclerView(context, recyclerViewLanguageList,
+        R.anim.layout_animation_from_right);*/
   }
 
   /**
@@ -214,8 +216,8 @@ public class TelevisionFragment extends BaseFragment implements OnLightItemClick
     LightAdapter lightAdapter = new LightAdapter(context,
         AppUtil.getDeviceHeight((BaseActivity) context), lightList, this);
     recyclerViewChannelList.setAdapter(lightAdapter);
-    AppUtil.animateRecyclerView(context, recyclerViewChannelList,
-        R.anim.layout_animation_from_bottom);
+   /* AppUtil.animateRecyclerView(context, recyclerViewChannelList,
+        R.anim.layout_animation_from_bottom);*/
   }
 
   @Override

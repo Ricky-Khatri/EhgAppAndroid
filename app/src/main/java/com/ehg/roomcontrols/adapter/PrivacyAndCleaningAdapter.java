@@ -96,7 +96,7 @@ public class PrivacyAndCleaningAdapter extends
       viewHolder.textViewTitle.setTextColor(context.getResources().getColor(R.color.colorWhite));
       viewHolder.appCompatImageViewLightIcon.setImageResource(R.drawable.placeholder);
     }*/
-    viewHolder.textViewTitle.setText(privacyAndCleaninglist.get(position).getTitle());
+    viewHolder.textViewTitle.setText(privacyAndCleaningPojo.getTitle());
   }
 
   /**

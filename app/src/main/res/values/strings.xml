@@ -29,8 +29,8 @@
   <string name="all_password">Password</string>
   <string name="all_invalidemail">Invalid email address</string>
   <string name="all_invalidmobile">Invalid mobile number</string>
-  <string name="all_invalidpassword">Password is too short</string>
-  <string name="all_passwordlength">Password length must be greater than 4 digits.</string>
+  <string name="all_invalidpassword">Invalid password</string>
+  <string name="all_passwordlength">Password length must be greater than 4 characters.</string>
   <string name="all_incorrectpassword">Incorrect password</string>
   <string name="all_fieldrequired">This field is required</string>
   <string name="all_erroremailormobile">Please enter registered mobile number or email.</string>
@@ -242,5 +242,12 @@
   <string name="light_scenes">Scenes</string>
   <string name="privacyandcleaning_title"><![CDATA[Privacy & Cleaning]]></string>
   <string name="television_title">Television</string>
+  <string name="all_check_in">Check-in</string>
+  <string name="all_check_out">check-out</string>
+  <string name="hotellist_results">Results</string>
+  <string name="dummy_price_starting_at_n_b_aed_983_b"><![CDATA[Price starting at <b>AED 983</b>]]></string>
+  <string name="all_hotelslotsfilteralert">Please select dates, number of guests, rooms and destination.</string>
+  <string name="all_timevldationalert">Selected time must be greater than current time.</string>
+  <string name="all_cancelreservationmessage">Are you sure you want to cancel reservation?</string>
 
 </resources>

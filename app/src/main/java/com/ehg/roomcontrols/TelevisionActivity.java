@@ -73,6 +73,7 @@ public class TelevisionActivity extends BaseActivity {
     tabLayout.addTab(tabLayout.newTab().setText("News"));
     tabLayout.addTab(tabLayout.newTab().setText("Movie"));
     tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+    tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 
     //Set viewpager fragment adapter
     FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
