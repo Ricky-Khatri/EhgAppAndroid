@@ -31,12 +31,20 @@ import com.ehg.R;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
+/**
+ * Called when user want to payment against booking room.
+ */
 public class RoomPaymentActivity extends BaseActivity implements OnClickListener {
 
   private TextView textViewHeaderTitle;
   private AppCompatImageView headerBackButton;
   private Context context;
 
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -56,6 +64,9 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
     }
   }
 
+  /**
+   * Called to init view components of this activity.
+   */
   private void initView() {
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
@@ -99,6 +110,10 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
     return super.onKeyDown(keyCode, event);
   }
 
+  /**
+   * Called when view item clicked on this activity.
+   * @param view clicked view
+   */
   @Override
   public void onClick(View view) {
 

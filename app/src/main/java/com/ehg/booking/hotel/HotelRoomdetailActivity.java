@@ -41,13 +41,22 @@ import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.glide.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import java.util.ArrayList;
 
-public class HotelRoomdetailActivity extends BaseActivity implements OnClickListener, OnSliderClickListener,
+/**
+ * This class will show room detail o the hotel.
+ */
+public class HotelRoomdetailActivity extends BaseActivity implements
+    OnClickListener, OnSliderClickListener,
     OnAmenitiesItemClickedListener {
 
   private TextView textViewHeaderTitle;
   private AppCompatImageView headerBackButton;
   private Context context;
 
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -71,6 +80,9 @@ public class HotelRoomdetailActivity extends BaseActivity implements OnClickList
     }
   }
 
+  /**
+   * Called to init view components of this activity.
+   */
   private void initView() {
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
@@ -82,7 +94,8 @@ public class HotelRoomdetailActivity extends BaseActivity implements OnClickList
     recyclerViewRoomAmenities.setLayoutManager(managerGridlayout);
     recyclerViewRoomAmenities.setHasFixedSize(true);
 
-    HotelDetailAmenitiesAdapter hotelDetailAmenitiesAdapter = new HotelDetailAmenitiesAdapter(context, this);
+    HotelDetailAmenitiesAdapter hotelDetailAmenitiesAdapter = new
+        HotelDetailAmenitiesAdapter(context, this);
 
     recyclerViewRoomAmenities.setAdapter(hotelDetailAmenitiesAdapter);
     AppUtil.animateRecyclerView(this, recyclerViewRoomAmenities,

@@ -22,35 +22,40 @@ package com.ehg.booking.hotel.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.TextView;
-import android.widget.TextView.BufferType;
 import com.ehg.R;
-import com.ehg.customview.TextViewSpannable;
 
-public class AvailableRoomRatesAdapter extends RecyclerView.Adapter<AvailableRoomRatesAdapter.ViewHolder> {
-
+/**
+ * This class is showing room rates.
+ */
+public class AvailableRoomRatesAdapter extends
+    RecyclerView.Adapter<AvailableRoomRatesAdapter.ViewHolder> {
 
   private final Context context;
   private final OnRoomRatesItemClicklistner onRoomRatesListner;
 
-  public AvailableRoomRatesAdapter(Context context, OnRoomRatesItemClicklistner roomRatesItemClicklistner) {
+  /**
+   * This is parametrized constructor of this adapter class.
+   */
+  public AvailableRoomRatesAdapter(Context context,
+      OnRoomRatesItemClicklistner roomRatesItemClicklistner) {
 
     this.context = context;
 
     onRoomRatesListner = roomRatesItemClicklistner;
   }
 
+  /**
+   * Called to inflate layout item and returns ViewHolder object.
+   *
+   * @param viewGroup viewGroup object
+   * @param position integer position
+   * @return returns ViewHolder object
+   */
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
@@ -60,11 +65,22 @@ public class AvailableRoomRatesAdapter extends RecyclerView.Adapter<AvailableRoo
     return new ViewHolder(view);
   }
 
+  /**
+   * Called to bind data values with viewHolder items.
+   *
+   * @param viewHolder viewHolder object
+   * @param position integer position
+   */
   @Override
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
   }
 
+  /**
+   * Returns total number of items in adapter.
+   *
+   * @return itemCount
+   */
   @Override
   public int getItemCount() {
     return 5;
@@ -83,6 +99,9 @@ public class AvailableRoomRatesAdapter extends RecyclerView.Adapter<AvailableRoo
     private final TextView textViewRateTitle;
     private final TextView textViewroomDetail;
 
+    /**
+     * Constructor of ViewHolder class.
+     */
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 
@@ -90,6 +109,11 @@ public class AvailableRoomRatesAdapter extends RecyclerView.Adapter<AvailableRoo
       textViewroomDetail = itemView.findViewById(R.id.textview_itemavailableroomrates_detail);
     }
 
+    /**
+     * Called when view clicked.
+     *
+     * @param view view
+     */
     @Override
     public void onClick(View view) {
 

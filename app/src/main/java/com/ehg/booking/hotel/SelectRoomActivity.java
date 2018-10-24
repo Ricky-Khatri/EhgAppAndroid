@@ -29,7 +29,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.ehg.R;
 import com.ehg.booking.hotel.adapter.SelectRoomAdapter;
 import com.ehg.booking.hotel.adapter.SelectRoomAdapter.OnRoomItemClicklistner;

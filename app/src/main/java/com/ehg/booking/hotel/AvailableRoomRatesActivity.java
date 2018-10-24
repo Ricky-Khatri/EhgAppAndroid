@@ -37,6 +37,9 @@ import com.ehg.booking.hotel.adapter.AvailableRoomRatesAdapter.OnRoomRatesItemCl
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
+/**
+ * Called to show available room rates.
+ */
 public class AvailableRoomRatesActivity extends BaseActivity implements OnClickListener, OnRoomRatesItemClicklistner {
 
   private Context context;
@@ -45,6 +48,11 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
   private RecyclerView recyclerViewPriceList;
   private String headerTitle;
 
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -64,11 +72,12 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
     }
   }
 
+  /**
+   * Called to init view components of screen.
+   */
   private void initView() {
-
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
-
     //Set Adapter
     recyclerViewPriceList = findViewById(R.id.recyclerview_availableroomrates_list);
     recyclerViewPriceList.setLayoutManager(new LinearLayoutManager(context));
@@ -83,7 +92,6 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
 
       headerTitle = bundle.getString("title");
     }
-
     if (!TextUtils.isEmpty(headerTitle)) {
 
       textViewHeaderTitle.setText(headerTitle);
@@ -127,6 +135,10 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
     return super.onKeyDown(keyCode, event);
   }
 
+  /**
+   * Called when view item clicked on this activity.
+   * @param view clicked view
+   */
   @Override
   public void onClick(View view) {
 
@@ -145,6 +157,11 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
 
   }
 
+  /**
+   * Called when list item clicked.
+   * @param position clicked item position
+   * @param view clicked item view
+   */
   @Override
   public void onItemClick(int position, View view) {
 

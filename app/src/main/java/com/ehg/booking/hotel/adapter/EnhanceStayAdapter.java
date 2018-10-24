@@ -30,7 +30,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import com.ehg.R;
-import com.ehg.booking.hotel.adapter.SelectRoomAdapter.ViewHolder;
 import com.ehg.customview.TextSliderView;
 import com.ehg.utilities.AppUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
@@ -40,18 +39,33 @@ import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.glide.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import java.util.ArrayList;
 
-public class EnhanceStayAdapter extends RecyclerView.Adapter<EnhanceStayAdapter.ViewHolder> implements
+/**
+ * This class is initiating the list of hotel and showing hotel list.
+ */
+public class EnhanceStayAdapter extends RecyclerView
+    .Adapter<EnhanceStayAdapter.ViewHolder> implements
     OnSliderClickListener {
 
   private final Context context;
   private final OnEnhanceStayItemClicklistner onItemListner;
 
-  public EnhanceStayAdapter(Context context, OnEnhanceStayItemClicklistner itemClicklistner) {
+  /**
+   * This is parametrized constructor of this adapter class.
+   */
+  public EnhanceStayAdapter(Context context,
+      OnEnhanceStayItemClicklistner itemClicklistner) {
 
     this.context = context;
     onItemListner = itemClicklistner;
   }
 
+  /**
+   * Called to inflate layout item and returns ViewHolder object.
+   *
+   * @param viewGroup viewGroup object
+   * @param position integer position
+   * @return returns ViewHolder object
+   */
   @NonNull
   @Override
   public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
@@ -61,12 +75,23 @@ public class EnhanceStayAdapter extends RecyclerView.Adapter<EnhanceStayAdapter.
     return new ViewHolder(view);
   }
 
+  /**
+   * Called to bind data values with viewHolder items.
+   *
+   * @param viewHolder viewHolder object
+   * @param position integer position
+   */
   @Override
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
     initAutoScrollViewPager(viewHolder);
   }
 
+  /**
+   * Returns total number of items in adapter.
+   *
+   * @return itemCount
+   */
   @Override
   public int getItemCount() {
     return 5;
@@ -123,7 +148,8 @@ public class EnhanceStayAdapter extends RecyclerView.Adapter<EnhanceStayAdapter.
       viewHolder.sliderLayoutImageView.addSlider(sliderView);
     }
 
-    viewHolder.sliderLayoutImageView.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+    viewHolder.sliderLayoutImageView
+        .setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
     viewHolder.sliderLayoutImageView.setCustomAnimation(new DescriptionAnimation());
     viewHolder.sliderLayoutImageView.setDuration(3000);
     //sliderLayoutRestaurantDetail.addOnPageChangeListener(this);
@@ -142,6 +168,9 @@ public class EnhanceStayAdapter extends RecyclerView.Adapter<EnhanceStayAdapter.
     private final SliderLayout sliderLayoutImageView;
     private final LinearLayout linearLayoutSlider;
 
+    /**
+     * Constructor of ViewHolder class.
+     */
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 
@@ -149,6 +178,11 @@ public class EnhanceStayAdapter extends RecyclerView.Adapter<EnhanceStayAdapter.
       linearLayoutSlider = itemView.findViewById(R.id.linearlayout_itemenhancestay);
     }
 
+    /**
+     * Called when view clicked.
+     *
+     * @param view view
+     */
     @Override
     public void onClick(View view) {
 

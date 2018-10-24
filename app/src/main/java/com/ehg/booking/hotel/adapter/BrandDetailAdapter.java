@@ -50,7 +50,8 @@ public class BrandDetailAdapter extends RecyclerView.Adapter<BrandDetailAdapter.
   /**
    * Parameterized constructor for HomeFragmentAdapter.
    */
-  public BrandDetailAdapter(Context context, HorizontalItemClickListener horizontalItemClickListener) {
+  public BrandDetailAdapter(Context context,
+      HorizontalItemClickListener horizontalItemClickListener) {
     this.context = context;
     this.inflater = LayoutInflater.from(context);
     this.horizontalItemClickListener = horizontalItemClickListener;
@@ -65,7 +66,8 @@ public class BrandDetailAdapter extends RecyclerView.Adapter<BrandDetailAdapter.
    */
   @NonNull
   @Override
-  public BrandDetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
+  public BrandDetailAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+      int position) {
     return new BrandDetailAdapter.ViewHolder(inflater.inflate(R.layout.item_home,
         viewGroup, false));
   }
@@ -111,7 +113,8 @@ public class BrandDetailAdapter extends RecyclerView.Adapter<BrandDetailAdapter.
 
     //Set horizontal recycler view adapter
     viewHolder.recycleViewFeatureHotel.setAdapter(
-        new HomeFragmentHorizontalItemAdapter(context, imageUrls, title,horizontalItemClickListener));
+        new HomeFragmentHorizontalItemAdapter(context,
+            imageUrls, title, horizontalItemClickListener));
   }
 
   /**

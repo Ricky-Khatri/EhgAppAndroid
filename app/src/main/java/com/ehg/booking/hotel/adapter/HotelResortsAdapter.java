@@ -152,7 +152,7 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
   }
 
   /**
-   * Interface.
+   * OnItemClick interface for Select item Recycler view.
    */
   public interface OnHotelItemClickListener {
 

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~  Created by Emaar Hospitality Group on 24/10/18 7:53 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 24/10/18 7:53 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <include
+    android:id="@+id/layout_alldetail_header"
+    layout="@layout/layout_header_with_navigation"/>
+
+  <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/linearlayout_alldetail_buttons"
+    android:layout_below="@+id/layout_alldetail_header"
+    android:scrollbars="none"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <com.glide.slider.library.SliderLayout
+        android:id="@+id/sliderlayout_alldetail_slider"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="@dimen/elevation_all_header"
+        android:elevation="@dimen/elevation_all_header"/>
+
+      <com.glide.slider.library.Indicators.PagerIndicator
+        android:id="@+id/custom_indicator_alldetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
+
+      <RelativeLayout
+        android:id="@+id/relativelayout_alldetail_getdirection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/elevation_all_header"
+        android:background="@drawable/all_rounded_border">
+
+        <android.support.v7.widget.AppCompatImageView
+          android:id="@+id/imageview_alldetail_map"
+          android:layout_width="@dimen/imagesize_all_reservationimage"
+          android:layout_height="@dimen/imagesize_all_reservationimage"
+          android:layout_margin="@dimen/elevation_all_header"
+          android:scaleType="fitXY"
+          app:srcCompat="@drawable/placeholder"/>
+
+        <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/elevation_all_header"
+          android:layout_centerVertical="true"
+          android:layout_toEndOf="@+id/imageview_alldetail_map"
+          android:orientation="vertical">
+
+          <TextView
+            android:id="@+id/textview_alldetail_address"
+            style="@style/AppLabelsTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/restaurantdetail_address"
+            android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+          <TextView
+            android:id="@+id/textview_alldetail_getdirection"
+            style="@style/AppLabelsTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/elevation_all_header"
+            android:text="@string/restaurantdetail_getdirections"
+            android:textSize="@dimen/textsize_signup_termsandcondition"/>
+        </LinearLayout>
+
+      </RelativeLayout>
+
+      <LinearLayout
+        android:id="@+id/linearlayout_alldetail_timingmain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_horizontal"
+        android:orientation="vertical">
+
+        <View
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/height_all_viewline"
+          android:background="@color/colorDarkerGray"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/elevation_all_header"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:orientation="horizontal"
+          android:weightSum="3">
+
+          <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:layout_marginEnd="@dimen/margin_all_horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/textview_alldetail_cuisinelabel"
+              style="@style/AppLabelsTextAppearance"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="start"
+              android:text="@string/restaurantdetail_cuisine"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+            <TextView
+              android:id="@+id/textview_alldetail_cuisine"
+              style="@style/AppLabelsTextAppearance"
+              android:textStyle="bold"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/elevation_all_header"
+              android:layout_gravity="start"
+              android:text="@string/restaurantdetail_cuisinetype_middle_eastern"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+          </LinearLayout>
+
+          <View
+            android:layout_width="@dimen/height_all_viewline"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:layout_marginEnd="@dimen/elevation_all_header"
+            android:background="@color/colorDarkerGray"/>
+
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/textview_restaurantdetail_dresscodelabel"
+              style="@style/AppLabelsTextAppearance"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="start"
+              android:text="@string/restaurantdetail_dresscode"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+            <TextView
+              android:id="@+id/textview_restaurantdetail_dresscode"
+              style="@style/AppLabelsTextAppearance"
+              android:textStyle="bold"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/elevation_all_header"
+              android:layout_gravity="start"
+              android:text="Casual"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+          </LinearLayout>
+
+          <View
+            android:layout_width="@dimen/height_all_viewline"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:layout_marginEnd="@dimen/elevation_all_header"
+            android:background="@color/colorDarkerGray"/>
+
+          <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+              android:id="@+id/textview_restaurantdetail_timinglabel"
+              style="@style/AppLabelsTextAppearance"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="start"
+              android:text="Timings"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+            <TextView
+              android:id="@+id/textview_restaurantdetail_timing"
+              style="@style/AppLabelsTextAppearance"
+              android:textStyle="bold"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/elevation_all_header"
+              android:layout_gravity="start"
+              android:text="12 PM - 4 PM"
+              android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+          </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/height_all_viewline"
+          android:background="@color/colorDarkerGray"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/linearlayout_alldetail_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+          android:id="@+id/textview_alldetail_description"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_all_vertical"
+          android:layout_marginStart="@dimen/elevation_all_header"
+          android:layout_marginEnd="@dimen/elevation_all_header"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:text="@string/dummy_description"
+          android:textColor="@color/colorDarkerGray"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+        <TextView
+          android:id="@+id/textview_alldetail_readmore"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/margin_all_vertical"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:text="@string/hoteldetail_readmore"
+          android:textColor="@color/colorGray"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
+
+      </LinearLayout>
+
+      <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_all_viewline"
+        android:background="@color/colorDarkerGray"/>
+
+      <TextView
+        android:id="@+id/textview_alldetail_gallery"
+        style="@style/HeaderTextAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_vertical"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/restaurantdetail_gallery"
+        android:textColor="@color/colorGray"/>
+
+      <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_alldetail_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/elevation_all_header"
+        android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+
+  </android.support.v4.widget.NestedScrollView>
+
+  <LinearLayout
+    android:id="@+id/linearlayout_alldetail_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:paddingTop="@dimen/padding_all_imageview"
+    android:paddingBottom="@dimen/padding_all_imageview"
+    android:paddingStart="@dimen/height_all_verticaldivider"
+    android:paddingEnd="@dimen/height_all_verticaldivider"
+    android:orientation="horizontal">
+
+    <Button
+      android:id="@+id/button_alldetail_booknow"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:background="@color/colorGray"
+      android:clickable="true"
+      android:focusable="true"
+      android:foreground="?attr/selectableItemBackground"
+      android:text="@string/hoteldetail_booknow"
+      android:textAllCaps="true"
+      android:textColor="@color/white"/>
+
+    <View
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="0.2"
+      android:layout_marginTop="@dimen/marginstart_header_search"/>
+
+    <Button
+      android:id="@+id/button_alldetail_callus"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:background="@drawable/all_rounded_border"
+      android:clickable="true"
+      android:focusable="true"
+      android:foreground="?attr/selectableItemBackground"
+      android:text="@string/hoteldetail_callus"
+      android:textAllCaps="true"/>
+  </LinearLayout>
+
+</RelativeLayout>

@@ -29,6 +29,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import com.ehg.R;
 
+/**
+ * This class initiates and shows hotels amenities
+ */
 public class HotelDetailAmenitiesAdapter extends RecyclerView.Adapter<HotelDetailAmenitiesAdapter.ViewHolder> {
 
   private final HotelDetailAmenitiesAdapter.OnAmenitiesItemClickedListener onItemClickListener;
@@ -45,20 +48,38 @@ public class HotelDetailAmenitiesAdapter extends RecyclerView.Adapter<HotelDetai
     onItemClickListener = itemClickListener;
   }
 
+  /**
+   * Called to inflate layout item and returns ViewHolder object.
+   *
+   * @param viewGroup viewGroup object
+   * @param position integer position
+   * @return returns ViewHolder object
+   */
   @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
     View view = LayoutInflater.from(viewGroup.getContext())
         .inflate(R.layout.item_hoteldetailamenities, viewGroup, false);
 
     return new ViewHolder(view);
   }
 
+  /**
+   * Called to bind data values with viewHolder items.
+   *
+   * @param viewHolder viewHolder object
+   * @param position integer position
+   */
   @Override
-  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
   }
 
+  /**
+   * Returns total number of items in adapter.
+   *
+   * @return itemCount
+   */
   @Override
   public int getItemCount() {
     return images != null ? images.length : 0;

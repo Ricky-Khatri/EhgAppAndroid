@@ -69,7 +69,6 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
     super.onCreate(savedInstanceState);
 
     try {
-
       setContentView(R.layout.activity_hoteldetail);
       context = this;
 

@@ -19,11 +19,14 @@
 
 package com.ehg.booking.hotel;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.andexert.calendarlistview.library.DatePickerController;
@@ -31,9 +34,15 @@ import com.andexert.calendarlistview.library.DayPickerView;
 import com.andexert.calendarlistview.library.SimpleMonthAdapter.CalendarDay;
 import com.andexert.calendarlistview.library.SimpleMonthAdapter.SelectedDays;
 import com.diegocarloslima.fgelv.lib.FloatingGroupExpandableListView;
+import com.diegocarloslima.fgelv.lib.WrapperExpandableListAdapter;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
+import com.ehg.search.adapter.SearchAdapter;
+import com.ehg.search.pojo.SearchChildPojo;
+import com.ehg.search.pojo.SearchGroupPojo;
 import com.ehg.utilities.AppUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -69,6 +78,7 @@ public class HotelBookingslotActivity extends BaseActivity implements
       "Matrouh"};
 
   private int[] parentImage = {R.drawable.placeholder, R.drawable.placeholder};
+  private Context context;
 
   /**
    * Called when activity created.
@@ -82,6 +92,7 @@ public class HotelBookingslotActivity extends BaseActivity implements
     try {
 
       setContentView(R.layout.activity_hotelbookingslot);
+      context = this;
       initView();
     } catch (NullPointerException e) {
       e.printStackTrace();
@@ -127,9 +138,29 @@ public class HotelBookingslotActivity extends BaseActivity implements
     expendableListViewDestination = findViewById(
         R.id.expandablelistview_hotelbookingslot_destination);
 
+    List<SearchGroupPojo> destinationList = setAdapter();
+
+    SearchAdapter adapterSearch = new SearchAdapter(context, destinationList);
+    final WrapperExpandableListAdapter wrapperAdapter = new WrapperExpandableListAdapter(adapterSearch);
+    expendableListViewDestination.setAdapter(wrapperAdapter);
+
+    for (int i = 0; i < wrapperAdapter.getGroupCount(); i++) {
+      expendableListViewDestination.expandGroup(i);
+    }
+
+    expendableListViewDestination.setOnGroupClickListener(new OnGroupClickListener() {
+      @Override
+      public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
+
+        parent.expandGroup(groupPosition);
+        return true;
+      }
+    });
+
     linearlayoutCheckIn.setOnClickListener(this);
     linearlayoutCheckOut.setOnClickListener(this);
     linearlayoutGuestRoom.setOnClickListener(this);
+    linearlayoutDestination.setOnClickListener(this);
   }
 
   /**
@@ -236,4 +267,44 @@ public class HotelBookingslotActivity extends BaseActivity implements
     }
     return super.onKeyDown(keyCode, event);
   }
+
+  private List<SearchGroupPojo> setAdapter() {
+
+    List<SearchGroupPojo> groupList = new ArrayList<>();
+    List<SearchChildPojo> childList;
+    int k = 0;
+    for (int i = 0; i < parent.length; i++) {
+
+      childList = new ArrayList<>();
+      SearchGroupPojo groupPojo = new SearchGroupPojo();
+
+      groupPojo.setParentName(parent[i]);
+      groupPojo.setImageName(parentImage[i]);
+
+      if (childList.size() > 0) {
+        childList.clear();
+      }
+      for (; k < child.length; k++) {
+
+        SearchChildPojo childPojo = new SearchChildPojo();
+
+        childPojo.setChildName(child[k]);
+
+        childList.add(childPojo);
+
+        if (child[k].equalsIgnoreCase("Emirates Hills")) {
+          k++;
+          break;
+        }
+
+
+      }
+      groupPojo.setChildArray(childList);
+      groupList.add(groupPojo);
+
+    }
+
+    return groupList;
+  }
+
 }

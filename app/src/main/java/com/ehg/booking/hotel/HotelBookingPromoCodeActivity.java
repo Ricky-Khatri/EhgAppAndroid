@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -68,6 +69,9 @@ public class HotelBookingPromoCodeActivity extends BaseActivity implements OnCli
     }
   }
 
+  /**
+   * Called to init view components of screen.
+   */
   private void initView() {
 
     imageViewBack = findViewById(R.id.imageview_header_back);
@@ -110,6 +114,11 @@ public class HotelBookingPromoCodeActivity extends BaseActivity implements OnCli
     });
   }
 
+  /**
+   * Called when view item clicked on this activity.
+   *
+   * @param view clicked view
+   */
   @Override
   public void onClick(View view) {
 
@@ -124,5 +133,39 @@ public class HotelBookingPromoCodeActivity extends BaseActivity implements OnCli
         break;
     }
     AppUtil.startActivityWithAnimation(this, intent, false);
+  }
+
+  /**
+   * Called when activity resumed.
+   */
+  @Override
+  protected void onResume() {
+    super.onResume();
+    setBackArrowRtl((AppCompatImageView) findViewById(R.id.imageview_header_back));
+  }
+
+  /**
+   * Called to set RTL back arrow.
+   *
+   * @param appCompatImageView imageview object
+   */
+  @Override
+  public void setBackArrowRtl(AppCompatImageView appCompatImageView) {
+    super.setBackArrowRtl(appCompatImageView);
+  }
+
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
   }
 }

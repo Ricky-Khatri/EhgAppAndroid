@@ -39,32 +39,56 @@ import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.glide.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import java.util.ArrayList;
 
+/**
+ * This class to initiate the room selection fo a hotel.
+ */
 public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.ViewHolder> implements
     OnSliderClickListener {
 
   private final Context context;
   private final OnRoomItemClicklistner onRomClickListner;
 
+  /**
+   * This is parametrized constructor of this adapter class.
+   */
   public SelectRoomAdapter(Context context, OnRoomItemClicklistner itemClicklistner) {
     this.context = context;
     onRomClickListner = itemClicklistner;
   }
 
+  /**
+   * Called to inflate layout item and returns ViewHolder object.
+   *
+   * @param viewGroup viewGroup object
+   * @param position integer position
+   * @return returns ViewHolder object
+   */
   @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int position) {
     View view = LayoutInflater.from(viewGroup.getContext())
         .inflate(R.layout.item_hotelroomselection, viewGroup, false);
 
     return new ViewHolder(view);
   }
 
+  /**
+   * Called to bind data values with viewHolder items.
+   *
+   * @param viewHolder viewHolder object
+   * @param position integer position
+   */
   @Override
-  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
     initAutoScrollViewPager(viewHolder);
   }
 
+  /**
+   * Returns total number of items in adapter.
+   *
+   * @return itemCount
+   */
   @Override
   public int getItemCount() {
     return 6;
@@ -141,6 +165,9 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
     private final LinearLayout linearLayoutSlider;
     private final LinearLayout linearlayoutViewAllRates;
 
+    /**
+     * Constructor of ViewHolder class.
+     */
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 
@@ -155,6 +182,11 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
 
     }
 
+    /**
+     * Called when view clicked.
+     *
+     * @param view view
+     */
     @Override
     public void onClick(View view) {
 

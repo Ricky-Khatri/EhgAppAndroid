@@ -24,6 +24,10 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupCollapseListener;
+import android.widget.Toast;
 import com.diegocarloslima.fgelv.lib.FloatingGroupExpandableListView;
 import com.diegocarloslima.fgelv.lib.WrapperExpandableListAdapter;
 import com.ehg.R;
@@ -83,12 +87,21 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     List<SearchGroupPojo> srch = setAdapter();
 
     SearchAdapter adapterSearch = new SearchAdapter(context, srch);
-    WrapperExpandableListAdapter wrapperAdapter = new WrapperExpandableListAdapter(adapterSearch);
+    final WrapperExpandableListAdapter wrapperAdapter = new WrapperExpandableListAdapter(adapterSearch);
     exapandableList.setAdapter(wrapperAdapter);
 
     for (int i = 0; i < wrapperAdapter.getGroupCount(); i++) {
       exapandableList.expandGroup(i);
     }
+
+    exapandableList.setOnGroupClickListener(new OnGroupClickListener() {
+      @Override
+      public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
+
+        parent.expandGroup(groupPosition);
+        return true;
+      }
+    });
   }
 
   private List<SearchGroupPojo> setAdapter() {

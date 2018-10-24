@@ -44,6 +44,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class is used to enter guest detail.
+ */
 public class RoomBookingGuestDetailActivity extends BaseActivity implements
     OnClickListener, OnEditorActionListener {
 
@@ -65,6 +68,11 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
   private TextView textViewNext;
   private String guestTitle;
 
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -82,6 +90,9 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     }
   }
 
+  /**
+   * Called to init view components of this activity.
+   */
   private void initView() {
 
     imageViewBack = findViewById(R.id.imageview_header_back);
@@ -273,8 +284,6 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     if (cancel) {
 
       Objects.requireNonNull(focusView).requestFocus();
-
-    } else {
 
     }
   }

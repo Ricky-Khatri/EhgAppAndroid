@@ -31,7 +31,7 @@
   <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    android:fillViewport="true"
     android:layout_above="@+id/textview_hotelbookingslot_next"
     android:layout_below="@+id/layout_hotelbookingslot_header">
 
@@ -220,7 +220,7 @@
         <com.andexert.calendarlistview.library.DayPickerView
           android:id="@+id/daypickerview_hotelbookingslot_calandar"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:visibility="visible"
           app:singleDaySelection="false"
           calendar:drawRoundRect="false"/>
@@ -398,7 +398,7 @@
         <com.diegocarloslima.fgelv.lib.FloatingGroupExpandableListView
           android:id="@+id/expandablelistview_hotelbookingslot_destination"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:paddingBottom="@dimen/google_1x"
           android:paddingStart="@dimen/marginstart_header_search"
           android:paddingEnd="@dimen/marginstart_header_search"

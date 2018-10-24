@@ -32,7 +32,8 @@ import com.ehg.R;
 /**
  * This class init's Hotels gallery on RestaurantDetailScreen.
  */
-public class HotelDetailGalleryAdapter extends RecyclerView.Adapter<HotelDetailGalleryAdapter.ViewHolder> {
+public class HotelDetailGalleryAdapter extends
+    RecyclerView.Adapter<HotelDetailGalleryAdapter.ViewHolder> {
 
 
   private final HotelDetailGalleryAdapter.OnItemClickListener onItemClickListener;
@@ -107,7 +108,8 @@ public class HotelDetailGalleryAdapter extends RecyclerView.Adapter<HotelDetailG
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 
-      imageViewRestaurantImage = itemView.findViewById(R.id.imageview_itemrestaurantdetailgallery_restaurantimage);
+      imageViewRestaurantImage = itemView
+          .findViewById(R.id.imageview_itemrestaurantdetailgallery_restaurantimage);
 
       itemView.setOnClickListener(this);
     }
