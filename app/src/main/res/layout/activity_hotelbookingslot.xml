@@ -107,7 +107,7 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <!--<LinearLayout
           android:id="@+id/linearlayout_hotelbookingslot_guestroom"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
             android:text="@string/hotelbookingslot_guestrooms"
             android:textSize="@dimen/textsize_itemreservation_itemtext"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
       </LinearLayout>
 
       <LinearLayout
@@ -147,7 +147,7 @@
           android:id="@+id/linearlayout_hotelbookingslot_destination"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_weight="0.6"
+          android:layout_weight="0.7"
           android:layout_margin="@dimen/google_1x"
           android:paddingTop="@dimen/google_1x"
           android:paddingBottom="@dimen/google_1x"
@@ -175,6 +175,33 @@
         </LinearLayout>
 
         <LinearLayout
+          android:id="@+id/linearlayout_hotelbookingslot_guestroom"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.7"
+          android:layout_margin="@dimen/google_1x"
+          android:padding="@dimen/google_1x"
+          android:background="@drawable/all_rounded_border"
+          android:elevation="3dp"
+          android:orientation="horizontal">
+
+          <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_friends"/>
+
+          <TextView
+            android:id="@+id/textview_hotelbookingslot_rooms"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/elevation_all_header"
+            android:gravity="center"
+            android:text="@string/hotelbookingslot_guestrooms"
+            android:textSize="@dimen/textsize_itemreservation_itemtext"/>
+
+        </LinearLayout>
+
+        <!--<LinearLayout
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="0.6"
@@ -187,7 +214,7 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/hotel_filtericon"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
       </LinearLayout>
 
       <View

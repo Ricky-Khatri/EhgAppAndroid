@@ -1,4 +1,3 @@
-
 /*
  *  Created by Emaar Hospitality Group on 25/10/18 2:50 PM
  *  Copyright (C) 2018  All rights reserved.
@@ -18,49 +17,49 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.roomareasearchpojo;
+package com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * TimeSpan class.
+ * DefaultRateInfo class.
  */
-public class TimeSpan {
+public class DefaultRateInfo {
 
-  @SerializedName("End")
-  private String end;
-  @SerializedName("Start")
-  private String start;
-
-  /**
-   * Getter method.
-   *
-   * @return Gets the value of end and returns end.
-   */
-  public String getEnd() {
-    return end;
-  }
-
-  /**
-   * Sets the end. You can use getEnd() to get the value of end.
-   */
-  public void setEnd(String end) {
-    this.end = end;
-  }
+  @SerializedName("RatePlanId")
+  private String ratePlanId;
+  @SerializedName("RateType")
+  private String rateType;
 
   /**
    * Getter method.
    *
-   * @return Gets the value of start and returns start.
+   * @return Gets the value of ratePlanId and returns ratePlanId.
    */
-  public String getStart() {
-    return start;
+  public String getRatePlanId() {
+    return ratePlanId;
   }
 
   /**
-   * Sets the start. You can use getStart() to get the value of start.
+   * Sets the ratePlanId. You can use getRatePlanId() to get the value of ratePlanId.
    */
-  public void setStart(String start) {
-    this.start = start;
+  public void setRatePlanId(String ratePlanId) {
+    this.ratePlanId = ratePlanId;
+  }
+
+  /**
+   * Getter method.
+   *
+   * @return Gets the value of rateType and returns rateType.
+   */
+  public String getRateType() {
+    return rateType;
+  }
+
+  /**
+   * Sets the rateType. You can use getRateType() to get the value of rateType.
+   */
+  public void setRateType(String rateType) {
+    this.rateType = rateType;
   }
 }

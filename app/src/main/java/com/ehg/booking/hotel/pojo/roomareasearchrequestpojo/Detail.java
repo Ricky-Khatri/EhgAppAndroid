@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.roomareasearchpojo;
+package com.ehg.booking.hotel.pojo.roomareasearchrequestpojo;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -41,7 +41,7 @@ public class Detail {
   @SerializedName("MoreDataEchoToken")
   private int moreDataEchoToken;
   @SerializedName("PosSource")
-  private PosSource posSource = new PosSource();
+  private PosSource posSource = null;
   @SerializedName("SearchCriteria")
   private SearchCriteria searchCriteria;
 

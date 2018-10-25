@@ -17,50 +17,49 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.roomareasearchpojo;
+package com.ehg.booking.hotel.pojo.roomareasearchrequestpojo;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * GuestCount class.
+ * RequestorId class.
  */
-public class GuestCount {
+public class RequestorId {
 
-  @SerializedName("AgeQualifyingCode")
-  private String ageQualifyingCode;
-  @SerializedName("Count")
-  private int count;
-
-  /**
-   * Getter method.
-   *
-   * @return Gets the value of ageQualifyingCode and returns ageQualifyingCode.
-   */
-  public String getAgeQualifyingCode() {
-    return ageQualifyingCode;
-  }
-
-  /**
-   * Sets the ageQualifyingCode. You can use getAgeQualifyingCode() to get the value of
-   * ageQualifyingCode.
-   */
-  public void setAgeQualifyingCode(String ageQualifyingCode) {
-    this.ageQualifyingCode = ageQualifyingCode;
-  }
+  @SerializedName("CodeType")
+  private String codeType;
+  @SerializedName("Id")
+  private String id;
 
   /**
    * Getter method.
    *
-   * @return Gets the value of count and returns count.
+   * @return Gets the value of codeType and returns codeType.
    */
-  public int getCount() {
-    return count;
+  public String getCodeType() {
+    return codeType;
   }
 
   /**
-   * Sets the count. You can use getCount() to get the value of count.
+   * Sets the codeType. You can use getCodeType() to get the value of codeType.
    */
-  public void setCount(int count) {
-    this.count = count;
+  public void setCodeType(String codeType) {
+    this.codeType = codeType;
+  }
+
+  /**
+   * Getter method.
+   *
+   * @return Gets the value of id and returns id.
+   */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * Sets the id. You can use getId() to get the value of id.
+   */
+  public void setId(String id) {
+    this.id = id;
   }
 }

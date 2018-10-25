@@ -1,3 +1,4 @@
+
 /*
  *  Created by Emaar Hospitality Group on 25/10/18 2:50 PM
  *  Copyright (C) 2018  All rights reserved.
@@ -17,34 +18,49 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.roomareasearchpojo;
+package com.ehg.booking.hotel.pojo.roomareasearchrequestpojo;
 
-import com.google.gson.annotations.Expose;
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * PosSource class.
+ * TimeSpan class.
  */
-public class PosSource {
+public class TimeSpan {
 
-  @Expose
-  private List<RequestorId> requestorIds = new ArrayList<>();
+  @SerializedName("End")
+  private String end;
+  @SerializedName("Start")
+  private String start;
 
   /**
    * Getter method.
    *
-   * @return Gets the value of requestorIds and returns requestorIds.
+   * @return Gets the value of end and returns end.
    */
-  public List<RequestorId> getRequestorIds() {
-    return requestorIds;
+  public String getEnd() {
+    return end;
   }
 
   /**
-   * Sets the requestorIds. You can use getRequestorIds() to get the value of requestorIds.
+   * Sets the end. You can use getEnd() to get the value of end.
    */
-  public void setRequestorIds(
-      List<RequestorId> requestorIds) {
-    this.requestorIds = requestorIds;
+  public void setEnd(String end) {
+    this.end = end;
+  }
+
+  /**
+   * Getter method.
+   *
+   * @return Gets the value of start and returns start.
+   */
+  public String getStart() {
+    return start;
+  }
+
+  /**
+   * Sets the start. You can use getStart() to get the value of start.
+   */
+  public void setStart(String start) {
+    this.start = start;
   }
 }

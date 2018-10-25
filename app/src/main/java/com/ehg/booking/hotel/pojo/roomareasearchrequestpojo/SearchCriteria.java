@@ -17,10 +17,9 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.roomareasearchpojo;
+package com.ehg.booking.hotel.pojo.roomareasearchrequestpojo;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ public class SearchCriteria {
   @SerializedName("AmenityIds")
   private List<String> amenityIds;
   @SerializedName("DestinationSearch")
-  private DestinationSearch destinationSearch = new DestinationSearch();
+  private DestinationSearch destinationSearch = null;
   @SerializedName("GuestCounts")
   private List<GuestCount> guestCounts;
   @SerializedName("HotelIds")
@@ -39,19 +38,19 @@ public class SearchCriteria {
   @SerializedName("NumberOfUnits")
   private int numberOfUnits;
   @SerializedName("Position")
-  private Position position = new Position();
+  private Position position = null;
   @SerializedName("PriceRange")
-  private PriceRange priceRange = new PriceRange();
+  private PriceRange priceRange = null;
   @SerializedName("Radius")
-  private Radius radius = new Radius();
+  private Radius radius = null;
   @SerializedName("RatePlanCategory")
-  private List<String> ratePlanCategory = new ArrayList<>();
+  private List<String> ratePlanCategory = null;
   @SerializedName("RatePlanCodes")
-  private List<String> ratePlanCodes = new ArrayList<>();
+  private List<String> ratePlanCodes = null;
   @SerializedName("SearchResultSortOrder")
   private int searchResultSortOrder;
   @SerializedName("StarRatings")
-  private List<String> starRatings = new ArrayList<>();
+  private List<String> starRatings = null;
   @SerializedName("TimeSpan")
   private TimeSpan timeSpan;
 
