@@ -32,8 +32,8 @@ public class WebServiceUtil {
   //public static final String BASE_URL = "https://his-dev.digivalet.com/dv_app_ehggateway";
   public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway";
 
-  //Local ip for reservations
-  //public static final String BASE_URL = "http://192.168.3.66:8080/digivalet-ehg-gateway";
+  //Local ip for stay booking
+  //public static final String BASE_URL = "http://192.168.3.113:8080/digivalet-ehg-gateway";
 
   //UAT environment
   //public static final String BASE_URL = "https://ehgmobileapp-uat.digivalet.com/dv_app_ehggateway";
@@ -78,6 +78,21 @@ public class WebServiceUtil {
 
   //Spa inquiry method
   public static final String METHOD_SPA_INQUIRY = "/spa/saveSpaTransaction/v1";
+
+  //Area search method for room reservation
+  public static final String METHOD_AREA_SEARCH = "/roomReservation/areaSearch/v1";
+
+  //Fetch room availability method
+  public static final String METHOD_FETCH_ROOM_AVAILABILITY = "/roomReservation/fetchAvailability/v1";
+
+  //Fetch room services method
+  public static final String METHOD_FETCH_ROOM_SERVICES = "/roomReservation/fetchServices/v1";
+
+  //Hold room reservation method
+  public static final String METHOD_HOLD_RESERVATION_MULTI_ROOM = "/roomReservation/holdReservationMultiRoom/v1";
+
+  //Room reservation method
+  public static final String METHOD_RESERVATION_MULTI_ROOM = "/roomReservation/reservationMultiRoom/v1";
 
 
   //Api feature constants

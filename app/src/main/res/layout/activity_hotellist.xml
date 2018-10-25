@@ -82,7 +82,7 @@
           android:background="@null"
           android:editable="false"
           android:gravity="center|start"
-          android:hint="@string/hotellist_searchhint"
+          android:text="@string/hotellist_searchhint"
           android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
       </LinearLayout>

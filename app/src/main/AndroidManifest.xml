@@ -209,7 +209,7 @@
       android:name=".booking.spa.SpaDetailActivity"
       android:screenOrientation="portrait"/>
     <activity
-      android:name=".booking.hotel.HotelBookingslotActivity"
+      android:name=".booking.hotel.HotelBookingSlotActivity"
       android:screenOrientation="portrait"/>
     <activity
       android:name=".booking.hotel.HotelFilterActivity"
