@@ -17,49 +17,31 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.roomareasearchpojo;
+package com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
-/**
- * PriceRange class.
- */
-public class PriceRange {
 
-  @SerializedName("MaxRate")
-  private int maxRate;
-  @SerializedName("MinRate")
-  private int minRate;
+public class Data {
+
+  @SerializedName("Detail")
+  private List<Detail> detail;
 
   /**
    * Getter method.
    *
-   * @return Gets the value of maxRate and returns maxRate.
+   * @return Gets the value of detail and returns detail.
    */
-  public int getMaxRate() {
-    return maxRate;
+  public List<Detail> getDetail() {
+    return detail;
   }
 
   /**
-   * Sets the maxRate. You can use getMaxRate() to get the value of maxRate.
+   * Sets the detail. You can use getDetail() to get the value of detail.
    */
-  public void setMaxRate(int maxRate) {
-    this.maxRate = maxRate;
-  }
-
-  /**
-   * Getter method.
-   *
-   * @return Gets the value of minRate and returns minRate.
-   */
-  public int getMinRate() {
-    return minRate;
-  }
-
-  /**
-   * Sets the minRate. You can use getMinRate() to get the value of minRate.
-   */
-  public void setMinRate(int minRate) {
-    this.minRate = minRate;
+  public void setDetail(
+      List<Detail> detail) {
+    this.detail = detail;
   }
 }

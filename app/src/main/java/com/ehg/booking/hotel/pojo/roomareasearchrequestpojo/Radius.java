@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.roomareasearchpojo;
+package com.ehg.booking.hotel.pojo.roomareasearchrequestpojo;
 
 import com.google.gson.annotations.SerializedName;
 

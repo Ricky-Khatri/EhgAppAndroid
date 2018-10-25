@@ -17,49 +17,49 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.roomareasearchpojo;
+package com.ehg.booking.hotel.pojo.roomareasearchrequestpojo;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * RequestorId class.
+ * PriceRange class.
  */
-public class RequestorId {
+public class PriceRange {
 
-  @SerializedName("CodeType")
-  private String codeType;
-  @SerializedName("Id")
-  private String id;
-
-  /**
-   * Getter method.
-   *
-   * @return Gets the value of codeType and returns codeType.
-   */
-  public String getCodeType() {
-    return codeType;
-  }
-
-  /**
-   * Sets the codeType. You can use getCodeType() to get the value of codeType.
-   */
-  public void setCodeType(String codeType) {
-    this.codeType = codeType;
-  }
+  @SerializedName("MaxRate")
+  private int maxRate;
+  @SerializedName("MinRate")
+  private int minRate;
 
   /**
    * Getter method.
    *
-   * @return Gets the value of id and returns id.
+   * @return Gets the value of maxRate and returns maxRate.
    */
-  public String getId() {
-    return id;
+  public int getMaxRate() {
+    return maxRate;
   }
 
   /**
-   * Sets the id. You can use getId() to get the value of id.
+   * Sets the maxRate. You can use getMaxRate() to get the value of maxRate.
    */
-  public void setId(String id) {
-    this.id = id;
+  public void setMaxRate(int maxRate) {
+    this.maxRate = maxRate;
+  }
+
+  /**
+   * Getter method.
+   *
+   * @return Gets the value of minRate and returns minRate.
+   */
+  public int getMinRate() {
+    return minRate;
+  }
+
+  /**
+   * Sets the minRate. You can use getMinRate() to get the value of minRate.
+   */
+  public void setMinRate(int minRate) {
+    this.minRate = minRate;
   }
 }

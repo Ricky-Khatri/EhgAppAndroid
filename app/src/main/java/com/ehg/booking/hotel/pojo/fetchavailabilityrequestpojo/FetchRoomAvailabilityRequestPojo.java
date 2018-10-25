@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.fetchavailabilitypojo;
+package com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;

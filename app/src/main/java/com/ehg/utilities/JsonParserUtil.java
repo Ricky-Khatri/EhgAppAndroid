@@ -21,7 +21,7 @@ package com.ehg.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import com.ehg.booking.hotel.pojo.roomareasearchpojo.RoomAreaSearchRequestPojo;
+import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.RoomAreaSearchRequestPojo;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

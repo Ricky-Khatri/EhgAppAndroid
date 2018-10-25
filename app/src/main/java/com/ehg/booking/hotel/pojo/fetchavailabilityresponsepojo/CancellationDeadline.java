@@ -17,11 +17,8 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.roomareasearchpojo;
+package com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo;
 
-/**
- * DestinationSearch class.
- */
-public class DestinationSearch {
+public class CancellationDeadline {
 
 }
