@@ -25,6 +25,7 @@ package com.andexert.calendarlistview.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,13 +41,18 @@ public class SimpleMonthAdapter extends RecyclerView.Adapter<SimpleMonthAdapter.
     SimpleMonthView.OnDayClickListener {
 
   protected static final int MONTHS_IN_YEAR = 12;
-  private final TypedArray typedArray;
-  private final Context mContext;
-  private final DatePickerController mController;
-  private final Calendar calendar;
-  private final SelectedDays<CalendarDay> selectedDays;
-  private final Integer firstMonth;
-  private final Integer lastMonth;
+  private TypedArray typedArray;
+  private Context mContext;
+  private DatePickerController mController;
+  private Calendar calendar;
+  private SelectedDays<CalendarDay> selectedDays;
+  private Integer firstMonth;
+  private Integer lastMonth;
+
+
+  public SimpleMonthAdapter() {
+
+  }
 
   public SimpleMonthAdapter(Context context, DatePickerController datePickerController, TypedArray typedArray) {
     this.typedArray = typedArray;
@@ -57,17 +63,26 @@ public class SimpleMonthAdapter extends RecyclerView.Adapter<SimpleMonthAdapter.
     selectedDays = new SelectedDays<>();
     mContext = context;
     mController = datePickerController;
+
+    Calendar calendar = Calendar.getInstance();
+    int day = calendar.get(Calendar.DAY_OF_MONTH);
+    int month = calendar.get(Calendar.MONTH);
+    int year = calendar.get(Calendar.YEAR);
+
+    onDayTapped(new CalendarDay(year, month, day));
     init();
   }
 
+
+  @NonNull
   @Override
-  public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     final SimpleMonthView simpleMonthView = new SimpleMonthView(mContext, typedArray);
     return new ViewHolder(simpleMonthView, this);
   }
 
   @Override
-  public void onBindViewHolder(ViewHolder viewHolder, int position) {
+  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
     final SimpleMonthView v = viewHolder.simpleMonthView;
     final HashMap<String, Integer> drawingParams = new HashMap<String, Integer>();
     int month;
@@ -137,6 +152,12 @@ public class SimpleMonthAdapter extends RecyclerView.Adapter<SimpleMonthAdapter.
   }
 
   public void onDayClick(SimpleMonthView simpleMonthView, CalendarDay calendarDay) {
+    if (calendarDay != null) {
+      onDayTapped(calendarDay);
+    }
+  }
+
+  public void onDayRequest(SimpleMonthView simpleMonthView, CalendarDay calendarDay) {
     if (calendarDay != null) {
       onDayTapped(calendarDay);
     }

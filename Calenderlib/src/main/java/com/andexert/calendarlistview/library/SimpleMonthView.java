@@ -287,16 +287,12 @@ class SimpleMonthView extends View {
       //TODO:Working on it
       if (isSelectdToday && (mToday == day)) {
         mSelectedCircle = false;
+        isSelectdToday = false;
         mMonthNumPaint.setColor(mMonthTitleBGColor);
         //mMonthNumPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         canvas.drawCircle(x, y - MINI_DAY_NUMBER_TEXT_SIZE / 3, DAY_SELECTED_CIRCLE_SIZE,
             mSelectedCirclePaint);
-      } else {
-        mMonthNumPaint.setColor(mDayNumColor);
-        //mMonthNumPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-      }
-
-      if (mHasToday && (mToday == day)) {
+      } else if (mHasToday && isSelectdToday && (mToday == day)) {
         mMonthNumPaint.setColor(mMonthTitleBGColor);
         //mMonthNumPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
       } else {
