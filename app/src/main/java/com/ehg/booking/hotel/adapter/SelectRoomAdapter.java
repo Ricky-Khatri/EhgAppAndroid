@@ -23,13 +23,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.hotel.adapter.EnhanceStayAdapter.OnEnhanceStayItemClicklistner;
 import com.ehg.customview.TextSliderView;
 import com.ehg.utilities.AppUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
@@ -43,7 +46,7 @@ import java.util.ArrayList;
  * This class to initiate the room selection fo a hotel.
  */
 public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.ViewHolder> implements
-    OnSliderClickListener {
+    OnSliderClickListener, OnEnhanceStayItemClicklistner {
 
   private final Context context;
   private final OnRoomItemClicklistner onRomClickListner;
@@ -82,6 +85,14 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
     initAutoScrollViewPager(viewHolder);
+
+    viewHolder.recyclerViewEnhanceStay
+        .setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+    viewHolder.recyclerViewEnhanceStay.setHasFixedSize(true);
+    EnhanceStayAdapter selectRoomAdapter = new EnhanceStayAdapter(context, this);
+    viewHolder.recyclerViewEnhanceStay.setAdapter(selectRoomAdapter);
+   /* AppUtil.animateRecyclerView(context, viewHolder.recyclerViewEnhanceStay,
+        R.anim.layout_animation_from_bottom);*/
   }
 
   /**
@@ -151,6 +162,11 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
     //sliderLayoutRestaurantDetail.addOnPageChangeListener(this);
   }
 
+  @Override
+  public void onItemClick(int position, View view) {
+
+  }
+
   /**
    * OnItemClick interface for Select item Recycler view.
    */
@@ -164,6 +180,9 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
     private final SliderLayout sliderLayoutImageView;
     private final LinearLayout linearLayoutSlider;
     private final LinearLayout linearlayoutViewAllRates;
+    private final LinearLayout linearlayoutEnhanceStay;
+    private final RecyclerView recyclerViewEnhanceStay;
+    private final TextView textViewSelection;
 
     /**
      * Constructor of ViewHolder class.
@@ -174,7 +193,11 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
       sliderLayoutImageView = itemView.findViewById(R.id.sliderlayout_itemhotelroomselection_slider);
       linearLayoutSlider = itemView.findViewById(R.id.linearlayout_itemhotelroomselection);
       linearlayoutViewAllRates = itemView.findViewById(R.id.linearlayout_itemhotelroomselection_allrates);
+      linearlayoutEnhanceStay = itemView.findViewById(R.id.linearlayout_itemhotelroomselection_enhancestay);
+      recyclerViewEnhanceStay = itemView.findViewById(R.id.recyclerview_itemhotelroomselection);
+      textViewSelection = itemView.findViewById(R.id.textview_itemhoteroomselection_selection);
 
+      textViewSelection.setOnClickListener(this);
       linearlayoutViewAllRates.setOnClickListener(this);
       sliderLayoutImageView.setOnClickListener(this);
       linearLayoutSlider.setOnClickListener(this);
@@ -189,6 +212,16 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
      */
     @Override
     public void onClick(View view) {
+
+      switch (view.getId()) {
+
+        case R.id.textview_itemhoteroomselection_selection:
+
+          linearlayoutEnhanceStay.setVisibility(View.VISIBLE);
+          break;
+        default:
+          break;
+      }
 
       if (onRomClickListner != null) {
         onRomClickListner.onItemClick(getAdapterPosition(), view);

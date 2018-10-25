@@ -103,127 +103,7 @@
         android:layout_marginTop="@dimen/margin_all_horizontal"
         android:orientation="vertical">
 
-        <View
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/height_all_viewline"
-          android:background="@color/colorDarkerGray"/>
 
-        <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_margin="@dimen/elevation_all_header"
-          android:layout_gravity="center"
-          android:gravity="center"
-          android:orientation="horizontal"
-          android:weightSum="3">
-
-          <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:layout_marginEnd="@dimen/margin_all_horizontal"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-              android:id="@+id/textview_alldetail_cuisinelabel"
-              style="@style/AppLabelsTextAppearance"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="start"
-              android:text="@string/restaurantdetail_cuisine"
-              android:textSize="@dimen/textsize_signup_termsandcondition"/>
-
-            <TextView
-              android:id="@+id/textview_alldetail_cuisine"
-              style="@style/AppLabelsTextAppearance"
-              android:textStyle="bold"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/elevation_all_header"
-              android:layout_gravity="start"
-              android:text="@string/restaurantdetail_cuisinetype_middle_eastern"
-              android:textSize="@dimen/textsize_signup_termsandcondition"/>
-
-          </LinearLayout>
-
-          <View
-            android:layout_width="@dimen/height_all_viewline"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/elevation_all_header"
-            android:layout_marginEnd="@dimen/elevation_all_header"
-            android:background="@color/colorDarkerGray"/>
-
-          <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:orientation="vertical">
-
-            <TextView
-              android:id="@+id/textview_restaurantdetail_dresscodelabel"
-              style="@style/AppLabelsTextAppearance"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="start"
-              android:text="@string/restaurantdetail_dresscode"
-              android:textSize="@dimen/textsize_signup_termsandcondition"/>
-
-            <TextView
-              android:id="@+id/textview_restaurantdetail_dresscode"
-              style="@style/AppLabelsTextAppearance"
-              android:textStyle="bold"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/elevation_all_header"
-              android:layout_gravity="start"
-              android:text="Casual"
-              android:textSize="@dimen/textsize_signup_termsandcondition"/>
-
-          </LinearLayout>
-
-          <View
-            android:layout_width="@dimen/height_all_viewline"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/elevation_all_header"
-            android:layout_marginEnd="@dimen/elevation_all_header"
-            android:background="@color/colorDarkerGray"/>
-
-          <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-              android:id="@+id/textview_restaurantdetail_timinglabel"
-              style="@style/AppLabelsTextAppearance"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="start"
-              android:text="Timings"
-              android:textSize="@dimen/textsize_signup_termsandcondition"/>
-
-            <TextView
-              android:id="@+id/textview_restaurantdetail_timing"
-              style="@style/AppLabelsTextAppearance"
-              android:textStyle="bold"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/elevation_all_header"
-              android:layout_gravity="start"
-              android:text="12 PM - 4 PM"
-              android:textSize="@dimen/textsize_signup_termsandcondition"/>
-
-          </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/height_all_viewline"
-          android:background="@color/colorDarkerGray"/>
       </LinearLayout>
 
       <LinearLayout
@@ -264,6 +144,16 @@
         android:background="@color/colorDarkerGray"/>
 
       <TextView
+        style="@style/HeaderTextAppearance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_all_large"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/alldetai_facilitieslable"
+        android:textColor="@color/colorGray"/>
+
+      <TextView
         android:id="@+id/textview_alldetail_gallery"
         style="@style/HeaderTextAppearance"
         android:layout_width="match_parent"
@@ -280,6 +170,37 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/elevation_all_header"
         android:layout_gravity="center_horizontal"/>
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_all_vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <android.support.v7.widget.AppCompatImageView
+          android:id="@+id/imageview_alldetail_facebook"
+          android:layout_width="@dimen/size_socialmedia_mediaicon"
+          android:layout_height="@dimen/size_socialmedia_mediaicon"
+          app:srcCompat="@drawable/ic_facebook"/>
+
+        <android.support.v7.widget.AppCompatImageView
+          android:id="@+id/imageview_alldetail_twitter"
+          android:layout_width="@dimen/size_socialmedia_mediaicon"
+          android:layout_height="@dimen/size_socialmedia_mediaicon"
+          android:layout_marginStart="@dimen/margin_all_vertical"
+          android:layout_marginEnd="@dimen/margin_all_vertical"
+          android:layout_toEndOf="@+id/imageview_alldetail_facebook"
+          app:srcCompat="@drawable/ic_twitter"/>
+
+        <android.support.v7.widget.AppCompatImageView
+          android:id="@+id/imageview_branddetail_instagram"
+          android:layout_width="@dimen/size_socialmedia_mediaicon"
+          android:layout_height="@dimen/size_socialmedia_mediaicon"
+          android:layout_toEndOf="@+id/imageview_alldetail_twitter"
+          app:srcCompat="@drawable/ic_instagram"/>
+
+      </RelativeLayout>
 
     </LinearLayout>
 

@@ -139,9 +139,7 @@
       android:layout_marginTop="@dimen/marginstart_header_search"
       android:layout_marginBottom="@dimen/marginstart_header_search"
       android:layout_marginStart="@dimen/marginstart_header_search"
-      android:layout_marginEnd="@dimen/marginstart_header_search"
-
-      />
+      android:layout_marginEnd="@dimen/marginstart_header_search"/>
 
   </LinearLayout>
 

@@ -38,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.golf.GolfDetailActivity;
 import com.ehg.booking.hotel.BrandDetailActivity;
 import com.ehg.booking.restaurant.RestaurantDetailActivity;
 import com.ehg.customview.TextSliderView;
@@ -365,7 +366,10 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
         intent = new Intent(context, RestaurantDetailActivity.class);
         intent.putExtra("title", title);
         break;
-
+      case "EMAAR LEISURE GROUP":
+        intent = new Intent(context, GolfDetailActivity.class);
+        intent.putExtra("title", title);
+        break;
       default:
         break;
     }

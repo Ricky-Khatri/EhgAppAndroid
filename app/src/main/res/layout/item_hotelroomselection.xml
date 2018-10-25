@@ -40,8 +40,7 @@
       android:layout_width="match_parent"
       android:layout_height="@dimen/height_all_alertdialog"
       android:layout_marginTop="@dimen/elevation_all_header"
-      android:elevation="@dimen/elevation_all_header"
-      />
+      android:elevation="@dimen/elevation_all_header"/>
 
     <com.glide.slider.library.Indicators.PagerIndicator
       android:id="@+id/pageindicator_itemhotelroomselection"
@@ -62,16 +61,13 @@
         android:layout_marginStart="@dimen/marginstart_header_search"
         android:text="DELUXE ROOM"/>
 
-
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:paddingBottom="@dimen/google_1x"
         android:orientation="horizontal">
 
         <TextView
-
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/marginstart_header_search"
@@ -95,7 +91,6 @@
           android:background="@color/colorGray"/>
 
         <TextView
-
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/elevation_all_header"
@@ -140,7 +135,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorGray"/>
-
 
       <LinearLayout
         android:layout_width="match_parent"
@@ -201,7 +195,7 @@
           android:text="2"/>
 
         <TextView
-          android:id="@+id/button_itemhoteroomselection_selection"
+          android:id="@+id/textview_itemhoteroomselection_selection"
           android:layout_width="@dimen/imagesize_all_reservationimage"
           android:layout_height="@dimen/mdtp_time_label_subscript_size"
           android:layout_marginStart="-2dp"
@@ -215,4 +209,50 @@
     </LinearLayout>
   </LinearLayout>
 
+  <LinearLayout
+    android:id="@+id/linearlayout_itemhotelroomselection_enhancestay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/linearlayout_itemhotelroomselection"
+    android:orientation="vertical"
+    android:visibility="gone">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/mdtp_date_picker_view_animator_padding_v2"
+      android:layout_marginStart="@dimen/marginstart_header_search"
+      android:layout_marginEnd="@dimen/mdtp_date_picker_view_animator_padding_v2"
+      android:orientation="horizontal">
+
+      <TextView
+        android:id="@+id/textView_enhancestay"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/itemhotelroomselection_enhanceyourstay"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_headertitle"/>
+
+      <TextView
+        android:id="@+id/textview_enhancestay_skip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="@string/itemhotelroomselection_specialrequest"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_small"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/recyclerview_itemhotelroomselection"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/marginstart_header_search"
+      android:layout_marginBottom="@dimen/marginstart_header_search"
+      android:layout_marginStart="@dimen/marginstart_header_search"
+      android:layout_marginEnd="@dimen/marginstart_header_search"
+      android:orientation="horizontal"/>
+
+  </LinearLayout>
 </RelativeLayout>

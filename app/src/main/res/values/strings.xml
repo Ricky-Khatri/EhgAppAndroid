@@ -249,5 +249,8 @@
   <string name="all_hotelslotsfilteralert">Please select dates, number of guests, rooms and destination.</string>
   <string name="all_timevldationalert">Selected time must be greater than current time.</string>
   <string name="all_cancelreservationmessage">Are you sure you want to cancel reservation?</string>
+  <string name="alldetai_facilitieslable">Facilities</string>
+  <string name="itemhotelroomselection_specialrequest"><u>Have a Special Request?</u></string>
+  <string name="itemhotelroomselection_enhanceyourstay">Enhance your Stay</string>
 
 </resources>

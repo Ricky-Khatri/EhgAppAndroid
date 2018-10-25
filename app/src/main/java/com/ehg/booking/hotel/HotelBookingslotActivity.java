@@ -416,15 +416,10 @@ public class HotelBookingslotActivity extends BaseActivity implements
           k++;
           break;
         }
-
-
       }
       groupPojo.setChildArray(childList);
       groupList.add(groupPojo);
-
     }
-
     return groupList;
   }
-
 }

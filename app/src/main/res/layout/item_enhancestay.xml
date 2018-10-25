@@ -22,6 +22,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_marginBottom="@dimen/elevation_all_header">
 
   <LinearLayout
@@ -38,8 +39,14 @@
       android:id="@+id/sliderlayout_itemenhancestay_slider"
       android:layout_width="match_parent"
       android:layout_height="@dimen/height_all_alertdialog"
+      android:visibility="gone"
       android:layout_marginTop="@dimen/elevation_all_header"
       android:elevation="@dimen/elevation_all_header"/>
+    <android.support.v7.widget.AppCompatImageView
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/imagesize_all_reservationimage"
+      android:scaleType="centerCrop"
+      app:srcCompat="@drawable/placeholder"/>
 
     <com.glide.slider.library.Indicators.PagerIndicator
       android:id="@+id/pageindicator_itemenhancestay"
@@ -58,6 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginstart_header_search"
+        android:textSize="@dimen/textsize_all_guestdetail"
         android:text="DELUXE ROOM"/>
 
       <TextView
@@ -65,8 +73,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/marginstart_header_search"
+        android:textSize="@dimen/textsize_all_small"
         android:text="Buffet Breakfast at Address Downtown "
-        android:textSize="@dimen/textsize_all_labels"/>
+        />
 
 
       <View
@@ -96,7 +105,7 @@
             android:layout_height="wrap_content"
             android:text="AED 824"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/textsize_all_headertitle"/>
+            android:textSize="@dimen/textsize_all_guestdetail"/>
 
 
           <TextView
@@ -106,27 +115,28 @@
             android:layout_marginStart="@dimen/elevation_all_header"
             android:text="per person"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/textsize_all_headertitle"/>
+            android:textSize="@dimen/textsize_all_guestdetail"/>
 
         </LinearLayout>
 
         <View
           android:layout_width="0dp"
           android:layout_height="1dp"
-          android:layout_weight="0.5"
+          android:layout_weight="0.1"
           tools:ignore="NestedWeights"/>
 
 
         <TextView
           android:id="@+id/button_itemenhancestay_selection"
-          android:layout_width="@dimen/imagesize_all_reservationimage"
-          android:layout_height="@dimen/mdtp_time_label_subscript_size"
+          android:layout_width="@dimen/mdtp_material_button_minwidth"
+          android:layout_height="@dimen/height_all_verticaldivider"
           android:layout_marginStart="-2dp"
           android:layout_marginEnd="@dimen/padding_all_imageview"
-          android:background="@drawable/all_rounded_button"
+          android:background="@drawable/all_rounded_border"
           android:gravity="center"
-          android:text="SELECTED"
-          android:textColor="@color/white"/>
+          android:text="SELECT"
+          android:textColor="@color/colorBlack"
+          android:textSize="@dimen/textsize_all_guestdetail"/>
 
       </LinearLayout>
     </LinearLayout>

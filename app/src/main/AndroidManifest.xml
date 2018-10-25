@@ -255,6 +255,9 @@
       android:name=".roomcontrols.TelevisionActivity"
       android:screenOrientation="portrait">
     </activity>
+    <activity
+      android:name=".booking.golf.GolfDetailActivity"
+      android:screenOrientation="portrait"/>
   </application>
 
 </manifest>
