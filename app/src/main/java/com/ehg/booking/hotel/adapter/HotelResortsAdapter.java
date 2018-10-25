@@ -20,9 +20,7 @@
 package com.ehg.booking.hotel.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -35,9 +33,6 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.ehg.R;
-import com.ehg.booking.hotel.HotelBookingslotActivity;
-import com.ehg.booking.hotel.HotelDetailActivity;
-import com.ehg.utilities.AppUtil;
 import java.util.ArrayList;
 import java.util.List;
 

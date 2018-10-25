@@ -21,6 +21,7 @@ package com.ehg.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.ehg.booking.hotel.pojo.roomareasearchpojo.RoomAreaSearchRequestPojo;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -38,10 +39,12 @@ public class JsonParserUtil {
 
   //Constants
   private static final String USER_PROFILE_POJO = "UserProfilePojo";
+  private static final String ROOM_AREA_SEARCH_REQUEST_POJO = "RoomAreaSearchRequestPojo";
   public static final String LANGUAGE_JSON = "LanguageJson";
 
   /**
    * Parameterized constructor of this class.
+   *
    * @param context activity context
    */
   private JsonParserUtil(Context context) {
@@ -65,8 +68,10 @@ public class JsonParserUtil {
   }
 
   //*********************** Sign-in Response Pojo *****************************
+
   /**
    * Called to save UserProfile pojo.
+   *
    * @param userProfilePojo object
    */
   public void saveUserProfilePojo(UserProfilePojo userProfilePojo) {
@@ -81,6 +86,7 @@ public class JsonParserUtil {
 
   /**
    * Returns UserProfilePojo object.
+   *
    * @return object
    */
   public UserProfilePojo getUserProfilePojo() {
@@ -89,13 +95,53 @@ public class JsonParserUtil {
 
     String jsonPreferences = sharedPreferences.getString(USER_PROFILE_POJO, "");
 
-    Type type = new TypeToken<UserProfilePojo>() {}.getType();
+    Type type = new TypeToken<UserProfilePojo>() {
+    }.getType();
     userProfilePojo = gson.fromJson(jsonPreferences, type);
 
     if (userProfilePojo == null) {
       return new UserProfilePojo();
     }
     return userProfilePojo;
+  }
+  //****************************************************************************
+
+  //*********************** RoomAreaSearchPojo *****************************
+
+  /**
+   * Called to save RoomAreaSearchRequestPojo.
+   *
+   * @param roomAreaSearchRequestPojo object
+   */
+  public void saveRoomAreaSearchRequestPojo(RoomAreaSearchRequestPojo roomAreaSearchRequestPojo) {
+
+    Gson gson = new Gson();
+
+    String json = gson.toJson(roomAreaSearchRequestPojo);
+
+    sharedPreferencesEditor.putString(ROOM_AREA_SEARCH_REQUEST_POJO, json);
+    sharedPreferencesEditor.commit();
+  }
+
+  /**
+   * Returns RoomAreaSearchRequestPojo.
+   *
+   * @return object
+   */
+  public RoomAreaSearchRequestPojo getRoomAreaSearchRequestPojo() {
+    Gson gson = new Gson();
+    RoomAreaSearchRequestPojo roomAreaSearchRequestPojo;
+
+    String jsonPreferences = sharedPreferences.getString(ROOM_AREA_SEARCH_REQUEST_POJO, "");
+
+    Type type = new TypeToken<RoomAreaSearchRequestPojo>() {
+    }.getType();
+    roomAreaSearchRequestPojo = gson.fromJson(jsonPreferences, type);
+
+    if (roomAreaSearchRequestPojo == null) {
+      return new RoomAreaSearchRequestPojo();
+    }
+    return roomAreaSearchRequestPojo;
   }
   //****************************************************************************
 

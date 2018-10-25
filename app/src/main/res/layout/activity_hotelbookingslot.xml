@@ -28,7 +28,7 @@
     android:id="@+id/layout_hotelbookingslot_header"
     layout="@layout/layout_header_with_navigation"/>
 
-  <ScrollView
+  <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
@@ -182,6 +182,7 @@
           android:orientation="horizontal">
 
           <android.support.v7.widget.AppCompatImageView
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/hotel_filtericon"/>
@@ -414,7 +415,7 @@
 
       </LinearLayout>
     </LinearLayout>
-  </ScrollView>
+  </android.support.v4.widget.NestedScrollView>
 
   <TextView
     android:id="@+id/textview_hotelbookingslot_next"

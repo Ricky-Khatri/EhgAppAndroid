@@ -20,9 +20,8 @@
 package com.ehg.booking.hotel;
 
 import android.content.Context;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -39,22 +38,39 @@ import com.andexert.calendarlistview.library.SimpleMonthAdapter.SelectedDays;
 import com.diegocarloslima.fgelv.lib.FloatingGroupExpandableListView;
 import com.diegocarloslima.fgelv.lib.WrapperExpandableListAdapter;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.hotel.pojo.roomareasearchpojo.Detail;
+import com.ehg.booking.hotel.pojo.roomareasearchpojo.GuestCount;
+import com.ehg.booking.hotel.pojo.roomareasearchpojo.RoomAreaSearchRequestPojo;
+import com.ehg.booking.hotel.pojo.roomareasearchpojo.SearchCriteria;
+import com.ehg.booking.hotel.pojo.roomareasearchpojo.TimeSpan;
 import com.ehg.home.BaseActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.search.adapter.SearchAdapter;
 import com.ehg.search.pojo.SearchChildPojo;
 import com.ehg.search.pojo.SearchGroupPojo;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
+import com.google.gson.Gson;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Calendar;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
  * This class allows users to enter check-in,check-out and select date with location to book room.
  */
-public class HotelBookingslotActivity extends BaseActivity implements
-    DatePickerController, OnClickListener {
+public class HotelBookingSlotActivity extends BaseActivity implements
+    DatePickerController, OnClickListener, ApiResponseListener {
 
+  private static final String SEARCH_ROOM_AREA = "SearchRoomArea";
   private DayPickerView dayPickerView;
 
   private LinearLayout linearlayoutCheckIn;
@@ -101,6 +117,10 @@ public class HotelBookingslotActivity extends BaseActivity implements
 
   private String checkinDateStr;
   private String checkoutDateStr;
+  private String startDateStr;
+  private String endDateStr;
+
+  private boolean isDateRangeSelected;
 
   /**
    * Called when activity created.
@@ -175,7 +195,8 @@ public class HotelBookingslotActivity extends BaseActivity implements
     List<SearchGroupPojo> destinationList = setAdapter();
 
     SearchAdapter adapterSearch = new SearchAdapter(context, destinationList);
-    final WrapperExpandableListAdapter wrapperAdapter = new WrapperExpandableListAdapter(adapterSearch);
+    final WrapperExpandableListAdapter wrapperAdapter = new WrapperExpandableListAdapter(
+        adapterSearch);
     expendableListViewDestination.setAdapter(wrapperAdapter);
 
     for (int i = 0; i < wrapperAdapter.getGroupCount(); i++) {
@@ -184,7 +205,8 @@ public class HotelBookingslotActivity extends BaseActivity implements
 
     expendableListViewDestination.setOnGroupClickListener(new OnGroupClickListener() {
       @Override
-      public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition, long id) {
+      public boolean onGroupClick(ExpandableListView parent, View view, int groupPosition,
+          long id) {
 
         parent.expandGroup(groupPosition);
         return true;
@@ -225,14 +247,24 @@ public class HotelBookingslotActivity extends BaseActivity implements
    */
   @Override
   public void onDayOfMonthSelected(int year, int month, int day) {
+    month++;
     Calendar calendar = Calendar.getInstance();
-    calendar.set(Calendar.MONTH, month++);
+    calendar.set(Calendar.MONTH, month);
+    if (isDateRangeSelected) {
+      checkinDateStr = "";
+      checkoutDateStr = "";
+      textViewChekinDate.setText("Check-in");
+      textViewCheckoutDate.setText("Check-out");
+    }
     if (TextUtils.isEmpty(checkinDateStr)) {
       checkinDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
       textViewChekinDate.setText(checkinDateStr);
+      startDateStr = year + "-" + month + "-" + day;
+      isDateRangeSelected = false;
     } else if (TextUtils.isEmpty(checkoutDateStr)) {
       checkoutDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
       textViewCheckoutDate.setText(checkoutDateStr);
+      endDateStr = year + "-" + month + "-" + day;
     }
   }
 
@@ -243,7 +275,7 @@ public class HotelBookingslotActivity extends BaseActivity implements
    */
   @Override
   public void onDateRangeSelected(SelectedDays<CalendarDay> selectedDays) {
-
+    isDateRangeSelected = true;
   }
 
   /**
@@ -336,14 +368,15 @@ public class HotelBookingslotActivity extends BaseActivity implements
 
       case R.id.textview_hotelbookingslot_next:
         totalGuests = numberOfAdults + numberOfChild + numberOfInfants;
-        if (!TextUtils.isEmpty(checkinDateStr) && !TextUtils.isEmpty(checkoutDateStr) &&
-            totalGuests > 0 && numberOfRooms > 0) {
-          Intent intent = new Intent();
+        if (!TextUtils.isEmpty(checkinDateStr) && !TextUtils.isEmpty(checkoutDateStr)
+            && totalGuests > 0 && numberOfRooms > 0) {
+          /*Intent intent = new Intent();
           intent.putExtra("numberOfGuests", totalGuests + " guests");
           intent.putExtra("dates", checkinDateStr + " to " + checkoutDateStr);
           intent.putExtra("numberOfRooms", numberOfRooms + " rooms");
           setResult(Activity.RESULT_OK, intent);
-          finish();
+          finish();*/
+          searchRoomArea();
         } else {
           AppUtil.showToast(this, getString(R.string.all_hotelslotsfilteralert));
         }
@@ -416,15 +449,160 @@ public class HotelBookingslotActivity extends BaseActivity implements
           k++;
           break;
         }
-
-
       }
       groupPojo.setChildArray(childList);
       groupList.add(groupPojo);
 
     }
-
     return groupList;
   }
 
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Called to search for available room area.
+   */
+  private void searchRoomArea() {
+    if (AppUtil.isNetworkAvailable(context)) {
+      new HttpClientRequest().setApiResponseListner(this);
+
+      Detail detail = new Detail();
+      detail.setChainCode("CYB");
+      detail.setLanguageCode(SharedPreferenceUtils.getInstance(this)
+          .getStringValue(SharedPreferenceUtils.APP_LANGUAGE, ""));
+      detail.setMaxResponses(24);
+      detail.setMoreDataEchoToken(0);
+      SearchCriteria searchCriteria = new SearchCriteria();
+      searchCriteria.setSearchResultSortOrder(2);
+      searchCriteria.setNumberOfUnits(numberOfRooms);
+      //TimeSpan
+      TimeSpan timeSpan = new TimeSpan();
+      timeSpan.setStart(startDateStr);
+      timeSpan.setEnd(endDateStr);
+      searchCriteria.setTimeSpan(timeSpan);
+      //GuestCount
+      List<GuestCount> guestCountList = new ArrayList<>();
+      //Adults
+      GuestCount guestCount = new GuestCount();
+      guestCount.setAgeQualifyingCode("10");
+      guestCount.setCount(numberOfAdults);
+      guestCountList.add(guestCount);
+      //Childs
+      guestCount = new GuestCount();
+      guestCount.setAgeQualifyingCode("8");
+      guestCount.setCount(numberOfChild);
+      guestCountList.add(guestCount);
+      //Infants
+      guestCount = new GuestCount();
+      guestCount.setAgeQualifyingCode("7");
+      guestCount.setCount(numberOfInfants);
+      guestCountList.add(guestCount);
+
+      searchCriteria.setGuestCounts(guestCountList);
+
+      //TODO: Need to add ratings
+
+      //HotelId
+      //TODO: Need to make it dynamic
+      List<String> hotelIds = new ArrayList<>();
+      hotelIds.add("1");
+      searchCriteria.setHotelIds(hotelIds);
+      //TODO: Need to add position
+
+      //Add searchCriteria to roomAreaSearchPojo
+      detail.setSearchCriteria(searchCriteria);
+      detail.setCurrencyCode("AED");//TODO:Make it dynamic
+      detail.setDeviceId(AppUtil.getDeviceId(this));
+      if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+          .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+        detail.setLoyaltyMemberId(Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
+      }
+      List<Detail> detailList = new ArrayList<>();
+      detailList.add(detail);
+      RoomAreaSearchRequestPojo roomAreaSearchPojo = new RoomAreaSearchRequestPojo();
+      roomAreaSearchPojo.setDetails(detailList);
+      roomAreaSearchPojo.setFeature("roomReservation");
+      roomAreaSearchPojo.setOperation("areaSearch");
+
+      //Save RoomAreaSearchRequestPojo
+      JsonParserUtil.getInstance(this).saveRoomAreaSearchRequestPojo(roomAreaSearchPojo);
+
+      Gson gson = new Gson();
+      String requestString = gson.toJson(roomAreaSearchPojo, RoomAreaSearchRequestPojo.class);
+
+      StringEntity entity = null;
+      try {
+        entity = new StringEntity(requestString);
+      } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+      }
+
+      new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_AREA_SEARCH),
+          entity, WebServiceUtil.CONTENT_TYPE,
+          SEARCH_ROOM_AREA, true).httpPostRequest();
+    } else {
+      AppUtil.showAlertDialog((AppCompatActivity) context,
+          context.getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(SEARCH_ROOM_AREA)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("Status")) {
+
+      } else if (requestMethod.equalsIgnoreCase(SEARCH_ROOM_AREA)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("Status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
+
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog((AppCompatActivity) context,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
+        }
+      } else {
+        AppUtil.showAlertDialog(this,
+            new JSONObject(responseVal).getString("message"), false,
+            getResources().getString(R.string.dialog_errortitle), true, null);
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog(this, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
+  }
 }

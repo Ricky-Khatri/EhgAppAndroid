@@ -36,17 +36,35 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.adapter.HotelResortsAdapter;
 import com.ehg.booking.hotel.adapter.HotelResortsAdapter.OnHotelItemClickListener;
+import com.ehg.booking.hotel.pojo.fetchavailabilitypojo.Detail;
+import com.ehg.booking.hotel.pojo.fetchavailabilitypojo.FetchRoomAvailabilityRequestPojo;
+import com.ehg.booking.hotel.pojo.roomareasearchpojo.GuestCount;
+import com.ehg.booking.hotel.pojo.roomareasearchpojo.RoomAreaSearchRequestPojo;
 import com.ehg.home.BaseActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
+import com.google.gson.Gson;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class will show  all the available hotel list.
  */
 public class HotelListActivity extends BaseActivity implements
-    OnClickListener, OnHotelItemClickListener {
+    OnClickListener, OnHotelItemClickListener, ApiResponseListener {
 
+  private static final String FETCH_AVAILABILITY = "FetchAvailability";
   private Context context;
   private AppCompatImageView headerBackButton;
   private TextView textViewHeaderTitle;
@@ -186,12 +204,12 @@ public class HotelListActivity extends BaseActivity implements
         break;
 
       case R.id.textview_hotellist_search:
-        intent = new Intent(this, HotelBookingslotActivity.class);
+        intent = new Intent(this, HotelBookingSlotActivity.class);
         startActivityForResult(intent, REQUEST_CODE);
         break;
 
       case R.id.linearlayout_hotellist_layoutsearch:
-        intent = new Intent(this, HotelBookingslotActivity.class);
+        intent = new Intent(this, HotelBookingSlotActivity.class);
         startActivityForResult(intent, REQUEST_CODE);
         break;
 
@@ -216,9 +234,15 @@ public class HotelListActivity extends BaseActivity implements
 
     switch (view.getId()) {
       case R.id.button_itemhotelresort_book:
-        intent = new Intent(this, HotelBookingslotActivity.class);
-        intent.putExtra("title", title);
-        startActivityForResult(intent, REQUEST_CODE);
+        String searchFieldText = textviewSearch.getText().toString();
+        if (searchFieldText
+            .equalsIgnoreCase(getResources().getString(R.string.hotellist_searchhint))) {
+          intent = new Intent(this, HotelBookingSlotActivity.class);
+          intent.putExtra("title", title);
+          startActivityForResult(intent, REQUEST_CODE);
+        } else {
+          fetchRoomAvailability();
+        }
         break;
 
       default:
@@ -246,5 +270,130 @@ public class HotelListActivity extends BaseActivity implements
       String numberOfRooms = data.getStringExtra("numberOfRooms");
       textviewSearch.setText(dates + " | " + numberOfGuests + "," + numberOfRooms);
     }
+  }
+
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Called to fetch room availability.
+   */
+  private void fetchRoomAvailability() {
+    if (AppUtil.isNetworkAvailable(context)) {
+      new HttpClientRequest().setApiResponseListner(this);
+
+      RoomAreaSearchRequestPojo roomAreaSearchRequestPojo = JsonParserUtil.getInstance(this)
+          .getRoomAreaSearchRequestPojo();
+      List<com.ehg.booking.hotel.pojo.roomareasearchpojo.Detail> roomAreaDetailList = roomAreaSearchRequestPojo
+          .getDetails();
+
+      if (roomAreaDetailList != null && roomAreaDetailList.size() > 0) {
+
+        com.ehg.booking.hotel.pojo.roomareasearchpojo.Detail roomAreaDetail = roomAreaDetailList
+            .get(0);
+        Detail detail = new Detail();
+        detail.setIbuId(Integer.parseInt(roomAreaDetail.getSearchCriteria().getHotelIds().get(0)));
+        detail.setCheckInDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getStart());
+        detail.setCheckOutDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getEnd());
+        detail.setTotalRooms(roomAreaDetail.getSearchCriteria().getNumberOfUnits());
+        List<GuestCount> guestCountList = roomAreaDetail.getSearchCriteria().getGuestCounts();
+        detail.setTotalAdults(guestCountList.get(0).getCount());
+        List<Integer> childreAges = new ArrayList<>();
+        //TODO: Make it dynamic
+        childreAges.add(0);
+        detail.setChildrenAges(childreAges);
+        detail.setTotalInfants(guestCountList.get(2).getCount());
+        detail.setCurrencyCode(roomAreaDetail.getCurrencyCode());
+        detail.setLanguage(roomAreaDetail.getLanguageCode());
+
+        if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+          detail.setLoyaltyMemberId(Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+              .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
+        }
+        detail.setDeviceId(AppUtil.getDeviceId(this));
+
+        FetchRoomAvailabilityRequestPojo fetchRoomAvailabilityRequestPojo = new FetchRoomAvailabilityRequestPojo();
+        List<Detail> detailList = new ArrayList<>();
+        detailList.add(detail);
+        fetchRoomAvailabilityRequestPojo.setDetails(detailList);
+        Gson gson = new Gson();
+        String requestString = gson
+            .toJson(fetchRoomAvailabilityRequestPojo, FetchRoomAvailabilityRequestPojo.class);
+
+        StringEntity entity = null;
+        try {
+          entity = new StringEntity(requestString);
+        } catch (UnsupportedEncodingException e) {
+          e.printStackTrace();
+        }
+
+        new HttpClientRequest(context,
+            WebServiceUtil.getUrl(WebServiceUtil.METHOD_FETCH_ROOM_AVAILABILITY),
+            entity, WebServiceUtil.CONTENT_TYPE,
+            FETCH_AVAILABILITY, true).httpPostRequest();
+      }
+    } else {
+      AppUtil.showAlertDialog((AppCompatActivity) context,
+          context.getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(FETCH_AVAILABILITY)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("Status")) {
+
+      } else if (requestMethod.equalsIgnoreCase(FETCH_AVAILABILITY) &&
+          responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("Status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
+
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog((AppCompatActivity) context,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
+        }
+      } else {
+        AppUtil.showAlertDialog(this,
+            new JSONObject(responseVal).getString("message"), false,
+            getResources().getString(R.string.dialog_errortitle), true, null);
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog(this, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }
