@@ -29,8 +29,10 @@ public class CancellationPolicy {
 
   @SerializedName("CancellationDeadlines")
   private List<CancellationDeadline> cancellationDeadlines;
-  @SerializedName("PolicyDescription")
-  private PolicyDescription policyDescription;
+  @SerializedName("NonRefundable")
+  private Boolean nonRefundable;
+  @SerializedName("PolicyCode")
+  private String policyCode;
 
   /**
    * Getter method.
@@ -53,18 +55,32 @@ public class CancellationPolicy {
   /**
    * Getter method.
    *
-   * @return Gets the value of policyDescription and returns policyDescription.
+   * @return Gets the value of nonRefundable and returns nonRefundable.
    */
-  public PolicyDescription getPolicyDescription() {
-    return policyDescription;
+  public Boolean getNonRefundable() {
+    return nonRefundable;
   }
 
   /**
-   * Sets the policyDescription. You can use getPolicyDescription() to get the value of
-   * policyDescription.
+   * Sets the nonRefundable. You can use getNonRefundable() to get the value of nonRefundable.
    */
-  public void setPolicyDescription(
-      PolicyDescription policyDescription) {
-    this.policyDescription = policyDescription;
+  public void setNonRefundable(Boolean nonRefundable) {
+    this.nonRefundable = nonRefundable;
+  }
+
+  /**
+   * Getter method.
+   *
+   * @return Gets the value of policyCode and returns policyCode.
+   */
+  public String getPolicyCode() {
+    return policyCode;
+  }
+
+  /**
+   * Sets the policyCode. You can use getPolicyCode() to get the value of policyCode.
+   */
+  public void setPolicyCode(String policyCode) {
+    this.policyCode = policyCode;
   }
 }

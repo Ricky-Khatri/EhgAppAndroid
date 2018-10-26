@@ -19,7 +19,9 @@
 
 package com.ehg.booking.hotel;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
@@ -44,6 +46,7 @@ import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.GuestCount;
 import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.RoomAreaSearchRequestPojo;
 import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.SearchCriteria;
 import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.TimeSpan;
+import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.RoomAreaSearchResponsePojo;
 import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
@@ -54,6 +57,7 @@ import com.ehg.search.pojo.SearchGroupPojo;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.JsonParserUtil;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -122,6 +126,8 @@ public class HotelBookingSlotActivity extends BaseActivity implements
 
   private boolean isDateRangeSelected;
 
+  private String key;
+
   /**
    * Called when activity created.
    *
@@ -151,6 +157,10 @@ public class HotelBookingSlotActivity extends BaseActivity implements
     textViewHeaderTitle.setText(getResources().getString(R.string.splash_book_hotel_title));
     if (getIntent() != null && getIntent().getStringExtra("title") != null) {
       textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
+    }
+
+    if (getIntent() != null && getIntent().getStringExtra("key") != null) {
+     key = getIntent().getStringExtra("key");
     }
 
     textViewNext = findViewById(R.id.textview_hotelbookingslot_next);
@@ -257,7 +267,7 @@ public class HotelBookingSlotActivity extends BaseActivity implements
   @Override
   public void onDayOfMonthSelected(int year, int month, int day) {
     Calendar calendar = Calendar.getInstance();
-    month = month + 1;
+    int tempMonth = month + 1;
     calendar.set(Calendar.MONTH, month);
     if (isDateRangeSelected) {
       checkinDateStr = "";
@@ -268,12 +278,12 @@ public class HotelBookingSlotActivity extends BaseActivity implements
     if (TextUtils.isEmpty(checkinDateStr)) {
       checkinDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
       textViewChekinDate.setText(checkinDateStr);
-      startDateStr = year + "-" + month + "-" + day;
+      startDateStr = year + "-" + tempMonth + "-" + day;
       isDateRangeSelected = false;
     } else if (TextUtils.isEmpty(checkoutDateStr)) {
       checkoutDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
       textViewCheckoutDate.setText(checkoutDateStr);
-      endDateStr = year + "-" + month + "-" + day;
+      endDateStr = year + "-" + tempMonth + "-" + day;
     }
   }
 
@@ -379,12 +389,6 @@ public class HotelBookingSlotActivity extends BaseActivity implements
         totalGuests = numberOfAdults + numberOfChild + numberOfInfants;
         if (!TextUtils.isEmpty(checkinDateStr) && !TextUtils.isEmpty(checkoutDateStr)
             && totalGuests > 0 && numberOfRooms > 0) {
-          /*Intent intent = new Intent();
-          intent.putExtra("numberOfGuests", totalGuests + " guests");
-          intent.putExtra("dates", checkinDateStr + " to " + checkoutDateStr);
-          intent.putExtra("numberOfRooms", numberOfRooms + " rooms");
-          setResult(Activity.RESULT_OK, intent);
-          finish();*/
           searchRoomArea();
         } else {
           AppUtil.showToast(this, getString(R.string.all_hotelslotsfilteralert));
@@ -425,7 +429,13 @@ public class HotelBookingSlotActivity extends BaseActivity implements
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK) {
-      AppUtil.finishActivityWithAnimation(this);
+      if (key.equalsIgnoreCase("HotelDetailActivity")) {
+        Intent intent = new Intent(this,HotelListActivity.class);
+        intent.putExtra("title", getIntent().getStringExtra("title"));
+        AppUtil.startActivityWithAnimation(this,intent,true);
+      } else {
+        AppUtil.finishActivityWithAnimation(this);
+      }
     }
     return super.onKeyDown(keyCode, event);
   }
@@ -515,7 +525,7 @@ public class HotelBookingSlotActivity extends BaseActivity implements
         //HotelId
         //TODO: Need to make it dynamic
         List<String> hotelIds = new ArrayList<>();
-        hotelIds.add("1");
+        hotelIds.add("1098");//TODO: make it dynamic
         searchCriteria.setHotelIds(hotelIds);
         //TODO: Need to add position
 
@@ -536,7 +546,7 @@ public class HotelBookingSlotActivity extends BaseActivity implements
         roomAreaSearchPojo.setOperation("areaSearch");
 
         //Save RoomAreaSearchRequestPojo
-        JsonParserUtil.getInstance(this).saveRoomAreaSearchRequestPojo(roomAreaSearchPojo);
+        JsonParserUtil.getInstance(this).setRoomAreaSearchRequestPojo(roomAreaSearchPojo);
 
         Gson gson = new Gson();
         String requestString = gson.toJson(roomAreaSearchPojo, RoomAreaSearchRequestPojo.class);
@@ -579,6 +589,31 @@ public class HotelBookingSlotActivity extends BaseActivity implements
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("Status")) {
 
+        RoomAreaSearchResponsePojo roomAreaSearchResponsePojo = new Gson().fromJson(responseVal,
+            new TypeToken<RoomAreaSearchResponsePojo>() {
+            }.getType());
+
+        JsonParserUtil.getInstance(this).setRoomAreaSearchResponsePojo(roomAreaSearchResponsePojo);
+
+        //Save number of rooms selected
+        SharedPreferenceUtils.getInstance(this)
+            .setValue(SharedPreferenceUtils.SELECTED_ROOM_COUNT, numberOfRooms);
+
+        if (key.equalsIgnoreCase("HotelDetailActivity")) {
+          Intent intent = new Intent(this,HotelListActivity.class);
+          intent.putExtra("title", getIntent().getStringExtra("title"));
+          intent.putExtra("numberOfGuests", totalGuests + " guests");
+          intent.putExtra("dates", checkinDateStr + " to " + checkoutDateStr);
+          intent.putExtra("numberOfRooms", numberOfRooms + " rooms");
+          AppUtil.startActivityWithAnimation(this,intent,true);
+        } else {
+          Intent intent = new Intent();
+          intent.putExtra("numberOfGuests", totalGuests + " guests");
+          intent.putExtra("dates", checkinDateStr + " to " + checkoutDateStr);
+          intent.putExtra("numberOfRooms", numberOfRooms + " rooms");
+          setResult(Activity.RESULT_OK, intent);
+          finish();
+        }
       } else if (requestMethod.equalsIgnoreCase(SEARCH_ROOM_AREA)
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("Status")) {

@@ -17,7 +17,7 @@
  *
  */
 
-package com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo;
+package com.ehg.booking.hotel.pojo.roomareasearchresponsepojo;
 
 import com.google.gson.annotations.SerializedName;
 

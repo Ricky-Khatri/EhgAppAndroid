@@ -35,6 +35,8 @@ import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.adapter.SelectRoomAdapter;
 import com.ehg.booking.hotel.adapter.SelectRoomAdapter.OnRoomItemClicklistner;
+import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.FetchAvailabilityResponsePojo;
+import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.RoomStay;
 import com.ehg.booking.hotel.pojo.fetchservicesrequestpojo.FetchRoomServicesPojo;
 import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail;
 import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.GuestCount;
@@ -69,6 +71,13 @@ public class SelectRoomActivity extends BaseActivity
   private AppCompatImageView headerBackButton;
   private TextView textViewNext;
 
+  private int numberOfRooms = 0;
+
+  private TextView textViewSelectRoomTitle;
+  private TextView textViewDatesLabel;
+  private TextView textViewNumberOfGuestsLabel;
+  private TextView textViewRoomCountLabel;
+
   /**
    * Called when activity created.
    *
@@ -96,22 +105,62 @@ public class SelectRoomActivity extends BaseActivity
    */
   private void initView() {
 
+    textViewDatesLabel = findViewById(R.id.textview_hotelroomselection_date);
+    textViewNumberOfGuestsLabel = findViewById(R.id.textview_hotelroomselection_guestcount);
+    textViewRoomCountLabel = findViewById(R.id.textview_hotelroomselection_roomcount);
+
+    if (getIntent() != null && getIntent().getStringExtra("dates") != null) {
+      textViewDatesLabel.setText(getIntent().getStringExtra("dates"));
+    }
+    if (getIntent() != null && getIntent().getStringExtra("numberOfGuests") != null) {
+      textViewNumberOfGuestsLabel.setText(getIntent().getStringExtra("numberOfGuests"));
+    }
+    if (getIntent() != null && getIntent().getStringExtra("numberOfRooms") != null) {
+      textViewRoomCountLabel.setText(getIntent().getStringExtra("numberOfRooms"));
+    }
+    numberOfRooms = SharedPreferenceUtils.getInstance(this)
+        .getIntValue(SharedPreferenceUtils.SELECTED_ROOM_COUNT, 0);
+    textViewSelectRoomTitle = findViewById(R.id.textView_hotelroomselection_selectroom);
+    textViewSelectRoomTitle.setText("Select the Room (" + numberOfRooms + ")");
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    if (getIntent() != null && getIntent().getStringExtra("title") != null) {
+      textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
+    }
     headerBackButton = findViewById(R.id.imageview_header_back);
     textViewNext = findViewById(R.id.textview_hotelroomselection_next);
     recyclerViewRoomList = findViewById(R.id.recyclerview_hotelroomselection);
     recyclerViewRoomList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewRoomList.setHasFixedSize(true);
 
-    //Set Adapter
-    SelectRoomAdapter selectRoomAdapter = new SelectRoomAdapter(context, this);
-    recyclerViewRoomList.setAdapter(selectRoomAdapter);
-    AppUtil.animateRecyclerView(context, recyclerViewRoomList,
-        R.anim.layout_animation_from_bottom);
-
     //Set OnClickListener
     textViewNext.setOnClickListener(this);
     headerBackButton.setOnClickListener(this);
+
+    //Set Adapter
+    FetchAvailabilityResponsePojo fetchAvailabilityResponsePojo = JsonParserUtil.getInstance(this)
+        .getFetchAvailabilityResponsePojo();
+    if (fetchAvailabilityResponsePojo.getData() != null
+        && fetchAvailabilityResponsePojo.getData().getDetail() != null
+        && fetchAvailabilityResponsePojo.getData().getDetail().size() > 0
+        && fetchAvailabilityResponsePojo.getData().getDetail().get(0).getResponseData() != null
+        && fetchAvailabilityResponsePojo.getData()
+        .getDetail().get(0).getResponseData().getRoomStays() != null
+        && fetchAvailabilityResponsePojo.getData().getDetail()
+        .get(0).getResponseData().getRoomStays()
+        .size() > 0) {
+      List<RoomStay> roomStayList = fetchAvailabilityResponsePojo
+          .getData().getDetail().get(0)
+          .getResponseData().getRoomStays();
+
+      String baseUrl = fetchAvailabilityResponsePojo
+          .getData().getDetail().get(0)
+          .getResponseData().getImageBaseUrl();
+      SelectRoomAdapter selectRoomAdapter = new SelectRoomAdapter(context, this, roomStayList,
+          baseUrl);
+      recyclerViewRoomList.setAdapter(selectRoomAdapter);
+      AppUtil.animateRecyclerView(context, recyclerViewRoomList,
+          R.anim.layout_animation_from_bottom);
+    }
   }
 
   /**
@@ -127,11 +176,9 @@ public class SelectRoomActivity extends BaseActivity
     switch (view.getId()) {
 
       case R.id.sliderlayout_itemhotelroomselection_slider:
-
-        intent = new Intent(context, HotelRoomdetailActivity.class);
+        intent = new Intent(context, HotelRoomDetailActivity.class);
         break;
       case R.id.linearlayout_itemhotelroomselection_allrates:
-
         intent = new Intent(context, AvailableRoomRatesActivity.class);
         break;
       default:
@@ -155,7 +202,12 @@ public class SelectRoomActivity extends BaseActivity
         break;
 
       case R.id.textview_hotelroomselection_next:
-        intent = new Intent(context, EnhanceStayActivity.class);
+        if (numberOfRooms > 1) {
+          numberOfRooms--;
+          textViewSelectRoomTitle.setText("Select the Room (" + numberOfRooms + ")");
+        } else if (numberOfRooms == 1) {
+          intent = new Intent(context, RoomBookingGuestDetailActivity.class);
+        }
         break;
 
       default:
@@ -232,8 +284,8 @@ public class SelectRoomActivity extends BaseActivity
 
         if (roomAreaDetailList != null && roomAreaDetailList.size() > 0) {
 
-          com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail roomAreaDetail = roomAreaDetailList
-              .get(0);
+          com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail
+              roomAreaDetail = roomAreaDetailList.get(0);
           com.ehg.booking.hotel.pojo.fetchservicesrequestpojo.Detail detail =
               new com.ehg.booking.hotel.pojo.fetchservicesrequestpojo.Detail();
           detail

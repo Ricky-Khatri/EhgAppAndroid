@@ -44,7 +44,7 @@ import java.util.ArrayList;
 /**
  * This class will show room detail o the hotel.
  */
-public class HotelRoomdetailActivity extends BaseActivity implements
+public class HotelRoomDetailActivity extends BaseActivity implements
     OnClickListener, OnSliderClickListener,
     OnAmenitiesItemClickedListener {
 

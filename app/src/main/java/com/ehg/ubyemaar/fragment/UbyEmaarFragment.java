@@ -21,13 +21,10 @@ package com.ehg.ubyemaar.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,8 +32,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import com.ehg.R;
-import com.ehg.apppreferences.SharedPreferenceUtils;
-import com.ehg.home.HomeActivity;
 import com.ehg.home.fragment.BaseFragment;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
@@ -52,7 +47,6 @@ import com.ehg.utilities.LanguageUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.RequestParams;
-import java.util.Objects;
 
 public class UbyEmaarFragment extends BaseFragment implements ApiResponseListener, OnClickListener {
 
@@ -284,7 +278,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
 
       if (userProfilePojo != null && userProfilePojo.getStatus()) {
 
-        JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
+        JsonParserUtil.getInstance(context).setUserProfilePojo(userProfilePojo);
 
         Detail detail = userProfilePojo.getData().getDetail().get(0);
         textViewUserName.setText("Hello Mr. " + detail.getFirstName() + " " + detail.getLastName());

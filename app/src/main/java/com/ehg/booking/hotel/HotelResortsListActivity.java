@@ -32,8 +32,10 @@ import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.hotel.adapter.HotelResortsAdapter;
 import com.ehg.booking.hotel.adapter.HotelResortsAdapter.OnHotelItemClickListener;
+import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.HotelList;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
+import java.util.ArrayList;
 
 /**
  * This class allows to show Hotel & Resorts List.
@@ -88,7 +90,7 @@ public class HotelResortsListActivity extends BaseActivity
     //Set Adapter
     recyclerViewHotelList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewHotelList.setHasFixedSize(true);
-    HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context, this);
+    HotelResortsAdapter hotelResortsAdapter = new HotelResortsAdapter(context, this, new ArrayList<HotelList>());
     recyclerViewHotelList.setAdapter(hotelResortsAdapter);
     AppUtil.animateRecyclerView(context, recyclerViewHotelList,
         R.anim.layout_animation_from_bottom);

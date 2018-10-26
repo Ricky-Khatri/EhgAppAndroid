@@ -41,14 +41,14 @@
       android:layout_marginTop="@dimen/mdtp_date_picker_view_animator_padding_v2"
       android:layout_marginBottom="@dimen/google_1x"
       android:layout_marginEnd="@dimen/imagesize_all_locationimage"
+      android:layout_marginStart="@dimen/marginstart_header_search"
       android:padding="@dimen/marginstart_header_search "
       android:orientation="horizontal"
       android:weightSum="3">
 
       <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:paddingTop="@dimen/google_1x"
         android:paddingBottom="@dimen/google_1x"
         android:background="@drawable/all_rounded_border"
@@ -60,6 +60,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_marginStart="@dimen/elevation_all_header"
+          android:layout_marginEnd="@dimen/elevation_all_header"
           android:gravity="center"
           android:text="Sep 30- Oct2"
           android:textSize="@dimen/textsize_all_small"/>
@@ -72,9 +73,8 @@
         android:layout_weight="0.1"/>
 
       <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.6"
         android:padding="@dimen/google_1x"
         android:background="@drawable/all_rounded_border"
         android:orientation="horizontal">
@@ -85,6 +85,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:layout_marginStart="@dimen/elevation_all_header"
+          android:layout_marginEnd="@dimen/elevation_all_header"
           android:gravity="center"
           android:text="5 Guest"
           android:textSize="@dimen/textsize_all_small"/>
@@ -96,23 +97,23 @@
         android:layout_height="1dp"
         android:layout_weight="0.1"/>
 
-      <!--   <LinearLayout
-           android:layout_width="0dp"
+         <LinearLayout
+           android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_weight="1"
            android:padding="@dimen/google_1x"
            android:background="@drawable/all_rounded_border"
            android:orientation="horizontal">
 
            <TextView
+             android:id="@+id/textview_hotelroomselection_roomcount"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_marginStart="@dimen/elevation_all_header"
+             android:layout_marginEnd="@dimen/elevation_all_header"
              android:gravity="center"
-             android:text="@string/restaurentbookingslots_numberofpeople"
              android:textSize="@dimen/textsize_all_small"/>
 
-         </LinearLayout>-->
+         </LinearLayout>
     </LinearLayout>
 
     <View
@@ -128,7 +129,7 @@
       android:layout_marginTop="@dimen/mdtp_date_picker_view_animator_padding_v2"
       android:layout_marginStart="@dimen/marginstart_header_search"
       android:layout_marginEnd="@dimen/mdtp_date_picker_view_animator_padding_v2"
-      android:text="Select the Room (16)"
+      android:text="Select the Room (2)"
       android:textColor="@color/colorBlack"
       android:textSize="@dimen/textsize_all_large"/>
 

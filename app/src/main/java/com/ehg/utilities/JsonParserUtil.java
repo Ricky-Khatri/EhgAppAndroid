@@ -21,7 +21,9 @@ package com.ehg.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.FetchAvailabilityResponsePojo;
 import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.RoomAreaSearchRequestPojo;
+import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.RoomAreaSearchResponsePojo;
 import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -40,6 +42,8 @@ public class JsonParserUtil {
   //Constants
   private static final String USER_PROFILE_POJO = "UserProfilePojo";
   private static final String ROOM_AREA_SEARCH_REQUEST_POJO = "RoomAreaSearchRequestPojo";
+  private static final String ROOM_AREA_SEARCH_RESPONSE_POJO = "RoomAreaSearchRseponsePojo";
+  private static final String FETCH_AVAILABILITY_RESPONSE_POJO = "FetchAvailabilityRseponsePojo";
   public static final String LANGUAGE_JSON = "LanguageJson";
 
   /**
@@ -67,14 +71,14 @@ public class JsonParserUtil {
     return jsonParserUtil;
   }
 
-  //*********************** Sign-in Response Pojo *****************************
+  // Setter and Getter methods for storing pojo class objects.
 
   /**
    * Called to save UserProfile pojo.
    *
    * @param userProfilePojo object
    */
-  public void saveUserProfilePojo(UserProfilePojo userProfilePojo) {
+  public void setUserProfilePojo(UserProfilePojo userProfilePojo) {
 
     Gson gson = new Gson();
 
@@ -104,16 +108,13 @@ public class JsonParserUtil {
     }
     return userProfilePojo;
   }
-  //****************************************************************************
-
-  //*********************** RoomAreaSearchPojo *****************************
 
   /**
    * Called to save RoomAreaSearchRequestPojo.
    *
    * @param roomAreaSearchRequestPojo object
    */
-  public void saveRoomAreaSearchRequestPojo(RoomAreaSearchRequestPojo roomAreaSearchRequestPojo) {
+  public void setRoomAreaSearchRequestPojo(RoomAreaSearchRequestPojo roomAreaSearchRequestPojo) {
 
     Gson gson = new Gson();
 
@@ -142,6 +143,79 @@ public class JsonParserUtil {
       return new RoomAreaSearchRequestPojo();
     }
     return roomAreaSearchRequestPojo;
+  }
+
+  /**
+   * Called to save RoomAreaSearchRequestPojo.
+   *
+   * @param roomAreaSearchResponsePojo object
+   */
+  public void setRoomAreaSearchResponsePojo(RoomAreaSearchResponsePojo roomAreaSearchResponsePojo) {
+
+    Gson gson = new Gson();
+
+    String json = gson.toJson(roomAreaSearchResponsePojo);
+
+    sharedPreferencesEditor.putString(ROOM_AREA_SEARCH_RESPONSE_POJO, json);
+    sharedPreferencesEditor.commit();
+  }
+
+  /**
+   * Returns RoomAreaSearchResponsePojo.
+   *
+   * @return object
+   */
+  public RoomAreaSearchResponsePojo getRoomAreaSearchResponsePojo() {
+    Gson gson = new Gson();
+    RoomAreaSearchResponsePojo roomAreaSearchResponsePojo;
+
+    String jsonPreferences = sharedPreferences.getString(ROOM_AREA_SEARCH_RESPONSE_POJO, "");
+
+    Type type = new TypeToken<RoomAreaSearchResponsePojo>() {
+    }.getType();
+    roomAreaSearchResponsePojo = gson.fromJson(jsonPreferences, type);
+
+    if (roomAreaSearchResponsePojo == null) {
+      return new RoomAreaSearchResponsePojo();
+    }
+    return roomAreaSearchResponsePojo;
+  }
+
+  /**
+   * Called to save RoomAreaSearchResponsePojo.
+   *
+   * @param fetchAvailabilityResponsePojo object
+   */
+  public void setFetchAvailabilityResponsePojo(
+      FetchAvailabilityResponsePojo fetchAvailabilityResponsePojo) {
+
+    Gson gson = new Gson();
+
+    String json = gson.toJson(fetchAvailabilityResponsePojo);
+
+    sharedPreferencesEditor.putString(FETCH_AVAILABILITY_RESPONSE_POJO, json);
+    sharedPreferencesEditor.commit();
+  }
+
+  /**
+   * Returns FetchAvailabilityResponsePojo.
+   *
+   * @return object
+   */
+  public FetchAvailabilityResponsePojo getFetchAvailabilityResponsePojo() {
+    Gson gson = new Gson();
+    FetchAvailabilityResponsePojo fetchAvailabilityResponsePojo;
+
+    String jsonPreferences = sharedPreferences.getString(FETCH_AVAILABILITY_RESPONSE_POJO, "");
+
+    Type type = new TypeToken<FetchAvailabilityResponsePojo>() {
+    }.getType();
+    fetchAvailabilityResponsePojo = gson.fromJson(jsonPreferences, type);
+
+    if (fetchAvailabilityResponsePojo == null) {
+      return new FetchAvailabilityResponsePojo();
+    }
+    return fetchAvailabilityResponsePojo;
   }
   //****************************************************************************
 

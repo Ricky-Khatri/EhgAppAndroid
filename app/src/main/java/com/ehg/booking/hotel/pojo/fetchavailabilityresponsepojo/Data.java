@@ -22,7 +22,9 @@ package com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-
+/**
+ * Data class.
+ */
 public class Data {
 
   @SerializedName("Detail")

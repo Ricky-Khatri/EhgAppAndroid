@@ -22,44 +22,45 @@ package com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * DefaultRateInfo class.
+ * Distance class.
  */
-public class DefaultRateInfo {
+public class Distance {
 
-  @SerializedName("RatePlanId")
-  private String ratePlanId;
-  @SerializedName("RateType")
-  private String rateType;
-
-  /**
-   * Getter method.
-   *
-   * @return Gets the value of ratePlanId and returns ratePlanId.
-   */
-  public String getRatePlanId() {
-    return ratePlanId;
-  }
-
-  /**
-   * Sets the ratePlanId. You can use getRatePlanId() to get the value of ratePlanId.
-   */
-  public void setRatePlanId(String ratePlanId) {
-    this.ratePlanId = ratePlanId;
-  }
+  @SerializedName("DistanceUnit")
+  private String distanceUnit;
+  @SerializedName("TotalDistance")
+  private TotalDistance totalDistance;
 
   /**
    * Getter method.
    *
-   * @return Gets the value of rateType and returns rateType.
+   * @return Gets the value of distanceUnit and returns distanceUnit.
    */
-  public String getRateType() {
-    return rateType;
+  public String getDistanceUnit() {
+    return distanceUnit;
   }
 
   /**
-   * Sets the rateType. You can use getRateType() to get the value of rateType.
+   * Sets the distanceUnit. You can use getDistanceUnit() to get the value of distanceUnit.
    */
-  public void setRateType(String rateType) {
-    this.rateType = rateType;
+  public void setDistanceUnit(String distanceUnit) {
+    this.distanceUnit = distanceUnit;
+  }
+
+  /**
+   * Getter method.
+   *
+   * @return Gets the value of totalDistance and returns totalDistance.
+   */
+  public TotalDistance getTotalDistance() {
+    return totalDistance;
+  }
+
+  /**
+   * Sets the totalDistance. You can use getTotalDistance() to get the value of totalDistance.
+   */
+  public void setTotalDistance(
+      TotalDistance totalDistance) {
+    this.totalDistance = totalDistance;
   }
 }

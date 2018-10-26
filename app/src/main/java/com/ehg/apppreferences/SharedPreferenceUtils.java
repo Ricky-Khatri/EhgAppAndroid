@@ -39,6 +39,7 @@ public class SharedPreferenceUtils {
   public static final String ACCOUNT_ID = "AccountId";
   public static final String RESTAURANT_CONFIRMATION_NUMBER = "ConfirmationNumber";
   public static final String SELECTED_COUNTRY_CODE = "SelectedCountryCode";
+  public static final String SELECTED_ROOM_COUNT = "SelectedRoomCount";
 
   /**
    * Parameterized constructor of this class.

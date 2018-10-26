@@ -297,7 +297,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     List<String> userTitlelist = new ArrayList<String>();
     userTitlelist.add("Please Select Title");
     userTitlelist.add("Mr.");
-    userTitlelist.add("Mrs.");
+    userTitlelist.add("Ms.");
 
     // Creating adapter for spinner
     ArrayAdapter<String> guestTitleAdapter = new ArrayAdapter<String>(this,
@@ -394,9 +394,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
         break;
 
       case R.id.textview_roombookingguestdetail_next:
-
-        intent = new Intent(context, RoomPaymentActivity.class);
-        //validateSignUpFormFields();
+        validateSignUpFormFields();
         break;
 
       default:
@@ -404,6 +402,4 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     }
     AppUtil.startActivityWithAnimation(this, intent, false);
   }
-
-
 }
