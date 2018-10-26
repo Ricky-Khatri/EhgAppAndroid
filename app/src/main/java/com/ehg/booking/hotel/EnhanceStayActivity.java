@@ -30,8 +30,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import com.ehg.R;
-import com.ehg.booking.hotel.adapter.EnhanceStayAdapter;
-import com.ehg.booking.hotel.adapter.EnhanceStayAdapter.OnEnhanceStayItemClicklistner;
+import com.ehg.booking.hotel.adapter.EnhanceYourStayAdapter;
+import com.ehg.booking.hotel.adapter.EnhanceYourStayAdapter.OnEnhanceYourStayItemClicklistner;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
 
@@ -39,7 +39,7 @@ import com.ehg.utilities.AppUtil;
  * This class will list of show room enhancement items.
  */
 public class EnhanceStayActivity extends BaseActivity implements
-    OnClickListener, OnEnhanceStayItemClicklistner {
+    OnClickListener, OnEnhanceYourStayItemClicklistner {
 
   private Context context;
   private TextView textViewHeaderTitle;
@@ -75,13 +75,13 @@ public class EnhanceStayActivity extends BaseActivity implements
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
-    textViewNext = findViewById(R.id.textview_enhancestay_next);
+    // textViewNext = findViewById(R.id.textview_enhancestay_next);
     textViewSkip = findViewById(R.id.textview_enhancestay_skip);
     recyclerViewRoomList = findViewById(R.id.recyclerview_enhancestay);
     recyclerViewRoomList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewRoomList.setHasFixedSize(true);
     //Set adapter
-    EnhanceStayAdapter selectRoomAdapter = new EnhanceStayAdapter(context, this);
+    EnhanceYourStayAdapter selectRoomAdapter = new EnhanceYourStayAdapter(context, this);
     recyclerViewRoomList.setAdapter(selectRoomAdapter);
     AppUtil.animateRecyclerView(context, recyclerViewRoomList,
         R.anim.layout_animation_from_bottom);
@@ -107,11 +107,11 @@ public class EnhanceStayActivity extends BaseActivity implements
         AppUtil.finishActivityWithAnimation(this);
         break;
 
-      case R.id.textview_enhancestay_next:
+    /*  case R.id.textview_enhancestay_next:
 
         intent = new Intent(context, RoomBookingGuestDetailActivity.class);
         break;
-
+*/
       case R.id.textview_enhancestay_skip:
 
         intent = new Intent(context, RoomBookingGuestDetailActivity.class);

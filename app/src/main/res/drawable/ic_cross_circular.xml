@@ -1,0 +1,32 @@
+<!--
+  ~  Created by Emaar Hospitality Group on 26/10/18 6:15 PM
+  ~  Copyright (C) 2018  All rights reserved.
+  ~  Last modified 26/10/18 6:15 PM
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  ~
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:autoMirrored="true"
+  android:height="24dp"
+  android:viewportHeight="612"
+  android:viewportWidth="612"
+  android:width="24dp">
+  <path
+    android:fillColor="#f63b5b"
+    android:pathData="M424.032,443.7l19.668,-19.668l-118.033,-118.032l118.033,-118.033l-19.668,-19.667l-118.032,118.033l-118.033,-118.033l-19.667,19.667l118.033,118.033l-118.033,118.032l19.667,19.668l118.033,-118.033z"/>
+  <path
+    android:fillColor="#f63b5b"
+    android:pathData="M612,306C612,137.004 474.995,0 306,0C137.004,0 0,137.004 0,306c0,168.995 137.004,306 306,306C474.995,612 612,474.995 612,306zM27.818,306C27.818,152.36 152.36,27.818 306,27.818S584.182,152.36 584.182,306S459.64,584.182 306,584.182S27.818,459.64 27.818,306z"/>
+</vector>

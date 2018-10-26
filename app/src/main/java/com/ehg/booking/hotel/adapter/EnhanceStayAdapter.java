@@ -20,6 +20,7 @@
 package com.ehg.booking.hotel.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +30,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.booking.hotel.EnhanceStayActivity;
 import com.ehg.customview.TextSliderView;
 import com.ehg.utilities.AppUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
@@ -85,6 +88,14 @@ public class EnhanceStayAdapter extends RecyclerView
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
     initAutoScrollViewPager(viewHolder);
+
+    viewHolder.textViewSelectEnhance.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(context, EnhanceStayActivity.class);
+        AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, false);
+      }
+    });
   }
 
   /**
@@ -167,6 +178,7 @@ public class EnhanceStayAdapter extends RecyclerView
 
     private final SliderLayout sliderLayoutImageView;
     private final LinearLayout linearLayoutSlider;
+    private final TextView textViewSelectEnhance;
 
     /**
      * Constructor of ViewHolder class.
@@ -176,6 +188,7 @@ public class EnhanceStayAdapter extends RecyclerView
 
       sliderLayoutImageView = itemView.findViewById(R.id.sliderlayout_itemenhancestay_slider);
       linearLayoutSlider = itemView.findViewById(R.id.linearlayout_itemenhancestay);
+      textViewSelectEnhance = itemView.findViewById(R.id.button_itemenhancestay_selection);
     }
 
     /**

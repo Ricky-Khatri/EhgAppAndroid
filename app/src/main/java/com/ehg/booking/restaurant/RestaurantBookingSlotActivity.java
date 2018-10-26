@@ -37,6 +37,7 @@ import android.widget.NumberPicker;
 import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import com.andexert.calendarlistview.library.CalendarPojo;
 import com.andexert.calendarlistview.library.DatePickerController;
 import com.andexert.calendarlistview.library.DayPickerView;
 import com.andexert.calendarlistview.library.SimpleMonthAdapter.CalendarDay;
@@ -277,6 +278,8 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
         break;
 
       case R.id.imageview_header_back:
+
+        CalendarPojo.getInstance().setSelectedDate(0);
         AppUtil.finishActivityWithAnimation(this);
         break;
 

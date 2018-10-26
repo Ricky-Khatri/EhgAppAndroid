@@ -122,6 +122,7 @@ class SimpleMonthView extends View {
   private boolean mSelectedCircle = true;
   private boolean mSelectedRoundCircle;
   private int selectedDate;
+  private static boolean singleBool;
 
   public SimpleMonthView(Context context, TypedArray typedArray) {
     super(context);
@@ -177,6 +178,7 @@ class SimpleMonthView extends View {
         resources.getDimensionPixelOffset(R.dimen.calendar_height)) - MONTH_HEADER_SIZE) / 6);
 
     isPrevDayEnabled = typedArray.getBoolean(R.styleable.DayPickerView_enablePreviousDay, true);
+
 
     initView();
 
@@ -248,6 +250,14 @@ class SimpleMonthView extends View {
     int dayOffset = findDayOffset();
     int day = 1;
 
+    if (mSingleDaySelection) {
+      if (CalendarPojo.getInstance().getSelectedDate() == 0) {
+        Calendar calendar = Calendar.getInstance();
+        selectedDate = calendar.get(Calendar.DAY_OF_MONTH);
+      } else {
+        selectedDate = CalendarPojo.getInstance().getSelectedDate();
+      }
+    }
     while (day <= mNumCells) {
       int x = paddingDay * (1 + dayOffset * 2) + mPadding;
       if ((mMonth == mSelectedBeginMonth && mSelectedBeginDay == day && mSelectedBeginYear == mYear)
@@ -262,6 +272,7 @@ class SimpleMonthView extends View {
         } else {
 
           if (mSingleDaySelection) {
+            //selectedDate = day;
             if (selectedDate == day) {
               mSelectedCircle = false;
             } else {
@@ -327,15 +338,36 @@ class SimpleMonthView extends View {
           mMonth == mSelectedBeginMonth &&
           mYear == mSelectedBeginYear)) {
 
-        mSelectedRoundCircle = true; // this is using to show rounded circle on selected date.
+        /*if (mSingleDaySelection) {
+
+          if (selectedDate == day) {
+            mSelectedCircle = false;
+            mMonthNumPaint.setColor(mMonthTitleBGColor);
+          } else {
+            mSelectedCircle = true;
+            mMonthNumPaint.setColor(mDayNumColor);
+          }
+        } else {
+          mMonthNumPaint.setColor(mMonthTitleBGColor);
+        }*/
 
         if (mSingleDaySelection) {
-          mSelectedCircle = true;
-          mMonthNumPaint.setColor(mDayNumColor);
+
+          if (selectedDate == day) {
+            mSelectedCircle = false;
+            mMonthNumPaint.setColor(mMonthTitleBGColor);
+          } else {
+            mSelectedCircle = true;
+            mMonthNumPaint.setColor(mDayNumColor);
+          }
+       /*   mSelectedCircle = true;
+          mMonthNumPaint.setColor(mDayNumColor);*/
         } else {
           mSelectedCircle = false;
           mMonthNumPaint.setColor(mMonthTitleBGColor);
         }
+        mSelectedRoundCircle = true; // this is using to show rounded circle on selected date.
+
         //mMonthNumPaint.setColor(mSelectedDaysColor);
         //mMonthNumPaint.setColor(mMonthTitleBGColor);
       }
@@ -360,12 +392,33 @@ class SimpleMonthView extends View {
         mSelectedRoundCircle = true; // this is using to show rounded circle on selected date.
 
         if (mSingleDaySelection) {
-          mSelectedCircle = true;
-          mMonthNumPaint.setColor(mDayNumColor);
+
+          if (selectedDate == day) {
+            mSelectedCircle = false;
+            mMonthNumPaint.setColor(mMonthTitleBGColor);
+          } else {
+            mSelectedCircle = true;
+            mMonthNumPaint.setColor(mDayNumColor);
+          }
+       /*   mSelectedCircle = true;
+          mMonthNumPaint.setColor(mDayNumColor);*/
         } else {
           mSelectedCircle = false;
           mMonthNumPaint.setColor(mMonthTitleBGColor);
         }
+
+        /*if (mSingleDaySelection) {
+
+          if (selectedDate == day) {
+            mSelectedCircle = false;
+            mMonthNumPaint.setColor(mMonthTitleBGColor);
+          } else {
+            mSelectedCircle = true;
+            mMonthNumPaint.setColor(mDayNumColor);
+          }
+        } else {
+          mMonthNumPaint.setColor(mMonthTitleBGColor);
+        }*/
 
         // mMonthNumPaint.setColor(mSelectedDaysColor);
         //mMonthNumPaint.setColor(mMonthTitleBGColor);
@@ -388,12 +441,28 @@ class SimpleMonthView extends View {
         mSelectedRoundCircle = true; // this is using to show rounded circle on selected date.
 
         if (mSingleDaySelection) {
+
+          if (selectedDate == day) {
+            mSelectedCircle = false;
+            mMonthNumPaint.setColor(mMonthTitleBGColor);
+          } else {
+            mSelectedCircle = true;
+            mMonthNumPaint.setColor(mDayNumColor);
+          }
+       /*   mSelectedCircle = true;
+          mMonthNumPaint.setColor(mDayNumColor);*/
+        } else {
+          mSelectedCircle = false;
+          mMonthNumPaint.setColor(mMonthTitleBGColor);
+        }
+
+      /*  if (mSingleDaySelection) {
           mSelectedCircle = true;
           mMonthNumPaint.setColor(mDayNumColor);
         } else {
           mSelectedCircle = false;
           mMonthNumPaint.setColor(mMonthTitleBGColor);
-        }
+        }*/
         //mMonthNumPaint.setColor(mSelectedDaysColor);
         // mMonthNumPaint.setColor(mMonthTitleBGColor);
       }
@@ -409,12 +478,28 @@ class SimpleMonthView extends View {
         mSelectedRoundCircle = true; // this is using to show rounded circle on selected date.
 
         if (mSingleDaySelection) {
+
+          if (selectedDate == day) {
+            mSelectedCircle = false;
+            mMonthNumPaint.setColor(mMonthTitleBGColor);
+          } else {
+            mSelectedCircle = true;
+            mMonthNumPaint.setColor(mDayNumColor);
+          }
+       /*   mSelectedCircle = true;
+          mMonthNumPaint.setColor(mDayNumColor);*/
+        } else {
+          mSelectedCircle = false;
+          mMonthNumPaint.setColor(mMonthTitleBGColor);
+        }
+
+        /*if (mSingleDaySelection) {
           mSelectedCircle = true;
           mMonthNumPaint.setColor(mDayNumColor);
         } else {
           mSelectedCircle = false;
           mMonthNumPaint.setColor(mMonthTitleBGColor);
-        }
+        }*/
 
         //mMonthNumPaint.setColor(mSelectedDaysColor);
         //mMonthNumPaint.setColor(mMonthTitleBGColor);
@@ -432,12 +517,28 @@ class SimpleMonthView extends View {
         mSelectedRoundCircle = true; // this is using to show rounded circle on selected date.
 
         if (mSingleDaySelection) {
+
+          if (selectedDate == day) {
+            mSelectedCircle = false;
+            mMonthNumPaint.setColor(mMonthTitleBGColor);
+          } else {
+            mSelectedCircle = true;
+            mMonthNumPaint.setColor(mDayNumColor);
+          }
+       /*   mSelectedCircle = true;
+          mMonthNumPaint.setColor(mDayNumColor);*/
+        } else {
+          mSelectedCircle = false;
+          mMonthNumPaint.setColor(mMonthTitleBGColor);
+        }
+
+       /* if (mSingleDaySelection) {
           mSelectedCircle = true;
           mMonthNumPaint.setColor(mDayNumColor);
         } else {
           mSelectedCircle = false;
           mMonthNumPaint.setColor(mMonthTitleBGColor);
-        }
+        }*/
         //mMonthNumPaint.setColor(mSelectedDaysColor);
         //mMonthNumPaint.setColor(mMonthTitleBGColor);
       }
@@ -577,25 +678,32 @@ class SimpleMonthView extends View {
 
   public boolean onTouchEvent(MotionEvent event) {
     if (event.getAction() == MotionEvent.ACTION_UP) {
-      SimpleMonthAdapter.CalendarDay calendarDay = getDayFromLocation(event.getX(), event.getY());
-      if (calendarDay.day < mToday) {
-        return false;
-      }
-      if (calendarDay.day != mToday) {
-        isSelectdToday = false;
-      } else {
-        isSelectdToday = true;
-      }
-      if (calendarDay != null) {
-
-        if (mSingleDaySelection) {
-
-          selectedDate = calendarDay.day;
+      try {
+        SimpleMonthAdapter.CalendarDay calendarDay = getDayFromLocation(event.getX(), event.getY());
+        if (calendarDay.day < mToday) {
+          return false;
         }
-        Log.e("today Day-----", String.valueOf(calendarDay.day));
-        onDayClick(calendarDay);
+        if (calendarDay.day != mToday) {
+          isSelectdToday = false;
+        } else {
+          isSelectdToday = true;
+        }
+        if (null != calendarDay) {
+
+          if (mSingleDaySelection) {
+
+            selectedDate = calendarDay.day;
+
+            CalendarPojo.getInstance().setSelectedDate(selectedDate);
+          }
+          Log.e("today Day-----", String.valueOf(calendarDay.day));
+          onDayClick(calendarDay);
+        }
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     }
+
     return true;
   }
 

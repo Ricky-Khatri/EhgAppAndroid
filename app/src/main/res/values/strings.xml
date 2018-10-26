@@ -252,5 +252,8 @@
   <string name="alldetai_facilitieslable">Facilities</string>
   <string name="itemhotelroomselection_specialrequest"><u>Have a Special Request?</u></string>
   <string name="itemhotelroomselection_enhanceyourstay">Enhance your Stay</string>
+  <string name="enhancestay_saveandreturnenhancements">Save and Return to Enhancements</string>
+  <string name="enhancestay_totalenhancements">Total Enhancements</string>
+  <string name="itemenhanceyourstay_remove"><u>Remove</u></string>
 
 </resources>

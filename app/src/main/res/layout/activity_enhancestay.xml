@@ -29,7 +29,6 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_above="@+id/linearlayout_enhancestay_bottom"
     android:layout_below="@+id/layout_enhancestay_header"
     android:orientation="vertical">
 
@@ -37,162 +36,73 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/mdtp_date_picker_view_animator_padding_v2"
-      android:layout_marginBottom="@dimen/google_1x"
-      android:layout_marginStart="@dimen/google_1x"
-      android:layout_marginEnd="@dimen/imagesize_all_locationimage"
-      android:elevation="3dp"
-      android:orientation="horizontal"
-      android:weightSum="3">
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:paddingTop="@dimen/google_1x"
-        android:paddingBottom="@dimen/google_1x"
-        android:background="@drawable/all_rounded_border"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <TextView
-          android:id="@+id/textview_enhancestay_date"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginStart="@dimen/elevation_all_header"
-          android:gravity="center"
-          android:text="Sep 30- Oct2"
-          android:textSize="@dimen/textsize_all_small"/>
-
-      </LinearLayout>
-
-      <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="0.1"/>
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.6"
-        android:padding="@dimen/google_1x"
-        android:background="@drawable/all_rounded_border"
-        android:orientation="horizontal">
-
-
-        <TextView
-          android:id="@+id/textview_enhancestay_guestcount"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginStart="@dimen/elevation_all_header"
-          android:gravity="center"
-          android:text="5 Guest"
-          android:textSize="@dimen/textsize_all_small"/>
-
-      </LinearLayout>
-
-      <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_weight="0.1"/>
-
-      <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="@dimen/google_1x"
-        android:background="@drawable/all_rounded_border"
-        android:orientation="horizontal">
-
-        <TextView
-          android:id="@+id/textview_enhancestay_roomtype"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginStart="@dimen/elevation_all_header"
-          android:gravity="center"
-          android:text="Deluxe Room x2"
-          android:textSize="@dimen/textsize_all_small"/>
-
-      </LinearLayout>
-    </LinearLayout>
-
-    <View
-      android:layout_width="match_parent"
-      android:layout_height="0.7dp"
-      android:background="@color/colorGray"/>
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/mdtp_date_picker_view_animator_padding_v2"
       android:layout_marginStart="@dimen/marginstart_header_search"
       android:layout_marginEnd="@dimen/mdtp_date_picker_view_animator_padding_v2"
-      android:orientation="horizontal">
+      android:orientation="vertical">
 
       <TextView
-        android:id="@+id/textView_enhancestay"
-        android:textStyle="bold"
+        android:id="@+id/textView_enhancestay_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enhance your Stay (2)"
+        android:text="Enhancements Daily Breakfast"
         android:textColor="@color/colorBlack"
-        android:textSize="@dimen/textsize_all_large"/>
+        android:textSize="@dimen/textsize_all_guesttitle"/>
 
       <TextView
-        android:id="@+id/textview_enhancestay_skip"
-        android:layout_width="match_parent"
+        android:id="@+id/textview_enhancestay_typeevent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:text="Skip"
-        android:textColor="@color/colorBlack"/>
+        android:text="Buffer BreakFast"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/textsize_all_guestdetail"/>
 
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
       android:id="@+id/recyclerview_enhancestay"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="@dimen/marginstart_header_search"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin_all_large"
       android:layout_marginBottom="@dimen/marginstart_header_search"
       android:layout_marginStart="@dimen/marginstart_header_search"
-      android:layout_marginEnd="@dimen/marginstart_header_search"
-
-      />
-
-  </LinearLayout>
-
-  <LinearLayout
-    android:id="@+id/linearlayout_enhancestay_bottom"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:orientation="horizontal">
+      android:layout_marginEnd="@dimen/marginstart_header_search"/>
 
     <TextView
-      android:id="@+id/textview_enhancestay_amount"
-      android:textStyle="bold"
+      android:id="@+id/textview_enhancestay_totalprice"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:padding="@dimen/google_1x"
-      android:text="AED 839"
+      android:layout_gravity="center"
+      android:text="AED400"
       android:textColor="@color/colorBlack"
-      android:textSize="@dimen/textsize_ubyemaar_points"/>
-
-    <View
-      android:layout_width="0dp"
-      android:layout_height="1dp"
-      android:layout_weight="1"/>
+      android:textSize="@dimen/textsize_all_large"/>
 
     <TextView
-      android:id="@+id/textview_enhancestay_next"
-      android:textStyle="bold"
-      android:layout_width="@dimen/mdtp_material_button_minwidth"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/mdtp_date_picker_view_animator_padding_v2"
-      android:layout_marginEnd="@dimen/google_1x"
-      android:padding="@dimen/google_1x"
-      android:background="@drawable/all_background_border"
+      android:layout_gravity="center"
+      android:text="@string/enhancestay_totalenhancements"
+      android:textColor="@color/colorBlack"/>
+
+    <TextView
+      android:id="@+id/textview_enhancestay_saveenhancements"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/margin_all_large"
+      android:layout_margin="@dimen/height_all_verticaldivider"
       android:gravity="center"
-      android:text="NEXT"
+      android:background="@drawable/all_rounded_button"
+      android:text="@string/enhancestay_saveandreturnenhancements"
+      android:textColor="@color/colorWhite"/>
+
+    <TextView
+      android:id="@+id/textview_enhancestay_cancel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
       android:textColor="@color/colorBlack"
-      android:textSize="@dimen/textsize_all_headertitle"/>
+      android:text="@string/mdtp_cancel"
+      android:textSize="@dimen/textsize_all_labels"/>
   </LinearLayout>
+
+
 </RelativeLayout>
