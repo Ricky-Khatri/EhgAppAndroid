@@ -33,6 +33,7 @@ public class SharedPreferenceUtils {
   private SharedPreferences.Editor sharedPreferencesEditor;
 
   //SharedPreference keys
+  public static final String APP_CURRENCY = "AppCurrency";
   public static final String APP_LANGUAGE = "AppLanguage";
   public static final String FCM_TOKEN = "FcmToken";
   public static final String LOYALTY_MEMBER_ID = "LoyaltyMemberId";

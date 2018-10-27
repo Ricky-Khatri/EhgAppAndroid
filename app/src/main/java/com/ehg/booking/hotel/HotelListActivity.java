@@ -157,7 +157,7 @@ public class HotelListActivity extends BaseActivity implements
       if (!TextUtils.isEmpty(dates) && !TextUtils.isEmpty(numberOfGuests) && !TextUtils
           .isEmpty(numberOfRooms)) {
         textviewSearch.setText(dates + " | " + numberOfGuests + "," + numberOfRooms);
-        //Set Adapter
+        //Set Search Adapter
         setSearchResultAdapter();
       } else {
         //Set Adapter

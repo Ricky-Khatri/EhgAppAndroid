@@ -34,13 +34,19 @@ import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.booking.hotel.adapter.AvailableRoomRatesAdapter;
 import com.ehg.booking.hotel.adapter.AvailableRoomRatesAdapter.OnRoomRatesItemClicklistner;
+import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.AverageRate;
 import com.ehg.home.BaseActivity;
 import com.ehg.utilities.AppUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Called to show available room rates.
  */
-public class AvailableRoomRatesActivity extends BaseActivity implements OnClickListener, OnRoomRatesItemClicklistner {
+public class AvailableRoomRatesActivity extends BaseActivity implements OnClickListener,
+    OnRoomRatesItemClicklistner {
 
   private Context context;
   private TextView textViewHeaderTitle;
@@ -64,10 +70,8 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
       initView();
 
     } catch (NullPointerException e) {
-
       e.printStackTrace();
     } catch (Exception e) {
-
       e.printStackTrace();
     }
   }
@@ -76,17 +80,9 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
    * Called to init view components of screen.
    */
   private void initView() {
+
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
-    //Set Adapter
-    recyclerViewPriceList = findViewById(R.id.recyclerview_availableroomrates_list);
-    recyclerViewPriceList.setLayoutManager(new LinearLayoutManager(context));
-    recyclerViewPriceList.setHasFixedSize(true);
-    AvailableRoomRatesAdapter hotelResortsAdapter = new AvailableRoomRatesAdapter(context, this);
-    recyclerViewPriceList.setAdapter(hotelResortsAdapter);
-    AppUtil.animateRecyclerView(context, recyclerViewPriceList,
-        R.anim.layout_animation_from_bottom);
-
     Bundle bundle = getIntent().getExtras();
     if (bundle != null) {
 
@@ -98,8 +94,23 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
     }
     //Set OnClickListener
     headerBackButton.setOnClickListener(this);
-  }
 
+    //Set Adapter
+    if (getIntent() != null && getIntent().getStringExtra("averageListString") != null) {
+      recyclerViewPriceList = findViewById(R.id.recyclerview_availableroomrates_list);
+      recyclerViewPriceList.setLayoutManager(new LinearLayoutManager(context));
+      recyclerViewPriceList.setHasFixedSize(true);
+      Type type = new TypeToken<List<AverageRate>>() {
+      }.getType();
+      List<AverageRate> averageRateList = new Gson()
+          .fromJson(getIntent().getStringExtra("averageListString"), type);
+      AvailableRoomRatesAdapter availableRoomRatesAdapter = new AvailableRoomRatesAdapter(context,
+          this, averageRateList);
+      recyclerViewPriceList.setAdapter(availableRoomRatesAdapter);
+      AppUtil.animateRecyclerView(context, recyclerViewPriceList,
+          R.anim.layout_animation_from_bottom);
+    }
+  }
 
   /**
    * Called when activity resumed.
@@ -137,12 +148,11 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
 
   /**
    * Called when view item clicked on this activity.
+   *
    * @param view clicked view
    */
   @Override
   public void onClick(View view) {
-
-    Intent intent = null;
 
     switch (view.getId()) {
 
@@ -153,17 +163,28 @@ public class AvailableRoomRatesActivity extends BaseActivity implements OnClickL
       default:
         break;
     }
-    AppUtil.startActivityWithAnimation(this, intent, false);
-
   }
 
   /**
    * Called when list item clicked.
+   *
    * @param position clicked item position
    * @param view clicked item view
    */
   @Override
-  public void onItemClick(int position, View view) {
+  public void onItemClick(int position, View view, AverageRate averageRate) {
+    switch (view.getId()) {
+      case R.id.textview_itemavailableroomrates_select:
+        if (averageRate != null) {
+          Intent intent = new Intent();
+          intent.putExtra("averageRate", new Gson().toJson(averageRate));
+          setResult(RESULT_OK, intent);
+          finish();
+        }
+        break;
 
+      default:
+        break;
+    }
   }
 }

@@ -531,7 +531,8 @@ public class HotelBookingSlotActivity extends BaseActivity implements
 
         //Add searchCriteria to roomAreaSearchPojo
         detail.setSearchCriteria(searchCriteria);
-        detail.setCurrencyCode("AED");//TODO:Make it dynamic
+        detail.setCurrencyCode(SharedPreferenceUtils.getInstance(context)
+            .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED"));//TODO:Make it dynamic
         detail.setDeviceId(AppUtil.getDeviceId(this));
         if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
             .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {

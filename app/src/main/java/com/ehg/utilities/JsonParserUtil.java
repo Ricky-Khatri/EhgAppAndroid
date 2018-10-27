@@ -71,6 +71,27 @@ public class JsonParserUtil {
     return jsonParserUtil;
   }
 
+  /**
+   * Called to get RatePlanType.
+   * @param ratePlanType ratePlanType
+   * @return
+   */
+  public static int getRoomRatePlanType(String ratePlanType) {
+    int roomRatePlanType = 0;
+    switch (ratePlanType) {
+      case "Regular":
+        roomRatePlanType = 1;
+        break;
+      case "Package":
+        roomRatePlanType = 2;
+        break;
+      case "Group":
+        roomRatePlanType = 3;
+        break;
+    }
+    return roomRatePlanType;
+  }
+
   // Setter and Getter methods for storing pojo class objects.
 
   /**

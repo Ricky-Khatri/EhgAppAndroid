@@ -32,10 +32,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.adapter.EnhanceStayAdapter.OnEnhanceStayItemClicklistner;
+import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.AverageRate;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.Media;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.RoomStay;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.RoomType;
+import com.ehg.booking.hotel.pojo.fetchservicesresponsepojo.ServiceDetail;
 import com.ehg.customview.TextSliderView;
 import com.ehg.utilities.AppUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
@@ -44,6 +47,7 @@ import com.glide.slider.library.SliderLayout.Transformer;
 import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.glide.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -53,23 +57,30 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
     OnSliderClickListener, OnEnhanceStayItemClicklistner {
 
   private final Context context;
-  private final OnRoomItemClicklistner onRomClickListner;
+  private final OnRoomItemClicklistner onRoomItemClicklistner;
 
   private List<RoomStay> roomStayList;
   private List<RoomType> roomTypeList;
 
   private String baseUrl;
 
+  private HashMap<String, Boolean> roomSelectionHashMap;
+  private float selectedRate = 0.0f;
+  private int selectedRatePosition = 0;
+  private List<ServiceDetail> serviceDetails;
+
   /**
    * This is parametrized constructor of this adapter class.
    */
   public SelectRoomAdapter(Context context, OnRoomItemClicklistner itemClicklistner,
-      List<RoomStay> roomStayList,String baseUrl) {
+      List<RoomStay> roomStayList, String baseUrl) {
     this.context = context;
-    onRomClickListner = itemClicklistner;
+    onRoomItemClicklistner = itemClicklistner;
     this.roomStayList = roomStayList;
     roomTypeList = roomStayList.get(0).getRoomTypes();
     this.baseUrl = baseUrl;
+    roomSelectionHashMap = new HashMap<>();
+    serviceDetails = new ArrayList<>();
   }
 
   /**
@@ -95,32 +106,107 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
    * @param position integer position
    */
   @Override
-  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+  public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
 
     try {
 
       if (roomTypeList != null && roomTypeList.size() > 0) {
 
-        RoomType roomType = roomTypeList.get(position);
+        final RoomType roomType = roomTypeList.get(position);
+        if (roomType.getAverageRates() != null) {
+          viewHolder.textViewAllRates.setText(context.getResources()
+              .getString(R.string.itemhotelroonselection_rates) + "(" + roomType.getAverageRates()
+              .size() + ")");
+        } else {
+          viewHolder.textViewAllRates.setText(context.getResources()
+              .getString(R.string.itemhotelroonselection_rates) + "(0)");
+        }
         viewHolder.textViewRoomType.setText(roomType.getRoomTypeName());
-        viewHolder.textviewPrice.setText("AED " + roomType.getAverageRates().get(0).getRate() + "");
-        viewHolder.textViewMaxOccupancy.setText(roomType.getRoomFeatures().get(0).getQuantity() + "");
+        viewHolder.textViewMaxOccupancy
+            .setText(roomType.getRoomFeatures().get(0).getQuantity() + "");
+
+        if (selectedRatePosition == position && selectedRate != 0.0) {
+          roomType.getAverageRates().get(0).setRate(selectedRate);
+        }
+
+        viewHolder.textviewPrice
+            .setText(SharedPreferenceUtils.getInstance(context)
+                .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED") +
+                " " + roomType.getAverageRates().get(0).getRate() + "");
+
         List<Media> mediaList = roomType.getMedias();
+        initAutoScrollViewPager(viewHolder, mediaList);
 
-        initAutoScrollViewPager(viewHolder,mediaList);
+        if (roomSelectionHashMap.containsKey(roomType.getRoomTypeCode())
+            && roomSelectionHashMap.get(roomType.getRoomTypeCode())) {
+          viewHolder.textViewSelection
+              .setBackgroundResource(R.drawable.all_square_border_background_dark);
+          viewHolder.textViewSelection.setTextColor(context.getResources().getColor(R.color.white));
+          viewHolder.textViewSelection.setText("SELECTED");
+        } else {
+          viewHolder.textViewSelection.setBackgroundResource(R.drawable.all_background_border);
+          viewHolder.textViewSelection
+              .setTextColor(context.getResources().getColor(R.color.colorBlack));
+          viewHolder.textViewSelection.setText("SELECT");
+        }
 
-        viewHolder.recyclerViewEnhanceStay
-            .setLayoutManager(
-                new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        viewHolder.recyclerViewEnhanceStay.setHasFixedSize(true);
-        EnhanceStayAdapter selectRoomAdapter = new EnhanceStayAdapter(context, this);
-        viewHolder.recyclerViewEnhanceStay.setAdapter(selectRoomAdapter);
+        //Set EnhanceStay Adapter
+        if(serviceDetails != null && serviceDetails.size() > 0 && selectedRatePosition == position) {
+          viewHolder.linearlayoutEnhanceStay.setVisibility(View.VISIBLE);
+          viewHolder.recyclerViewEnhanceStay
+              .setLayoutManager(
+                  new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+          viewHolder.recyclerViewEnhanceStay.setHasFixedSize(true);
+          EnhanceStayAdapter selectRoomAdapter = new EnhanceStayAdapter(context, this,serviceDetails);
+          viewHolder.recyclerViewEnhanceStay.setAdapter(selectRoomAdapter);
+        } /*else {
+          viewHolder.linearlayoutEnhanceStay.setVisibility(View.GONE);
+        }*/
+
+        //SetOnCLickListener
+        viewHolder.textViewSelection.setOnClickListener(new OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            if (roomSelectionHashMap.containsKey(roomType.getRoomTypeCode())
+                && roomSelectionHashMap.get(roomType.getRoomTypeCode())) {
+              //viewHolder.linearlayoutEnhanceStay.setVisibility(View.GONE);
+              roomSelectionHashMap.put(roomType.getRoomTypeCode(), false);
+            } else {
+              //viewHolder.linearlayoutEnhanceStay.setVisibility(View.VISIBLE);
+              roomSelectionHashMap.put(roomType.getRoomTypeCode(), true);
+              if (onRoomItemClicklistner != null) {
+                onRoomItemClicklistner.onItemClick(position, view, null);
+              }
+            }
+            notifyDataSetChanged();
+          }
+        });
       }
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (IndexOutOfBoundsException i) {
       i.printStackTrace();
     }
+  }
+
+  /**
+   * Called to show enhance stay layout for selected room type.
+   * @param position positon
+   * @param serviceDetails serviceDetails list
+   */
+  public void showEnhanceStayLayout(int position, List<ServiceDetail> serviceDetails) {
+    this.serviceDetails = serviceDetails;
+    this.selectedRatePosition = position;
+    notifyDataSetChanged();
+  }
+
+  /**
+   * Called to update selected rate.
+   */
+  public void updateSelectedRate(int position, float selectedRate) {
+    this.selectedRate = selectedRate;
+    this.selectedRatePosition = position;
+    notifyDataSetChanged();
   }
 
   /**
@@ -147,24 +233,6 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
 
     viewHolder.sliderLayoutImageView.getLayoutParams().height = AppUtil
         .getDeviceHeight((AppCompatActivity) context) / 3 - 50;
-
-   /* ArrayList<String> listUrl = new ArrayList<>();
-    ArrayList<String> listName = new ArrayList<>();
-
-    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_1.jpg");
-    listName.add("Address Downtown");
-
-    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_2.jpg");
-    listName.add("Address Boulevard");
-
-    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_4.jpg");
-    listName.add("Rov");
-
-    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_3.png");
-    listName.add("Vida");
-
-    listUrl.add("http://yayandroid.com/data/github_library/parallax_listview/test_image_5.png");
-    listName.add("Address");*/
 
     //Add image abd text data to sliderLayout
     for (int index = 0; index < mediaList.size(); index++) {
@@ -200,7 +268,8 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
    */
   public interface OnRoomItemClicklistner {
 
-    void onItemClick(int position, View view);
+    void onItemClick(int position, View view,
+        List<AverageRate> averageRateList);
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
@@ -245,7 +314,7 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
       recyclerViewEnhanceStay = itemView.findViewById(R.id.recyclerview_itemhotelroomselection);
       textViewSelection = itemView.findViewById(R.id.textview_itemhoteroomselection_selection);
 
-      textViewSelection.setOnClickListener(this);
+      //textViewSelection.setOnClickListener(this);
       linearlayoutViewAllRates.setOnClickListener(this);
       sliderLayoutImageView.setOnClickListener(this);
       linearLayoutSlider.setOnClickListener(this);
@@ -259,18 +328,10 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
      */
     @Override
     public void onClick(View view) {
-
-      switch (view.getId()) {
-
-        case R.id.textview_itemhoteroomselection_selection:
-          linearlayoutEnhanceStay.setVisibility(View.VISIBLE);
-          break;
-        default:
-          break;
-      }
-
-      if (onRomClickListner != null) {
-        onRomClickListner.onItemClick(getAdapterPosition(), view);
+      if (onRoomItemClicklistner != null) {
+        List<AverageRate> averageRateList = roomStayList.get(getAdapterPosition())
+            .getRoomTypes().get(getAdapterPosition()).getAverageRates();
+        onRoomItemClicklistner.onItemClick(getAdapterPosition(), view, averageRateList);
         notifyDataSetChanged();
       }
     }

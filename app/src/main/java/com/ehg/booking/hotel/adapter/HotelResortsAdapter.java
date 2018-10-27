@@ -33,6 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.Address;
 import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.HotelList;
 import java.util.ArrayList;
@@ -117,7 +118,10 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
     viewHolder.textViewHotelname.setText(title);
     viewHolder.textViewHotellocation.setText(address);
     viewHolder.textViewPrice
-        .setText(Html.fromHtml("Price starting at\n<font><b>AED 983</b></font>"));
+        .setText(Html.fromHtml("Price starting at\n<font><b>" +
+            SharedPreferenceUtils.getInstance(context)
+                .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED")
+            + " 983</b></font>"));
   }
 
   /**

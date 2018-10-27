@@ -32,7 +32,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.EnhanceStayActivity;
+import com.ehg.booking.hotel.pojo.fetchservicesresponsepojo.DailyRate;
+import com.ehg.booking.hotel.pojo.fetchservicesresponsepojo.ServiceDetail;
 import com.ehg.customview.TextSliderView;
 import com.ehg.utilities.AppUtil;
 import com.glide.slider.library.Animations.DescriptionAnimation;
@@ -41,6 +44,7 @@ import com.glide.slider.library.SliderLayout.Transformer;
 import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.glide.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is initiating the list of hotel and showing hotel list.
@@ -50,16 +54,20 @@ public class EnhanceStayAdapter extends RecyclerView
     OnSliderClickListener {
 
   private final Context context;
-  private final OnEnhanceStayItemClicklistner onItemListner;
+  private final OnEnhanceStayItemClicklistner onItemListener;
+
+  private List<ServiceDetail> serviceDetails;
 
   /**
    * This is parametrized constructor of this adapter class.
    */
   public EnhanceStayAdapter(Context context,
-      OnEnhanceStayItemClicklistner itemClicklistner) {
+      OnEnhanceStayItemClicklistner itemClicklistner,
+      List<ServiceDetail> serviceDetails) {
 
     this.context = context;
-    onItemListner = itemClicklistner;
+    onItemListener = itemClicklistner;
+    this.serviceDetails = serviceDetails;
   }
 
   /**
@@ -89,6 +97,21 @@ public class EnhanceStayAdapter extends RecyclerView
 
     initAutoScrollViewPager(viewHolder);
 
+    ServiceDetail serviceDetail = serviceDetails.get(position);
+
+    viewHolder.textViewServiceDescription.setText(serviceDetail.getDescription());
+    viewHolder.textViewServiceName.setText(serviceDetail.getServiceName());
+
+    if (serviceDetail.getServiceOptions() != null && serviceDetail.getServiceOptions().size() > 0
+        && serviceDetail.getServiceOptions().get(0).getDailyRates() != null
+        && serviceDetail.getServiceOptions().get(0).getDailyRates().size() > 0) {
+
+      List<DailyRate> dailyRateList = serviceDetail.getServiceOptions().get(0).getDailyRates();
+      viewHolder.textViewServicePrice.setText(SharedPreferenceUtils.getInstance(context)
+          .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED") + " "
+          + dailyRateList.get(0).getPrice().get(0).getAmountAfterTax());
+    }
+
     viewHolder.textViewSelectEnhance.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -105,7 +128,7 @@ public class EnhanceStayAdapter extends RecyclerView
    */
   @Override
   public int getItemCount() {
-    return 5;
+    return serviceDetails != null && serviceDetails.size() > 0 ? serviceDetails.size() : 0;
   }
 
   @Override
@@ -179,6 +202,9 @@ public class EnhanceStayAdapter extends RecyclerView
     private final SliderLayout sliderLayoutImageView;
     private final LinearLayout linearLayoutSlider;
     private final TextView textViewSelectEnhance;
+    private final TextView textViewServiceName;
+    private final TextView textViewServicePrice;
+    private final TextView textViewServiceDescription;
 
     /**
      * Constructor of ViewHolder class.
@@ -188,7 +214,11 @@ public class EnhanceStayAdapter extends RecyclerView
 
       sliderLayoutImageView = itemView.findViewById(R.id.sliderlayout_itemenhancestay_slider);
       linearLayoutSlider = itemView.findViewById(R.id.linearlayout_itemenhancestay);
-      textViewSelectEnhance = itemView.findViewById(R.id.button_itemenhancestay_selection);
+      textViewSelectEnhance = itemView.findViewById(R.id.textview_itemenhancestay_selection);
+      textViewServiceName = itemView.findViewById(R.id.textview_itemenhancestay_servicename);
+      textViewServicePrice = itemView.findViewById(R.id.textview_itemenhancestay_serviceprice);
+      textViewServiceDescription = itemView
+          .findViewById(R.id.textView_itemenhancestay_servicedescription);
     }
 
     /**
@@ -199,8 +229,8 @@ public class EnhanceStayAdapter extends RecyclerView
     @Override
     public void onClick(View view) {
 
-      if (onItemListner != null) {
-        onItemListner.onItemClick(getAdapterPosition(), view);
+      if (onItemListener != null) {
+        onItemListener.onItemClick(getAdapterPosition(), view);
         notifyDataSetChanged();
       }
     }

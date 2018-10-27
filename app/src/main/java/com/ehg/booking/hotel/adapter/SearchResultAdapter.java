@@ -34,6 +34,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.HotelList;
 import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.Media;
 import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.PropertyMainImage;
@@ -89,7 +90,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     viewHolder.textViewHotellocation.setText(hotel.getAddress().getAddress1());
     viewHolder.textViewPrice
         .setText(
-            Html.fromHtml("Price starting at\n<font><b>AED " + hotel.getRate() + "</b></font>"));
+            Html.fromHtml("Price starting at\n<font><b>"
+                + SharedPreferenceUtils.getInstance(context)
+                .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED") +
+                " " + hotel.getRate() + "</b></font>"));
 
     Media media = hotel.getMedia() != null ? hotel.getMedia() : new Media();
     List<PropertyMainImage> propertyMainImageList = media.getPropertyMainImages();

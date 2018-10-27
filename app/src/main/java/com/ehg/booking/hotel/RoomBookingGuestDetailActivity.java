@@ -38,17 +38,36 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail;
+import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.FetchRoomAvailabilityRequestPojo;
+import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.FetchAvailabilityResponsePojo;
+import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.GuestCount;
+import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.RoomAreaSearchRequestPojo;
 import com.ehg.home.BaseActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class is used to enter guest detail.
  */
 public class RoomBookingGuestDetailActivity extends BaseActivity implements
-    OnClickListener, OnEditorActionListener {
+    OnClickListener, OnEditorActionListener, ApiResponseListener {
+
+  private static final String HOLD_RESERVATION = "HoldReservation";
 
   private Context context;
   private AppCompatImageView imageViewBack;
@@ -282,9 +301,9 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     }
 
     if (cancel) {
-
       Objects.requireNonNull(focusView).requestFocus();
-
+    } else {
+      holdRoomReservation();
     }
   }
 
@@ -401,5 +420,151 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
         break;
     }
     AppUtil.startActivityWithAnimation(this, intent, false);
+  }
+
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Called to hold multiple room reservation.
+   */
+  private void holdRoomReservation() {
+    try {
+      if (AppUtil.isNetworkAvailable(context)) {
+        new HttpClientRequest().setApiResponseListner(this);
+
+        RoomAreaSearchRequestPojo roomAreaSearchRequestPojo = JsonParserUtil.getInstance(this)
+            .getRoomAreaSearchRequestPojo();
+        List<com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail>
+            roomAreaDetailList = roomAreaSearchRequestPojo
+            .getDetails();
+
+        if (roomAreaDetailList != null && roomAreaDetailList.size() > 0) {
+
+          com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail
+              roomAreaDetail = roomAreaDetailList.get(0);
+          Detail detail = new Detail();
+          detail.setIbuId(2);//TODO: Make it dynamic
+          detail.setCheckInDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getStart());
+          detail.setCheckOutDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getEnd());
+          detail.setTotalRooms(roomAreaDetail.getSearchCriteria().getNumberOfUnits());
+          List<GuestCount> guestCountList = roomAreaDetail.getSearchCriteria().getGuestCounts();
+          detail.setTotalAdults(guestCountList.get(0).getCount());
+          List<Integer> childreAges = new ArrayList<>();
+
+          //TODO: Make it dynamic
+          childreAges.add(guestCountList.get(1).getCount());
+          detail.setTotalChildren(guestCountList.get(1).getCount());
+          //detail.setChildrenAges(childreAges);
+          detail.setTotalInfants(guestCountList.get(2).getCount());
+          detail.setCurrencyCode(roomAreaDetail.getCurrencyCode());
+          detail.setLanguage(roomAreaDetail.getLanguageCode());
+
+          if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+              .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+            detail.setLoyaltyMemberId(Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+                .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
+          }
+          detail.setDeviceId(AppUtil.getDeviceId(this));
+
+          FetchRoomAvailabilityRequestPojo fetchRoomAvailabilityRequestPojo =
+              new FetchRoomAvailabilityRequestPojo();
+          List<Detail> detailList = new ArrayList<>();
+          detailList.add(detail);
+          fetchRoomAvailabilityRequestPojo.setDetails(detailList);
+          Gson gson = new Gson();
+          String requestString = gson
+              .toJson(fetchRoomAvailabilityRequestPojo, FetchRoomAvailabilityRequestPojo.class);
+
+          StringEntity entity = null;
+          try {
+            entity = new StringEntity(requestString);
+          } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+          }
+
+          new HttpClientRequest(context,
+              WebServiceUtil.getUrl(WebServiceUtil.METHOD_HOLD_RESERVATION_MULTI_ROOM),
+              entity, WebServiceUtil.CONTENT_TYPE,
+              HOLD_RESERVATION, true).httpPostRequest();
+        }
+      } else {
+        AppUtil.showAlertDialog((AppCompatActivity) context,
+            context.getResources().getString(R.string.all_please_check_network_settings),
+            false, "", true, null);
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    } catch (IndexOutOfBoundsException iob) {
+      iob.printStackTrace();
+    } catch (NumberFormatException iob) {
+      iob.printStackTrace();
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(HOLD_RESERVATION)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("Status")) {
+
+        FetchAvailabilityResponsePojo fetchAvailabilityResponsePojo = new Gson()
+            .fromJson(responseVal,
+                new TypeToken<FetchAvailabilityResponsePojo>() {
+                }.getType());
+
+        JsonParserUtil.getInstance(this)
+            .setFetchAvailabilityResponsePojo(fetchAvailabilityResponsePojo);
+
+
+      } else if (requestMethod.equalsIgnoreCase(HOLD_RESERVATION)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("Status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("Data");
+
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("Detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("ValidationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog((AppCompatActivity) context,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
+        }
+      } else {
+        AppUtil.showAlertDialog(this,
+            new JSONObject(responseVal).getString("Message"), false,
+            getResources().getString(R.string.dialog_errortitle), true, null);
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog(this, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }

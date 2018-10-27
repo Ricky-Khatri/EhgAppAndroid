@@ -16,7 +16,7 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.25.4'
         classpath 'com.google.firebase:firebase-plugins:1.1.5'
 
-        // NOTE: Do not place your application dependencies here; they belong
+        // NOTE: Do not place your application dependencies here; they befloat
         // in the individual module build.gradle files
     }
 }

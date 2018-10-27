@@ -161,7 +161,7 @@
             android:layout_height="wrap_content"
             android:text="AED 824"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/textsize_all_headertitle"/>
+            android:textSize="@dimen/textsize_all_labels"/>
 
           <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageview_itemhoteroomselection_information"
@@ -195,7 +195,8 @@
           android:paddingStart="@dimen/google_1x"
           android:paddingEnd="@dimen/google_1x"
           android:background="@drawable/all_background_border"
-          android:text="2"/>
+          android:text="2"
+          android:visibility="gone"/>
 
         <TextView
           android:id="@+id/textview_itemhoteroomselection_selection"
@@ -206,8 +207,8 @@
           android:background="@drawable/all_square_border_background_dark"
           android:gravity="center"
           android:text="SELECTED"
-          android:textSize="@dimen/textsize_signup_termsandcondition"
-          android:textColor="@color/white"/>
+          android:textColor="@color/white"
+          android:textSize="@dimen/textsize_signup_termsandcondition"/>
 
       </LinearLayout>
     </LinearLayout>
