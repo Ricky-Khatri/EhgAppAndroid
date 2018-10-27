@@ -71,6 +71,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import java.text.DecimalFormat;
 
 /**
  * This class contains common utility methods required for the app.
@@ -104,6 +105,7 @@ public class AppUtil {
 
   /**
    * Called to animate recycler view items.
+   *
    * @param context activity context
    * @param recyclerView recyclerview object
    * @param resourceId animation resource id
@@ -128,6 +130,16 @@ public class AppUtil {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Called to get decimal formatted rate to 2 decimal digits.
+   * @param priceRate
+   * @return
+   */
+  public static String getFormatedPriceRate(String priceRate) {
+    DecimalFormat decimalFormat = new DecimalFormat("#.00");
+    return priceRate;
   }
 
   /**

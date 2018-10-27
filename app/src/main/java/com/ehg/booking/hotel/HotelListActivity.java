@@ -112,7 +112,7 @@ public class HotelListActivity extends BaseActivity implements
       initView();
     } catch (NullPointerException n) {
       n.printStackTrace();
-    } catch (Exception e) {
+    } catch (RuntimeException e) {
       e.printStackTrace();
     }
   }
@@ -234,12 +234,14 @@ public class HotelListActivity extends BaseActivity implements
       case R.id.textview_hotellist_search:
         intent = new Intent(this, HotelBookingSlotActivity.class);
         intent.putExtra("key", "HotelListActivity");
+        intent.putExtra("apiCall", "areaSearch");
         startActivityForResult(intent, REQUEST_CODE);
         break;
 
       case R.id.linearlayout_hotellist_layoutsearch:
         intent = new Intent(this, HotelBookingSlotActivity.class);
         intent.putExtra("key", "HotelListActivity");
+        intent.putExtra("apiCall", "areaSearch");
         startActivityForResult(intent, REQUEST_CODE);
         break;
 
@@ -270,6 +272,7 @@ public class HotelListActivity extends BaseActivity implements
           intent = new Intent(this, HotelBookingSlotActivity.class);
           intent.putExtra("title", title);
           intent.putExtra("key", "HotelListActivity");
+          intent.putExtra("apiCall", "fetchAvailability");
           startActivityForResult(intent, REQUEST_CODE);
         } else {
           fetchRoomAvailability();
@@ -285,6 +288,7 @@ public class HotelListActivity extends BaseActivity implements
         } else {
           intent.putExtra("key", "SearchResultList");
         }
+        intent.putExtra("apiCall", "fetchAvailability");
         AppUtil.startActivityWithAnimation(this, intent, false);
         break;
     }
@@ -404,7 +408,7 @@ public class HotelListActivity extends BaseActivity implements
               roomAreaDetail = roomAreaDetailList.get(0);
           Detail detail = new Detail();
           detail
-              .setIbuId(1);//TODO: Make it dynamic
+              .setIbuId(2);//TODO: Make it dynamic
           detail.setCheckInDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getStart());
           detail.setCheckOutDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getEnd());
           detail.setTotalRooms(roomAreaDetail.getSearchCriteria().getNumberOfUnits());
@@ -430,6 +434,8 @@ public class HotelListActivity extends BaseActivity implements
               new FetchRoomAvailabilityRequestPojo();
           List<Detail> detailList = new ArrayList<>();
           detailList.add(detail);
+          fetchRoomAvailabilityRequestPojo.setFeature("roomReservation");
+          fetchRoomAvailabilityRequestPojo.setOperation("areaSearch");
           fetchRoomAvailabilityRequestPojo.setDetails(detailList);
           Gson gson = new Gson();
           String requestString = gson

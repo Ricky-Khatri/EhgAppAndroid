@@ -242,6 +242,7 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
         } else {
           intent = new Intent(context, HotelBookingSlotActivity.class);
           intent.putExtra("key","HotelDetailActivity");
+          intent.putExtra("apiCall", "fetchAvailability");
           isToFinish = true;
         }
         intent.putExtra("title", getIntent().getStringExtra("title"));

@@ -109,7 +109,8 @@ public class EnhanceStayAdapter extends RecyclerView
       List<DailyRate> dailyRateList = serviceDetail.getServiceOptions().get(0).getDailyRates();
       viewHolder.textViewServicePrice.setText(SharedPreferenceUtils.getInstance(context)
           .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED") + " "
-          + dailyRateList.get(0).getPrice().get(0).getAmountAfterTax());
+          + AppUtil
+          .getFormatedPriceRate(dailyRateList.get(0).getPrice().get(0).getAmountAfterTax() + ""));
     }
 
     viewHolder.textViewSelectEnhance.setOnClickListener(new OnClickListener() {

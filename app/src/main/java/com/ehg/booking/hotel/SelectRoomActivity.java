@@ -83,6 +83,8 @@ public class SelectRoomActivity extends BaseActivity
   private TextView textViewDatesLabel;
   private TextView textViewNumberOfGuestsLabel;
   private TextView textViewRoomCountLabel;
+  private TextView textViewAmount;
+
   private AverageRate averageRate;
   private SelectRoomAdapter selectRoomAdapter;
   private int selectedRatePosition = 0;
@@ -97,7 +99,6 @@ public class SelectRoomActivity extends BaseActivity
     super.onCreate(savedInstanceState);
 
     try {
-
       setContentView(R.layout.activity_hotelroomselection);
       context = this;
 
@@ -114,6 +115,7 @@ public class SelectRoomActivity extends BaseActivity
    */
   private void initView() {
 
+    textViewAmount = findViewById(R.id.textview_hotelroomselection_amount);
     textViewDatesLabel = findViewById(R.id.textview_hotelroomselection_date);
     textViewNumberOfGuestsLabel = findViewById(R.id.textview_hotelroomselection_guestcount);
     textViewRoomCountLabel = findViewById(R.id.textview_hotelroomselection_roomcount);
@@ -395,7 +397,10 @@ public class SelectRoomActivity extends BaseActivity
           List<com.ehg.booking.hotel.pojo.fetchservicesrequestpojo.Detail> detailList =
               new ArrayList<>();
           detailList.add(detail);
+          fetchRoomServicesPojo.setFeature("roomReservation");
+          fetchRoomServicesPojo.setOperation("fetchServices");
           fetchRoomServicesPojo.setDetails(detailList);
+
           Gson gson = new Gson();
           String requestString = gson
               .toJson(fetchRoomServicesPojo, FetchRoomServicesPojo.class);
@@ -458,8 +463,8 @@ public class SelectRoomActivity extends BaseActivity
               .get(0).getResponseData().getServiceDetails();
 
           //Show enhance stay layout
-          if (selectRoomAdapter != null){
-            selectRoomAdapter.showEnhanceStayLayout(selectedRatePosition,serviceDetailList);
+          if (selectRoomAdapter != null) {
+            selectRoomAdapter.showEnhanceStayLayout(selectedRatePosition, serviceDetailList);
           }
         }
 

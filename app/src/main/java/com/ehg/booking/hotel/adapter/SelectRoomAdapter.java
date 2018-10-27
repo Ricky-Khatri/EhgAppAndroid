@@ -46,6 +46,7 @@ import com.glide.slider.library.SliderLayout;
 import com.glide.slider.library.SliderLayout.Transformer;
 import com.glide.slider.library.SliderTypes.BaseSliderView;
 import com.glide.slider.library.SliderTypes.BaseSliderView.OnSliderClickListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -131,8 +132,10 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
 
         viewHolder.textviewPrice
             .setText(SharedPreferenceUtils.getInstance(context)
-                .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED") +
-                " " + roomType.getAverageRates().get(0).getRate() + "");
+                .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED")
+                + " " + AppUtil
+                .getFormatedPriceRate(roomType.getAverageRates().get(0).getRate() + "")
+                + "");
 
         List<Media> mediaList = roomType.getMedias();
         initAutoScrollViewPager(viewHolder, mediaList);
@@ -151,13 +154,15 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
         }
 
         //Set EnhanceStay Adapter
-        if(serviceDetails != null && serviceDetails.size() > 0 && selectedRatePosition == position) {
+        if (serviceDetails != null && serviceDetails.size() > 0
+            && selectedRatePosition == position) {
           viewHolder.linearlayoutEnhanceStay.setVisibility(View.VISIBLE);
           viewHolder.recyclerViewEnhanceStay
               .setLayoutManager(
                   new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
           viewHolder.recyclerViewEnhanceStay.setHasFixedSize(true);
-          EnhanceStayAdapter selectRoomAdapter = new EnhanceStayAdapter(context, this,serviceDetails);
+          EnhanceStayAdapter selectRoomAdapter = new EnhanceStayAdapter(context, this,
+              serviceDetails);
           viewHolder.recyclerViewEnhanceStay.setAdapter(selectRoomAdapter);
         } /*else {
           viewHolder.linearlayoutEnhanceStay.setVisibility(View.GONE);
@@ -191,6 +196,7 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
 
   /**
    * Called to show enhance stay layout for selected room type.
+   *
    * @param position positon
    * @param serviceDetails serviceDetails list
    */

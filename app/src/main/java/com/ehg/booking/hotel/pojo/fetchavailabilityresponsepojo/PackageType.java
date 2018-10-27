@@ -38,7 +38,7 @@ public class PackageType {
   @SerializedName("Description")
   private String description;
   @SerializedName("DiscountRate")
-  private int discountRate;
+  private float discountRate;
   @SerializedName("ExtendedStayMessage")
   private String extendedStayMessage;
   @SerializedName("HideDailyRate")
@@ -50,7 +50,7 @@ public class PackageType {
   @SerializedName("Inclusions")
   private List<Inclusions> inclusions;
   @SerializedName("LeadRate")
-  private int leadRate;
+  private float leadRate;
   @SerializedName("MainImage")
   private MainImage mainImage;
   @SerializedName("MaxStay")
@@ -160,14 +160,14 @@ public class PackageType {
    *
    * @return Gets the value of discountRate and returns discountRate.
    */
-  public int getDiscountRate() {
+  public float getDiscountRate() {
     return discountRate;
   }
 
   /**
    * Sets the discountRate. You can use getDiscountRate() to get the value of discountRate.
    */
-  public void setDiscountRate(int discountRate) {
+  public void setDiscountRate(float discountRate) {
     this.discountRate = discountRate;
   }
 
@@ -259,14 +259,14 @@ public class PackageType {
    *
    * @return Gets the value of leadRate and returns leadRate.
    */
-  public int getLeadRate() {
+  public float getLeadRate() {
     return leadRate;
   }
 
   /**
    * Sets the leadRate. You can use getLeadRate() to get the value of leadRate.
    */
-  public void setLeadRate(int leadRate) {
+  public void setLeadRate(float leadRate) {
     this.leadRate = leadRate;
   }
 
