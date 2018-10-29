@@ -444,7 +444,7 @@
         />
 
       <EditText
-        android:id="@+id/edittext_roombookingguestdetail_nameoncard"
+        android:id="@+id/edittext_roompayment_nameoncard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/height_all_verticaldivider"

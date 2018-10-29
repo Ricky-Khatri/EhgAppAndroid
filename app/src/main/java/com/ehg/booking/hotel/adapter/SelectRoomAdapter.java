@@ -183,7 +183,6 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
                 onRoomItemClicklistner.onItemClick(position, view, null);
               }
             }
-            notifyDataSetChanged();
           }
         });
       }

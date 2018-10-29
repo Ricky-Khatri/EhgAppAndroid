@@ -49,7 +49,7 @@ public class NumberPickerDialog extends DialogFragment {
 
     numberPicker.setMinValue(1);
     numberPicker.setMaxValue(5);
-    numberPicker.setValue(AppUtil.numberPickerdefaultSelectedNumber);
+    numberPicker.setValue(AppUtil.numberPickerDefaultSelectedNumber);
 
     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
     builder.setTitle("Select number of people");
