@@ -288,6 +288,7 @@
           android:paddingBottom="@dimen/textsize_all_labels"
           android:paddingStart="@dimen/textsize_all_guestdetail"
           android:paddingEnd="@dimen/margin_all_continueasguest"
+          android:visibility="gone"
           android:clickable="true"
           android:focusable="true"
           android:foreground="?attr/selectableItemBackground"

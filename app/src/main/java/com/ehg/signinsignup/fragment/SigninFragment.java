@@ -438,7 +438,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
               .setValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE,
                   Integer.parseInt(countryCodePicker.getSelectedCountryCode()));
 
-          JsonParserUtil.getInstance(context).saveUserProfilePojo(userProfilePojo);
+          JsonParserUtil.getInstance(context).setUserProfilePojo(userProfilePojo);
           //Save loyaltyMEmberId
           SharedPreferenceUtils.getInstance(context)
               .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,

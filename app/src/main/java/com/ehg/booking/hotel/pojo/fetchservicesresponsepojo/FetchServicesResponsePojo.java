@@ -22,7 +22,7 @@ package com.ehg.booking.hotel.pojo.fetchservicesresponsepojo;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * FetchServicesResponsePojo class.
+ * FetchServicesResponsePojo.
  */
 public class FetchServicesResponsePojo {
 

@@ -50,7 +50,7 @@ public class Detail {
   @SerializedName("RatePlanPackageRequired")
   private Boolean ratePlanPackageRequired;
   @SerializedName("RateplanType")
-  private int rateplanType;
+  private int ratePlanType;
   @SerializedName("RoomTypeCode")
   private String roomTypeCode;
   @SerializedName("TotalAdults")
@@ -245,14 +245,14 @@ public class Detail {
    * @return Gets the value of rateplanType and returns rateplanType.
    */
   public int getRateplanType() {
-    return rateplanType;
+    return ratePlanType;
   }
 
   /**
    * Sets the rateplanType. You can use getRateplanType() to get the value of rateplanType.
    */
-  public void setRateplanType(int rateplanType) {
-    this.rateplanType = rateplanType;
+  public void setRatePlanType(int ratePlanType) {
+    this.ratePlanType = ratePlanType;
   }
 
   /**

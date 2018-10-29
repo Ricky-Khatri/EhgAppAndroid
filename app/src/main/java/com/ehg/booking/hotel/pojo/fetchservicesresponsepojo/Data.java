@@ -17,13 +17,14 @@
  *
  */
 
+
 package com.ehg.booking.hotel.pojo.fetchservicesresponsepojo;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Data class.
+ * Data.
  */
 public class Data {
 
@@ -42,7 +43,8 @@ public class Data {
   /**
    * Sets the detail. You can use getDetail() to get the value of detail.
    */
-  public void setDetail(List<Detail> detail) {
+  public void setDetail(
+      List<Detail> detail) {
     this.detail = detail;
   }
 }

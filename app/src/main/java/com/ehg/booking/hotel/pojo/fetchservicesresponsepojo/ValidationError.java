@@ -22,7 +22,7 @@ package com.ehg.booking.hotel.pojo.fetchservicesresponsepojo;
 import com.google.gson.annotations.Expose;
 
 /**
- * ValidationError class.
+ * ValidationError.
  */
 public class ValidationError {
 
@@ -31,10 +31,18 @@ public class ValidationError {
   @Expose
   private int errorNumber;
 
+  /**
+   * Getter method.
+   *
+   * @return Gets the value of errorMessage and returns errorMessage.
+   */
   public String getErrorMessage() {
     return errorMessage;
   }
 
+  /**
+   * Sets the errorMessage. You can use getErrorMessage() to get the value of errorMessage.
+   */
   public void setErrorMessage(String errorMessage) {
     this.errorMessage = errorMessage;
   }

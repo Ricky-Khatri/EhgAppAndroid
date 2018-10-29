@@ -23,7 +23,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * ResponseData class.
+ * ResponseData.
  */
 public class ResponseData {
 

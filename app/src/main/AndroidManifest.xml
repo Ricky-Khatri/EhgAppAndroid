@@ -224,7 +224,7 @@
       android:screenOrientation="portrait"/>
 
     <activity
-      android:name=".booking.hotel.HotelRoomdetailActivity"
+      android:name=".booking.hotel.HotelRoomDetailActivity"
       android:screenOrientation="portrait"/>
 
     <activity

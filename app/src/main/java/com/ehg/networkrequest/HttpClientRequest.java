@@ -44,7 +44,7 @@ public class HttpClientRequest {
   private static final String TAG = HttpClientRequest.class.getName();
   public static ApiResponseListener apiResponseListener;
 
-  private static final int TIME_OUT = 600000;
+  private static final int TIME_OUT = 300000;
 
   private Context context;
 

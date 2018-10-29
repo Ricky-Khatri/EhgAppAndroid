@@ -23,7 +23,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Detail class.
+ * Detail.
  */
 public class Detail {
 
@@ -62,7 +62,8 @@ public class Detail {
   /**
    * Sets the responseData. You can use getResponseData() to get the value of responseData.
    */
-  public void setResponseData(ResponseData responseData) {
+  public void setResponseData(
+      ResponseData responseData) {
     this.responseData = responseData;
   }
 
@@ -76,7 +77,8 @@ public class Detail {
   }
 
   /**
-   * Sets the validationErrors. You can use getValidationErrors() to get the value of validationErrors.
+   * Sets the validationErrors. You can use getValidationErrors() to get the value of
+   * validationErrors.
    */
   public void setValidationErrors(
       List<ValidationError> validationErrors) {

@@ -60,8 +60,11 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
   private AppCompatImageView backButton;
   private Button buttonBookNow;
 
+  private String key;
+
   /**
    * Called when activity created.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
@@ -92,13 +95,19 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
     if (getIntent() != null && getIntent().getStringExtra("title") != null) {
       textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
     }
+
+    if (getIntent() != null && getIntent().getStringExtra("key") != null) {
+      key = getIntent().getStringExtra("key");
+    }
+
     buttonBookNow = findViewById(R.id.button_hoteldetail_booknow);
     RecyclerView recyclerViewHotelsGallery = findViewById(
         R.id.recyclerview_hoteldetail_gallery);
     GridLayoutManager manager = new GridLayoutManager(this, 3);
     recyclerViewHotelsGallery.setLayoutManager(manager);
     recyclerViewHotelsGallery.setHasFixedSize(true);
-    HotelDetailGalleryAdapter hotelDetailGalleryAdapter = new HotelDetailGalleryAdapter(context, this);
+    HotelDetailGalleryAdapter hotelDetailGalleryAdapter = new HotelDetailGalleryAdapter(context,
+        this);
     recyclerViewHotelsGallery.setAdapter(hotelDetailGalleryAdapter);
     AppUtil.animateRecyclerView(this, recyclerViewHotelsGallery,
         R.anim.layout_animation_from_right);
@@ -109,7 +118,8 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
     recyclerViewHotelsAmenities.setLayoutManager(managerGridlayout);
     recyclerViewHotelsAmenities.setHasFixedSize(true);
 
-    HotelDetailAmenitiesAdapter hotelDetailAmenitiesAdapter = new HotelDetailAmenitiesAdapter(context, this);
+    HotelDetailAmenitiesAdapter hotelDetailAmenitiesAdapter = new HotelDetailAmenitiesAdapter(
+        context, this);
 
     recyclerViewHotelsAmenities.setAdapter(hotelDetailAmenitiesAdapter);
     AppUtil.animateRecyclerView(this, recyclerViewHotelsAmenities,
@@ -211,6 +221,7 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
 
   /**
    * Called when activity view item clicked.
+   *
    * @param view clicked view item
    */
   @Override
@@ -224,15 +235,26 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
         break;
 
       case R.id.button_hoteldetail_booknow:
-        intent = new Intent(context, SelectRoomActivity.class);
+        boolean isToFinish = false;
+        if (key.equalsIgnoreCase("SearchResultList")) {
+          intent = new Intent(context, SelectRoomActivity.class);
+          isToFinish = false;
+        } else {
+          intent = new Intent(context, HotelBookingSlotActivity.class);
+          intent.putExtra("key","HotelDetailActivity");
+          intent.putExtra("apiCall", "fetchAvailability");
+          isToFinish = true;
+        }
+        intent.putExtra("title", getIntent().getStringExtra("title"));
+        AppUtil.startActivityWithAnimation(this, intent, isToFinish);
       default:
         break;
     }
-    AppUtil.startActivityWithAnimation(this, intent, false);
   }
 
   /**
    * Called when slider view item clicked.
+   *
    * @param baseSliderView clicked slider item
    */
   @Override
@@ -242,6 +264,7 @@ public class HotelDetailActivity extends BaseActivity implements OnSliderClickLi
 
   /**
    * Called when list item clicked.
+   *
    * @param position clicked view item
    */
   @Override

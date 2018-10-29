@@ -214,7 +214,7 @@
   <string name="hotelbookingslot_adults">Adults</string>
   <string name="hotelbookingslot_child">Child</string>
   <string name="hotelbookingslot_infant">Infant</string>
-  <string name="itemhotelroonselection_rates"><u>ViewAllRates(22)</u></string>
+  <string name="itemhotelroonselection_rates"><u>ViewAllRates</u></string>
   <string name="roombookingguestdetail_address">Address</string>
   <string name="roombookingguestdetail_country">Country</string>
   <string name="roombookingguestdetail_city">City</string>
@@ -255,5 +255,6 @@
   <string name="enhancestay_saveandreturnenhancements">Save and Return to Enhancements</string>
   <string name="enhancestay_totalenhancements">Total Enhancements</string>
   <string name="itemenhanceyourstay_remove"><u>Remove</u></string>
+  <string name="all_perperson">per person</string>
 
 </resources>

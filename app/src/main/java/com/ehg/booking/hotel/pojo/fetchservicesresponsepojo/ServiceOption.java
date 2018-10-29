@@ -23,7 +23,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * ServiceOption class.
+ * ServiceOption.
  */
 public class ServiceOption {
 
@@ -50,7 +50,8 @@ public class ServiceOption {
   /**
    * Sets the dailyRates. You can use getDailyRates() to get the value of dailyRates.
    */
-  public void setDailyRates(List<DailyRate> dailyRates) {
+  public void setDailyRates(
+      List<DailyRate> dailyRates) {
     this.dailyRates = dailyRates;
   }
 
@@ -64,7 +65,8 @@ public class ServiceOption {
   }
 
   /**
-   * Sets the serviceOptionDesc. You can use getServiceOptionDesc() to get the value of serviceOptionDesc.
+   * Sets the serviceOptionDesc. You can use getServiceOptionDesc() to get the value of
+   * serviceOptionDesc.
    */
   public void setServiceOptionDesc(
       ServiceOptionDesc serviceOptionDesc) {
@@ -97,7 +99,8 @@ public class ServiceOption {
   }
 
   /**
-   * Sets the serviceOptionName. You can use getServiceOptionName() to get the value of serviceOptionName.
+   * Sets the serviceOptionName. You can use getServiceOptionName() to get the value of
+   * serviceOptionName.
    */
   public void setServiceOptionName(String serviceOptionName) {
     this.serviceOptionName = serviceOptionName;

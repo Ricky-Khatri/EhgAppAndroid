@@ -77,12 +77,14 @@
 
       <TextView
         android:id="@+id/textview_itemavailableroomrates_select"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/mdtp_date_picker_view_animator_padding_bottom_v2"
-        android:background="@drawable/all_rounded_button"
+        android:layout_width="@dimen/imagesize_all_reservationimage"
+        android:layout_height="@dimen/mdtp_time_label_subscript_size"
+        android:layout_marginEnd="@dimen/elevation_all_header"
+        android:background="@drawable/all_square_border_background_dark"
+        android:gravity="center"
         android:text="SELECT"
-        android:textColor="@color/colorWhite"/>
+        android:textSize="@dimen/textsize_roomcontrolitems_title"
+        android:textColor="@color/white"/>
 
     </LinearLayout>
   </LinearLayout>

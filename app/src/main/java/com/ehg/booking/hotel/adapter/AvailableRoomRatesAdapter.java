@@ -28,6 +28,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.AverageRate;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * This class is showing room rates.
@@ -38,15 +42,24 @@ public class AvailableRoomRatesAdapter extends
   private final Context context;
   private final OnRoomRatesItemClicklistner onRoomRatesListner;
 
+  private List<AverageRate> averageRateList;
+
+  private HashMap<String, Boolean> roomRateSelectionHashMap;
+
   /**
    * This is parametrized constructor of this adapter class.
    */
   public AvailableRoomRatesAdapter(Context context,
-      OnRoomRatesItemClicklistner roomRatesItemClicklistner) {
+      OnRoomRatesItemClicklistner roomRatesItemClicklistner,
+      List<AverageRate> averageRateList) {
 
     this.context = context;
-
     onRoomRatesListner = roomRatesItemClicklistner;
+    this.averageRateList = averageRateList;
+    roomRateSelectionHashMap = new HashMap<>();
+    if (averageRateList != null && averageRateList.size() > 0) {
+      roomRateSelectionHashMap.put(averageRateList.get(0).getRatePlanCode(), true);
+    }
   }
 
   /**
@@ -72,8 +85,41 @@ public class AvailableRoomRatesAdapter extends
    * @param position integer position
    */
   @Override
-  public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+  public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int position) {
 
+    final AverageRate averageRate = averageRateList.get(position);
+    if (roomRateSelectionHashMap.containsKey(averageRate.getRatePlanCode())
+        && roomRateSelectionHashMap.get(averageRate.getRatePlanCode())) {
+      viewHolder.textViewRateSelection
+          .setBackgroundResource(R.drawable.all_square_border_background_dark);
+      viewHolder.textViewRateSelection.setTextColor(context.getResources().getColor(R.color.white));
+      viewHolder.textViewRateSelection.setText("SELECTED RATE");
+    } else {
+      viewHolder.textViewRateSelection.setBackgroundResource(R.drawable.all_background_border);
+      viewHolder.textViewRateSelection
+          .setTextColor(context.getResources().getColor(R.color.colorGray));
+      viewHolder.textViewRateSelection.setText("SELECT RATE");
+    }
+    viewHolder.textViewPrice.setText(SharedPreferenceUtils.getInstance(context)
+        .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED") +
+        " "+ averageRate.getRate());//TODO:Make it dynamic
+
+    //SetOnCLickListener
+    viewHolder.textViewRateSelection.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (roomRateSelectionHashMap.containsKey(averageRate.getRatePlanCode())
+            && roomRateSelectionHashMap.get(averageRate.getRatePlanCode())) {
+          roomRateSelectionHashMap.put(averageRate.getRatePlanCode(), false);
+        } else {
+          roomRateSelectionHashMap.put(averageRate.getRatePlanCode(), true);
+          if (onRoomRatesListner != null) {
+            onRoomRatesListner.onItemClick(position, view, averageRate);
+          }
+        }
+        notifyDataSetChanged();
+      }
+    });
   }
 
   /**
@@ -83,7 +129,7 @@ public class AvailableRoomRatesAdapter extends
    */
   @Override
   public int getItemCount() {
-    return 5;
+    return averageRateList != null && averageRateList.size() > 0 ? averageRateList.size() : 0;
   }
 
   /**
@@ -91,13 +137,15 @@ public class AvailableRoomRatesAdapter extends
    */
   public interface OnRoomRatesItemClicklistner {
 
-    void onItemClick(int position, View view);
+    void onItemClick(int position, View view, AverageRate averageRate);
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
 
     private final TextView textViewRateTitle;
-    private final TextView textViewroomDetail;
+    private final TextView textViewRateDetail;
+    private final TextView textViewPrice;
+    private final TextView textViewRateSelection;
 
     /**
      * Constructor of ViewHolder class.
@@ -106,7 +154,9 @@ public class AvailableRoomRatesAdapter extends
       super(itemView);
 
       textViewRateTitle = itemView.findViewById(R.id.textview_itemavailableroomrates_ratestitle);
-      textViewroomDetail = itemView.findViewById(R.id.textview_itemavailableroomrates_detail);
+      textViewRateDetail = itemView.findViewById(R.id.textview_itemavailableroomrates_detail);
+      textViewPrice = itemView.findViewById(R.id.textview_itemavailableroomrates_price);
+      textViewRateSelection = itemView.findViewById(R.id.textview_itemavailableroomrates_select);
     }
 
     /**
@@ -116,12 +166,10 @@ public class AvailableRoomRatesAdapter extends
      */
     @Override
     public void onClick(View view) {
-
-      if (onRoomRatesListner != null) {
+      /*if (onRoomRatesListner != null) {
         onRoomRatesListner.onItemClick(getAdapterPosition(), view);
         notifyDataSetChanged();
-      }
+      }*/
     }
   }
-
 }

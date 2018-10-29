@@ -22,34 +22,34 @@ package com.ehg.booking.hotel.pojo.fetchservicesresponsepojo;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Price class.
+ * Price.
  */
 public class Price {
 
   @SerializedName("AmountAfterTax")
-  private int amountAfterTax;
+  private float amountAfterTax;
   @SerializedName("AmountBeforeTax")
-  private int amountBeforeTax;
+  private float amountBeforeTax;
   @SerializedName("BaseAmountBeforeTax")
-  private int baseAmountBeforeTax;
+  private float baseAmountBeforeTax;
   @SerializedName("PriceType")
   private String priceType;
   @SerializedName("TaxAmount")
-  private int taxAmount;
+  private float taxAmount;
 
   /**
    * Getter method.
    *
    * @return Gets the value of amountAfterTax and returns amountAfterTax.
    */
-  public int getAmountAfterTax() {
+  public float getAmountAfterTax() {
     return amountAfterTax;
   }
 
   /**
    * Sets the amountAfterTax. You can use getAmountAfterTax() to get the value of amountAfterTax.
    */
-  public void setAmountAfterTax(int amountAfterTax) {
+  public void setAmountAfterTax(float amountAfterTax) {
     this.amountAfterTax = amountAfterTax;
   }
 
@@ -58,14 +58,14 @@ public class Price {
    *
    * @return Gets the value of amountBeforeTax and returns amountBeforeTax.
    */
-  public int getAmountBeforeTax() {
+  public float getAmountBeforeTax() {
     return amountBeforeTax;
   }
 
   /**
    * Sets the amountBeforeTax. You can use getAmountBeforeTax() to get the value of amountBeforeTax.
    */
-  public void setAmountBeforeTax(int amountBeforeTax) {
+  public void setAmountBeforeTax(float amountBeforeTax) {
     this.amountBeforeTax = amountBeforeTax;
   }
 
@@ -74,14 +74,15 @@ public class Price {
    *
    * @return Gets the value of baseAmountBeforeTax and returns baseAmountBeforeTax.
    */
-  public int getBaseAmountBeforeTax() {
+  public float getBaseAmountBeforeTax() {
     return baseAmountBeforeTax;
   }
 
   /**
-   * Sets the baseAmountBeforeTax. You can use getBaseAmountBeforeTax() to get the value of baseAmountBeforeTax.
+   * Sets the baseAmountBeforeTax. You can use getBaseAmountBeforeTax() to get the value of
+   * baseAmountBeforeTax.
    */
-  public void setBaseAmountBeforeTax(int baseAmountBeforeTax) {
+  public void setBaseAmountBeforeTax(float baseAmountBeforeTax) {
     this.baseAmountBeforeTax = baseAmountBeforeTax;
   }
 
@@ -106,14 +107,14 @@ public class Price {
    *
    * @return Gets the value of taxAmount and returns taxAmount.
    */
-  public int getTaxAmount() {
+  public float getTaxAmount() {
     return taxAmount;
   }
 
   /**
    * Sets the taxAmount. You can use getTaxAmount() to get the value of taxAmount.
    */
-  public void setTaxAmount(int taxAmount) {
+  public void setTaxAmount(float taxAmount) {
     this.taxAmount = taxAmount;
   }
 }

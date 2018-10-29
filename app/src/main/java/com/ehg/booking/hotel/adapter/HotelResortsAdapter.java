@@ -33,6 +33,9 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.Address;
+import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.HotelList;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,17 +49,18 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
 
   private Context context;
 
-  private List<HotelDetail> hotelDetailList;
+  private List<HotelList> hotelList;
 
   /**
    * Parameterized constructor for HotelResortsAdapter.
    */
-  public HotelResortsAdapter(Context context, OnHotelItemClickListener onHotelItemClickListener) {
+  public HotelResortsAdapter(Context context, OnHotelItemClickListener onHotelItemClickListener,
+      List<HotelList> hotelList) {
 
     this.inflater = LayoutInflater.from(context);
     this.onHotelItemClickListener = onHotelItemClickListener;
     this.context = context;
-    hotelDetailList = new ArrayList<>();
+    this.hotelList = hotelList;
   }
 
   /**
@@ -104,14 +108,20 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
         break;
     }
 
-    HotelDetail hotelDetail = new HotelDetail();
-    hotelDetail.setTitle(title);
-    hotelDetail.setAddress(address);
-    hotelDetailList.add(hotelDetail);
+    HotelList hotel = new HotelList();
+    hotel.setHotelName(title);
+    Address address1 = new Address();
+    address1.setAddress1(address);
+    hotel.setAddress(address1);
+    hotelList.add(hotel);
 
     viewHolder.textViewHotelname.setText(title);
     viewHolder.textViewHotellocation.setText(address);
-    viewHolder.textViewPrice.setText(Html.fromHtml("Price starting at\n<font><b>AED 983</b></font>"));
+    viewHolder.textViewPrice
+        .setText(Html.fromHtml("Price starting at\n<font><b>" +
+            SharedPreferenceUtils.getInstance(context)
+                .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED")
+            + " 983</b></font>"));
   }
 
   /**
@@ -121,6 +131,7 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
    */
   @Override
   public int getItemCount() {
+    /*return hotelList != null && hotelList.size() > 0 ? hotelList.size() : 3;*/
     return 3;
   }
 
@@ -170,52 +181,11 @@ public class HotelResortsAdapter extends RecyclerView.Adapter<HotelResortsAdapte
      */
     @Override
     public void onClick(View view) {
-      if (onHotelItemClickListener != null && hotelDetailList != null
-          && hotelDetailList.size() > 0) {
+      if (onHotelItemClickListener != null && hotelList != null
+          && hotelList.size() > 0) {
         onHotelItemClickListener.onHotelItemClicked(getAdapterPosition(), view,
-            hotelDetailList.get(getAdapterPosition()).getTitle());
+            hotelList.get(getAdapterPosition()).getHotelName());
       }
-    }
-  }
-
-  /**
-   * HotelDetail class.
-   */
-  public class HotelDetail {
-
-    private String title;
-    private String address;
-
-    /**
-     * Getter method.
-     *
-     * @return Gets the value of title and returns title.
-     */
-    public String getTitle() {
-      return title;
-    }
-
-    /**
-     * Sets the title. You can use getTitle() to get the value of title.
-     */
-    public void setTitle(String title) {
-      this.title = title;
-    }
-
-    /**
-     * Getter method.
-     *
-     * @return Gets the value of address and returns address.
-     */
-    public String getAddress() {
-      return address;
-    }
-
-    /**
-     * Sets the address. You can use getAddress() to get the value of address.
-     */
-    public void setAddress(String address) {
-      this.address = address;
     }
   }
 }

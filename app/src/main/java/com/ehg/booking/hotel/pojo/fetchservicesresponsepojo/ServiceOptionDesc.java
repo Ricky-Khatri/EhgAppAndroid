@@ -20,7 +20,7 @@
 package com.ehg.booking.hotel.pojo.fetchservicesresponsepojo;
 
 /**
- * ServiceOptionDesc Class.
+ * ServiceOptionDesc.
  */
 public class ServiceOptionDesc {
 

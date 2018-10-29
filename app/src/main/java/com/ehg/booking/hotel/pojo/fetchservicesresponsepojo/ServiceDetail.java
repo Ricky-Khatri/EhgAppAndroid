@@ -23,7 +23,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * ServiceDetail class.
+ * ServiceDetail.
  */
 public class ServiceDetail {
 
@@ -153,7 +153,8 @@ public class ServiceDetail {
   }
 
   /**
-   * Sets the servicePricingType. You can use getServicePricingType() to get the value of servicePricingType.
+   * Sets the servicePricingType. You can use getServicePricingType() to get the value of
+   * servicePricingType.
    */
   public void setServicePricingType(String servicePricingType) {
     this.servicePricingType = servicePricingType;

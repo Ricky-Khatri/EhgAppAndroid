@@ -151,6 +151,7 @@
       android:textSize="@dimen/textsize_all_headertitle"/>
 
     <android.support.v7.widget.AppCompatImageView
+      android:visibility="invisible"
       android:id="@+id/appcompactimageview_hotellist_sort"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/size_all_backicon"
