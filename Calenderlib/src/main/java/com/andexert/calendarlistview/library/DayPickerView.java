@@ -60,7 +60,7 @@ public class DayPickerView extends RecyclerView {
     }
   }
 
-  @Override
+ /* @Override
   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     int height = 0;
 
@@ -81,7 +81,7 @@ public class DayPickerView extends RecyclerView {
     }
 
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-  }
+  }*/
 
   public void init(Context paramContext) {
     setLayoutManager(new LinearLayoutManager(paramContext));

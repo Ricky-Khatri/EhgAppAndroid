@@ -28,16 +28,18 @@
     android:id="@+id/layout_hotelbookingslot_header"
     layout="@layout/layout_header_with_navigation"/>
 
-  <android.support.v4.widget.NestedScrollView
+  <!--<android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fillViewport="true"
     android:layout_above="@+id/textview_hotelbookingslot_next"
-    android:layout_below="@+id/layout_hotelbookingslot_header">
+    android:layout_below="@+id/layout_hotelbookingslot_header">-->
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_above="@+id/textview_hotelbookingslot_next"
+      android:layout_below="@+id/layout_hotelbookingslot_header"
       android:orientation="vertical">
 
       <LinearLayout
@@ -252,9 +254,10 @@
         <com.andexert.calendarlistview.library.DayPickerView
           android:id="@+id/daypickerview_hotelbookingslot_calandar"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="match_parent"
           android:visibility="visible"
           app:singleDaySelection="false"
+          app:enablePreviousDay="false"
           calendar:drawRoundRect="false"/>
 
         <LinearLayout
@@ -442,7 +445,7 @@
 
       </LinearLayout>
     </LinearLayout>
-  </android.support.v4.widget.NestedScrollView>
+  <!--  </android.support.v4.widget.NestedScrollView>-->
 
   <TextView
     android:id="@+id/textview_hotelbookingslot_next"

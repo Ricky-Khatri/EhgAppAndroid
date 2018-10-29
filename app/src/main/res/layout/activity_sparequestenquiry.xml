@@ -291,8 +291,8 @@
 
         <AutoCompleteTextView
           android:id="@+id/textview_sparequestenquiry_preferreddatetime"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
           android:layout_marginTop="@dimen/google_1x"
           android:layout_marginStart="@dimen/height_all_verticaldivider"
           android:layout_marginEnd="@dimen/height_all_verticaldivider"

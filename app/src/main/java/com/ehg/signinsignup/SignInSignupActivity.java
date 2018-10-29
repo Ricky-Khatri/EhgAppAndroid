@@ -88,12 +88,10 @@ public class SignInSignupActivity extends BaseActivity {
 
         @Override
         public void onTabUnselected(TabLayout.Tab layoutTab) {
-
         }
 
         @Override
         public void onTabReselected(TabLayout.Tab layoutTab) {
-
         }
       });
 

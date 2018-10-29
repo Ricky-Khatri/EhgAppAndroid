@@ -356,7 +356,37 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
     String mobile = edittextMobile.getText().toString();
     String password = edittextPassword.getText().toString();
 
-    if (TextUtils.isEmpty(firstName)) {
+    if (firstName.contains(" ")) {
+      edittextFirstName.setText(firstName.trim());
+      edittextFirstName.setError(getResources().getString(R.string.all_spacesnotallowed));
+      focusView = edittextFirstName;
+      cancel = true;
+
+    } else if (lastName.contains(" ")) {
+      edittextLastName.setText(firstName.trim());
+      edittextLastName.setError(getResources().getString(R.string.all_spacesnotallowed));
+      focusView = edittextLastName;
+      cancel = true;
+
+    } else if (email.contains(" ")) {
+      edittextEmail.setText(email.trim());
+      edittextEmail.setError(getResources().getString(R.string.all_spacesnotallowed));
+      focusView = edittextEmail;
+      cancel = true;
+
+    } else if (mobile.contains(" ")) {
+      edittextMobile.setText(mobile.trim());
+      edittextMobile.setError(getResources().getString(R.string.all_spacesnotallowed));
+      focusView = edittextMobile;
+      cancel = true;
+
+    } else if (password.contains(" ")) {
+      edittextPassword.setText(password.trim());
+      edittextPassword.setError(getResources().getString(R.string.all_spacesnotallowed));
+      focusView = edittextPassword;
+      cancel = true;
+
+    } else if (TextUtils.isEmpty(firstName)) {
 
       edittextFirstName.setError(getResources().getString(R.string.all_fieldrequired));
       focusView = edittextFirstName;

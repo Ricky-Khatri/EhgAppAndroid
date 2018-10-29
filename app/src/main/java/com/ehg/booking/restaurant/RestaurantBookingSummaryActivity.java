@@ -209,7 +209,7 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
       case R.id.imageview_header_back:
         intent = new Intent(this, HomeActivity.class);
         intent.putExtra("tab", "2");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         AppUtil.startActivityWithAnimation(this, intent, true);
         break;
 

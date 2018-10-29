@@ -50,10 +50,6 @@ public class SimpleMonthAdapter extends RecyclerView.Adapter<SimpleMonthAdapter.
   private Integer lastMonth;
 
 
-  public SimpleMonthAdapter() {
-
-  }
-
   public SimpleMonthAdapter(Context context, DatePickerController datePickerController, TypedArray typedArray) {
     this.typedArray = typedArray;
     calendar = Calendar.getInstance();

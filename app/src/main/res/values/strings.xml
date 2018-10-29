@@ -34,6 +34,7 @@
   <string name="all_incorrectpassword">Incorrect password</string>
   <string name="all_fieldrequired">This field is required</string>
   <string name="all_erroremailormobile">Please enter registered mobile number or email.</string>
+  <string name="all_spacesnotallowed">Space not allowed</string>
 
   <!--Strings related to signup-->
   <string name="signup_termsandcondition">By tapping on Sign-up you agree to our\nTerms and Conditions</string>

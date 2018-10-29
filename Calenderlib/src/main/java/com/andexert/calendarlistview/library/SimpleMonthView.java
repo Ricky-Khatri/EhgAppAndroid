@@ -307,7 +307,7 @@ class SimpleMonthView extends View {
         mMonthNumPaint.setColor(mMonthTitleBGColor);
         //mMonthNumPaint.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
       } else {
-        mMonthNumPaint.setColor(mDayNumColor);
+        mMonthNumPaint.setColor(mSelectedDaysColor);
         mMonthNumPaint.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
       }
 
@@ -323,7 +323,7 @@ class SimpleMonthView extends View {
             mMonthNumPaint.setColor(mMonthTitleBGColor);
           } else {
 
-            mMonthNumPaint.setColor(mDayNumColor);
+            mMonthNumPaint.setColor(mSelectedDaysColor);
           }
         } else {
           mMonthNumPaint.setColor(mMonthTitleBGColor);
@@ -358,7 +358,7 @@ class SimpleMonthView extends View {
             mMonthNumPaint.setColor(mMonthTitleBGColor);
           } else {
             mSelectedCircle = true;
-            mMonthNumPaint.setColor(mDayNumColor);
+            mMonthNumPaint.setColor(mSelectedDaysColor);
           }
        /*   mSelectedCircle = true;
           mMonthNumPaint.setColor(mDayNumColor);*/
@@ -398,7 +398,7 @@ class SimpleMonthView extends View {
             mMonthNumPaint.setColor(mMonthTitleBGColor);
           } else {
             mSelectedCircle = true;
-            mMonthNumPaint.setColor(mDayNumColor);
+            mMonthNumPaint.setColor(mSelectedDaysColor);
           }
        /*   mSelectedCircle = true;
           mMonthNumPaint.setColor(mDayNumColor);*/
@@ -447,7 +447,7 @@ class SimpleMonthView extends View {
             mMonthNumPaint.setColor(mMonthTitleBGColor);
           } else {
             mSelectedCircle = true;
-            mMonthNumPaint.setColor(mDayNumColor);
+            mMonthNumPaint.setColor(mSelectedDaysColor);
           }
        /*   mSelectedCircle = true;
           mMonthNumPaint.setColor(mDayNumColor);*/
@@ -484,7 +484,7 @@ class SimpleMonthView extends View {
             mMonthNumPaint.setColor(mMonthTitleBGColor);
           } else {
             mSelectedCircle = true;
-            mMonthNumPaint.setColor(mDayNumColor);
+            mMonthNumPaint.setColor(mSelectedDaysColor);
           }
        /*   mSelectedCircle = true;
           mMonthNumPaint.setColor(mDayNumColor);*/
@@ -523,7 +523,7 @@ class SimpleMonthView extends View {
             mMonthNumPaint.setColor(mMonthTitleBGColor);
           } else {
             mSelectedCircle = true;
-            mMonthNumPaint.setColor(mDayNumColor);
+            mMonthNumPaint.setColor(mSelectedDaysColor);
           }
        /*   mSelectedCircle = true;
           mMonthNumPaint.setColor(mDayNumColor);*/
@@ -546,12 +546,16 @@ class SimpleMonthView extends View {
       if (!isPrevDayEnabled && prevDay(day, today) && today.month == mMonth
           && today.year == mYear) {
         mMonthNumPaint.setColor(mPreviousDayColor);
-        mMonthNumPaint.setTypeface(Typeface.defaultFromStyle(Typeface.ITALIC));
+        mMonthTitleBGPaintStroke.setColor(mPreviousDayColor);
+        mMonthNumPaint.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+      } else {
+        mMonthTitleBGPaintStroke.setColor(Color.BLACK);
       }
 
       /**
        * Below if condition is using to show rounded circle with black outline.
        */
+
       if (mSelectedCircle) {
         mSelectedRoundCircle = false;
         canvas.drawCircle(x, y - MINI_DAY_NUMBER_TEXT_SIZE / 3, DAY_SELECTED_CIRCLE_SIZE,
@@ -581,8 +585,12 @@ class SimpleMonthView extends View {
         }
       }
 
-      canvas.drawText(String.format("%d", day), x, y, mMonthNumPaint);
+     /* if (mSelectedBeginDay <= day){
 
+        canvas.drawText(String.format("%d", day), x, y, mMonthNumPaint);
+      }else {*/
+      canvas.drawText(String.format("%d", day), x, y, mMonthNumPaint);
+      //}
       dayOffset++;
       if (dayOffset == mNumDays) {
         dayOffset = 0;

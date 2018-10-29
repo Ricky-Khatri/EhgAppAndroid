@@ -151,6 +151,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         calendar:drawRoundRect="false"
+        app:enablePreviousDay="false"
         app:singleDaySelection="true"/>
 
     </LinearLayout>

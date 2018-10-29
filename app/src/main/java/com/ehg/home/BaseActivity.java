@@ -23,6 +23,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.View;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
@@ -90,6 +91,7 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
               String token = instanceIdResult.getToken();
+              Log.e("Fcm----------->", token);
               SharedPreferenceUtils.getInstance(BaseActivity.this)
                   .setValue(SharedPreferenceUtils.FCM_TOKEN, token);
             }

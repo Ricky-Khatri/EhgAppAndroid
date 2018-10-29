@@ -19,14 +19,18 @@
 
 package com.ehg.booking.spa;
 
+import static android.content.DialogInterface.BUTTON_POSITIVE;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -188,7 +192,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     textViewBook = findViewById(R.id.textview_sparequestenquiry_booking);
 
     //Set OnClickListener
-    //textViewPrefferedDateTime.setOnClickListener(this);
+    textViewPrefferedDateTime.setOnClickListener(this);
     textViewBook.setOnClickListener(this);
     findViewById(R.id.linearlayout_sparequestenquiry_preferreddatetime).setOnClickListener(this);
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
@@ -277,6 +281,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
    * This method is using to show datepicker dialog.
    */
   private void showDatePickerDialog() {
+
     DialogFragment newFragment = new DatePickerFragment();
     newFragment.show(getSupportFragmentManager(), "datePicker");
   }
@@ -292,12 +297,12 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     switch (view.getId()) {
 
       case R.id.linearlayout_sparequestenquiry_preferreddatetime:
-        showTimePickerDialog();
+        //showTimePickerDialog();
         showDatePickerDialog();
         break;
 
-      case R.id.textview_sparequestinquiry_datetimelabel:
-        showTimePickerDialog();
+      case R.id.textview_sparequestenquiry_preferreddatetime:
+        //showTimePickerDialog();
         showDatePickerDialog();
         break;
 
@@ -526,8 +531,11 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
   /**
    * This class is using to show Datepicker dialog.
    */
+
+
   public static class DatePickerFragment extends DialogFragment implements
       DatePickerDialog.OnDateSetListener {
+
 
     @NonNull
     @Override
@@ -565,6 +573,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     @SuppressLint("SetTextI18n")
     public void onDateSet(DatePicker view, int year, int month, int day) {
       // Do something with the date chosen by the user
+
       textViewPrefferedDateTime.setText(day + "/" + (month + 1) + "/" + year);
       textViewPrefferedDateTime.setError(null);
     }

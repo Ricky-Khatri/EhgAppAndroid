@@ -58,6 +58,7 @@ import com.rilixtech.CountryCodePicker;
 import com.rilixtech.CountryCodePicker.OnCountryChangeListener;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
+import java.util.Objects;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -132,9 +133,10 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
     context = getActivity();
     SignInSignupActivity signInSignupActivity = (SignInSignupActivity) context;
-    signInSignupActivity.setOnCountryCodeChangeListener(this);
+    Objects.requireNonNull(signInSignupActivity).setOnCountryCodeChangeListener(this);
     initView(view);
   }
+
 
   /**
    * Init's view components on this screen.
@@ -216,9 +218,15 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       switch (textView.getId()) {
         case R.id.textview_signinfragment_mobile:
           // Store values at the time of the login attempt.
-          String mobileNumber = autoCompleteTextViewMobileNumber.getText().toString().trim();
+          String mobileNumber = autoCompleteTextViewMobileNumber.getText().toString();
           // Check for a valid mobile number
-          if (TextUtils.isEmpty(mobileNumber)) {
+
+          if (mobileNumber.contains(" ")) {
+            autoCompleteTextViewMobileNumber.setText(mobileNumber.trim());
+            autoCompleteTextViewMobileNumber.setError(getString(R.string.all_spacesnotallowed));
+            //return;
+            isToReturn = true;
+          } else if (TextUtils.isEmpty(mobileNumber)) {
             autoCompleteTextViewMobileNumber.setError(getString(R.string.all_fieldrequired));
             isToReturn = true;
           } else if (!AppUtil.isValidMobile(mobileNumber)) {
@@ -231,7 +239,12 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
         case R.id.edittext_signinfragment_password:
           String password = editTextPassword.getText().toString().trim();
-          if (TextUtils.isEmpty(password)) {
+
+          if (password.contains(" ")) {
+            editTextPassword.setText(password.trim());
+            editTextPassword.setError(getString(R.string.all_spacesnotallowed));
+            isToReturn = true;
+          } else if (TextUtils.isEmpty(password)) {
             editTextPassword.setError(getString(R.string.all_fieldrequired));
             isToReturn = true;
           } else if (!isPasswordValid(password)) {
@@ -313,14 +326,19 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     resetErrors();
 
     // Store values at the time of the login attempt.
-    String mobileNumber = autoCompleteTextViewMobileNumber.getText().toString().trim();
-    String password = editTextPassword.getText().toString().trim();
+    String mobileNumber = autoCompleteTextViewMobileNumber.getText().toString();
+    String password = editTextPassword.getText().toString();
 
     boolean cancel = false;
     View focusView = null;
-
     // Check for a valid all_email address.
-    if (TextUtils.isEmpty(mobileNumber)) {
+    if (mobileNumber.contains(" ")) {
+      autoCompleteTextViewMobileNumber.setText(mobileNumber.trim());
+      autoCompleteTextViewMobileNumber.setError(getString(R.string.all_spacesnotallowed));
+      focusView = autoCompleteTextViewMobileNumber;
+      cancel = true;
+
+    } else if (TextUtils.isEmpty(mobileNumber)) {
       autoCompleteTextViewMobileNumber.setError(getString(R.string.all_fieldrequired));
       focusView = autoCompleteTextViewMobileNumber;
       cancel = true;
@@ -328,6 +346,12 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     } else if (!AppUtil.isValidMobile(mobileNumber)) {
       autoCompleteTextViewMobileNumber.setError(getString(R.string.all_invalidmobile));
       focusView = autoCompleteTextViewMobileNumber;
+      cancel = true;
+
+    } else if (password.contains(" ")) {
+      editTextPassword.setText(password.trim());
+      editTextPassword.setError(getString(R.string.all_spacesnotallowed));
+      focusView = editTextPassword;
       cancel = true;
 
     } else if (TextUtils.isEmpty(password)) {
@@ -344,7 +368,7 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     if (cancel) {
       // There was an error; don't attempt login and focus the first
       // form field with an error.
-      focusView.requestFocus();
+      Objects.requireNonNull(focusView).requestFocus();
     } else {
       // Show a progress spinner, and kick off a background task to
       // perform the user login attempt.
