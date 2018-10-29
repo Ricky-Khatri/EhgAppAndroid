@@ -416,7 +416,7 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
         String cardType = AppUtil.getCardType(cardNumber);
 
         PaymentCard paymentCard = new PaymentCard();
-        paymentCard.setCardNumber(cardNumber.trim());
+        paymentCard.setCardNumber(cardNumber.replace("-","").trim());
         paymentCard.setCardHolderName(nameOnCard);
         paymentCard.setExpireDate(expiryDate);
         paymentCard.setCardType(cardType);
