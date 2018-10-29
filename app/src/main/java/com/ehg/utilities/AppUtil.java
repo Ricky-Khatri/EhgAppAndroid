@@ -88,7 +88,7 @@ public class AppUtil {
 
   private static Dialog dialogLoadingIndicator;
 
-  public static int numberPickerdefaultSelectedNumber = 2;
+  public static int numberPickerDefaultSelectedNumber = 2;
 
   /**
    * Method returns device screen width in pixel.
@@ -101,6 +101,29 @@ public class AppUtil {
     } else {
       return 0;
     }
+  }
+
+  /**
+   * Called to get card type.
+   * @param cardNumber card number
+   * @return cardType
+   */
+  public static String getCardType(String cardNumber) {
+    String cardType = "";
+    if (cardNumber.matches("^4[0-9]{6,}$")) {
+      cardType = "VI";//VISA
+    } else if (cardNumber.matches("^5[1-5][0-9]{5,}$")) {
+      cardType = "MC";//MASTER CARD
+    } else if (cardNumber.matches("^3[47][0-9]{5,}$")) {
+      cardType = "AE"; //AMERICAN EXPRESS
+    } else if (cardNumber.matches("^3(?:0[0-5]|[68][0-9])[0-9]{4,}$")) {
+      cardType = "DC";//DINNERS CLUB
+    } else if (cardNumber.matches("^6(?:011|5[0-9]{2})[0-9]{3,}$")) {
+      cardType = "DI";//DISCOVER
+    } else if (cardNumber.matches("^(?:2131|1800|35[0-9]{3})[0-9]{3,}$")) {
+      cardType = "JCB";//JCB
+    }
+    return cardType;
   }
 
   /**
@@ -134,8 +157,6 @@ public class AppUtil {
 
   /**
    * Called to get decimal formatted rate to 2 decimal digits.
-   * @param priceRate
-   * @return
    */
   public static String getFormatedPriceRate(String priceRate) {
     DecimalFormat decimalFormat = new DecimalFormat("#.00");

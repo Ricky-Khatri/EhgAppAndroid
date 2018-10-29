@@ -21,6 +21,7 @@ package com.ehg.utilities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.FetchRoomAvailabilityRequestPojo;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.FetchAvailabilityResponsePojo;
 import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.RoomAreaSearchRequestPojo;
 import com.ehg.booking.hotel.pojo.roomareasearchresponsepojo.RoomAreaSearchResponsePojo;
@@ -44,6 +45,7 @@ public class JsonParserUtil {
   private static final String ROOM_AREA_SEARCH_REQUEST_POJO = "RoomAreaSearchRequestPojo";
   private static final String ROOM_AREA_SEARCH_RESPONSE_POJO = "RoomAreaSearchRseponsePojo";
   private static final String FETCH_AVAILABILITY_RESPONSE_POJO = "FetchAvailabilityRseponsePojo";
+  private static final String FETCH_AVAILABILITY_REQUEST_POJO = "FetchAvailabilityRequestPojo";
   public static final String LANGUAGE_JSON = "LanguageJson";
 
   /**
@@ -237,6 +239,43 @@ public class JsonParserUtil {
       return new FetchAvailabilityResponsePojo();
     }
     return fetchAvailabilityResponsePojo;
+  }
+
+  /**
+   * Called to save RoomAreaSearchResponsePojo.
+   *
+   * @param fetchAvailabilityRequestPojo object
+   */
+  public void setFetchAvailabilityRequestPojo(
+      FetchRoomAvailabilityRequestPojo fetchAvailabilityRequestPojo) {
+
+    Gson gson = new Gson();
+
+    String json = gson.toJson(fetchAvailabilityRequestPojo);
+
+    sharedPreferencesEditor.putString(FETCH_AVAILABILITY_REQUEST_POJO, json);
+    sharedPreferencesEditor.commit();
+  }
+
+  /**
+   * Returns FetchAvailabilityResponsePojo.
+   *
+   * @return object
+   */
+  public FetchRoomAvailabilityRequestPojo getFetchAvailabilityRequestPojo() {
+    Gson gson = new Gson();
+    FetchRoomAvailabilityRequestPojo fetchRoomAvailabilityRequestPojo;
+
+    String jsonPreferences = sharedPreferences.getString(FETCH_AVAILABILITY_REQUEST_POJO, "");
+
+    Type type = new TypeToken<FetchRoomAvailabilityRequestPojo>() {
+    }.getType();
+    fetchRoomAvailabilityRequestPojo = gson.fromJson(jsonPreferences, type);
+
+    if (fetchRoomAvailabilityRequestPojo == null) {
+      return new FetchRoomAvailabilityRequestPojo();
+    }
+    return fetchRoomAvailabilityRequestPojo;
   }
   //****************************************************************************
 

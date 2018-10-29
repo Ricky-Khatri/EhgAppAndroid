@@ -29,7 +29,7 @@ import java.util.List;
 public class ReservationRequestParam {
 
   @SerializedName("PosSource")
-  private PosSource posSource;
+  private PosSource posSource = new PosSource();
   @SerializedName("ResGlobalInfo")
   private ResGlobalInfo resGlobalInfo;
   @SerializedName("ResGuests")

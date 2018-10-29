@@ -41,23 +41,39 @@ import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail;
 import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.FetchRoomAvailabilityRequestPojo;
+import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.AverageRate;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.FetchAvailabilityResponsePojo;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Address;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Customer;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.HoldRoomReservationRequestPojo;
-import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.GuestCount;
-import com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.RoomAreaSearchRequestPojo;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Profile;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Rate;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.RatePlan;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.ResGlobalInfo;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.ResGuest;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.ReservationRequestParam;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.RoomRate;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.RoomStay;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Telephone;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.TimeSpan;
 import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
 import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.JsonParserUtil;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,12 +97,16 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
   private EditText editTextAddress;
   private EditText editTextAddressNewline;
   private EditText editTextCity;
-  private EditText editTextFrequentlyAsked;
+  private EditText editTextFrequentGuestId;
   private EditText editTextSpecialRequest;
   private Spinner spinnerCountry;
   private TextView textViewAmount;
   private TextView textViewNext;
   private String guestTitle;
+  private AverageRate averageRate;
+  private String country;
+  private String requestString;
+  private String uniqueId;
 
   /**
    * Called when activity created.
@@ -102,10 +122,8 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
       context = this;
       initView();
     } catch (NullPointerException e) {
-
       e.printStackTrace();
     } catch (Exception e) {
-
       e.printStackTrace();
     }
   }
@@ -115,8 +133,18 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
    */
   private void initView() {
 
+    Intent intent = getIntent();
+    if (intent != null && intent.getStringExtra("averageRate") != null) {
+      Type type = new TypeToken<AverageRate>() {
+      }.getType();
+      averageRate = new Gson()
+          .fromJson(intent.getStringExtra("averageRate"), type);
+    }
     imageViewBack = findViewById(R.id.imageview_header_back);
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    if (getIntent() != null && getIntent().getStringExtra("title") != null) {
+      textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
+    }
     spinnerGuestTitle = findViewById(R.id.spinner_roombookingguestdetail_title);
     editTextFirstName = findViewById(R.id.edittext_roombookingguestdetail_firstname);
     editTextLastName = findViewById(R.id.edittext_roombookingguestdetail_lastname);
@@ -125,7 +153,33 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     editTextAddress = findViewById(R.id.edittext_roombookingguestdetail_address);
     editTextAddressNewline = findViewById(R.id.edittext_roombookingguestdetail_addressnewline);
     editTextCity = findViewById(R.id.edittext_roombookingguestdetail_city);
-    editTextFrequentlyAsked = findViewById(R.id.edittext_roombookingguestdetail_frequentguestid);
+    editTextFrequentGuestId = findViewById(R.id.edittext_roombookingguestdetail_frequentguestid);
+
+    //If guest is logged in then pre fill form details
+    if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+        .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+      UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(this).getUserProfilePojo();
+      if (userProfilePojo.getData() != null && userProfilePojo.getData().getDetail() != null
+          && userProfilePojo.getData().getDetail().size() > 0) {
+
+        com.ehg.signinsignup.pojo.Detail detail = userProfilePojo.getData().getDetail().get(0);
+        String mobileNumber = detail.getMobileNumber();
+        if (mobileNumber.length() == 10) {
+        } else if (mobileNumber.length() > 10) {
+          mobileNumber = mobileNumber.substring(mobileNumber.length() - 10);
+        } else {
+          // whatever is appropriate in this case
+          throw new IllegalArgumentException("word has less than 10 characters!");
+        }
+        editTextFirstName.setText(detail.getFirstName());
+        editTextLastName.setText(detail.getLastName());
+        editTextEmail.setText(detail.getEmailId());
+        editTextPhoneNumber.setText(mobileNumber);
+        editTextFrequentGuestId.setText(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.ACCOUNT_ID, ""));
+      }
+    }
+
     editTextSpecialRequest = findViewById(R.id.edittext_roombookingguestdetail_specialrequest);
     spinnerCountry = findViewById(R.id.spinner_roombookingguestdetail_country);
     textViewAmount = findViewById(R.id.textview_roombookingguestdetail_amount);
@@ -135,6 +189,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
 
     textViewNext.setOnClickListener(this);
     showGuestTitle();
+    showCountryList();
   }
 
   /**
@@ -151,7 +206,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
 
     if (index == EditorInfo.IME_ACTION_DONE) {
 
-      validateSignUpFormFields();
+      validateFormFields();
 
     } else {
 
@@ -231,9 +286,9 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
   }
 
   /**
-   * Method validates Spa booking form fields.
+   * Method validates form fields.
    */
-  private void validateSignUpFormFields() {
+  private void validateFormFields() {
 
     resetErrors();
 
@@ -248,11 +303,12 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     String city = editTextCity.getText().toString();
     //String prefferedDateTime = textViewPrefferedDateTime.getText().toString();
 
-    if (guestTitle.equalsIgnoreCase("Please Select Title")) {
+    if (TextUtils.isEmpty(guestTitle)
+        && guestTitle.equalsIgnoreCase("Please Select Title")) {
 
       Toast.makeText(context, "Please select Title", Toast.LENGTH_SHORT).show();
-      /*cancel = true;
-      focusView = textViewPrefferedDateTime;*/
+      cancel = true;
+
     } else if (TextUtils.isEmpty(firstName)) {
 
       editTextFirstName.setError(getResources().getString(R.string.all_fieldrequired));
@@ -294,6 +350,11 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
       focusView = editTextAddress;
       cancel = true;
 
+    } else if (TextUtils.isEmpty(country)) {
+
+      AppUtil.showToast(this, "Please select country");
+      cancel = true;
+
     } else if (TextUtils.isEmpty(city)) {
 
       editTextCity.setError(getResources().getString(R.string.all_fieldrequired));
@@ -304,7 +365,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     if (cancel) {
       Objects.requireNonNull(focusView).requestFocus();
     } else {
-      holdRoomReservation();
+      holdRoomReservation(address, city);
     }
   }
 
@@ -315,7 +376,6 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
 
     // Spinner Drop down elements
     List<String> userTitlelist = new ArrayList<String>();
-    userTitlelist.add("Please Select Title");
     userTitlelist.add("Mr.");
     userTitlelist.add("Ms.");
 
@@ -333,6 +393,39 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
         guestTitle = parent.getItemAtPosition(position).toString();
+      }
+
+      @Override
+      public void onNothingSelected(AdapterView<?> parent) {
+
+      }
+    });
+  }
+
+  /**
+   * this method is using to show country list.
+   */
+  private void showCountryList() {
+
+    // Spinner Drop down elements
+    List<String> countryList = new ArrayList<>();
+    countryList.add("UAE");
+    countryList.add("INDIA");
+
+    // Creating adapter for spinner
+    ArrayAdapter<String> countryAdapter = new ArrayAdapter<>(this,
+        android.R.layout.simple_spinner_item, countryList);
+
+    // Drop down layout style - list view with radio button
+    countryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    spinnerCountry.setAdapter(countryAdapter);
+
+    spinnerCountry.setOnItemSelectedListener(new OnItemSelectedListener() {
+      @Override
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // On selecting a spinner item
+        country = parent.getItemAtPosition(position).toString();
       }
 
       @Override
@@ -390,7 +483,6 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
       editTextPhoneNumber.setError(null);
       editTextAddress.setError(null);
       editTextCity.setError(null);
-
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception e) {
@@ -406,7 +498,6 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
   @Override
   public void onClick(View view) {
 
-    Intent intent = null;
     switch (view.getId()) {
 
       case R.id.imageview_header_back:
@@ -414,13 +505,29 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
         break;
 
       case R.id.textview_roombookingguestdetail_next:
-        validateSignUpFormFields();
+        validateFormFields();
         break;
 
       default:
         break;
     }
-    AppUtil.startActivityWithAnimation(this, intent, false);
+  }
+
+  /**
+   * Get a diff between two dates.
+   *
+   * @param oldDate the old date
+   * @param newDate the new date
+   * @return the diff value, in the days
+   */
+  public static long getDateDiff(SimpleDateFormat format, String oldDate, String newDate) {
+    try {
+      return Math.abs(TimeUnit.DAYS.convert(format.parse(newDate).getTime()
+          - format.parse(oldDate).getTime(), TimeUnit.MILLISECONDS));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return 0;
+    }
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -428,50 +535,161 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
   /**
    * Called to hold multiple room reservation.
    */
-  private void holdRoomReservation() {
+  private void holdRoomReservation(String address, String city) {
     try {
       if (AppUtil.isNetworkAvailable(context)) {
         new HttpClientRequest().setApiResponseListner(this);
 
-        RoomAreaSearchRequestPojo roomAreaSearchRequestPojo = JsonParserUtil.getInstance(this)
-            .getRoomAreaSearchRequestPojo();
-        List<com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail>
-            roomAreaDetailList = roomAreaSearchRequestPojo
-            .getDetails();
+        FetchRoomAvailabilityRequestPojo fetchRoomAvailabilityRequestPojo = JsonParserUtil
+            .getInstance(this)
+            .getFetchAvailabilityRequestPojo();
+        List<com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail>
+            fetchAvailablityDetailList = fetchRoomAvailabilityRequestPojo.getDetails();
 
-        if (roomAreaDetailList != null && roomAreaDetailList.size() > 0) {
+        if (fetchAvailablityDetailList != null && fetchAvailablityDetailList.size() > 0) {
 
-          com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail
-              roomAreaDetail = roomAreaDetailList.get(0);
-          com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Detail detail =
-              new com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Detail();
-          detail.setIbuId(2);//TODO: Make it dynamic
+          com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Detail
+              detail = new com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Detail();
           detail.setLanguageCode(SharedPreferenceUtils.getInstance(this)
-              .getStringValue(SharedPreferenceUtils.APP_LANGUAGE,"en"));
-
-
+              .getStringValue(SharedPreferenceUtils.APP_LANGUAGE, "en"));
+          detail.setDeviceId(AppUtil.getDeviceId(this));
+          detail.setIbuId(2);//TODO:Make it dynamic
           if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
               .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
             detail.setLoyaltyMemberId(Integer.parseInt(SharedPreferenceUtils.getInstance(this)
                 .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
           }
-          detail.setDeviceId(AppUtil.getDeviceId(this));
 
+          ReservationRequestParam reservationRequestParam = new ReservationRequestParam();
+          //reservationRequestParam.setPosSource(null);//TODO:
+
+          Customer customer = new Customer();
+
+          String firstName = editTextFirstName.getText().toString().trim();
+          String lastName = editTextLastName.getText().toString().trim();
+          String email = editTextEmail.getText().toString().trim();
+
+          customer.setGivenName(firstName);
+          customer.setEmail(email);
+          customer.setCompanyShortName(firstName);
+          customer.setNamePrefix(guestTitle);
+          customer.setSurName(lastName);
+          Address address1 = new Address();
+          address1.setAddressLine1(address);
+          address1.setCityName(city);
+          List<Address> addressList = new ArrayList<>();
+          addressList.add(address1);
+          customer.setAddress(addressList);
+          //telephone
+          List<Telephone> telephoneList = new ArrayList<>();
+          Telephone telephone = new Telephone();
+          String phone = editTextPhoneNumber.getText().toString().trim();
+          telephone.setPhoneNumber(phone);
+          telephone.setPhoneUseType("Mobile");
+          telephoneList.add(telephone);
+          customer.setTelephone(telephoneList);
+
+          ResGuest resGuest = new ResGuest();
+          Profile profile = new Profile();
+          if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+              .getStringValue(SharedPreferenceUtils.ACCOUNT_ID, ""))) {
+            profile.setFrequestGuestId(editTextFrequentGuestId.getText().toString().trim());
+          }
+          profile.setCustomer(customer);
+          resGuest.setProfile(profile);
+          List<ResGuest> resGuestList = new ArrayList<>();
+          resGuestList.add(resGuest);
+          reservationRequestParam.setResGuests(resGuestList);
+
+          Detail fetchAvailabilityDetail = fetchAvailablityDetailList.get(0);
+
+          //resGlobalInfo.setRooms();
+
+          List<com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.GuestCount>
+              guestCountList = new ArrayList<>();
+          com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.GuestCount
+              guestCount = new com.ehg.booking.hotel.pojo
+              .holdroomreservationrequestpojo.GuestCount();
+          guestCount.setAgeQualifyingCode("10");
+          guestCount.setCount(fetchAvailabilityDetail.getTotalAdults() + "");
+          guestCountList.add(guestCount);
+          guestCount = new com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.GuestCount();
+          guestCount.setAgeQualifyingCode("8");
+          guestCount.setCount(fetchAvailabilityDetail.getTotalChildren() + "");
+          guestCountList.add(guestCount);
+          guestCount = new com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.GuestCount();
+          guestCount.setAgeQualifyingCode("7");
+          guestCount.setCount(fetchAvailabilityDetail.getTotalInfants() + "");
+          guestCountList.add(guestCount);
+          ResGlobalInfo resGlobalInfo = new ResGlobalInfo();
+          resGlobalInfo.setGuestCounts(guestCountList);
+
+          //TimeSpan
+          //Calculate stay duration
+          int dayDifference = (int) getDateDiff(
+              new SimpleDateFormat("yyyy-MM-dd"),
+              fetchAvailabilityDetail.getCheckInDate(), fetchAvailabilityDetail.getCheckInDate());
+          TimeSpan timeSpan = new TimeSpan();
+          timeSpan.setDuration(dayDifference + "");
+          timeSpan.setStart(fetchAvailabilityDetail.getCheckInDate());
+          timeSpan.setEnd(fetchAvailabilityDetail.getCheckOutDate());
+          resGlobalInfo.setTimeSpan(timeSpan);
+
+          List<RatePlan> ratePlanList = new ArrayList<>();
+          RatePlan ratePlan = new RatePlan();
+          ratePlan.setRatePlanCode(averageRate.getRatePlanCode());
+          ratePlan.setRatePlanType(averageRate.getRatePlanType());
+          ratePlanList.add(ratePlan);
+          List<RoomRate> roomRateList = new ArrayList<>();
+          RoomRate roomRate = new RoomRate();
+          List<Rate> rateList = new ArrayList<>();
+          Rate rate = new Rate();
+          rate.setAmountBeforeTax(averageRate.getRate() + "");
+          roomRate.setRoomTypeCode(averageRate.getRoomTypeCode());
+          roomRate.setRates(rateList);
+          roomRate.setNumberOfUnits(fetchAvailabilityDetail.getTotalRooms());
+          roomRateList.add(roomRate);
+          List<RoomStay> roomStayList = new ArrayList<>();
+          RoomStay roomStay = new RoomStay();
+          roomStay.setRoomRates(roomRateList);
+          roomStay.setRatePlans(ratePlanList);
+          roomStayList.add(roomStay);
+          reservationRequestParam.setRoomStays(roomStayList);
+          reservationRequestParam.setResGlobalInfo(resGlobalInfo);
+          List<ReservationRequestParam> reservationRequestParamList = new ArrayList<>();
+          reservationRequestParamList.add(reservationRequestParam);
+          detail.setReservationRequestParams(reservationRequestParamList);
+          List<com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Detail>
+              detailList = new ArrayList<>();
+          detailList.add(detail);
           HoldRoomReservationRequestPojo holdRoomReservationRequestPojo =
               new HoldRoomReservationRequestPojo();
-          List<com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Detail> detailList = new ArrayList<>();
-          detailList.add(detail);
           holdRoomReservationRequestPojo.setFeature("roomReservation");
           holdRoomReservationRequestPojo.setOperation("RoomReservation");
           holdRoomReservationRequestPojo.setDetails(detailList);
 
           Gson gson = new Gson();
-          String requestString = gson
+          requestString = gson
+              .toJson(holdRoomReservationRequestPojo, HoldRoomReservationRequestPojo.class);
+
+          //Temporary request
+          HoldRoomReservationRequestPojo tempHoldRoomReservationRequestPojo
+              = holdRoomReservationRequestPojo;
+
+          reservationRequestParamList = new ArrayList<>();
+          reservationRequestParam.setResGuests(null);
+          reservationRequestParamList.add(reservationRequestParam);
+          detail.setReservationRequestParams(reservationRequestParamList);
+          detailList = new ArrayList<>();
+          detailList.add(detail);
+          tempHoldRoomReservationRequestPojo.setDetails(detailList);
+
+          String holdReservationRequest = gson
               .toJson(holdRoomReservationRequestPojo, HoldRoomReservationRequestPojo.class);
 
           StringEntity entity = null;
           try {
-            entity = new StringEntity(requestString);
+            entity = new StringEntity(holdReservationRequest);
           } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
           }
@@ -509,15 +727,27 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("Status")) {
 
-        FetchAvailabilityResponsePojo fetchAvailabilityResponsePojo = new Gson()
-            .fromJson(responseVal,
-                new TypeToken<FetchAvailabilityResponsePojo>() {
-                }.getType());
-
-        JsonParserUtil.getInstance(this)
-            .setFetchAvailabilityResponsePojo(fetchAvailabilityResponsePojo);
-
-
+        JSONObject jsonObject = new JSONObject(responseVal);
+        JSONObject dataObject = jsonObject.getJSONObject("Data");
+        JSONArray detailArray = dataObject.optJSONArray("Detail");
+        if (detailArray != null && detailArray.length() > 0) {
+          for (int index = 0; index < detailArray.length(); index++) {
+            JSONObject detailObject = detailArray.getJSONObject(index);
+            JSONObject responseDataObject = detailObject.optJSONObject("ResponseData");
+            JSONArray reservationResponsesArray = responseDataObject.optJSONArray("ReservationResponses");
+            if (reservationResponsesArray != null && reservationResponsesArray.length() > 0) {
+              uniqueId = reservationResponsesArray.getJSONObject(0).getString("UniqueId");
+            }
+            if (!TextUtils.isEmpty(uniqueId)) {
+              Intent intent = new Intent(this, RoomPaymentActivity.class);
+              intent.putExtra("holdReservationRequest", requestString);
+              intent.putExtra("title", textViewHeaderTitle.getText().toString());
+              intent.putExtra("uniqueId", uniqueId);
+              AppUtil.startActivityWithAnimation(this, intent, false);
+              break;
+            }
+          }
+        }
       } else if (requestMethod.equalsIgnoreCase(HOLD_RESERVATION)
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("Status")) {

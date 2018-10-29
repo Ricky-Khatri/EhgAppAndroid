@@ -398,6 +398,7 @@ public class HotelBookingSlotActivity extends BaseActivity implements
         totalGuests = numberOfAdults + numberOfChild + numberOfInfants;
         if (!TextUtils.isEmpty(checkinDateStr) && !TextUtils.isEmpty(checkoutDateStr)
             && totalGuests > 0 && numberOfRooms > 0) {
+
           if (apiCallKey.equalsIgnoreCase("areaSearch")) {
             searchRoomArea();
           } else {
@@ -500,65 +501,57 @@ public class HotelBookingSlotActivity extends BaseActivity implements
       if (AppUtil.isNetworkAvailable(context)) {
         new HttpClientRequest().setApiResponseListner(this);
 
-        RoomAreaSearchRequestPojo roomAreaSearchRequestPojo = JsonParserUtil.getInstance(this)
-            .getRoomAreaSearchRequestPojo();
-        List<com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail>
-            roomAreaDetailList = roomAreaSearchRequestPojo
-            .getDetails();
+        com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail detail =
+            new com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail();
+        detail.setIbuId(2);//TODO: Make it dynamic
+        detail.setCheckInDate(startDateStr);
+        detail.setCheckOutDate(endDateStr);
+        detail.setTotalRooms(numberOfRooms);
+        detail.setTotalAdults(numberOfAdults);
+        List<Integer> childreAges = new ArrayList<>();
+        //TODO: Make it dynamic
+        childreAges.add(numberOfChild);
+        detail.setTotalChildren(numberOfChild);
+        //detail.setChildrenAges(childreAges);
+        detail.setTotalInfants(numberOfInfants);
+        detail.setCurrencyCode(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED"));
+        detail.setLanguage(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.APP_LANGUAGE, "en"));
 
-        if (roomAreaDetailList != null && roomAreaDetailList.size() > 0) {
-
-          com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail
-              roomAreaDetail = roomAreaDetailList.get(0);
-          com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail detail =
-              new com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail();
-          detail.setIbuId(2);//TODO: Make it dynamic
-          detail.setCheckInDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getStart());
-          detail.setCheckOutDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getEnd());
-          detail.setTotalRooms(roomAreaDetail.getSearchCriteria().getNumberOfUnits());
-          List<GuestCount> guestCountList = roomAreaDetail.getSearchCriteria().getGuestCounts();
-          detail.setTotalAdults(guestCountList.get(0).getCount());
-          List<Integer> childreAges = new ArrayList<>();
-          //TODO: Make it dynamic
-          childreAges.add(guestCountList.get(1).getCount());
-          detail.setTotalChildren(guestCountList.get(1).getCount());
-          //detail.setChildrenAges(childreAges);
-          detail.setTotalInfants(guestCountList.get(2).getCount());
-          detail.setCurrencyCode(roomAreaDetail.getCurrencyCode());
-          detail.setLanguage(roomAreaDetail.getLanguageCode());
-
-          if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
-              .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
-            detail.setLoyaltyMemberId(Integer.parseInt(SharedPreferenceUtils.getInstance(this)
-                .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
-          }
-          detail.setDeviceId(AppUtil.getDeviceId(this));
-
-          FetchRoomAvailabilityRequestPojo fetchRoomAvailabilityRequestPojo =
-              new FetchRoomAvailabilityRequestPojo();
-          List<com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail> detailList
-              = new ArrayList<>();
-          detailList.add(detail);
-          fetchRoomAvailabilityRequestPojo.setFeature("roomReservation");
-          fetchRoomAvailabilityRequestPojo.setOperation("areaSearch");
-          fetchRoomAvailabilityRequestPojo.setDetails(detailList);
-
-          Gson gson = new Gson();
-          String requestString = gson
-              .toJson(fetchRoomAvailabilityRequestPojo, FetchRoomAvailabilityRequestPojo.class);
-
-          StringEntity entity = null;
-          try {
-            entity = new StringEntity(requestString);
-          } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-          }
-
-          new HttpClientRequest(context,
-              WebServiceUtil.getUrl(WebServiceUtil.METHOD_FETCH_ROOM_AVAILABILITY),
-              entity, WebServiceUtil.CONTENT_TYPE,
-              FETCH_AVAILABILITY, true).httpPostRequest();
+        if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+          detail.setLoyaltyMemberId(Integer.parseInt(SharedPreferenceUtils.getInstance(this)
+              .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "")));
         }
+        detail.setDeviceId(AppUtil.getDeviceId(this));
+
+        FetchRoomAvailabilityRequestPojo fetchRoomAvailabilityRequestPojo =
+            new FetchRoomAvailabilityRequestPojo();
+        List<com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail> detailList
+            = new ArrayList<>();
+        detailList.add(detail);
+        fetchRoomAvailabilityRequestPojo.setFeature("roomReservation");
+        fetchRoomAvailabilityRequestPojo.setOperation("areaSearch");
+        fetchRoomAvailabilityRequestPojo.setDetails(detailList);
+
+        JsonParserUtil.getInstance(this).setFetchAvailabilityRequestPojo(fetchRoomAvailabilityRequestPojo);
+
+        Gson gson = new Gson();
+        String requestString = gson
+            .toJson(fetchRoomAvailabilityRequestPojo, FetchRoomAvailabilityRequestPojo.class);
+
+        StringEntity entity = null;
+        try {
+          entity = new StringEntity(requestString);
+        } catch (UnsupportedEncodingException e) {
+          e.printStackTrace();
+        }
+
+        new HttpClientRequest(context,
+            WebServiceUtil.getUrl(WebServiceUtil.METHOD_FETCH_ROOM_AVAILABILITY),
+            entity, WebServiceUtil.CONTENT_TYPE,
+            FETCH_AVAILABILITY, true).httpPostRequest();
       } else {
         AppUtil.showAlertDialog((AppCompatActivity) context,
             context.getResources().getString(R.string.all_please_check_network_settings),
@@ -602,7 +595,7 @@ public class HotelBookingSlotActivity extends BaseActivity implements
         guestCount.setAgeQualifyingCode("10");
         guestCount.setCount(numberOfAdults);
         guestCountList.add(guestCount);
-        //Childs
+        //Childcount
         guestCount = new GuestCount();
         guestCount.setAgeQualifyingCode("8");
         guestCount.setCount(numberOfChild);
@@ -730,6 +723,10 @@ public class HotelBookingSlotActivity extends BaseActivity implements
       } else if (requestMethod.equalsIgnoreCase(FETCH_AVAILABILITY)
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("Status")) {
+
+        //Save number of rooms selected
+        SharedPreferenceUtils.getInstance(this)
+            .setValue(SharedPreferenceUtils.SELECTED_ROOM_COUNT, numberOfRooms);
 
         FetchAvailabilityResponsePojo fetchAvailabilityResponsePojo = new Gson()
             .fromJson(responseVal,

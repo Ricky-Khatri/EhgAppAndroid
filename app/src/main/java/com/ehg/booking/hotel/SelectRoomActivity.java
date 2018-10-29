@@ -36,6 +36,7 @@ import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.adapter.SelectRoomAdapter;
 import com.ehg.booking.hotel.adapter.SelectRoomAdapter.OnRoomItemClicklistner;
+import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.FetchRoomAvailabilityRequestPojo;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.AverageRate;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.FetchAvailabilityResponsePojo;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.RoomStay;
@@ -237,25 +238,39 @@ public class SelectRoomActivity extends BaseActivity
   @Override
   public void onClick(View view) {
 
-    Intent intent = null;
-    switch (view.getId()) {
-      case R.id.imageview_header_back:
-        AppUtil.finishActivityWithAnimation(this);
-        break;
+    try {
+      Intent intent = null;
+      switch (view.getId()) {
+        case R.id.imageview_header_back:
+          AppUtil.finishActivityWithAnimation(this);
+          break;
 
-      case R.id.textview_hotelroomselection_next:
-        if (numberOfRooms > 1) {
-          numberOfRooms--;
-          textViewSelectRoomTitle.setText("Select the Room (" + numberOfRooms + ")");
-        } else if (numberOfRooms == 1) {
-          intent = new Intent(context, RoomBookingGuestDetailActivity.class);
-        }
-        break;
+        case R.id.textview_hotelroomselection_next:
+          if (numberOfRooms > 1) {
+            numberOfRooms--;
+            textViewSelectRoomTitle.setText("Select the Room (" + numberOfRooms + ")");
+          } else if (numberOfRooms == 1) {
+            if (averageRate == null) {
+              FetchAvailabilityResponsePojo fetchAvailabilityResponsePojo = JsonParserUtil
+                  .getInstance(this)
+                  .getFetchAvailabilityResponsePojo();
+              averageRate = fetchAvailabilityResponsePojo.getData().getDetail().get(0)
+                  .getResponseData().getRoomStays().get(0)
+                  .getRoomTypes().get(0).getAverageRates().get(0);
+            }
+            intent = new Intent(context, RoomBookingGuestDetailActivity.class);
+            intent.putExtra("averageRate", new Gson().toJson(averageRate));
+            intent.putExtra("title", textViewHeaderTitle.getText().toString());
+            AppUtil.startActivityWithAnimation(this, intent, false);
+          }
+          break;
 
-      default:
-        break;
+        default:
+          break;
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
     }
-    AppUtil.startActivityWithAnimation(this, intent, false);
   }
 
   /**
@@ -319,34 +334,49 @@ public class SelectRoomActivity extends BaseActivity
       if (AppUtil.isNetworkAvailable(context)) {
         new HttpClientRequest().setApiResponseListner(this);
 
-        RoomAreaSearchRequestPojo roomAreaSearchRequestPojo = JsonParserUtil.getInstance(this)
-            .getRoomAreaSearchRequestPojo();
-        List<Detail> roomAreaDetailList = roomAreaSearchRequestPojo
-            .getDetails();
+        FetchRoomAvailabilityRequestPojo fetchRoomAvailabilityRequestPojo = JsonParserUtil
+            .getInstance(this)
+            .getFetchAvailabilityRequestPojo();
+        List<com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail>
+            fetchAvailablityDetailList = fetchRoomAvailabilityRequestPojo.getDetails();
 
-        if (roomAreaDetailList != null && roomAreaDetailList.size() > 0) {
+        if (fetchAvailablityDetailList != null && fetchAvailablityDetailList.size() > 0) {
 
-          com.ehg.booking.hotel.pojo.roomareasearchrequestpojo.Detail
-              roomAreaDetail = roomAreaDetailList.get(0);
+          com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail
+              fetchAvailabilityDetail = fetchAvailablityDetailList.get(0);
+
           com.ehg.booking.hotel.pojo.fetchservicesrequestpojo.Detail detail =
               new com.ehg.booking.hotel.pojo.fetchservicesrequestpojo.Detail();
 
           //TODO: Integer.parseInt(roomAreaDetail.getSearchCriteria().getHotelIds().get(0))
           detail.setIbuId(2);
 
-          detail.setCheckInDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getStart());
-          detail.setCheckOutDate(roomAreaDetail.getSearchCriteria().getTimeSpan().getEnd());
-          detail.setTotalRooms(roomAreaDetail.getSearchCriteria().getNumberOfUnits());
-          List<GuestCount> guestCountList = roomAreaDetail.getSearchCriteria().getGuestCounts();
+          detail.setCheckInDate(fetchAvailabilityDetail.getCheckInDate());
+          detail.setCheckOutDate(fetchAvailabilityDetail.getCheckOutDate());
+          detail.setTotalRooms(fetchAvailabilityDetail.getTotalRooms());
+          List<GuestCount> guestCountList = new ArrayList<>();
+          GuestCount guestCount = new GuestCount();
+          guestCount.setAgeQualifyingCode("10");
+          guestCount.setCount(fetchAvailabilityDetail.getTotalAdults());
+          guestCountList.add(guestCount);
+          guestCount = new GuestCount();
+          guestCount.setAgeQualifyingCode("8");
+          guestCount.setCount(fetchAvailabilityDetail.getTotalChildren());
+          guestCountList.add(guestCount);
+          guestCount = new GuestCount();
+          guestCount.setAgeQualifyingCode("7");
+          guestCount.setCount(fetchAvailabilityDetail.getTotalInfants());
+          guestCountList.add(guestCount);
           detail.setTotalAdults(guestCountList.get(0).getCount());
+
           List<Integer> childreAges = new ArrayList<>();
           //TODO: Make it dynamic
           childreAges.add(guestCountList.get(1).getCount());
           detail.setTotalChildren(guestCountList.get(1).getCount());
           detail.setChildrenAges(childreAges);
+          detail.setTotalInfants(guestCountList.get(2).getCount());
+
           detail.setRatePlanPackageRequired(true);
-          detail.setRatePlanCode("");//TODO: Pass actual value
-          detail.setRatePlanType(1);//TODO: Pass actual value
           detail.setRoomTypeCode("");//TODO: Pass actual value
 
           try {
@@ -381,9 +411,10 @@ public class SelectRoomActivity extends BaseActivity
               detail.getCheckOutDate(), detail.getCheckInDate());
           detail.setDurationOfStay(dayDifference);
 
-          detail.setTotalInfants(guestCountList.get(2).getCount());
-          detail.setCurrencyCode(roomAreaDetail.getCurrencyCode());
-          detail.setLanguage(roomAreaDetail.getLanguageCode());
+          detail.setCurrencyCode(SharedPreferenceUtils.getInstance(this)
+              .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED"));
+          detail.setLanguage(SharedPreferenceUtils.getInstance(this)
+              .getStringValue(SharedPreferenceUtils.APP_LANGUAGE, "en"));
 
           if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
               .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {

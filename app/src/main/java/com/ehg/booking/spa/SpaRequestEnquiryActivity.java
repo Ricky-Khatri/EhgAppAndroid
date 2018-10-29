@@ -19,18 +19,14 @@
 
 package com.ehg.booking.spa;
 
-import static android.content.DialogInterface.BUTTON_POSITIVE;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -97,6 +93,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
   private String guestTitle;
 
   private static String selectedTime;
+  private static String dateStr;
 
   /**
    * Called when Activity created.
@@ -192,7 +189,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     textViewBook = findViewById(R.id.textview_sparequestenquiry_booking);
 
     //Set OnClickListener
-    textViewPrefferedDateTime.setOnClickListener(this);
+    //textViewPrefferedDateTime.setOnClickListener(this);
     textViewBook.setOnClickListener(this);
     findViewById(R.id.linearlayout_sparequestenquiry_preferreddatetime).setOnClickListener(this);
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
@@ -250,7 +247,6 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
     // Spinner Drop down elements
     List<String> userTitlelist = new ArrayList<String>();
-    userTitlelist.add("Please Select Title");
     userTitlelist.add("Mr.");
     userTitlelist.add("Ms.");
 
@@ -281,7 +277,6 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
    * This method is using to show datepicker dialog.
    */
   private void showDatePickerDialog() {
-
     DialogFragment newFragment = new DatePickerFragment();
     newFragment.show(getSupportFragmentManager(), "datePicker");
   }
@@ -297,12 +292,12 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     switch (view.getId()) {
 
       case R.id.linearlayout_sparequestenquiry_preferreddatetime:
-        //showTimePickerDialog();
+        showTimePickerDialog();
         showDatePickerDialog();
         break;
 
-      case R.id.textview_sparequestenquiry_preferreddatetime:
-        //showTimePickerDialog();
+      case R.id.textview_sparequestinquiry_datetimelabel:
+        showTimePickerDialog();
         showDatePickerDialog();
         break;
 
@@ -531,11 +526,8 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
   /**
    * This class is using to show Datepicker dialog.
    */
-
-
   public static class DatePickerFragment extends DialogFragment implements
       DatePickerDialog.OnDateSetListener {
-
 
     @NonNull
     @Override
@@ -572,9 +564,9 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
      */
     @SuppressLint("SetTextI18n")
     public void onDateSet(DatePicker view, int year, int month, int day) {
-      // Do something with the date chosen by the user
-
-      textViewPrefferedDateTime.setText(day + "/" + (month + 1) + "/" + year);
+      month = month + 1;
+      dateStr = year + "-" + month + "-" + day;
+      textViewPrefferedDateTime.setText(day + "/" + month + "/" + year);
       textViewPrefferedDateTime.setError(null);
     }
   }
@@ -639,25 +631,19 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
       try {
         //Date
-        Calendar calendar = Calendar.getInstance();
-        int date = Calendar.getInstance().get(Calendar.DATE);
-        int month = Calendar.getInstance().get(Calendar.MONTH);
-        month++;
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        String spaDate = year + "-" + month + "-" + date;
-
-        /*//time
-        String[] times = calendar.getTime().toString().split(" ");
-        String spaTime = "10:00";
-        if (times != null && times.length > 0) {
-          spaTime = times[3].split(":")[1];
-        }*/
+        if (TextUtils.isEmpty(dateStr)) {
+          int date = Calendar.getInstance().get(Calendar.DATE);
+          int month = Calendar.getInstance().get(Calendar.MONTH);
+          month++;
+          int year = Calendar.getInstance().get(Calendar.YEAR);
+          dateStr = year + "-" + month + "-" + date;
+        }
 
         JSONObject deviceDetailObject = new JSONObject();
         deviceDetailObject.put("ibuId", 1);//TODO: make it dynamic
         deviceDetailObject.put("spaName", "The Spa"); //TODO: make it dynamic
         deviceDetailObject.put("treatmentName", "Balinese Massage");//TODO: make it dynamic
-        deviceDetailObject.put("spaDate", spaDate);
+        deviceDetailObject.put("spaDate", dateStr);
         deviceDetailObject.put("spaTime", selectedTime);
         deviceDetailObject.put("totalPeople", Integer.parseInt(numberOfGuest));
         deviceDetailObject.put("firstName", editTextFirstName.getText().toString());

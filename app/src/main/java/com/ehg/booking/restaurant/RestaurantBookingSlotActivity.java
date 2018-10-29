@@ -23,7 +23,6 @@ import android.annotation.SuppressLint;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -367,7 +366,7 @@ public class RestaurantBookingSlotActivity extends BaseActivity implements
     if (TextUtils.isEmpty(numberOfPeople)) {
       numberOfPeople = "1";
     }
-    AppUtil.numberPickerdefaultSelectedNumber = Integer.parseInt(numberOfPeople);
+    AppUtil.numberPickerDefaultSelectedNumber = Integer.parseInt(numberOfPeople);
 
     NumberPickerDialog numberPickerDialog = new NumberPickerDialog();
     numberPickerDialog.setValueChangeListener(this);

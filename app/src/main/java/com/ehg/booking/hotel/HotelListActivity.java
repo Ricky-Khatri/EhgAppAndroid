@@ -437,6 +437,9 @@ public class HotelListActivity extends BaseActivity implements
           fetchRoomAvailabilityRequestPojo.setFeature("roomReservation");
           fetchRoomAvailabilityRequestPojo.setOperation("areaSearch");
           fetchRoomAvailabilityRequestPojo.setDetails(detailList);
+
+          JsonParserUtil.getInstance(this).setFetchAvailabilityRequestPojo(fetchRoomAvailabilityRequestPojo);
+
           Gson gson = new Gson();
           String requestString = gson
               .toJson(fetchRoomAvailabilityRequestPojo, FetchRoomAvailabilityRequestPojo.class);
