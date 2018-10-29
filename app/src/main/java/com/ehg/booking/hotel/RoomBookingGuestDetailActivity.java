@@ -43,6 +43,7 @@ import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail;
 import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.FetchRoomAvailabilityRequestPojo;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.AverageRate;
 import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.FetchAvailabilityResponsePojo;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Address;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Customer;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.HoldRoomReservationRequestPojo;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Profile;
@@ -63,6 +64,7 @@ import com.ehg.signinsignup.pojo.UserProfilePojo;
 import com.ehg.utilities.AppUtil;
 import com.ehg.utilities.JsonParserUtil;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
@@ -104,6 +106,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
   private AverageRate averageRate;
   private String country;
   private String requestString;
+  private String uniqueId;
 
   /**
    * Called when activity created.
@@ -172,7 +175,6 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
         editTextLastName.setText(detail.getLastName());
         editTextEmail.setText(detail.getEmailId());
         editTextPhoneNumber.setText(mobileNumber);
-
         editTextFrequentGuestId.setText(SharedPreferenceUtils.getInstance(this)
             .getStringValue(SharedPreferenceUtils.ACCOUNT_ID, ""));
       }
@@ -363,7 +365,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     if (cancel) {
       Objects.requireNonNull(focusView).requestFocus();
     } else {
-      holdRoomReservation();
+      holdRoomReservation(address, city);
     }
   }
 
@@ -533,7 +535,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
   /**
    * Called to hold multiple room reservation.
    */
-  private void holdRoomReservation() {
+  private void holdRoomReservation(String address, String city) {
     try {
       if (AppUtil.isNetworkAvailable(context)) {
         new HttpClientRequest().setApiResponseListner(this);
@@ -572,6 +574,12 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
           customer.setCompanyShortName(firstName);
           customer.setNamePrefix(guestTitle);
           customer.setSurName(lastName);
+          Address address1 = new Address();
+          address1.setAddressLine1(address);
+          address1.setCityName(city);
+          List<Address> addressList = new ArrayList<>();
+          addressList.add(address1);
+          customer.setAddress(addressList);
           //telephone
           List<Telephone> telephoneList = new ArrayList<>();
           Telephone telephone = new Telephone();
@@ -647,7 +655,6 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
           roomStay.setRatePlans(ratePlanList);
           roomStayList.add(roomStay);
           reservationRequestParam.setRoomStays(roomStayList);
-
           reservationRequestParam.setResGlobalInfo(resGlobalInfo);
           List<ReservationRequestParam> reservationRequestParamList = new ArrayList<>();
           reservationRequestParamList.add(reservationRequestParam);
@@ -665,9 +672,24 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
           requestString = gson
               .toJson(holdRoomReservationRequestPojo, HoldRoomReservationRequestPojo.class);
 
+          //Temporary request
+          HoldRoomReservationRequestPojo tempHoldRoomReservationRequestPojo
+              = holdRoomReservationRequestPojo;
+
+          reservationRequestParamList = new ArrayList<>();
+          reservationRequestParam.setResGuests(null);
+          reservationRequestParamList.add(reservationRequestParam);
+          detail.setReservationRequestParams(reservationRequestParamList);
+          detailList = new ArrayList<>();
+          detailList.add(detail);
+          tempHoldRoomReservationRequestPojo.setDetails(detailList);
+
+          String holdReservationRequest = gson
+              .toJson(holdRoomReservationRequestPojo, HoldRoomReservationRequestPojo.class);
+
           StringEntity entity = null;
           try {
-            entity = new StringEntity(requestString);
+            entity = new StringEntity(holdReservationRequest);
           } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
           }
@@ -705,10 +727,27 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("Status")) {
 
-        Intent intent = new Intent(this, RoomPaymentActivity.class);
-        intent.putExtra("holdReservationRequest", requestString);
-        AppUtil.startActivityWithAnimation(this, intent, false);
-
+        JSONObject jsonObject = new JSONObject(responseVal);
+        JSONObject dataObject = jsonObject.getJSONObject("Data");
+        JSONArray detailArray = dataObject.optJSONArray("Detail");
+        if (detailArray != null && detailArray.length() > 0) {
+          for (int index = 0; index < detailArray.length(); index++) {
+            JSONObject detailObject = detailArray.getJSONObject(index);
+            JSONObject responseDataObject = detailObject.optJSONObject("ResponseData");
+            JSONArray reservationResponsesArray = responseDataObject.optJSONArray("ReservationResponses");
+            if (reservationResponsesArray != null && reservationResponsesArray.length() > 0) {
+              uniqueId = reservationResponsesArray.getJSONObject(0).getString("UniqueId");
+            }
+            if (!TextUtils.isEmpty(uniqueId)) {
+              Intent intent = new Intent(this, RoomPaymentActivity.class);
+              intent.putExtra("holdReservationRequest", requestString);
+              intent.putExtra("title", textViewHeaderTitle.getText().toString());
+              intent.putExtra("uniqueId", uniqueId);
+              AppUtil.startActivityWithAnimation(this, intent, false);
+              break;
+            }
+          }
+        }
       } else if (requestMethod.equalsIgnoreCase(HOLD_RESERVATION)
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("Status")) {

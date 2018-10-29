@@ -24,7 +24,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,6 +53,7 @@ import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.RoomRate;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.RoomStay;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Telephone;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.TimeSpan;
+import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.UniqueId;
 import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
 import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
@@ -85,6 +88,9 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
   private EditText editTextCardNumber;
   private EditText editTextExpiry;
 
+  private String uniqueId;
+  private String cardNumber;
+
   private HoldRoomReservationRequestPojo holdRoomReservationRequestPojo;
 
   /**
@@ -115,25 +121,186 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
   private void initView() {
 
     editTextNameOnCard = findViewById(R.id.edittext_roompayment_nameoncard);
-    editTextNameOnCard = findViewById(R.id.edittext_roompayment_cardnumber);
-    editTextNameOnCard = findViewById(R.id.edittextroompayment_expirydate);
+    editTextCardNumber = findViewById(R.id.edittext_roompayment_cardnumber);
+    editTextExpiry = findViewById(R.id.edittextroompayment_expirydate);
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    if (getIntent() != null && getIntent().getStringExtra("title") != null) {
+      textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
+    }
     headerBackButton = findViewById(R.id.imageview_header_back);
 
     Intent intent = getIntent();
     if (intent != null && intent.getStringExtra("holdReservationRequest") != null) {
-      Type type = new TypeToken<AverageRate>() {
+      Type type = new TypeToken<HoldRoomReservationRequestPojo>() {
       }.getType();
       holdRoomReservationRequestPojo = new Gson()
           .fromJson(intent.getStringExtra("holdReservationRequest"), type);
     }
+
+    if (intent != null && intent.getStringExtra("uniqueId") != null) {
+      uniqueId = intent.getStringExtra("uniqueId");
+    }
+
+    TextView textViewName = findViewById(R.id.textview_roompayment_guestname);
+    TextView textViewTelepohone = findViewById(R.id.textview_roompayment_guesttelephone);
+    TextView textViewEmail = findViewById(R.id.textView_roompayment_guestemail);
+    TextView textViewAddress = findViewById(R.id.textview_roompayment_guestaddress);
+    TextView textViewChekingDate = findViewById(R.id.textview_roompayment_checkin);
+    TextView textViewChekoutDate = findViewById(R.id.textview_roompayment_checkout);
+    TextView textViewNumberOfPeople = findViewById(R.id.textview_roompayment_numberofpepople);
+    TextView textViewRoomType = findViewById(R.id.textview_roompayment_roomtype);
+    TextView textViewAddOn = findViewById(R.id.textview_roompayment_addons);
+
+    List<com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Detail>
+        detailList = holdRoomReservationRequestPojo.getDetails();
+
+    if (detailList != null && detailList.size() > 0
+        && detailList.get(0).getReservationRequestParams() != null
+        && detailList.get(0).getReservationRequestParams().size() > 0) {
+
+      ReservationRequestParam reservationRequestParam = detailList.get(0)
+          .getReservationRequestParams().get(0);
+
+      List<ResGuest> resGuestList = reservationRequestParam.getResGuests();
+      if (resGuestList != null && resGuestList.size() > 0) {
+        ResGuest resGuest = resGuestList.get(0);
+
+        //Update UniqueId in pojo
+        UniqueId uniqueIdObject = new UniqueId();
+        uniqueIdObject.setId(uniqueId);
+        uniqueIdObject.setIdContext("Reservation");
+        resGuest.setUniqueId(uniqueIdObject);
+        resGuestList.set(0, resGuest);
+        reservationRequestParam.setResGuests(resGuestList);
+        List<ReservationRequestParam> reservationRequestParamList = detailList.get(0)
+            .getReservationRequestParams();
+        reservationRequestParamList.set(0, reservationRequestParam);
+        detailList.get(0).setReservationRequestParams(reservationRequestParamList);
+        holdRoomReservationRequestPojo.setDetails(detailList);
+        ///////////////////////////
+
+        Profile profile = resGuest.getProfile();
+        if (profile != null && profile.getCustomer() != null) {
+          Customer customer = profile.getCustomer();
+          textViewName.setText(customer.getGivenName());
+          textViewTelepohone.setText(customer.getTelephone() != null
+              && customer.getTelephone().size() > 0
+              ? customer.getTelephone().get(0).getPhoneNumber() + "" : "");
+          textViewEmail.setText(customer.getEmail());
+          textViewAddress.setText(customer.getAddress() != null
+              && customer.getAddress().size() > 0 ? customer.getAddress().get(0).getAddressLine1()
+              + " " + customer.getAddress().get(0).getCityName() : "");
+
+          FetchRoomAvailabilityRequestPojo fetchRoomAvailabilityRequestPojo
+              = JsonParserUtil.getInstance(this).getFetchAvailabilityRequestPojo();
+          List<Detail> fetchAvailabilityDetailList = fetchRoomAvailabilityRequestPojo.getDetails();
+          if (fetchAvailabilityDetailList != null && fetchAvailabilityDetailList.size() > 0) {
+            textViewChekingDate.setText(fetchAvailabilityDetailList.get(0).getCheckInDate());
+            textViewChekoutDate.setText(fetchAvailabilityDetailList.get(0).getCheckOutDate());
+            String numberOfAdluts = "";
+            String numberOfChildren = "";
+            if (fetchAvailabilityDetailList.get(0).getTotalAdults() > 0) {
+              numberOfAdluts = fetchAvailabilityDetailList.get(0).getTotalAdults() + " Adults";
+            }
+            if (fetchAvailabilityDetailList.get(0).getTotalChildren() > 0) {
+              numberOfChildren =
+                  fetchAvailabilityDetailList.get(0).getTotalChildren() + " Children";
+            }
+            String numberOfInfants = "";
+            if (fetchAvailabilityDetailList.get(0).getTotalInfants() > 0) {
+              numberOfAdluts = fetchAvailabilityDetailList.get(0).getTotalInfants() + " Infants";
+            }
+            textViewNumberOfPeople.setText(numberOfAdluts + numberOfChildren + numberOfInfants);
+          }
+        }
+      }
+    }
+
     //Set OnClickListener
     TextView textViewBook = findViewById(R.id.textview_roompayment_book);
     textViewBook.setOnClickListener(this);
     headerBackButton.setOnClickListener(this);
-  }
 
+    //Set TextChangeListener for card number field.
+    editTextCardNumber.addTextChangedListener(new TextWatcher() {
+      private static final char space = '-';
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+      }
+
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+        // Remove all spacing char
+        int pos = 0;
+        while (true) {
+          if (pos >= s.length()) {
+            break;
+          }
+          if (space == s.charAt(pos) && (((pos + 1) % 5) != 0 || pos + 1 == s.length())) {
+            s.delete(pos, pos + 1);
+          } else {
+            pos++;
+          }
+        }
+
+        // Insert char where needed.
+        pos = 4;
+        while (true) {
+          if (pos >= s.length()) {
+            break;
+          }
+          final char c = s.charAt(pos);
+          // Only if its a digit where there should be a space we insert a space
+          if ("0123456789".indexOf(c) >= 0) {
+            s.insert(pos, "" + space);
+          }
+          pos += 5;
+        }
+      }
+    });
+
+    //Set TextChangeListener for expiry date
+    editTextExpiry.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void afterTextChanged(Editable editable) {
+
+        if (editable.length() > 0 && (editable.length() % 3) == 0) {
+          final char c = editable.charAt(editable.length() - 1);
+          if ('/' == c) {
+            editable.delete(editable.length() - 1, editable.length());
+          }
+        }
+        if (editable.length() > 0 && (editable.length() % 3) == 0) {
+          char c = editable.charAt(editable.length() - 1);
+          if (Character.isDigit(c)
+              && TextUtils.split(editable.toString(), String.valueOf("/")).length <= 2) {
+            editable.insert(editable.length() - 1, String.valueOf("/"));
+          }
+        }
+      }
+
+      @Override
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // TODO Auto-generated method stub
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+       /* if (before == 1 && count == 2 && s.charAt(s.length() - 1) != '/') {
+          editTextExpiry.setText(editTextExpiry.getText().toString() + "/");
+        }
+        if (editTextExpiry.getText().toString().toCharArray().length < 3) {
+          editTextExpiry.setText(editTextExpiry.getText().toString().replace("/", ""));
+        }*/
+      }
+    });
+  }
 
   /**
    * Called when activity resumed.
@@ -206,7 +373,7 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
     View focusView = null;
 
     String nameOnCard = editTextNameOnCard.getText().toString();
-    String cardNumber = editTextCardNumber.getText().toString().trim();
+    cardNumber = editTextCardNumber.getText().toString().trim();
     String expiryDate = editTextExpiry.getText().toString().trim();
 
     if (TextUtils.isEmpty(nameOnCard)) {
@@ -246,10 +413,13 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
       if (AppUtil.isNetworkAvailable(context)) {
         new HttpClientRequest().setApiResponseListner(this);
 
+        String cardType = AppUtil.getCardType(cardNumber);
+
         PaymentCard paymentCard = new PaymentCard();
-        paymentCard.setCardNumber(cardNumber);
+        paymentCard.setCardNumber(cardNumber.trim());
         paymentCard.setCardHolderName(nameOnCard);
         paymentCard.setExpireDate(expiryDate);
+        paymentCard.setCardType(cardType);
         GuaranteesAccepted guaranteesAccepted = new GuaranteesAccepted();
         guaranteesAccepted.setPaymentCard(paymentCard);
         List<GuaranteesAccepted> guaranteesAcceptedList = new ArrayList<>();

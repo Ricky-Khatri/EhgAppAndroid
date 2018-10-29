@@ -93,6 +93,7 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
   private String guestTitle;
 
   private static String selectedTime;
+  private static String dateStr;
 
   /**
    * Called when Activity created.
@@ -246,7 +247,6 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
     // Spinner Drop down elements
     List<String> userTitlelist = new ArrayList<String>();
-    userTitlelist.add("Please Select Title");
     userTitlelist.add("Mr.");
     userTitlelist.add("Ms.");
 
@@ -564,8 +564,9 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
      */
     @SuppressLint("SetTextI18n")
     public void onDateSet(DatePicker view, int year, int month, int day) {
-      // Do something with the date chosen by the user
-      textViewPrefferedDateTime.setText(day + "/" + (month + 1) + "/" + year);
+      month = month + 1;
+      dateStr = year + "-" + month + "-" + day;
+      textViewPrefferedDateTime.setText(day + "/" + month + "/" + year);
       textViewPrefferedDateTime.setError(null);
     }
   }
@@ -630,25 +631,19 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
 
       try {
         //Date
-        Calendar calendar = Calendar.getInstance();
-        int date = Calendar.getInstance().get(Calendar.DATE);
-        int month = Calendar.getInstance().get(Calendar.MONTH);
-        month++;
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        String spaDate = year + "-" + month + "-" + date;
-
-        /*//time
-        String[] times = calendar.getTime().toString().split(" ");
-        String spaTime = "10:00";
-        if (times != null && times.length > 0) {
-          spaTime = times[3].split(":")[1];
-        }*/
+        if (TextUtils.isEmpty(dateStr)) {
+          int date = Calendar.getInstance().get(Calendar.DATE);
+          int month = Calendar.getInstance().get(Calendar.MONTH);
+          month++;
+          int year = Calendar.getInstance().get(Calendar.YEAR);
+          dateStr = year + "-" + month + "-" + date;
+        }
 
         JSONObject deviceDetailObject = new JSONObject();
         deviceDetailObject.put("ibuId", 1);//TODO: make it dynamic
         deviceDetailObject.put("spaName", "The Spa"); //TODO: make it dynamic
         deviceDetailObject.put("treatmentName", "Balinese Massage");//TODO: make it dynamic
-        deviceDetailObject.put("spaDate", spaDate);
+        deviceDetailObject.put("spaDate", dateStr);
         deviceDetailObject.put("spaTime", selectedTime);
         deviceDetailObject.put("totalPeople", Integer.parseInt(numberOfGuest));
         deviceDetailObject.put("firstName", editTextFirstName.getText().toString());
