@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.firebaseanalytics.FirebaseAnalyticsUtil;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.BaseActivity.BroadCastMessageInterface;
 import com.ehg.home.HomeActivity;
@@ -77,8 +78,10 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
           new String[]{permission.WRITE_EXTERNAL_STORAGE})) {
 
         switchActivity();
-
       }
+
+      /*FirebaseAnalyticsUtil.logEhgEvents(this,LaunchActivity.class.getName(),
+          "View","AppLaunch","App launched");*/
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception e) {

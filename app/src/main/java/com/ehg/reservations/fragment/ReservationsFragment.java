@@ -211,7 +211,7 @@ public class ReservationsFragment extends BaseFragment implements ApiResponseLis
 
       new HttpClientRequest(context,
           WebServiceUtil.getUrl(WebServiceUtil.METHOD_GET_ALL_RESERVATIONS)
-              + "/" + SharedPreferenceUtils.getInstance(context)
+              +  SharedPreferenceUtils.getInstance(context)
               .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""),
           new RequestParams(), WebServiceUtil.CONTENT_TYPE,
           RESERVATIONS_METHOD, true).httpGetRequest();

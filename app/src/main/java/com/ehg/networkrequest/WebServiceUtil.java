@@ -95,7 +95,10 @@ public class WebServiceUtil {
   public static final String METHOD_RESERVATION_MULTI_ROOM = "/roomReservation/reservationMultiRoom/v1";
 
   //Get all reservation method
-  public static final String METHOD_GET_ALL_RESERVATIONS = "/reservations";
+  public static final String METHOD_GET_ALL_RESERVATIONS = "/reservations/";
+
+  //Get member redemption method
+  public static final String METHOD_MEMBER_REDEMPTION = "/MemberRedemptions/";
 
 
 
