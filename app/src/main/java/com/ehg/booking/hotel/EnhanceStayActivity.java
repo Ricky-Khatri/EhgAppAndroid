@@ -45,8 +45,8 @@ public class EnhanceStayActivity extends BaseActivity implements
   private TextView textViewHeaderTitle;
   private AppCompatImageView headerBackButton;
   private RecyclerView recyclerViewRoomList;
-  private TextView textViewNext;
-  private TextView textViewSkip;
+  private TextView textViewSaveAndResturn;
+  private TextView textViewCancel;
 
   /**
    * Called when activity created.
@@ -74,9 +74,10 @@ public class EnhanceStayActivity extends BaseActivity implements
   private void initView() {
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
+    textViewHeaderTitle.setText(R.string.enhancestay_title);
     headerBackButton = findViewById(R.id.imageview_header_back);
-    // textViewNext = findViewById(R.id.textview_enhancestay_next);
-    textViewSkip = findViewById(R.id.textview_enhancestay_skip);
+    textViewSaveAndResturn = findViewById(R.id.textview_enhancestay_saveenhancements);
+    textViewCancel = findViewById(R.id.textview_enhancestay_cancel);
     recyclerViewRoomList = findViewById(R.id.recyclerview_enhancestay);
     recyclerViewRoomList.setLayoutManager(new LinearLayoutManager(context));
     recyclerViewRoomList.setHasFixedSize(true);
@@ -88,9 +89,8 @@ public class EnhanceStayActivity extends BaseActivity implements
 
     //Set OnClickListener
     headerBackButton.setOnClickListener(this);
-    textViewNext.setOnClickListener(this);
-    textViewSkip.setOnClickListener(this);
-
+    textViewSaveAndResturn.setOnClickListener(this);
+    textViewCancel.setOnClickListener(this);
   }
 
   /**
@@ -107,20 +107,22 @@ public class EnhanceStayActivity extends BaseActivity implements
         AppUtil.finishActivityWithAnimation(this);
         break;
 
-    /*  case R.id.textview_enhancestay_next:
-
-        intent = new Intent(context, RoomBookingGuestDetailActivity.class);
-        break;
-*/
       case R.id.textview_enhancestay_skip:
-
         intent = new Intent(context, RoomBookingGuestDetailActivity.class);
+        AppUtil.startActivityWithAnimation(this, intent, false);
+        break;
+
+      case R.id.textview_enhancestay_saveenhancements:
+        AppUtil.finishActivityWithAnimation(this);
+        break;
+
+      case R.id.textview_enhancestay_cancel:
+        AppUtil.finishActivityWithAnimation(this);
         break;
 
       default:
         break;
     }
-    AppUtil.startActivityWithAnimation(this, intent, false);
   }
 
   /**

@@ -72,6 +72,8 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class contains common utility methods required for the app.
@@ -105,11 +107,13 @@ public class AppUtil {
 
   /**
    * Called to get card type.
+   *
    * @param cardNumber card number
    * @return cardType
    */
   public static String getCardType(String cardNumber) {
     String cardType = "";
+    cardNumber = cardNumber.replace("-","");
     if (cardNumber.matches("^4[0-9]{6,}$")) {
       cardType = "VI";//VISA
     } else if (cardNumber.matches("^5[1-5][0-9]{5,}$")) {
@@ -293,6 +297,18 @@ public class AppUtil {
   }
 
   /**
+   * Checks if password is valid or not.
+   */
+  public static boolean isPasswordValid(String password) {
+    Pattern pattern;
+    Matcher matcher;
+    final String passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+    pattern = Pattern.compile(passwordPattern);
+    matcher = pattern.matcher(password);
+    return password.length() > 8 && matcher.matches();
+  }
+
+  /**
    * Method returns device screen height in pixel.
    */
   public static int getDeviceHeight(AppCompatActivity context) {
@@ -469,7 +485,7 @@ public class AppUtil {
    * @param appCompatActivity calling class object
    * @param alertMessage message which will show as an alert
    * @param isRedirect if it is true than we will navigate to other activity, or if false than we
-   * will stay on same activity and perform required action.
+   *        will stay on same activity and perform required action.
    * @param alertTitle message will show on a dialog title
    * @param isCancelable Whether the dialog should be isCancelable when touched outside the window
    */

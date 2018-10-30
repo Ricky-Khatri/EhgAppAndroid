@@ -25,24 +25,45 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.BaseActivity;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
 import com.ehg.ubyemaar.adapter.UpointAdapter;
+import com.ehg.ubyemaar.pojo.UpointActivityPojo;
 import com.ehg.utilities.AppUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.RequestParams;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * This class is using to show Upoint of the user.
  */
 
-public class UpointActivity extends BaseActivity implements View.OnClickListener {
+public class UpointActivity extends BaseActivity implements OnClickListener, ApiResponseListener {
 
+  private static final String MEMBER_REDEMPTION_METHOD = "MemberRedemption";
   private Context context;
   private RecyclerView recycleViewUpoint;
 
   private AppCompatImageView imageviewBack;
+
   private TextView textViewHeaderTitle;
+  private TextView textViewTransactions;
+
+  private LinearLayout linearLayout;
 
   /**
    * Called when activity created first.
@@ -64,6 +85,9 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
    */
   private void initView() {
 
+    textViewTransactions = findViewById(R.id.textview_upoint_transactions);
+    linearLayout = findViewById(R.id.linearlayout_upointactivity);
+    linearLayout.setVisibility(View.INVISIBLE);
     recycleViewUpoint = findViewById(R.id.recyclerview_upointactivity);
     imageviewBack = findViewById(R.id.imageview_header_back);
     imageviewBack.setOnClickListener(this);
@@ -74,11 +98,11 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
         LinearLayoutManager.VERTICAL, false);
     recycleViewUpoint.setLayoutManager(manager);
     recycleViewUpoint.setHasFixedSize(true);
-    recycleViewUpoint.setAdapter(new UpointAdapter(context));
-    AppUtil.animateRecyclerView(this, recycleViewUpoint,
-        R.anim.layout_animation_from_bottom);
 
-    setBackArrowRtl(imageviewBack);
+    if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(context)
+        .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
+      getMemberRedemption();
+    }
   }
 
   /**
@@ -118,5 +142,123 @@ public class UpointActivity extends BaseActivity implements View.OnClickListener
       default:
         break;
     }
+  }
+
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Called to get U Point activities..
+   */
+  private void getMemberRedemption() {
+    if (AppUtil.isNetworkAvailable(context)) {
+      new HttpClientRequest().setApiResponseListner(this);
+      String url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_MEMBER_REDEMPTION)
+          + SharedPreferenceUtils.getInstance(context)
+          .getStringValue(SharedPreferenceUtils.ACCOUNT_ID, "") + "/"
+          + SharedPreferenceUtils.getInstance(context)
+          .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "");
+
+      //TODO: Need to comment it.
+      url = WebServiceUtil.getUrl(WebServiceUtil.METHOD_MEMBER_REDEMPTION)
+          + "00971566000000" + "/" + "3239";
+
+      new HttpClientRequest(context, url,
+          new RequestParams(), WebServiceUtil.CONTENT_TYPE,
+          MEMBER_REDEMPTION_METHOD, true).httpGetRequest();
+    } else {
+      AppUtil.showAlertDialog((AppCompatActivity) context,
+          context.getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(MEMBER_REDEMPTION_METHOD)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("Status")) {
+
+        JSONObject jsonObject = new JSONObject(responseVal);
+        JSONObject dataObject = jsonObject.getJSONObject("Data");
+        JSONArray detailArray = dataObject.optJSONArray("Detail");
+
+        List<UpointActivityPojo> upointActivityList = new ArrayList<>();
+
+        if (detailArray != null && detailArray.length() > 0) {
+          for (int index = 0; index < detailArray.length(); index++) {
+            JSONArray responseDataArray = detailArray.optJSONObject(index)
+                .optJSONArray("ResponseData");
+            for (int index1 = 0; index1 < responseDataArray.length(); index1++) {
+              JSONObject responseData = responseDataArray.optJSONObject(index1);
+              UpointActivityPojo upointActivityPojo = new UpointActivityPojo();
+              upointActivityPojo.setRedemptionId(responseData.getString("RedemptionId"));
+              upointActivityPojo.setRedeemedDateTime(responseData.getString("RedeemedDateTime"));
+              upointActivityPojo.setRedeemedAmount(responseData.getString("RedeemedAmount"));
+              upointActivityPojo.setRedeemedPoint(responseData.getString("RedeemedPoint"));
+              upointActivityPojo.setRedeemedLocation(responseData.getString("RedeemedLocation"));
+              upointActivityList.add(upointActivityPojo);
+            }
+          }
+        }
+
+        if (upointActivityList != null && upointActivityList.size() > 0) {
+          textViewTransactions.setText("Last " + upointActivityList.size() + " Transactions");
+          //Set Adapter
+          linearLayout.setVisibility(View.VISIBLE);
+          recycleViewUpoint.setAdapter(new UpointAdapter(context, upointActivityList));
+          AppUtil.animateRecyclerView(this, recycleViewUpoint,
+              R.anim.layout_animation_from_bottom);
+        }
+      } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("Status")) {
+
+        linearLayout.setVisibility(View.INVISIBLE);
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("Data");
+
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("Detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("ValidationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog((AppCompatActivity) context,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
+        }
+      } else {
+        linearLayout.setVisibility(View.INVISIBLE);
+        AppUtil.showAlertDialog((AppCompatActivity) context,
+            new JSONObject(responseVal).getString("message"), false,
+            getResources().getString(R.string.dialog_errortitle), true, null);
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }

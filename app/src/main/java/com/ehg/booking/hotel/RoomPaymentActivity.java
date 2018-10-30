@@ -227,23 +227,24 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
       private static final char space = '-';
 
       @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
+      public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
       }
 
       @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+      public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
       }
 
       @Override
-      public void afterTextChanged(Editable s) {
+      public void afterTextChanged(Editable editable) {
         // Remove all spacing char
         int pos = 0;
         while (true) {
-          if (pos >= s.length()) {
+          if (pos >= editable.length()) {
             break;
           }
-          if (space == s.charAt(pos) && (((pos + 1) % 5) != 0 || pos + 1 == s.length())) {
-            s.delete(pos, pos + 1);
+          if (space == editable.charAt(pos) && (((pos + 1) % 5) != 0 || pos + 1 == editable
+              .length())) {
+            editable.delete(pos, pos + 1);
           } else {
             pos++;
           }
@@ -252,13 +253,13 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
         // Insert char where needed.
         pos = 4;
         while (true) {
-          if (pos >= s.length()) {
+          if (pos >= editable.length()) {
             break;
           }
-          final char c = s.charAt(pos);
+          final char c = editable.charAt(pos);
           // Only if its a digit where there should be a space we insert a space
           if ("0123456789".indexOf(c) >= 0) {
-            s.insert(pos, "" + space);
+            editable.insert(pos, "" + space);
           }
           pos += 5;
         }
@@ -292,12 +293,7 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
 
       @Override
       public void onTextChanged(CharSequence s, int start, int before, int count) {
-       /* if (before == 1 && count == 2 && s.charAt(s.length() - 1) != '/') {
-          editTextExpiry.setText(editTextExpiry.getText().toString() + "/");
-        }
-        if (editTextExpiry.getText().toString().toCharArray().length < 3) {
-          editTextExpiry.setText(editTextExpiry.getText().toString().replace("/", ""));
-        }*/
+
       }
     });
   }
@@ -394,6 +390,11 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
       focusView = editTextExpiry;
       cancel = true;
 
+    } else if (!expiryDate.contains("/")) {
+
+      editTextExpiry.setError(getResources().getString(R.string.all_expirydatevalidationerror));
+      focusView = editTextExpiry;
+      cancel = true;
     }
 
     if (cancel) {
@@ -416,7 +417,7 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
         String cardType = AppUtil.getCardType(cardNumber);
 
         PaymentCard paymentCard = new PaymentCard();
-        paymentCard.setCardNumber(cardNumber.replace("-","").trim());
+        paymentCard.setCardNumber(cardNumber.replace("-", "").trim());
         paymentCard.setCardHolderName(nameOnCard);
         paymentCard.setExpireDate(expiryDate);
         paymentCard.setCardType(cardType);
@@ -430,15 +431,15 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
         if (detailList != null && detailList.size() > 0) {
           com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Detail detail
               = detailList.get(0);
-          List<ReservationRequestParam> reservationRequestParamList = detail
+          List<ReservationRequestParam> reseRrvationRequestParamList = detail
               .getReservationRequestParams();
 
-          if (reservationRequestParamList != null && reservationRequestParamList.size() > 0) {
-            ReservationRequestParam reservationRequestParam = reservationRequestParamList.get(0);
+          if (reseRrvationRequestParamList != null && reseRrvationRequestParamList.size() > 0) {
+            ReservationRequestParam reservationRequestParam = reseRrvationRequestParamList.get(0);
             ResGlobalInfo resGlobalInfo = reservationRequestParam.getResGlobalInfo();
             resGlobalInfo.setGuaranteesAccepted(guaranteesAcceptedList);
             reservationRequestParam.setResGlobalInfo(resGlobalInfo);
-            detail.setReservationRequestParams(reservationRequestParamList);
+            detail.setReservationRequestParams(reseRrvationRequestParamList);
             detailList.set(0, detail);
             holdRoomReservationRequestPojo.setDetails(detailList);
           }

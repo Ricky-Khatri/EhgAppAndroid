@@ -22,7 +22,9 @@ package com.ehg.firebaseanalytics;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import java.util.Calendar;
 
 /**
  * This class contains common methods for instantiating and logging firebase events.
@@ -110,8 +112,16 @@ public class FirebaseAnalyticsUtil {
   public static String AMINITIES_CONTENT_TYPE = "ameinities";
   public static String ASSISTANCE_CONTENT_TYPE = "assistance";
 
+  public static final String SCREEN_NAME = "Screen";
+  public static final String EVENT_NAME = "Event";
+  public static final String SCREEN_ACTION = "Action";
+  public static final String EXTRA = "Extra";
+  public static final String DATE_TIME = "DateTime";
+
   /**
    * This method returns Firebase analytics instance to requested activity.
+   * @param context activity context
+   * @return
    */
   public static FirebaseAnalytics getFirebaseInstance(Context context) {
     mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
@@ -206,6 +216,46 @@ public class FirebaseAnalyticsUtil {
       bundle.putString(INACTIVE_TIME_PARAM, inactiveTime);
 
       mFirebaseAnalytics.logEvent(EXIT_EVENT, bundle);
+    }
+  }
+
+  /**
+   * This method logs firebase events for requested activity.
+   */
+  public static void logEhgEvents(Context context,
+      String screenName, String eventName, String screenAction, String extra) {
+
+    if (mFirebaseAnalytics == null) {
+      mFirebaseAnalytics = getFirebaseInstance(context);
+    }
+
+    if (mFirebaseAnalytics != null) {
+
+      ENTRY_TIME = System.currentTimeMillis();
+
+      Bundle bundle = new Bundle();
+
+      if (!TextUtils.isEmpty(screenName)) {
+        bundle.putString(SCREEN_NAME, screenName);
+      }
+
+      if (!TextUtils.isEmpty(eventName)) {
+        bundle.putString(EVENT_NAME, eventName);
+      }
+
+      if (!TextUtils.isEmpty(screenAction)) {
+        bundle.putString(SCREEN_ACTION, screenAction);
+      }
+
+      if (!TextUtils.isEmpty(extra)) {
+        bundle.putString(EXTRA, extra);
+      }
+
+      String dateTime = Calendar.getInstance().getTime().toString();
+      if (!TextUtils.isEmpty(dateTime)) {
+        bundle.putString(DATE_TIME, dateTime);
+      }
+      mFirebaseAnalytics.logEvent(eventName, bundle);
     }
   }
 }

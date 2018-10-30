@@ -139,7 +139,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
    */
   private void initView(View view) {
     TextView textViewHeaderTitle = view.findViewById(R.id.textview_header_title);
-    textViewHeaderTitle.setText(getResources().getString(R.string.offers_title));
+    textViewHeaderTitle.setText(getResources().getString(R.string.u_by_emaar_title));
     view.findViewById(R.id.imageview_header_back).setVisibility(View.INVISIBLE);
     textViewProfile = view.findViewById(R.id.textview_ubyemaar_profile);
     textViewUPoint = view.findViewById(R.id.textview_ubyemaar_upointactivity);
@@ -158,7 +158,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     view.findViewById(R.id.linearlayout_ubyemaar_profile).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_upointactivity).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_preferences).setOnClickListener(this);
-    view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);
+    view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);*/
   }
 
   /**

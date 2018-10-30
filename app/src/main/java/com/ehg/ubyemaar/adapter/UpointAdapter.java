@@ -27,6 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.ubyemaar.pojo.UpointActivityPojo;
+import java.util.List;
 
 /**
  * This class initiates Upoint list for Upoint activity class.
@@ -35,35 +37,17 @@ public class UpointAdapter extends RecyclerView.Adapter<UpointAdapter.ViewHolder
 
   private final Context context;
   private final LayoutInflater inflater;
-  private String[] description = new String[] {
-      "Reel Cinemas-Website 16 Sep 2016, 01:44 PM",
-      "Reel Cinemas-Website 07 Aug 2016, 01:44 PM",
-      "Reel Cinemas-Website 10 Jul 2016, 01:44 PM",
-      "Reel Cinemas-Website 11 Aug 2016, 01:44 PM",
-      "Reel Cinemas-Website 09 Mar 2016, 01:44 PM",
-  };
-  private String[] upoints = new String[] {
-      "+90",
-      "-45",
-      "+23",
-      "+65",
-      "+70",
-  };
-  private String[] value = new String[] {
-      "AED 90",
-      "AED-45",
-      "AED 23",
-      "AED 65",
-      "AED 70",
-  };
+
+  private List<UpointActivityPojo> upointActivityList;
 
   /**
    * Parameterized constructor for UpointAdapter.
    */
-  public UpointAdapter(Context context) {
+  public UpointAdapter(Context context, List<UpointActivityPojo> upointActivityList) {
 
     this.context = context;
     this.inflater = LayoutInflater.from(context);
+    this.upointActivityList = upointActivityList;
   }
 
   /**
@@ -89,10 +73,11 @@ public class UpointAdapter extends RecyclerView.Adapter<UpointAdapter.ViewHolder
   @Override
   public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-    viewHolder.textViewDescription.setText(description[position]);
-    viewHolder.textViewUpoint.setText(upoints[position]);
-    viewHolder.textViewValue.setText(value[position]);
+    UpointActivityPojo upointActivityPojo = upointActivityList.get(position);
 
+    viewHolder.textViewDescription.setText(upointActivityPojo.getRedeemedDateTime());
+    viewHolder.textViewUpoint.setText(upointActivityPojo.getRedeemedPoint());
+    viewHolder.textViewValue.setText(upointActivityPojo.getRedeemedAmount());
   }
 
   /**
@@ -102,7 +87,8 @@ public class UpointAdapter extends RecyclerView.Adapter<UpointAdapter.ViewHolder
    */
   @Override
   public int getItemCount() {
-    return description.length;
+    return upointActivityList != null && upointActivityList.size() > 0 ? upointActivityList
+        .size() : 0;
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {
@@ -119,10 +105,10 @@ public class UpointAdapter extends RecyclerView.Adapter<UpointAdapter.ViewHolder
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
 
-      textViewDescription = (TextView) itemView
+      textViewDescription = itemView
           .findViewById(R.id.textview_upointadapter_description);
-      textViewUpoint = (TextView) itemView.findViewById(R.id.textview_upointadapter_upoint);
-      textViewValue = (TextView) itemView.findViewById(R.id.textview_upointadapter_value);
+      textViewUpoint = itemView.findViewById(R.id.textview_upointadapter_upoint);
+      textViewValue = itemView.findViewById(R.id.textview_upointadapter_value);
     }
   }
 }

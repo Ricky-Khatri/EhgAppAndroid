@@ -40,6 +40,9 @@ public class SignInSignupActivity extends BaseActivity {
 
   private  OnCountryCodeChangeListener onCountryCodeChangeListener;
 
+  private SigninFragment signinFragment;
+  private SignUpFragment signUpFragment;
+
   /**
    * Called when activity created.
    *
@@ -59,6 +62,8 @@ public class SignInSignupActivity extends BaseActivity {
   private void initView() {
 
     try {
+      signinFragment = new SigninFragment();
+      signUpFragment = new SignUpFragment();
       //Init tab layout
       TabLayout tabLayout = findViewById(R.id.tab_layout_all);
       final ViewPager viewPager = findViewById(R.id.viewpager_all_fragment_viewpager);
@@ -83,6 +88,12 @@ public class SignInSignupActivity extends BaseActivity {
           viewPager.setCurrentItem(layoutTab.getPosition());
           if (onCountryCodeChangeListener != null) {
             onCountryCodeChangeListener.onCountryCodeChanged();
+          }
+          if (signinFragment != null) {
+            signinFragment.clearFields();
+          }
+          if (signUpFragment != null) {
+            signUpFragment.clearFields();
           }
         }
 
@@ -146,9 +157,9 @@ public class SignInSignupActivity extends BaseActivity {
     public Fragment getItem(int position) {
       switch (position) {
         case 0:
-          return new SigninFragment();
+          return signinFragment != null ? signinFragment :  new SigninFragment();
         case 1:
-          return new SignUpFragment();
+          return signUpFragment != null ? signUpFragment : new SignUpFragment();
         default:
           return null;
       }

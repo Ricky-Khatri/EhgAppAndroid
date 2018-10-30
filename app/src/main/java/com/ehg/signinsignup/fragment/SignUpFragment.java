@@ -263,7 +263,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
           if (TextUtils.isEmpty(password)) {
             edittextPassword.setError(getResources().getString(R.string.all_fieldrequired));
             cancel = true;
-          } else if (!isPasswordValid(password)) {
+          } else if (!AppUtil.isPasswordValid(password)) {
             edittextPassword.setError(getResources().getString(R.string.all_passwordlength));
             cancel = true;
           } else {
@@ -354,7 +354,7 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
     String lastName = edittextLastName.getText().toString();
     String email = edittextEmail.getText().toString();
     String mobile = edittextMobile.getText().toString();
-    String password = edittextPassword.getText().toString();
+    String password = edittextPassword.getText().toString().trim();
 
     if (firstName.contains(" ")) {
       edittextFirstName.setText(firstName.trim());
@@ -428,9 +428,15 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
       focusView = edittextPassword;
       cancel = true;
 
-    } else if (!isPasswordValid(password)) {
+    } else if (password.length() < 8) {
 
       edittextPassword.setError(getResources().getString(R.string.all_passwordlength));
+      focusView = edittextPassword;
+      cancel = true;
+
+    } else if (!AppUtil.isPasswordValid(password)) {
+
+      edittextPassword.setError(getResources().getString(R.string.all_passwordsuggestion));
       focusView = edittextPassword;
       cancel = true;
 
@@ -444,13 +450,6 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
 
       userSignup(email, mobile, firstName, lastName, password);
     }
-  }
-
-  /**
-   * Checks if password is valid or not.
-   */
-  private boolean isPasswordValid(String password) {
-    return password.length() > 4;
   }
 
   //****************************** API CALLING STUFF ******************************************
@@ -470,12 +469,12 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
       JSONObject detailObject = new JSONObject();
 
       try {
-        detailObject.put("emailId", emailId);
-        signinId = "00" + countryCodePicker.getSelectedCountryCode() + mobileNumber;
+        detailObject.put("emailId", emailId.trim());
+        signinId = "00" + countryCodePicker.getSelectedCountryCode() + mobileNumber.trim();
         detailObject.put("mobileNumber", signinId);
-        detailObject.put("lastName", lastName);
-        detailObject.put("firstName", firstName);
-        detailObject.put("password", password);
+        detailObject.put("lastName", lastName.trim());
+        detailObject.put("firstName", firstName.trim());
+        detailObject.put("password", password.trim());
 
         JSONObject deviceDetailObject = new JSONObject();
         deviceDetailObject.put("deviceType", WebServiceUtil.DEVICE_TYPE);
@@ -601,6 +600,21 @@ public class SignUpFragment extends Fragment implements OnClickListener, ApiResp
     if (countryCodePicker != null) {
       countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(context)
           .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
+    }
+  }
+
+  /**
+   * Called to clear fields.
+   */
+  public void clearFields() {
+    if (edittextFirstName != null && edittextLastName != null && edittextEmail != null
+        && edittextMobile != null && edittextPassword != null) {
+      edittextFirstName.setText("");
+      edittextLastName.setText("");
+      edittextEmail.setText("");
+      edittextMobile.setText("");
+      edittextPassword.setText("");
+      resetErrors();
     }
   }
 }
