@@ -172,6 +172,17 @@ public class SelectRoomActivity extends BaseActivity
       recyclerViewRoomList.setAdapter(selectRoomAdapter);
       AppUtil.animateRecyclerView(context, recyclerViewRoomList,
           R.anim.layout_animation_from_bottom);
+
+      if (averageRate == null) {
+        averageRate = fetchAvailabilityResponsePojo.getData().getDetail().get(0)
+            .getResponseData().getRoomStays().get(0)
+            .getRoomTypes().get(0).getAverageRates().get(0);
+
+        textViewAmount.setText(SharedPreferenceUtils.getInstance(this)
+            .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED")
+            + " " + averageRate.getRate());
+
+      }
     }
   }
 
@@ -224,6 +235,9 @@ public class SelectRoomActivity extends BaseActivity
       }.getType();
       averageRate = new Gson()
           .fromJson(data.getStringExtra("averageRate"), type);
+      textViewAmount.setText(SharedPreferenceUtils.getInstance(this)
+          .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED") + " "
+          + averageRate.getRate());
       if (selectRoomAdapter != null) {
         selectRoomAdapter.updateSelectedRate(selectedRatePosition, averageRate.getRate());
       }

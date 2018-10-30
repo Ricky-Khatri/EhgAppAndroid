@@ -20,6 +20,7 @@
 package com.ehg.reservations.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
@@ -30,21 +31,39 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.ehg.R;
+import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.home.HomeActivity;
 import com.ehg.home.fragment.BaseFragment;
+import com.ehg.networkrequest.HttpClientRequest;
+import com.ehg.networkrequest.HttpClientRequest.ApiResponseListener;
+import com.ehg.networkrequest.WebServiceUtil;
+import com.ehg.signinsignup.pojo.UserProfilePojo;
+import com.ehg.utilities.AppUtil;
+import com.ehg.utilities.JsonParserUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.RequestParams;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import java.io.UnsupportedEncodingException;
 import java.util.Objects;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class ReservationsFragment extends BaseFragment {
+public class ReservationsFragment extends BaseFragment implements ApiResponseListener {
 
+  private static final String RESERVATIONS_METHOD = "Reservations";
   private Context context;
 
   /**
    * Called when fragment created.
+   *
    * @param savedInstanceState bundle object
    */
   @Override
@@ -54,6 +73,7 @@ public class ReservationsFragment extends BaseFragment {
 
   /**
    * Called to inflate fragment view.
+   *
    * @param inflater LayoutInflater
    * @param container ViewGroup
    * @param savedInstanceState Bundle
@@ -71,6 +91,7 @@ public class ReservationsFragment extends BaseFragment {
 
   /**
    * Called to instantiate view components of fragment.
+   *
    * @param view View
    * @param savedInstanceState Bundle
    */
@@ -89,6 +110,7 @@ public class ReservationsFragment extends BaseFragment {
 
   /**
    * Called to attach activity context to fragment.
+   *
    * @param context activity context
    */
   @Override
@@ -99,6 +121,7 @@ public class ReservationsFragment extends BaseFragment {
 
   /**
    * Init's view components of this screen.
+   *
    * @param view view
    */
   private void initView(View view) {
@@ -175,5 +198,84 @@ public class ReservationsFragment extends BaseFragment {
           return null;
       }
     }
+  }
+
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * Called to get list of all reservations.
+   */
+  private void getAllReservations() {
+    if (AppUtil.isNetworkAvailable(context)) {
+      new HttpClientRequest().setApiResponseListner(this);
+
+      new HttpClientRequest(context,
+          WebServiceUtil.getUrl(WebServiceUtil.METHOD_GET_ALL_RESERVATIONS)
+              + "/" + SharedPreferenceUtils.getInstance(context)
+              .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""),
+          new RequestParams(), WebServiceUtil.CONTENT_TYPE,
+          RESERVATIONS_METHOD, true).httpGetRequest();
+    } else {
+      AppUtil.showAlertDialog((AppCompatActivity) context,
+          context.getResources().getString(R.string.all_please_check_network_settings),
+          false, "", true, null);
+    }
+  }
+
+  /**
+   * Called when response received from api call.
+   *
+   * @param responseVal response
+   * @param requestMethod request method name
+   */
+  @Override
+  public void onSuccessResponse(String responseVal, String requestMethod) {
+
+    try {
+      if (requestMethod.equalsIgnoreCase(RESERVATIONS_METHOD)
+          && responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("status")) {
+
+      } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
+          && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {
+
+        JSONObject dataObject = new JSONObject(responseVal).getJSONObject("data");
+
+        if (dataObject != null) {
+          JSONArray detailArray = dataObject.optJSONArray("detail");
+          if (detailArray != null && detailArray.length() > 0) {
+            JSONObject validationError = detailArray.optJSONObject(0)
+                .optJSONArray("validationErrors").optJSONObject(0);
+
+            AppUtil.showAlertDialog((AppCompatActivity) context,
+                validationError.getString("ErrorMessage"), false,
+                getResources().getString(R.string.dialog_errortitle), true, null);
+          }
+        }
+      } else {
+        AppUtil.showAlertDialog((AppCompatActivity) context,
+            new JSONObject(responseVal).getString("message"), false,
+            getResources().getString(R.string.dialog_errortitle), true, null);
+      }
+    } catch (JSONException e) {
+      e.printStackTrace();
+    } catch (IndexOutOfBoundsException e) {
+      e.printStackTrace();
+    } catch (NullPointerException e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Called on failure api response.
+   *
+   * @param errorMessage error string
+   */
+  @Override
+  public void onFailureResponse(String errorMessage) {
+    AppUtil.showAlertDialog((AppCompatActivity) context, errorMessage, false,
+        getResources().getString(R.string.dialog_errortitle), true, null);
   }
 }

@@ -30,10 +30,12 @@
   <string name="all_invalidemail">Invalid email address</string>
   <string name="all_invalidmobile">Invalid mobile number</string>
   <string name="all_invalidpassword">Invalid password</string>
-  <string name="all_passwordlength">Password length must be greater than 4 characters.</string>
+  <string name="all_passwordlength">Password length must be at least 8 characters.</string>
+  <string name="all_passwordsuggestion">Password must contain at least one capital letter, number and symbol</string>
   <string name="all_incorrectpassword">Incorrect password</string>
   <string name="all_fieldrequired">This field is required</string>
-  <string name="all_erroremailormobile">Please enter registered mobile number or email.</string>
+  <string name="all_expirydatevalidationerror">Invalid expiry date</string>
+  <string name="all_erroremailormobile">Please enter registered mobile number or email</string>
   <string name="all_spacesnotallowed">Space not allowed</string>
 
   <!--Strings related to signup-->

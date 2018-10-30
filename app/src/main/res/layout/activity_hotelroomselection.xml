@@ -149,6 +149,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
+    android:background="@color/colorChipBackground"
     android:orientation="horizontal">
 
     <TextView
@@ -157,7 +158,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:padding="@dimen/google_1x"
-      android:text="AED 839"
       android:textColor="@color/colorBlack"
       android:textSize="@dimen/textsize_ubyemaar_points"/>
 

@@ -160,12 +160,14 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
 
       //TODO: Need to uncomment this block
       //Switch tab based on calling activity condition
-      /*String selectedTab = "0";
-      if(getIntent() != null && getIntent().getStringExtra("tab") != null) {
+      String selectedTab = "0";
+      if (getIntent() != null && getIntent().getStringExtra("tab") != null) {
         selectedTab = getIntent().getStringExtra("tab");
+        switchTab(Integer.parseInt(selectedTab));
+        bottomTabLayout.getTabAt(Integer.parseInt(selectedTab)).select();
+      } else {
+        switchTab(0);
       }
-      switchTab(Integer.parseInt(selectedTab));*/
-      switchTab(0);
 
       //Check for app location permissions
       /*if (AppPermissionCheckerUtil.checkAppPermission(this,
@@ -487,8 +489,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
    * @param position integer position
    */
   private void switchTab(int position) {
-
-   /* if (position == 0 || position == 1) {
+     /*if (position == 0 || position == 1) {
       findViewById(R.id.layout_home_header).setVisibility(View.GONE);
     } else {
       headerBackButton.setVisibility(View.INVISIBLE);

@@ -170,6 +170,12 @@ public class FetchAvailabilityActivity extends BaseActivity implements OnClickLi
                 chip.setTextColor(getResources().getColor(R.color.colorGray));
               }
 
+              if (TextUtils.isEmpty(selectedTimeSlot) && index1 == 0) {
+                chip.setChipBackgroundColorResource(R.color.colorGray);
+                chip.setTextColor(getResources().getColor(R.color.white));
+                selectedTimeSlot = timeSegmentList.get(index1).getReservationTime();
+              }
+
               final int finalIndex = index1;
               chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

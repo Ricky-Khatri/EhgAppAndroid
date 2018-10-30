@@ -181,8 +181,23 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
     }
 
     editTextSpecialRequest = findViewById(R.id.edittext_roombookingguestdetail_specialrequest);
+    //Set OnEditorActionListener
+    editTextSpecialRequest.setOnEditorActionListener(new OnEditorActionListener() {
+      @Override
+      public boolean onEditorAction(TextView textView, int index, KeyEvent keyEvent) {
+        if (index == EditorInfo.IME_ACTION_DONE) {
+          validateFormFields();
+        }
+        return false;
+      }
+    });
     spinnerCountry = findViewById(R.id.spinner_roombookingguestdetail_country);
     textViewAmount = findViewById(R.id.textview_roombookingguestdetail_amount);
+    if (averageRate != null) {
+      textViewAmount.setText(SharedPreferenceUtils.getInstance(this)
+          .getStringValue(SharedPreferenceUtils.APP_CURRENCY, "AED")
+          + " " + averageRate.getRate());
+    }
     textViewNext = findViewById(R.id.textview_roombookingguestdetail_next);
 
     findViewById(R.id.imageview_header_back).setOnClickListener(this);
@@ -734,7 +749,8 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
           for (int index = 0; index < detailArray.length(); index++) {
             JSONObject detailObject = detailArray.getJSONObject(index);
             JSONObject responseDataObject = detailObject.optJSONObject("ResponseData");
-            JSONArray reservationResponsesArray = responseDataObject.optJSONArray("ReservationResponses");
+            JSONArray reservationResponsesArray = responseDataObject
+                .optJSONArray("ReservationResponses");
             if (reservationResponsesArray != null && reservationResponsesArray.length() > 0) {
               uniqueId = reservationResponsesArray.getJSONObject(0).getString("UniqueId");
             }

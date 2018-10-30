@@ -24,7 +24,10 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -50,6 +53,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.restaurant.RestaurantBookingSlotActivity;
 import com.ehg.booking.restaurant.RestaurantBookingSummaryActivity;
 import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
@@ -92,8 +96,8 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
   private String numberOfGuest = "2";
   private String guestTitle;
 
-  private static String selectedTime;
-  private static String dateStr;
+  private static String selectedTime = "";
+  private static String dateStr = "";
 
   /**
    * Called when Activity created.
@@ -132,6 +136,9 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     editTextPhoneNumber = findViewById(R.id.edittext_sparequestenquiry_phonenumber);
 
     textViewHeaderTitle.setText("The Spa");
+
+    selectedTime = "";
+    dateStr = "";
 
     UserProfilePojo userProfilePojo = JsonParserUtil.getInstance(this).getUserProfilePojo();
     if (userProfilePojo.getData() != null && userProfilePojo.getData().getDetail() != null
@@ -292,12 +299,10 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
     switch (view.getId()) {
 
       case R.id.linearlayout_sparequestenquiry_preferreddatetime:
-        showTimePickerDialog();
         showDatePickerDialog();
         break;
 
       case R.id.textview_sparequestinquiry_datetimelabel:
-        showTimePickerDialog();
         showDatePickerDialog();
         break;
 
@@ -411,7 +416,6 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
           if (TextUtils.isEmpty(firstName)) {
             editTextFirstName.setError(getResources().getString(R.string.all_fieldrequired));
             cancel = true;
-
           } else {
             cancel = false;
           }
@@ -550,8 +554,55 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
       // Set the Calendar new date as minimum date of date picker
       pickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
 
+      AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+      builder.setPositiveButton(getActivity().getString(R.string.dialog_ok),
+          new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+              //Show TimPicker
+              Calendar currentTime = Calendar.getInstance();
+              int hour = currentTime.get(Calendar.HOUR_OF_DAY);
+              int minute = currentTime.get(Calendar.MINUTE);
+              TimePickerDialog timePicker;
+              timePicker = new TimePickerDialog(getActivity(),
+                  new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                      String hourStr = hourOfDay + "";
+                      String minuteStr = minute + "";
+                      if (hourOfDay < 10) {
+                        hourStr = "0" + hourOfDay;
+                      }
+                      if (minute < 10) {
+                        minuteStr = "0" + minute;
+                      }
+
+                      selectedTime = hourStr + ":" + minuteStr;
+
+                      String dateTimeText = textViewPrefferedDateTime.getText().toString();
+                      if(!TextUtils.isEmpty(dateTimeText) && dateTimeText.contains("-")) {
+                        dateTimeText = dateTimeText.split("-")[0];
+                      }
+                      textViewPrefferedDateTime.setText(dateTimeText
+                          + " - " + selectedTime);
+                      textViewPrefferedDateTime.setError(null);
+                    }
+                  }, hour, minute, true);//Yes 24 hour time
+              timePicker.show();
+            }
+          });
+
+      builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+
+        }
+      });
+
+      builder.setView(pickerDialog.getDatePicker());
       // Create a new instance of DatePickerDialog and return it
-      return pickerDialog;
+      return builder.create();
     }
 
     /**
@@ -637,6 +688,28 @@ public class SpaRequestEnquiryActivity extends BaseActivity implements
           month++;
           int year = Calendar.getInstance().get(Calendar.YEAR);
           dateStr = year + "-" + month + "-" + date;
+        }
+
+        //Time calculation
+        if (TextUtils.isEmpty(selectedTime)) {
+          String[] time = textViewPrefferedDateTime.getText().toString().split("-");
+          if (time != null && time.length > 1) {
+            selectedTime = textViewPrefferedDateTime.getText().toString().split("-")[1];
+          } else {
+            selectedTime = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+                + ":" + Calendar.getInstance().get(Calendar.MINUTE);
+          }
+        }
+        if (!TextUtils.isEmpty(selectedTime)) {
+          int hour = Integer.parseInt(selectedTime.split(":")[0]);
+          int minute = Integer.parseInt(selectedTime.split(":")[1]);
+          if (minute < 55) {
+            minute = minute + 5;
+          } else {
+            hour = hour + 1;
+            minute = 00;
+          }
+          selectedTime = hour + ":" + minute;
         }
 
         JSONObject deviceDetailObject = new JSONObject();

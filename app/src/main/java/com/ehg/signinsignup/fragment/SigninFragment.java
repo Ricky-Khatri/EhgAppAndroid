@@ -59,6 +59,8 @@ import com.rilixtech.CountryCodePicker.OnCountryChangeListener;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -239,7 +241,6 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
 
         case R.id.edittext_signinfragment_password:
           String password = editTextPassword.getText().toString().trim();
-
           if (password.contains(" ")) {
             editTextPassword.setText(password.trim());
             editTextPassword.setError(getString(R.string.all_spacesnotallowed));
@@ -247,10 +248,10 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
           } else if (TextUtils.isEmpty(password)) {
             editTextPassword.setError(getString(R.string.all_fieldrequired));
             isToReturn = true;
-          } else if (!isPasswordValid(password)) {
+          } /*else if (password.length() < 8) {
             editTextPassword.setError(getString(R.string.all_invalidpassword));
             isToReturn = true;
-          } else {
+          }*/ else {
             isToReturn = false;
           }
           break;
@@ -359,11 +360,11 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
       focusView = editTextPassword;
       cancel = true;
 
-    } else if (!isPasswordValid(password)) {
+    } /*else if (!AppUtil.isPasswordValid(password)) {
       editTextPassword.setError(getString(R.string.all_invalidpassword));
       focusView = editTextPassword;
       cancel = true;
-    }
+    }*/
 
     if (cancel) {
       // There was an error; don't attempt login and focus the first
@@ -378,12 +379,6 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     }
   }
 
-  /**
-   * Checks if password is valid or not.
-   */
-  private boolean isPasswordValid(String password) {
-    return password.length() > 4;
-  }
 
   //****************************** API CALLING STUFF ******************************************
 
@@ -525,6 +520,17 @@ public class SigninFragment extends Fragment implements OnClickListener, ApiResp
     if (countryCodePicker != null) {
       countryCodePicker.setCountryForPhoneCode(SharedPreferenceUtils.getInstance(context)
           .getIntValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE, 971));
+    }
+  }
+
+  /**
+   * Called to clear fields.
+   */
+  public void clearFields() {
+    if (autoCompleteTextViewMobileNumber != null && editTextPassword != null) {
+      autoCompleteTextViewMobileNumber.setText("");
+      editTextPassword.setText("");
+      resetErrors();
     }
   }
 }
