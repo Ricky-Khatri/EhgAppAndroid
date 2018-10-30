@@ -30,10 +30,10 @@ public class WebServiceUtil {
 
   //Dev environment
   //public static final String BASE_URL = "https://his-dev.digivalet.com/dv_app_ehggateway";
-  //public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway";
+  public static final String BASE_URL = "https://172.25.0.72/dv_app_ehggateway";
 
   //Local ip for stay booking
-  public static final String BASE_URL = "http://192.168.3.113:8080/digivalet-ehg-gateway";
+  //public static final String BASE_URL = "http://192.168.3.113:8080/digivalet-ehg-gateway";
 
   //UAT environment
   //public static final String BASE_URL = "https://ehgmobileapp-uat.digivalet.com/dv_app_ehggateway";
@@ -48,6 +48,9 @@ public class WebServiceUtil {
 
   //Login method
   public static final String METHOD_LOGIN = "/signUp/login/v1";
+
+  //Update member
+  public static final String METHOD_UPDATE_MEMBER = "/signUp/updateMember/v1/";
 
   //Logout method
   public static final String METHOD_LOGOUT = "/signUp/logout/v1";
