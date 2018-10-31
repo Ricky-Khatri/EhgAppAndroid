@@ -204,19 +204,24 @@
           android:layout_marginTop="@dimen/margin_all_vertical"
           android:hint="@string/all_birthday"/>
 
-        <TextView
-          android:id="@+id/textView_profile_birthday"
+        <LinearLayout
+          android:id="@+id/linearlayout_profile_birthday"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/google_1x"
-          android:layout_marginEnd="@dimen/height_all_verticaldivider"
-          android:layout_gravity="start"
-          android:background="@null"
-          android:maxLines="1"
-          android:singleLine="true"
-          android:textAlignment="viewStart"
-          tools:ignore="LabelFor"/>
+          android:layout_height="wrap_content">
+          <TextView
+            android:id="@+id/textView_profile_birthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/google_1x"
+            android:layout_marginEnd="@dimen/height_all_verticaldivider"
+            android:layout_gravity="start"
+            android:background="@null"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textAlignment="viewStart"
+            tools:ignore="LabelFor"/>
 
+        </LinearLayout>
         <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
@@ -232,7 +237,7 @@
 
         <Spinner
           android:id="@+id/spinner_profile_nationality"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/height_all_verticaldivider"
           android:layout_gravity="start"
@@ -328,7 +333,7 @@
 
         <Spinner
           android:id="@+id/spinner_profile_country"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/height_all_verticaldivider"
           android:layout_gravity="start"
@@ -350,7 +355,7 @@
 
         <Spinner
           android:id="@+id/spinner_profile_city"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/height_all_verticaldivider"
           android:layout_gravity="start"

@@ -223,7 +223,7 @@ public class HomeFragment extends BaseFragment implements OnSliderClickListener,
       if (userProfilePojo != null && userProfilePojo.getData().getDetail().size() > 0) {
         Detail detail = userProfilePojo.getData().getDetail().get(0);
         textViewClientTitle
-            .setText("Hello Mr. " + detail.getFirstName() + " " + detail.getLastName());
+            .setText("Hello " + detail.getSuffix() + " " + detail.getFirstName() + " " + detail.getLastName());
       }
     } else {
       linearLayoutRoomControls.setVisibility(View.GONE);

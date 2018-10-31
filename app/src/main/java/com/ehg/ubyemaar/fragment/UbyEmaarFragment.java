@@ -158,7 +158,7 @@ public class UbyEmaarFragment extends BaseFragment implements ApiResponseListene
     view.findViewById(R.id.linearlayout_ubyemaar_profile).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_upointactivity).setOnClickListener(this);
     view.findViewById(R.id.linearlayout_ubyemaar_preferences).setOnClickListener(this);
-    view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);*/
+    view.findViewById(R.id.linearlayout_ubyemaar_benefits).setOnClickListener(this);
   }
 
   /**

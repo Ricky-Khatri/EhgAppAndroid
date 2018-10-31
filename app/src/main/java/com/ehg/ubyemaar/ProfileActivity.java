@@ -19,9 +19,17 @@
 
 package com.ehg.ubyemaar;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
@@ -33,16 +41,21 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.spa.SpaRequestEnquiryActivity;
+import com.ehg.booking.spa.SpaRequestEnquiryActivity.DatePickerFragment;
 import com.ehg.home.BaseActivity;
 import com.ehg.home.HomeActivity;
 import com.ehg.networkrequest.HttpClientRequest;
@@ -57,13 +70,18 @@ import com.google.gson.reflect.TypeToken;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ProfileActivity extends BaseActivity implements OnClickListener, OnEditorActionListener,
+/**
+ * This Class is using to show user profile and can edit profile also.
+ */
+public class ProfileActivity extends BaseActivity
+    implements OnClickListener, OnEditorActionListener,
     ApiResponseListener {
 
   private static final String UPDATE_MEMBER = "updateMember";
@@ -76,7 +94,7 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
   private Spinner spinnerSalutation;
   private EditText editTextFirstName;
   private EditText editTextLastName;
-  private TextView textViewBirthDay;
+  private static TextView textViewBirthDay;
   private Spinner spinnerNationality;
   private EditText editTextPhoneNumber;
   private EditText editTextEmailAddress;
@@ -91,7 +109,15 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
   private AppCompatImageView imageViewBack;
   private TextView textViewHeaderTitle;
   private Button buttonSave;
+  private String birthDay;
+  private String userGender;
+  private LinearLayout linearLayoutBirthDay;
 
+  /**
+   * Called when activity created.
+   *
+   * @param savedInstanceState bundle object
+   */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -108,12 +134,16 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
     }
   }
 
+  /**
+   * Called to init view components of this activity.
+   */
   private void initView() {
     imageViewBack = findViewById(R.id.imageview_header_back);
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     if (getIntent() != null && getIntent().getStringExtra("title") != null) {
       textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
     }
+    linearLayoutBirthDay = findViewById(R.id.linearlayout_profile_birthday);
     linearLayoutedit = findViewById(R.id.linearlayout_profile_edit);
     textViewMembership = findViewById(R.id.textview_profile_membershipnumber);
     radioGroupGender = findViewById(R.id.radiogroup_profile);
@@ -131,6 +161,22 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
     editTextAddress = findViewById(R.id.edittext_profile_address);
     buttonSave = findViewById(R.id.button_profile_saveinformation);
 
+    radioGroupGender.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+        // This will get the radiobutton that has changed in its check state
+        RadioButton checkedRadioButton = (RadioButton) group.findViewById(checkedId);
+        // This puts the value (true/false) into the variable
+        boolean isChecked = checkedRadioButton.isChecked();
+        // If the radiobutton that has changed in check state is now checked...
+        if (isChecked) {
+          // Changes the textview's text to "Checked: example radiobutton text"
+          userGender = checkedRadioButton.getText().toString();
+        }
+      }
+    });
+
     radioButtonMale.setEnabled(false);
     radioButtonFemale.setEnabled(false);
     spinnerSalutation.setEnabled(false);
@@ -144,9 +190,11 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
     spinnerCity.setEnabled(false);
     editTextAddress.setEnabled(false);
 
+    linearLayoutBirthDay.setOnClickListener(this);
     linearLayoutedit.setOnClickListener(this);
     imageViewBack.setOnClickListener(this);
     buttonSave.setOnClickListener(this);
+    textViewBirthDay.setOnClickListener(this);
 
     //initialising list.
     showCountryList("", true);
@@ -166,8 +214,8 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
         editTextLastName.setText(detail.getLastName());
         editTextEmailAddress.setText(detail.getEmailId());
         String mobileNumber = detail.getMobileNumber();
-        if (mobileNumber.length() == 10) {
-        } else if (mobileNumber.length() > 10) {
+
+        if (mobileNumber.length() > 10) {
           mobileNumber = mobileNumber.substring(mobileNumber.length() - 10);
         } else {
           // whatever is appropriate in this case
@@ -175,17 +223,28 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
         }
         editTextPhoneNumber.setText(mobileNumber);
         textViewMembership
-            .setText(String.format("%s %s", getResources().getString(R.string.profile_membershipnumber),
-                SharedPreferenceUtils.getInstance(context).getStringValue(SharedPreferenceUtils.ACCOUNT_ID, "")));
+            .setText(String.format("%s %s", getResources()
+                    .getString(R.string.profile_membershipnumber),
+                SharedPreferenceUtils.getInstance(context)
+                    .getStringValue(SharedPreferenceUtils.ACCOUNT_ID, "")));
         textViewBirthDay.setText(detail.getBirthDate());
         editTextAddress.setText(detail.getAddressLine1());
+
+        if (detail.getGender().equalsIgnoreCase("Male")) {
+
+          //radioButtonMale.setSelected(true);
+          radioGroupGender.check(R.id.radiobutton_profile_male);
+        } else {
+          //radioButtonFemale.setSelected(true);
+          radioGroupGender.check(R.id.radiobutton_profile_female);
+        }
 
         if (!TextUtils.isEmpty(detail.getCountry())) {
           showCountryList(detail.getCountry(), false);
         }
 
-        if (!TextUtils.isEmpty(detail.getGender())) {
-          showGuestTitle(detail.getGender(), false);
+        if (!TextUtils.isEmpty(detail.getSuffix())) {
+          showGuestTitle(detail.getSuffix(), false);
         }
         if (!TextUtils.isEmpty(detail.getCity())) {
           showCityList(detail.getCity(), false);
@@ -377,6 +436,13 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
   public void onClick(View view) {
     switch (view.getId()) {
 
+      case R.id.textView_profile_birthday:
+
+        showDatePickerDialog();
+        break;
+      case R.id.linearlayout_profile_birthday:
+        showDatePickerDialog();
+        break;
       case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
@@ -441,8 +507,8 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
     String email = editTextEmailAddress.getText().toString();
     String mobile = editTextPhoneNumber.getText().toString();
     String address = editTextAddress.getText().toString();
-    String birthDay = textViewBirthDay.getText().toString();
-    birthDay = "04-24-1995";
+    birthDay = textViewBirthDay.getText().toString();
+    //birthDay = "04-24-1995";
     if (TextUtils.isEmpty(guestTitle)
         && guestTitle.equalsIgnoreCase("Please Select Title")) {
 
@@ -514,7 +580,8 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
       Objects.requireNonNull(focusView).requestFocus();
     } else {
       //holdRoomReservation(address, city);
-      updateMemberDetail(lastName, firstName, "Mr", birthDay, address, userCity, country, mobile, "", guestTitle);
+      updateMemberDetail(lastName, firstName, userGender, birthDay, address,
+          userCity, country, mobile, "", guestTitle);
     }
   }
 
@@ -602,12 +669,19 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
     return cancel;
   }
 
-  //****************************** API CALLING STUFF ******************************************
+  /**
+   * This method is using to show datepicker dialog.
+   */
+  private void showDatePickerDialog() {
+    DialogFragment newFragment = new DatePickerFragment();
+    newFragment.show(getSupportFragmentManager(), "datePicker");
+  }
 
   /**
    * Method allows to authenticate user at Emaar cloud.
    */
-  private void updateMemberDetail(String lastName, String firstName, String gender, String birthDate, String address,
+  private void updateMemberDetail(String lastName, String firstName, String gender,
+      String birthDate, String address,
       String city, String country, String mobileNumber, String password, String guestTitle) {
     if (AppUtil.isNetworkAvailable(context)) {
       new HttpClientRequest().setApiResponseListner(this);
@@ -646,8 +720,9 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
         e.printStackTrace();
       }
 
-      new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_UPDATE_MEMBER) +
-          SharedPreferenceUtils.getInstance(context).getStringValue(SharedPreferenceUtils.ACCOUNT_ID, ""),
+      new HttpClientRequest(context, WebServiceUtil.getUrl(WebServiceUtil.METHOD_UPDATE_MEMBER)
+          + SharedPreferenceUtils.getInstance(context)
+          .getStringValue(SharedPreferenceUtils.ACCOUNT_ID, ""),
           entity, WebServiceUtil.CONTENT_TYPE,
           UPDATE_MEMBER, true).httpPutRequest();
     } else {
@@ -655,6 +730,73 @@ public class ProfileActivity extends BaseActivity implements OnClickListener, On
           context.getResources().getString(R.string.all_please_check_network_settings),
           false, "", true, null);
     }
+  }
+
+  //****************************** API CALLING STUFF ******************************************
+
+  /**
+   * This class is using to show Datepicker dialog.
+   */
+  public static class DatePickerFragment extends DialogFragment implements
+      DatePickerDialog.OnDateSetListener {
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+      // Use the current date as the default date in the picker
+      final Calendar calendar = Calendar.getInstance();
+      int year = calendar.get(Calendar.YEAR);
+      int month = calendar.get(Calendar.MONTH);
+      int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+      DatePickerDialog pickerDialog = new DatePickerDialog(Objects.requireNonNull(getActivity()),
+          this, year, month, day);
+
+      // Add 3 days to Calendar
+      calendar.add(Calendar.DATE, 6);
+
+      // Subtract 6 days from Calendar updated date
+      calendar.add(Calendar.DATE, -6);
+
+      // Set the Calendar new date as minimum date of date picker
+      //pickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+
+      return pickerDialog;
+    }
+
+    /**
+     * this method is using to set date from clalander.
+     *
+     * @param view the picker associated with the dialog
+     * @param year the selected year
+     * @param month the selected month (0-11 for compatibility with {@link Calendar#MONTH})
+     * @param day th selected day of the month (1-31, depending on month)
+     */
+    @SuppressLint("SetTextI18n")
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+      month = month + 1;
+
+      String convertDay = "";
+      String convertMonth = "";
+      if (day < 10) {
+        convertDay = 0 + String.valueOf(day);
+        //day = Integer.parseInt(convertDay);
+      } else {
+        convertDay = String.valueOf(day);
+      }
+
+      if (month < 10) {
+        convertMonth = 0 + String.valueOf(month);
+        //month = Integer.parseInt(convertMonth);
+      } else {
+        convertMonth = String.valueOf(month);
+      }
+
+      //dateOfBirth = year + "-" + month + "-" + day;
+      textViewBirthDay.setText(convertMonth + "-" + convertDay + "-" + year);
+      textViewBirthDay.setError(null);
+    }
+
   }
 
   /**
