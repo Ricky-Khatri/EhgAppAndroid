@@ -258,6 +258,7 @@
     <activity
       android:name=".booking.golf.GolfDetailActivity"
       android:screenOrientation="portrait"/>
+    <activity android:name=".ubyemaar.ProfileActivity"/>
   </application>
 
 </manifest>

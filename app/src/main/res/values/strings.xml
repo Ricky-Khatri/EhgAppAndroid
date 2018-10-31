@@ -259,6 +259,17 @@
   <string name="enhancestay_totalenhancements">Total Enhancements</string>
   <string name="itemenhanceyourstay_remove"><u>Remove</u></string>
   <string name="all_perperson">per person</string>
-  <string name="enhancestay_title">ENHANCE YOUR STAY</string>
+  <string name="profile_membershipnumber">Membership Number:</string>
+  <string name="profile_personalinformation">Personal Information</string>
+  <string name="profile_salutation">Salutation</string>
+  <string name="profie_male">Male</string>
+  <string name="profile_female">Female</string>
+  <string name="all_save">Save</string>
+  <string name="all_city">City</string>
+  <string name="all_chooseyourcountry">Choose your Country</string>
+  <string name="all_contactinformation">Contact Information</string>
+  <string name="all_chooseyournationality">Choose your Nationality</string>
+  <string name="all_birthday">Birthday</string>
+  <string name="all_edit">Edit</string>
 
 </resources>

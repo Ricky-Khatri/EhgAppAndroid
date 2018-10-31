@@ -320,7 +320,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
 
     if (TextUtils.isEmpty(guestTitle)
         && guestTitle.equalsIgnoreCase("Please Select Title")) {
-
+      focusView = spinnerGuestTitle;
       Toast.makeText(context, "Please select Title", Toast.LENGTH_SHORT).show();
       cancel = true;
 

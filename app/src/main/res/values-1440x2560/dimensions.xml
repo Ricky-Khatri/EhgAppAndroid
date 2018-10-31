@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~  Created by Emaar Hospitality Group on 20/10/18 12:23 PM
+  ~  Created by Emaar Hospitality Group on 30/10/18 2:21 PM
   ~  Copyright (C) 2018  All rights reserved.
-  ~  Last modified 20/10/18 12:23 PM
+  ~  Last modified 30/10/18 2:21 PM
   ~
   ~  Licensed under the Apache License, Version 2.0 (the "License");
   ~  you may not use this file except in compliance with the License.
@@ -19,9 +19,8 @@
   -->
 
 <resources>
-
+  <dimen name="elevation_all_header">19dp</dimen>
+  <dimen name="margin_all_horizontal">46dp</dimen>
   <dimen name="height_all_itemview">295dp</dimen>
   <dimen name="height_all_alertdialog">180dp</dimen>
-  <dimen name="elevation_all_header">5dp</dimen>
-
 </resources>

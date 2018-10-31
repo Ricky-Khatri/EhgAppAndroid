@@ -49,6 +49,9 @@ public class WebServiceUtil {
   //Login method
   public static final String METHOD_LOGIN = "/signUp/login/v1";
 
+  //Update member
+  public static final String METHOD_UPDATE_MEMBER = "/signUp/updateMember/v1/";
+
   //Logout method
   public static final String METHOD_LOGOUT = "/signUp/logout/v1";
 
