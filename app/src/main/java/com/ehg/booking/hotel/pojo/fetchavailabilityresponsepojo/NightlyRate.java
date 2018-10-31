@@ -27,13 +27,13 @@ import com.google.gson.annotations.SerializedName;
 public class NightlyRate {
 
   @SerializedName("AmtBeforeTax")
-  private int amtBeforeTax;
+  private float amtBeforeTax;
   @SerializedName("AmtTotal")
-  private int amtTotal;
+  private float amtTotal;
   @SerializedName("Date")
   private String date;
   @SerializedName("Discount")
-  private int discount;
+  private float discount;
   @SerializedName("DiscountType")
   private String discountType;
   @SerializedName("RatePlanCode")
@@ -44,14 +44,14 @@ public class NightlyRate {
    *
    * @return Gets the value of amtBeforeTax and returns amtBeforeTax.
    */
-  public int getAmtBeforeTax() {
+  public float getAmtBeforeTax() {
     return amtBeforeTax;
   }
 
   /**
    * Sets the amtBeforeTax. You can use getAmtBeforeTax() to get the value of amtBeforeTax.
    */
-  public void setAmtBeforeTax(int amtBeforeTax) {
+  public void setAmtBeforeTax(float amtBeforeTax) {
     this.amtBeforeTax = amtBeforeTax;
   }
 
@@ -60,14 +60,14 @@ public class NightlyRate {
    *
    * @return Gets the value of amtTotal and returns amtTotal.
    */
-  public int getAmtTotal() {
+  public float getAmtTotal() {
     return amtTotal;
   }
 
   /**
    * Sets the amtTotal. You can use getAmtTotal() to get the value of amtTotal.
    */
-  public void setAmtTotal(int amtTotal) {
+  public void setAmtTotal(float amtTotal) {
     this.amtTotal = amtTotal;
   }
 
@@ -92,14 +92,14 @@ public class NightlyRate {
    *
    * @return Gets the value of discount and returns discount.
    */
-  public int getDiscount() {
+  public float getDiscount() {
     return discount;
   }
 
   /**
    * Sets the discount. You can use getDiscount() to get the value of discount.
    */
-  public void setDiscount(int discount) {
+  public void setDiscount(float discount) {
     this.discount = discount;
   }
 

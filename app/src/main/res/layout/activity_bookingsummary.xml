@@ -418,6 +418,7 @@
           android:background="@drawable/all_rounded_button"
           android:text="@string/bookingsummary_modifybooking"
           android:textAllCaps="false"
+          android:visibility="invisible"
           android:textColor="@color/white"
           android:textSize="@dimen/textsize_all_labels"/>
 
@@ -429,6 +430,7 @@
           android:layout_marginBottom="@dimen/margin_all_vertical"
           android:layout_gravity="center"
           android:text="@string/bookingsummary_cancelbooking"
+          android:visibility="invisible"
           android:textSize="@dimen/textsize_all_labels"/>
       </LinearLayout>
     </LinearLayout>

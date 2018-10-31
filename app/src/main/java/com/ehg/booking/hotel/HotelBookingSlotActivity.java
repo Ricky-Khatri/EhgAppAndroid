@@ -287,12 +287,16 @@ public class HotelBookingSlotActivity extends BaseActivity implements
     if (TextUtils.isEmpty(checkinDateStr)) {
       checkinDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
       textViewChekinDate.setText(checkinDateStr);
-      startDateStr = year + "-" + tempMonth + "-" + day;
+      startDateStr = year + "-" +
+          (tempMonth < 10 ? "0" + tempMonth : tempMonth) + "-"
+          + (day < 10 ? "0" + day : day);
       isDateRangeSelected = false;
     } else if (TextUtils.isEmpty(checkoutDateStr)) {
       checkoutDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
       textViewCheckoutDate.setText(checkoutDateStr);
-      endDateStr = year + "-" + tempMonth + "-" + day;
+      endDateStr = year + "-" +
+          (tempMonth < 10 ? "0" + tempMonth : tempMonth) + "-"
+          + (day < 10 ? "0" + day : day);
     }
   }
 
@@ -503,7 +507,7 @@ public class HotelBookingSlotActivity extends BaseActivity implements
 
         com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail detail =
             new com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail();
-        detail.setIbuId(2);//TODO: Make it dynamic
+        detail.setIbuId(1);//TODO: Make it dynamic
         detail.setCheckInDate(startDateStr);
         detail.setCheckOutDate(endDateStr);
         detail.setTotalRooms(numberOfRooms);
@@ -535,7 +539,8 @@ public class HotelBookingSlotActivity extends BaseActivity implements
         fetchRoomAvailabilityRequestPojo.setOperation("areaSearch");
         fetchRoomAvailabilityRequestPojo.setDetails(detailList);
 
-        JsonParserUtil.getInstance(this).setFetchAvailabilityRequestPojo(fetchRoomAvailabilityRequestPojo);
+        JsonParserUtil.getInstance(this)
+            .setFetchAvailabilityRequestPojo(fetchRoomAvailabilityRequestPojo);
 
         Gson gson = new Gson();
         String requestString = gson

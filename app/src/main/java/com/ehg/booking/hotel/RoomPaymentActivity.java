@@ -32,27 +32,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.ehg.R;
-import com.ehg.apppreferences.SharedPreferenceUtils;
 import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.Detail;
 import com.ehg.booking.hotel.pojo.fetchavailabilityrequestpojo.FetchRoomAvailabilityRequestPojo;
-import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.AverageRate;
-import com.ehg.booking.hotel.pojo.fetchavailabilityresponsepojo.FetchAvailabilityResponsePojo;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Customer;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.GuaranteesAccepted;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.HoldRoomReservationRequestPojo;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.PaymentCard;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Profile;
-import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Rate;
-import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.RatePlan;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.ResGlobalInfo;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.ResGuest;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.ReservationRequestParam;
-import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.RoomRate;
-import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.RoomStay;
-import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.Telephone;
-import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.TimeSpan;
 import com.ehg.booking.hotel.pojo.holdroomreservationrequestpojo.UniqueId;
 import com.ehg.home.BaseActivity;
 import com.ehg.networkrequest.HttpClientRequest;
@@ -65,7 +55,6 @@ import com.google.gson.reflect.TypeToken;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -420,7 +409,8 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
         paymentCard.setCardNumber(cardNumber.replace("-", "").trim());
         paymentCard.setCardHolderName(nameOnCard);
         paymentCard.setExpireDate(expiryDate);
-        paymentCard.setCardType(cardType);
+        paymentCard.setCardCode(cardType.split("/")[0]);
+        paymentCard.setCardType(cardType.split("/")[1]);
         GuaranteesAccepted guaranteesAccepted = new GuaranteesAccepted();
         guaranteesAccepted.setPaymentCard(paymentCard);
         List<GuaranteesAccepted> guaranteesAcceptedList = new ArrayList<>();
@@ -440,6 +430,7 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
             resGlobalInfo.setGuaranteesAccepted(guaranteesAcceptedList);
             reservationRequestParam.setResGlobalInfo(resGlobalInfo);
             detail.setReservationRequestParams(reseRrvationRequestParamList);
+            detail.setIbuId(1);//TODO:
             detailList.set(0, detail);
             holdRoomReservationRequestPojo.setDetails(detailList);
           }
@@ -487,6 +478,10 @@ public class RoomPaymentActivity extends BaseActivity implements OnClickListener
       if (requestMethod.equalsIgnoreCase(ROOM_RESERVATION)
           && responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && new JSONObject(responseVal).getBoolean("Status")) {
+
+        Intent intent = new Intent(this, BookingSummaryActivity.class);
+        intent.putExtra("response", "");
+        AppUtil.startActivityWithAnimation(this, intent, false);
 
       } else if (requestMethod.equalsIgnoreCase(ROOM_RESERVATION)
           && responseVal != null && !responseVal.equalsIgnoreCase("")

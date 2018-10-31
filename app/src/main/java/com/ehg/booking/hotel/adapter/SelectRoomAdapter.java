@@ -273,8 +273,7 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
    */
   public interface OnRoomItemClicklistner {
 
-    void onItemClick(int position, View view,
-        List<AverageRate> averageRateList);
+    void onItemClick(int position, View view, List<AverageRate> averageRateList);
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder implements OnClickListener {
@@ -334,8 +333,8 @@ public class SelectRoomAdapter extends RecyclerView.Adapter<SelectRoomAdapter.Vi
     @Override
     public void onClick(View view) {
       if (onRoomItemClicklistner != null) {
-        List<AverageRate> averageRateList = roomStayList.get(getAdapterPosition())
-            .getRoomTypes().get(getAdapterPosition()).getAverageRates();
+        List<AverageRate> averageRateList = roomTypeList.get(getAdapterPosition())
+            .getAverageRates();
         onRoomItemClicklistner.onItemClick(getAdapterPosition(), view, averageRateList);
         notifyDataSetChanged();
       }

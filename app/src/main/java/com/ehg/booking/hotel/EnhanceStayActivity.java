@@ -74,7 +74,7 @@ public class EnhanceStayActivity extends BaseActivity implements
   private void initView() {
 
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
-    textViewHeaderTitle.setText(R.string.enhancestay_title);
+    textViewHeaderTitle.setText(getResources().getString(R.string.enhancestay_title));
     headerBackButton = findViewById(R.id.imageview_header_back);
     textViewSaveAndResturn = findViewById(R.id.textview_enhancestay_saveenhancements);
     textViewCancel = findViewById(R.id.textview_enhancestay_cancel);

@@ -568,7 +568,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
           detail.setLanguageCode(SharedPreferenceUtils.getInstance(this)
               .getStringValue(SharedPreferenceUtils.APP_LANGUAGE, "en"));
           detail.setDeviceId(AppUtil.getDeviceId(this));
-          detail.setIbuId(2);//TODO:Make it dynamic
+          detail.setIbuId(1);//TODO:Make it dynamic
           if (!TextUtils.isEmpty(SharedPreferenceUtils.getInstance(this)
               .getStringValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, ""))) {
             detail.setLoyaltyMemberId(Integer.parseInt(SharedPreferenceUtils.getInstance(this)
@@ -592,6 +592,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
           Address address1 = new Address();
           address1.setAddressLine1(address);
           address1.setCityName(city);
+          address1.setUseType("1");
           List<Address> addressList = new ArrayList<>();
           addressList.add(address1);
           customer.setAddress(addressList);
@@ -600,7 +601,7 @@ public class RoomBookingGuestDetailActivity extends BaseActivity implements
           Telephone telephone = new Telephone();
           String phone = editTextPhoneNumber.getText().toString().trim();
           telephone.setPhoneNumber(phone);
-          telephone.setPhoneUseType("Mobile");
+          telephone.setPhoneUseType("1");
           telephoneList.add(telephone);
           customer.setTelephone(telephoneList);
 

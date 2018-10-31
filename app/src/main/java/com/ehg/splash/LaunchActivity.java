@@ -64,7 +64,7 @@ public class LaunchActivity extends BaseActivity implements BroadCastMessageInte
 
     try {
 
-      //updateToken();
+      updateToken();
 
       setBroadCastMessageInterface(this);
 

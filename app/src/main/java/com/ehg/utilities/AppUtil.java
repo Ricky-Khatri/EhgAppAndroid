@@ -113,21 +113,28 @@ public class AppUtil {
    */
   public static String getCardType(String cardNumber) {
     String cardType = "";
+    String cardCode = "";
     cardNumber = cardNumber.replace("-","");
     if (cardNumber.matches("^4[0-9]{6,}$")) {
       cardType = "VI";//VISA
+      cardCode = "VISA";
     } else if (cardNumber.matches("^5[1-5][0-9]{5,}$")) {
       cardType = "MC";//MASTER CARD
+      cardCode = "Master";
     } else if (cardNumber.matches("^3[47][0-9]{5,}$")) {
       cardType = "AE"; //AMERICAN EXPRESS
+      cardCode = "AMERICAN";
     } else if (cardNumber.matches("^3(?:0[0-5]|[68][0-9])[0-9]{4,}$")) {
       cardType = "DC";//DINNERS CLUB
+      cardCode = "DINNERS";
     } else if (cardNumber.matches("^6(?:011|5[0-9]{2})[0-9]{3,}$")) {
       cardType = "DI";//DISCOVER
+      cardCode = "DISCOVER";
     } else if (cardNumber.matches("^(?:2131|1800|35[0-9]{3})[0-9]{3,}$")) {
       cardType = "JCB";//JCB
+      cardCode = "JCB";
     }
-    return cardType;
+    return cardType + "/" + cardCode;
   }
 
   /**
@@ -191,6 +198,7 @@ public class AppUtil {
     try {
       // We need to get the instance of the LayoutInflater
       dialogLoadingIndicator = new Dialog(appCompatActivity);
+      dialogLoadingIndicator.setCancelable(false);
       dialogLoadingIndicator.requestWindowFeature(Window.FEATURE_NO_TITLE);
       dialogLoadingIndicator.setContentView(R.layout.view_loadingindicator);
       dialogLoadingIndicator.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

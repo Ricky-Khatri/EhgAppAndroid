@@ -1,7 +1,7 @@
 /*
- *  Created by Emaar Hospitality Group on 24/9/18 12:21 PM
+ *  Created by Emaar Hospitality Group on 31/10/18 2:33 PM
  *  Copyright (C) 2018  All rights reserved.
- *  Last modified 24/9/18 12:21 PM
+ *  Last modified 15/10/18 3:22 PM
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -17,14 +17,19 @@
  *
  */
 
-package com.ehg.reservations;
+package com.ehg.booking.hotel;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 import com.ehg.R;
 import com.ehg.home.BaseActivity;
+import com.ehg.home.HomeActivity;
 import com.ehg.utilities.AppUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,7 +37,7 @@ import org.json.JSONObject;
 /**
  * This class will show booking summary of rooms, restaurants, spa, golf etc.
  */
-public class BookingSummaryActivity extends BaseActivity {
+public class BookingSummaryActivity extends BaseActivity implements OnClickListener {
 
   private Context context;
 
@@ -56,18 +61,9 @@ public class BookingSummaryActivity extends BaseActivity {
    */
   private void initView() {
     try {
-      String response = getIntent().getStringExtra("response");
-      JSONObject jsonObject =new JSONObject(response);
-      JSONObject dataObject = jsonObject.getJSONObject("data");
-
-      if( dataObject != null) {
-        JSONArray detail = dataObject.optJSONArray("detail");
-
-        for (int index = 0; index < detail.length(); index++) {
-          JSONObject detailObject = detail.optJSONObject(index);
-
-        }
-      }
+      TextView textViewHeaderTitle = findViewById(R.id.textview_header_title);
+      textViewHeaderTitle.setText(getResources().getString(R.string.all_bookingsummary));
+      findViewById(R.id.imageview_header_back).setOnClickListener(this);
     } catch (NullPointerException n) {
       n.printStackTrace();
     } catch (Exception e) {
@@ -104,8 +100,27 @@ public class BookingSummaryActivity extends BaseActivity {
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK) {
-      AppUtil.finishActivityWithAnimation(this);
+      Intent intent = new Intent(this, HomeActivity.class);
+      intent.putExtra("tab", "2");
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      AppUtil.startActivityWithAnimation(this, intent, true);
     }
     return super.onKeyDown(keyCode, event);
+  }
+
+  /**
+   * Called when activity item clicked.
+   * @param view view
+   */
+  @Override
+  public void onClick(View view) {
+    switch (view.getId()) {
+      case R.id.imageview_header_back:
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("tab", "2");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        AppUtil.startActivityWithAnimation(this, intent, true);
+        break;
+    }
   }
 }
