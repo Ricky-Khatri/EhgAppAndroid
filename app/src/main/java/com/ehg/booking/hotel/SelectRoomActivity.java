@@ -89,6 +89,7 @@ public class SelectRoomActivity extends BaseActivity
   private AverageRate averageRate;
   private SelectRoomAdapter selectRoomAdapter;
   private int selectedRatePosition = 0;
+  private int roomNumber = 1;
 
   /**
    * Called when activity created.
@@ -132,8 +133,9 @@ public class SelectRoomActivity extends BaseActivity
     }
     numberOfRooms = SharedPreferenceUtils.getInstance(this)
         .getIntValue(SharedPreferenceUtils.SELECTED_ROOM_COUNT, 0);
+
     textViewSelectRoomTitle = findViewById(R.id.textView_hotelroomselection_selectroom);
-    textViewSelectRoomTitle.setText("Select the Room (" + numberOfRooms + ")");
+    textViewSelectRoomTitle.setText("Select the Room (" + roomNumber + ")");
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
     if (getIntent() != null && getIntent().getStringExtra("title") != null) {
       textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
@@ -260,10 +262,10 @@ public class SelectRoomActivity extends BaseActivity
           break;
 
         case R.id.textview_hotelroomselection_next:
-          if (numberOfRooms > 1) {
-            numberOfRooms--;
-            textViewSelectRoomTitle.setText("Select the Room (" + numberOfRooms + ")");
-          } else if (numberOfRooms == 1) {
+          if (roomNumber < numberOfRooms) {
+            roomNumber++;
+            textViewSelectRoomTitle.setText("Select the Room (" + roomNumber + ")");
+          } else if (roomNumber >= numberOfRooms) {
             if (averageRate == null) {
               FetchAvailabilityResponsePojo fetchAvailabilityResponsePojo = JsonParserUtil
                   .getInstance(this)
