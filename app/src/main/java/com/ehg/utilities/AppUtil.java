@@ -134,7 +134,7 @@ public class AppUtil {
       cardType = "JCB";//JCB
       cardCode = "JCB";
     }
-    return cardType + "/" + cardCode;
+    return cardCode + "/" + cardType;
   }
 
   /**

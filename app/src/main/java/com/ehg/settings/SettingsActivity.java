@@ -323,6 +323,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener, A
   private void clearDataAndSwitchToSigninSignup() {
     SharedPreferenceUtils.getInstance(this)
         .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID, "");
+    SharedPreferenceUtils.getInstance(this).clear();
     Intent intent = new Intent(this, SignInSignupActivity.class);
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     AppUtil.startActivityWithAnimation(this, intent, true);

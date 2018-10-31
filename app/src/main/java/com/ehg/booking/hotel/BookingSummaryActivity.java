@@ -102,7 +102,7 @@ public class BookingSummaryActivity extends BaseActivity implements OnClickListe
     if (keyCode == KeyEvent.KEYCODE_BACK) {
       Intent intent = new Intent(this, HomeActivity.class);
       intent.putExtra("tab", "2");
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
       AppUtil.startActivityWithAnimation(this, intent, true);
     }
     return super.onKeyDown(keyCode, event);
@@ -118,7 +118,7 @@ public class BookingSummaryActivity extends BaseActivity implements OnClickListe
       case R.id.imageview_header_back:
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("tab", "2");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         AppUtil.startActivityWithAnimation(this, intent, true);
         break;
     }

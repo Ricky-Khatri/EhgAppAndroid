@@ -54,6 +54,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import com.ehg.R;
 import com.ehg.apppreferences.SharedPreferenceUtils;
+import com.ehg.booking.hotel.HotelListActivity;
 import com.ehg.booking.spa.SpaRequestEnquiryActivity;
 import com.ehg.booking.spa.SpaRequestEnquiryActivity.DatePickerFragment;
 import com.ehg.home.BaseActivity;
@@ -140,9 +141,7 @@ public class ProfileActivity extends BaseActivity
   private void initView() {
     imageViewBack = findViewById(R.id.imageview_header_back);
     textViewHeaderTitle = findViewById(R.id.textview_header_title);
-    if (getIntent() != null && getIntent().getStringExtra("title") != null) {
-      textViewHeaderTitle.setText(getIntent().getStringExtra("title"));
-    }
+    textViewHeaderTitle.setText(getResources().getString(R.string.profile_title));
     linearLayoutBirthDay = findViewById(R.id.linearlayout_profile_birthday);
     linearLayoutedit = findViewById(R.id.linearlayout_profile_edit);
     textViewMembership = findViewById(R.id.textview_profile_membershipnumber);
@@ -431,23 +430,38 @@ public class ProfileActivity extends BaseActivity
     super.setBackArrowRtl(appCompatImageView);
   }
 
+  /**
+   * OnKeyDown callback will be called when phone back key pressed.
+   *
+   * @param keyCode keycode
+   * @param event event
+   * @return return boolean value
+   */
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      AppUtil.finishActivityWithAnimation(this);
+    }
+    return super.onKeyDown(keyCode, event);
+  }
 
   @Override
   public void onClick(View view) {
     switch (view.getId()) {
 
       case R.id.textView_profile_birthday:
-
         showDatePickerDialog();
         break;
+
       case R.id.linearlayout_profile_birthday:
         showDatePickerDialog();
         break;
+
       case R.id.imageview_header_back:
         AppUtil.finishActivityWithAnimation((AppCompatActivity) context);
         break;
-      case R.id.linearlayout_profile_edit:
 
+      case R.id.linearlayout_profile_edit:
         radioButtonMale.setEnabled(true);
         radioButtonFemale.setEnabled(true);
         editTextEmailAddress.setEnabled(true);
@@ -461,7 +475,6 @@ public class ProfileActivity extends BaseActivity
         spinnerCity.setEnabled(true);
         editTextAddress.setEnabled(true);
         buttonSave.setVisibility(View.VISIBLE);
-
         break;
 
       case R.id.button_profile_saveinformation:
@@ -549,8 +562,8 @@ public class ProfileActivity extends BaseActivity
       cancel = true;
     } else if (TextUtils.isEmpty(email)) {
 
-      editTextAddress.setError(getResources().getString(R.string.all_fieldrequired));
-      focusView = editTextAddress;
+      editTextEmailAddress.setError(getResources().getString(R.string.all_fieldrequired));
+      focusView = editTextEmailAddress;
       cancel = true;
 
     } else if (!AppUtil.isValidEmail(email)) {
@@ -559,7 +572,7 @@ public class ProfileActivity extends BaseActivity
       focusView = editTextEmailAddress;
       cancel = true;
 
-    } else if (TextUtils.isEmpty(country)) {
+    } /*else if (TextUtils.isEmpty(country)) {
       focusView = spinnerCountry;
       AppUtil.showToast(this, "Please select country");
       cancel = true;
@@ -574,7 +587,7 @@ public class ProfileActivity extends BaseActivity
       focusView = editTextAddress;
       cancel = true;
 
-    }
+    }*/
 
     if (cancel) {
       Objects.requireNonNull(focusView).requestFocus();
@@ -692,7 +705,7 @@ public class ProfileActivity extends BaseActivity
       try {
         detailObject.put("lastName", lastName);
         detailObject.put("firstName", firstName);
-        detailObject.put("password", password);
+        //detailObject.put("password", password);
 
         detailObject.put("gender", gender);
         detailObject.put("suffix", guestTitle);
@@ -701,7 +714,7 @@ public class ProfileActivity extends BaseActivity
         detailObject.put("addressLine2", address);
         detailObject.put("city", city);
         detailObject.put("country", country);
-        detailObject.put("postalCode", "");
+        //detailObject.put("postalCode", "");
 
         detailesArray.put(detailObject);
 
@@ -792,7 +805,6 @@ public class ProfileActivity extends BaseActivity
         convertMonth = String.valueOf(month);
       }
 
-      //dateOfBirth = year + "-" + month + "-" + day;
       textViewBirthDay.setText(convertMonth + "-" + convertDay + "-" + year);
       textViewBirthDay.setError(null);
     }
@@ -819,21 +831,17 @@ public class ProfileActivity extends BaseActivity
 
         if (userProfilePojo != null && userProfilePojo.getStatus()) {
 
-          /*SharedPreferenceUtils.getInstance(context)
-              .setValue(SharedPreferenceUtils.SELECTED_COUNTRY_CODE,
-                  Integer.parseInt(countryCodePicker.getSelectedCountryCode()));
-*/
           JsonParserUtil.getInstance(context).setUserProfilePojo(userProfilePojo);
           //Save loyaltyMEmberId
           SharedPreferenceUtils.getInstance(context)
               .setValue(SharedPreferenceUtils.LOYALTY_MEMBER_ID,
                   userProfilePojo.getData().getDetail().get(0).getLoyaltyMemberId() + "");
-          //Save mobile number as accoundId
-          /*SharedPreferenceUtils.getInstance(context)
-              .setValue(SharedPreferenceUtils.ACCOUNT_ID, signinId);
-*/
+
           Intent intent = new Intent(context, HomeActivity.class);
-          AppUtil.startActivityWithAnimation((AppCompatActivity) context, intent, true);
+          intent.putExtra("tab","4");
+          AppUtil.showAlertDialog((AppCompatActivity) context,
+              userProfilePojo.getMessage(), true,
+              getResources().getString(R.string.dialog_alerttitle), false, intent);
         }
       } else if (responseVal != null && !responseVal.equalsIgnoreCase("")
           && !responseVal.startsWith("<") && !new JSONObject(responseVal).getBoolean("status")) {

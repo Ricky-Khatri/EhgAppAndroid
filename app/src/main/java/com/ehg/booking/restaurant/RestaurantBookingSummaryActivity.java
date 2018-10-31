@@ -190,7 +190,7 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
     if (keyCode == KeyEvent.KEYCODE_BACK) {
       Intent intent = new Intent(this, HomeActivity.class);
       intent.putExtra("tab", "2");
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
       AppUtil.startActivityWithAnimation(this, intent, true);
     }
     return super.onKeyDown(keyCode, event);
@@ -209,7 +209,7 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
       case R.id.imageview_header_back:
         intent = new Intent(this, HomeActivity.class);
         intent.putExtra("tab", "2");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         AppUtil.startActivityWithAnimation(this, intent, true);
         break;
 
@@ -336,7 +336,7 @@ public class RestaurantBookingSummaryActivity extends BaseActivity implements On
 
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("tab", "2");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         AppUtil.showAlertDialog(this,
             new JSONObject(responseVal).getString("message"), true,
             getResources().getString(R.string.dialog_alerttitle), false, intent);

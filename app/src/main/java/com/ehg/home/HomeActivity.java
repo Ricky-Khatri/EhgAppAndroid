@@ -158,7 +158,6 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
           .rootFragmentListener(this, arrayListTabTitles.size())
           .build();
 
-      //TODO: Need to uncomment this block
       //Switch tab based on calling activity condition
       String selectedTab = "0";
       if (getIntent() != null && getIntent().getStringExtra("tab") != null) {
@@ -498,6 +497,24 @@ public class HomeActivity extends BaseActivity implements BaseFragment.FragmentN
     mnavController.switchTab(position);
     showMoreIconSelector(false);
     /* updateToolbarTitle(position); */
+  }
+
+  @Override
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    try {
+      //Switch tab based on calling activity condition
+      String selectedTab = "0";
+      if (intent != null && intent.getStringExtra("tab") != null) {
+        selectedTab = intent.getStringExtra("tab");
+        switchTab(Integer.parseInt(selectedTab));
+        bottomTabLayout.getTabAt(Integer.parseInt(selectedTab)).select();
+      } else {
+        switchTab(0);
+      }
+    } catch (NullPointerException n) {
+      n.printStackTrace();
+    }
   }
 
   /**

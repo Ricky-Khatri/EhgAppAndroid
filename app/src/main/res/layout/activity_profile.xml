@@ -43,7 +43,7 @@
       android:layout_height="wrap_content"
       android:text="@string/profile_membershipnumber"
       android:textColor="@color/colorBlack"
-      android:textSize="@dimen/textsize_all_headertitle"/>
+      android:textSize="@dimen/textsize_all_labels"/>
 
     <View
       android:layout_width="match_parent"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:text="@string/profile_personalinformation"
             android:textColor="@color/colorBlack"
-            android:textSize="@dimen/textsize_all_headertitle"/>
+            android:textSize="@dimen/textsize_all_labels"/>
 
           <View
             android:layout_width="0dp"
@@ -118,7 +118,7 @@
             android:layout_weight="0.5"
             android:checked="true"
             android:text="@string/profie_male"
-            android:textSize="@dimen/mdtp_datepicker_year_selection_text_size"/>
+            android:textSize="@dimen/textsize_all_labels"/>
 
           <RadioButton
             android:id="@+id/radiobutton_profile_female"
@@ -127,7 +127,7 @@
             android:layout_weight="1"
             android:checked="false"
             android:text="@string/profile_female"
-            android:textSize="@dimen/mdtp_datepicker_year_selection_text_size"/>
+            android:textSize="@dimen/textsize_all_labels"/>
 
         </RadioGroup>
 
@@ -139,7 +139,7 @@
 
         <Spinner
           android:id="@+id/spinner_profile_salutation"
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/google_1x"/>
 
@@ -148,7 +148,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_all_vertical"
-          android:hint="@string/all_firstname"/>
+          android:hint="@string/all_firstname"
+          android:textSize="@dimen/textsize_all_labels"/>
 
         <EditText
           android:id="@+id/edittext_profile_firstname"
@@ -162,6 +163,7 @@
           android:maxLines="1"
           android:singleLine="true"
           android:textAlignment="viewStart"
+          android:textSize="@dimen/textsize_all_labels"
           tools:ignore="LabelFor"/>
 
         <View
@@ -175,7 +177,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_all_vertical"
-          android:hint="@string/all_lastname"/>
+          android:hint="@string/all_lastname"
+          android:textSize="@dimen/textsize_all_labels"/>
 
         <EditText
           android:id="@+id/edittext_profile_lastname"
@@ -208,6 +211,7 @@
           android:id="@+id/linearlayout_profile_birthday"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
+
           <TextView
             android:id="@+id/textView_profile_birthday"
             android:layout_width="wrap_content"
@@ -219,6 +223,7 @@
             android:maxLines="1"
             android:singleLine="true"
             android:textAlignment="viewStart"
+            android:textSize="@dimen/textsize_all_labels"
             tools:ignore="LabelFor"/>
 
         </LinearLayout>
@@ -237,7 +242,7 @@
 
         <Spinner
           android:id="@+id/spinner_profile_nationality"
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/height_all_verticaldivider"
           android:layout_gravity="start"
@@ -281,6 +286,7 @@
           android:maxLines="1"
           android:singleLine="true"
           android:textAlignment="viewStart"
+          android:textSize="@dimen/textsize_all_labels"
           tools:ignore="LabelFor"/>
 
         <View
@@ -308,6 +314,7 @@
           android:maxLines="1"
           android:singleLine="true"
           android:textAlignment="viewStart"
+          android:textSize="@dimen/textsize_all_labels"
           tools:ignore="LabelFor"/>
 
         <View
@@ -333,7 +340,7 @@
 
         <Spinner
           android:id="@+id/spinner_profile_country"
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/height_all_verticaldivider"
           android:layout_gravity="start"
@@ -355,7 +362,7 @@
 
         <Spinner
           android:id="@+id/spinner_profile_city"
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/height_all_verticaldivider"
           android:layout_gravity="start"
@@ -386,6 +393,7 @@
           android:maxLines="1"
           android:singleLine="true"
           android:textAlignment="viewStart"
+          android:textSize="@dimen/textsize_all_labels"
           tools:ignore="LabelFor"/>
 
         <View

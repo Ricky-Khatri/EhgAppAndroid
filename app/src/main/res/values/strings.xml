@@ -225,7 +225,7 @@
   <string name="roombookingguestdetail_specialrequest">Special Request(Optional Eg:Check-in,Pillows etc)</string>
   <string name="roompayment_summarypayment"><![CDATA[Summary & Payment]]></string>
   <string name="all_name">Name:</string>
-  <string name="all_address">Address:</string>
+  <string name="all_address">Address</string>
   <string name="all_checkin">Checkin</string>
   <string name="all_checkout">Check out</string>
   <string name="all_numberofpeople">Number of People</string>
@@ -272,5 +272,11 @@
   <string name="all_birthday">Birthday</string>
   <string name="all_edit">Edit</string>
   <string name="enhancestay_title">Enhance your Stay</string>
+  <string name="profile_title">Profile</string>
+  <string name="hotelbookingslot_checkindatecheckoutdatevalidationalert">Check out date must be greater than check in date.</string>
+  <string name="all_selectcheckindate">Please select check in date</string>
+  <string name="all_selectcheckoutdate">Please select check out date</string>
+  <string name="all_selectnumberofrooms">Please select number of rooms</string>
+  <string name="all_selectnumberofadults">Please select number of adults</string>
 
 </resources>

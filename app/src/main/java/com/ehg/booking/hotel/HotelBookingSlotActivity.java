@@ -62,8 +62,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -133,6 +136,9 @@ public class HotelBookingSlotActivity extends BaseActivity implements
 
   private static final String FETCH_AVAILABILITY = "FetchAvailability";
 
+  private Date checkinDate;
+  private Date checkoutDate;
+
   /**
    * Called when activity created.
    *
@@ -173,6 +179,7 @@ public class HotelBookingSlotActivity extends BaseActivity implements
     }
 
     textViewNext = findViewById(R.id.textview_hotelbookingslot_next);
+    textViewNext.setText(getResources().getString(R.string.splash_next));
     textViewChekinDate = findViewById(R.id.textviewhotelbookingslot_checkin);
     textViewCheckoutDate = findViewById(R.id.textviewhotelbookingslot_checkout);
     textViewGuestRooms = findViewById(R.id.textview_hotelbookingslot_rooms);
@@ -182,10 +189,11 @@ public class HotelBookingSlotActivity extends BaseActivity implements
     textViewInfantCount = findViewById(R.id.textview_hotelbookingslot_infantcount);
     textViewChildCount = findViewById(R.id.textview_hotelbookingslot_childcount);
 
+    //Init Check-in, Check-out calender
     dayPickerView = findViewById(R.id.daypickerview_hotelbookingslot_calandar);
     dayPickerView.setController(this);
-    Calendar calendar = Calendar.getInstance();
 
+    Calendar calendar = Calendar.getInstance();
     int day = calendar.get(Calendar.DAY_OF_MONTH);
     int month = calendar.get(Calendar.MONTH);
     calendar.set(Calendar.MONTH, month++);
@@ -275,28 +283,56 @@ public class HotelBookingSlotActivity extends BaseActivity implements
    */
   @Override
   public void onDayOfMonthSelected(int year, int month, int day) {
-    Calendar calendar = Calendar.getInstance();
-    int tempMonth = month + 1;
-    calendar.set(Calendar.MONTH, month);
-    if (isDateRangeSelected) {
-      checkinDateStr = "";
-      checkoutDateStr = "";
-      textViewChekinDate.setText("Check-in");
-      textViewCheckoutDate.setText("Check-out");
-    }
-    if (TextUtils.isEmpty(checkinDateStr)) {
-      checkinDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
-      textViewChekinDate.setText(checkinDateStr);
-      startDateStr = year + "-" +
-          (tempMonth < 10 ? "0" + tempMonth : tempMonth) + "-"
-          + (day < 10 ? "0" + day : day);
-      isDateRangeSelected = false;
-    } else if (TextUtils.isEmpty(checkoutDateStr)) {
-      checkoutDateStr = day + "-" + calendar.getTime().toString().split(" ")[1];
-      textViewCheckoutDate.setText(checkoutDateStr);
-      endDateStr = year + "-" +
-          (tempMonth < 10 ? "0" + tempMonth : tempMonth) + "-"
-          + (day < 10 ? "0" + day : day);
+    try {
+      Date date = null;
+      int tempMonth = month + 1;
+      Calendar calendar = Calendar.getInstance();
+      calendar.set(Calendar.MONTH, month);
+      date = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-"
+          + (tempMonth < 10 ? "0" + tempMonth : tempMonth) + "-"
+          + (day < 10 ? "0" + day : day));
+
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(date);
+      String monthName = new SimpleDateFormat("MMM").format(cal.getTime());
+
+      if (isDateRangeSelected) {
+        checkinDateStr = "";
+        checkoutDateStr = "";
+        textViewChekinDate.setText("Check-in");
+        textViewCheckoutDate.setText("Check-out");
+      }
+      if (TextUtils.isEmpty(checkinDateStr)) {
+        checkinDateStr = day + "-" + monthName;
+        textViewChekinDate.setText(checkinDateStr);
+        startDateStr = year + "-"
+            + (tempMonth < 10 ? "0" + tempMonth : tempMonth) + "-"
+            + (day < 10 ? "0" + day : day);
+        isDateRangeSelected = false;
+
+        checkinDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-"
+            + (tempMonth < 10 ? "0" + tempMonth : tempMonth) + "-"
+            + (day < 10 ? "0" + day : day));
+
+      } else if (TextUtils.isEmpty(checkoutDateStr)) {
+
+        checkoutDate = new SimpleDateFormat("yyyy-MM-dd").parse(year + "-"
+            + (tempMonth < 10 ? "0" + tempMonth : tempMonth) + "-"
+            + (day < 10 ? "0" + day : day));
+
+        if (checkinDate.after(checkoutDate)) {
+          AppUtil.showToast(this,
+              getString(R.string.hotelbookingslot_checkindatecheckoutdatevalidationalert));
+        } else {
+          checkoutDateStr = day + "-" + monthName;
+          textViewCheckoutDate.setText(checkoutDateStr);
+          endDateStr = year + "-"
+              + (tempMonth < 10 ? "0" + tempMonth : tempMonth) + "-"
+              + (day < 10 ? "0" + day : day);
+        }
+      }
+    } catch (ParseException e) {
+      e.printStackTrace();
     }
   }
 
@@ -399,7 +435,23 @@ public class HotelBookingSlotActivity extends BaseActivity implements
         break;
 
       case R.id.textview_hotelbookingslot_next:
-        totalGuests = numberOfAdults + numberOfChild + numberOfInfants;
+        if (TextUtils.isEmpty(checkinDateStr)) {
+          AppUtil.showToast(this, getString(R.string.all_selectcheckindate));
+        } else if (TextUtils.isEmpty(checkoutDateStr)) {
+          AppUtil.showToast(this, getString(R.string.all_selectcheckoutdate));
+        } else if (numberOfRooms == 0) {
+          AppUtil.showToast(this, getString(R.string.all_selectnumberofrooms));
+        } else if (numberOfAdults == 0) {
+          AppUtil.showToast(this, getString(R.string.all_selectnumberofadults));
+        } else {
+          totalGuests = numberOfAdults + numberOfChild + numberOfInfants;
+          if (apiCallKey.equalsIgnoreCase("areaSearch")) {
+            searchRoomArea();
+          } else {
+            fetchRoomAvailability();
+          }
+        }
+        /*totalGuests = numberOfAdults + numberOfChild + numberOfInfants;
         if (!TextUtils.isEmpty(checkinDateStr) && !TextUtils.isEmpty(checkoutDateStr)
             && totalGuests > 0 && numberOfRooms > 0) {
 
@@ -410,7 +462,7 @@ public class HotelBookingSlotActivity extends BaseActivity implements
           }
         } else {
           AppUtil.showToast(this, getString(R.string.all_hotelslotsfilteralert));
-        }
+        }*/
         break;
 
       default:

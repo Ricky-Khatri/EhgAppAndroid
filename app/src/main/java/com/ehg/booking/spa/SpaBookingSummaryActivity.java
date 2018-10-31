@@ -167,7 +167,7 @@ public class SpaBookingSummaryActivity extends BaseActivity implements OnClickLi
     if (keyCode == KeyEvent.KEYCODE_BACK) {
       Intent intent = new Intent(this, HomeActivity.class);
       intent.putExtra("tab", "2");
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
       AppUtil.startActivityWithAnimation(this, intent, true);
     }
     return super.onKeyDown(keyCode, event);
@@ -186,7 +186,7 @@ public class SpaBookingSummaryActivity extends BaseActivity implements OnClickLi
       case R.id.imageview_header_back:
         intent = new Intent(this, HomeActivity.class);
         intent.putExtra("tab", "2");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         AppUtil.startActivityWithAnimation(this, intent, true);
         break;
 
